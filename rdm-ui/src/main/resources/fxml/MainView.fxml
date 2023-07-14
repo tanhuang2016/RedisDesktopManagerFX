@@ -26,7 +26,7 @@
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="%top.MenuBar.File">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
