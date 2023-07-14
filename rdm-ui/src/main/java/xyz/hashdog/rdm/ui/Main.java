@@ -28,6 +28,8 @@ public class Main extends Application {
         stage.setTitle(RESOURCE_BUNDLE.getString("Title") );
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
+//        Application.setUserAgentStylesheet();
         stage.setScene(scene);
 //        stage.getIcons().add(new Image("/icon/CT.png"));
         stage.show();
