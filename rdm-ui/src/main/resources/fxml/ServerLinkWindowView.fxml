@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TreeItem?>
+<AnchorPane prefHeight="340.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerLinkWindowController">
+   <children>
+      <BorderPane layoutX="146.0" layoutY="54.0" prefHeight="340.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox prefHeight="25.0" prefWidth="470.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="23.0" prefWidth="200.0" spacing="2.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="link" />
+                        <Button mnemonicParsing="false" text="edit" />
+                        <Button mnemonicParsing="false" text="delete" />
+                     </children>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" />
+                     </padding>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </top>
+          <center>
+              <TreeView VBox.vgrow="ALWAYS" fx:id="treeView">
+                  <root>
+                      <!-- 创建根节点 -->
+                      <TreeItem fx:id="rootItem" value="Root">
+
+                      </TreeItem>
+                  </root>
+              </TreeView>
+          </center>
+      </BorderPane>
+   </children>
+
+    <stylesheets>
+
+    </stylesheets>
+</AnchorPane>
