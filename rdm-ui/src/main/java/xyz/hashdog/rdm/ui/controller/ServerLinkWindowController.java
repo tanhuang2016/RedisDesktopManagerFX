@@ -35,6 +35,16 @@ public class ServerLinkWindowController {
         rootItem.getChildren().addAll(item1, item2);
         // 自动展开根节点
         treeView.setShowRoot(false); // 隐藏根节点
-        rootItem.setExpanded(true);
+        // Expand all nodes
+        expandAllNodes(rootItem);
+    }
+    // Method to expand all nodes in the tree recursively
+    private void expandAllNodes(TreeItem<?> item) {
+        if (item != null && !item.isLeaf()) {
+            item.setExpanded(true);
+            for (TreeItem<?> child : item.getChildren()) {
+                expandAllNodes(child);
+            }
+        }
     }
 }
