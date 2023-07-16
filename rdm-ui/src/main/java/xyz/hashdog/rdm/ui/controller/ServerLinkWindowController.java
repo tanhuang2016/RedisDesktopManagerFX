@@ -13,6 +13,11 @@ public class ServerLinkWindowController {
 
     @FXML
     public void initialize() {
+        initTreeView();
+
+    }
+
+    private void initTreeView() {
         TreeItem<String> rootItem = treeView.getRoot();
         rootItem.setValue("");
 
@@ -38,6 +43,7 @@ public class ServerLinkWindowController {
         // Expand all nodes
         expandAllNodes(rootItem);
     }
+
     // Method to expand all nodes in the tree recursively
     private void expandAllNodes(TreeItem<?> item) {
         if (item != null && !item.isLeaf()) {
