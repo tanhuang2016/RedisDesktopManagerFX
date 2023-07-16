@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ConsoleController">
+   <children>
+      <VBox layoutX="284.0" layoutY="138.0" prefHeight="619.0" prefWidth="955.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextArea fx:id="textArea" editable="false" maxHeight="-Infinity" prefHeight="35.0" prefWidth="200.0" styleClass="no-border-text-area" text="Connected.&#10;docker-localhost:0&gt; keys *" wrapText="true" VBox.vgrow="ALWAYS" />
+            <TextField styleClass="no-border-text-field" text="docker-localhost:0&gt;">
+               <VBox.margin>
+                  <Insets left="6.0" />
+               </VBox.margin></TextField>
+         </children>
+      </VBox>
+   </children>
+
+   <stylesheets>
+      <URL value="@../css/no-border.css" />
+   </stylesheets>
+</AnchorPane>
