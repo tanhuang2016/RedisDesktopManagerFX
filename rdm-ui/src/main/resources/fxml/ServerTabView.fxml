@@ -68,7 +68,7 @@
                             </Tab>
                             <Tab text="a:10">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  <fx:include source="StringTabView.fxml" />
                               </content>
                             </Tab>
                           </tabs>
