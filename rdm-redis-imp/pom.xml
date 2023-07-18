@@ -9,18 +9,22 @@
         <version>0.0.1</version>
     </parent>
 
-    <groupId>xyz.hashdog.rdm</groupId>
-    <artifactId>rdm-ui</artifactId>
-    <version>${rdm.version}</version>
-
+    <groupId>xyz.hashdog.rdm.redis</groupId>
+    <artifactId>rdm-redis-imp</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+        <jedis.version>4.3.0</jedis.version>
 
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
         <dependency>
             <groupId>xyz.hashdog.rdm</groupId>
             <artifactId>rdm-redis</artifactId>

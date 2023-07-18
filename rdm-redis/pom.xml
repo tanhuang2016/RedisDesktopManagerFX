@@ -7,25 +7,16 @@
         <groupId>xyz.hashdog.rdm</groupId>
         <artifactId>RedisDesktopManagerFX</artifactId>
         <version>0.0.1</version>
+
     </parent>
 
     <groupId>xyz.hashdog.rdm</groupId>
-    <artifactId>rdm-ui</artifactId>
-    <version>${rdm.version}</version>
-
+    <artifactId>rdm-redis</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>xyz.hashdog.rdm</groupId>
-            <artifactId>rdm-redis</artifactId>
-            <version>${rdm.version}</version>
-        </dependency>
-    </dependencies>
 
 </project>
