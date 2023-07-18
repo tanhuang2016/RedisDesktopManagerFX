@@ -30,6 +30,11 @@
             <artifactId>rdm-redis</artifactId>
             <version>${rdm.version}</version>
         </dependency>
+        <dependency>
+            <groupId>xyz.hashdog.rdm</groupId>
+            <artifactId>rdm-common</artifactId>
+            <version>${rdm.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

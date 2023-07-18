@@ -11,5 +11,17 @@ import java.util.Set;
  */
 public interface RedisClient {
 
+    /**
+     * keys 模糊查新的命令
+     * @param pattern
+     * @return
+     */
     Set<String> keys(String pattern);
+
+    /**
+     * 控制台交互器
+     * @return
+     */
+    RedisConsole getRedisConsole();
+
 }

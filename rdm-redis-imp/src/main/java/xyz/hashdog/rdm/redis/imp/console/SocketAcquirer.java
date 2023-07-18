@@ -1,0 +1,16 @@
+package xyz.hashdog.rdm.redis.imp.console;
+
+import java.net.Socket;
+
+/**
+ * @Author th
+ * @Date 2023/7/18 21:35
+ */
+@FunctionalInterface
+public interface SocketAcquirer {
+    /**
+     * 获取套接字,每次都是拿去当前客户端最新的
+     * @return
+     */
+    Socket getSocket();
+}
