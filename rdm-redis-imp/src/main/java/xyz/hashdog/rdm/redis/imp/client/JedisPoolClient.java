@@ -2,13 +2,14 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.commands.JedisCommands;
 import xyz.hashdog.rdm.common.util.Tutil;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 import xyz.hashdog.rdm.redis.imp.Constant;
-
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * 单机版jedis,用JedisPool包装实现
@@ -27,18 +28,24 @@ public class JedisPoolClient implements RedisClient {
         this.pool = new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
     }
 
+    /**
+     * 执行命令的封装
+     * @param execCommand
+     * @return
+     * @param <R>
+     */
+    private  <R> R execut( Function<Jedis, R> execCommand) {
+        return Tutil.execut(pool.getResource(),execCommand,Jedis::close);
+    }
+
     @Override
     public Set<String> keys(String pattern) {
-        try (Jedis jedis = pool.getResource()) {
-            return jedis.keys(pattern);
-        }
+        return execut(jedis->jedis.keys(pattern));
     }
 
     @Override
     public String type(String key) {
-        try (Jedis jedis = pool.getResource()) {
-            return jedis.type(key);
-        }
+        return Tutil.execut(pool.getResource(),jedis->jedis.type(key),Jedis::close);
     }
 
     @Override
@@ -50,9 +57,8 @@ public class JedisPoolClient implements RedisClient {
 
     @Override
     public String ping() {
-        try (Jedis jedis = pool.getResource()) {
-            return jedis.ping();
-        }
+        return execut(Jedis::ping);
+
     }
     @Override
     public String info() {
@@ -87,6 +93,7 @@ public class JedisPoolClient implements RedisClient {
     @Override
     public long persist(String key) {
         try (Jedis jedis = pool.getResource()) {
+            JedisCommands a=jedis;
             return jedis.persist(key);
         }
     }
