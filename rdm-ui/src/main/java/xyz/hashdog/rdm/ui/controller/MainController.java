@@ -13,22 +13,22 @@ import java.io.IOException;
 public class MainController {
     @FXML
     public AnchorPane root;
-    private Stage serverLinkWindowStage;
+    private Stage serverConnectionsWindowStage;
 
     public void openServerLinkWindo(ActionEvent actionEvent) throws IOException {
-        if(this.serverLinkWindowStage!=null){
-            if(this.serverLinkWindowStage.isShowing()){
+        if(this.serverConnectionsWindowStage!=null){
+            if(this.serverConnectionsWindowStage.isShowing()){
                 //已经设置为WINDOW_MODAL模式,子窗口未关闭是不能操作的,所以子窗口显示在最上方的操作已经没有意义
-//                serverLinkWindowStage.setAlwaysOnTop(true);
-//                serverLinkWindowStage.setAlwaysOnTop(false);
+//                serverConnectionsWindowStage.setAlwaysOnTop(true);
+//                serverConnectionsWindowStage.setAlwaysOnTop(false);
 
             }else {
-                serverLinkWindowStage.show();
+                serverConnectionsWindowStage.show();
             }
         }else{
-            this.serverLinkWindowStage=new Stage();
-            serverLinkWindowStage.initModality(Modality.WINDOW_MODAL);
-            this.serverLinkWindowStage.setTitle("link");
+            this.serverConnectionsWindowStage=new Stage();
+            serverConnectionsWindowStage.initModality(Modality.WINDOW_MODAL);
+            this.serverConnectionsWindowStage.setTitle("link");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerConnectionsView.fxml"));
             AnchorPane borderPane = fxmlLoader.load();
             ServerConnectionsController controller = fxmlLoader.getController();
@@ -37,12 +37,12 @@ public class MainController {
 //            scene.getStylesheets().add(getClass().getResource("/css/MainSearch.css").toExternalForm());
 
 //            scene.setFill(null);
-            this.serverLinkWindowStage.initOwner(root.getScene().getWindow());
+            this.serverConnectionsWindowStage.initOwner(root.getScene().getWindow());
 
-            this.serverLinkWindowStage.setScene(scene);
+            this.serverConnectionsWindowStage.setScene(scene);
 //            this.searchStage.getIcons().add(new Image("/icon/doc.png"));
 //            this.searchStage.initStyle(StageStyle.TRANSPARENT);
-            this.serverLinkWindowStage.show();
+            this.serverConnectionsWindowStage.show();
 
 
         }
