@@ -1,6 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
-import xyz.hashdog.rdm.common.util.Tutil;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.RedisFactory;
 
 import java.util.Iterator;
@@ -24,7 +24,7 @@ public class RedisFactorySingleton {
     private static class SingletonHolder{
         private static final RedisFactory instance ;
         static {
-            instance= Tutil.spi(RedisFactory.class);
+            instance= TUtil.spi(RedisFactory.class);
         }
     }
 

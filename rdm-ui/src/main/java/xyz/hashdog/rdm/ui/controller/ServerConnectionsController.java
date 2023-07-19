@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-public class ServerLinkWindowController {
+public class ServerConnectionsController {
 
 
     @FXML

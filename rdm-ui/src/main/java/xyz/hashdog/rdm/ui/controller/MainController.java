@@ -3,20 +3,12 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import xyz.hashdog.rdm.ui.util.ApplicationUtil;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class MainController {
     @FXML
@@ -37,9 +29,9 @@ public class MainController {
             this.serverLinkWindowStage=new Stage();
             serverLinkWindowStage.initModality(Modality.WINDOW_MODAL);
             this.serverLinkWindowStage.setTitle("link");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerLinkWindowView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerConnectionsView.fxml"));
             AnchorPane borderPane = fxmlLoader.load();
-            ServerLinkWindowController controller = fxmlLoader.getController();
+            ServerConnectionsController controller = fxmlLoader.getController();
 //            controller.setMain(this);
             Scene scene = new Scene(borderPane);
 //            scene.getStylesheets().add(getClass().getResource("/css/MainSearch.css").toExternalForm());
