@@ -48,4 +48,11 @@ public class RedisConsoleTest {
         List<String> result=redisConsole.sendCommand("lrange list 0 99");
         result.forEach(e-> System.out.println(e));
     }
+
+    @Test
+    public void MONITOR(){
+        List<String> result=redisConsole.sendCommand("MONITOR");
+        result.forEach(e-> System.out.println(e));
+    }
+
 }
