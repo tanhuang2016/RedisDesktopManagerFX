@@ -77,6 +77,23 @@ public class JedisPoolClientTest {
         long persist = redisClient.persist("AA");
         System.out.println(persist);
     }
+    @Test
+    public void dump(){
+        byte[] dump = redisClient.dump("AA");
+        System.out.println(dump);
+    }
+    @Test
+    public void restore(){
+        byte[] dump = redisClient.dump("AA");
 
+        String restore = redisClient.restore("AA2",980000l,dump);
+        System.out.println(restore);
+    }
+
+    @Test
+    public void flushDB (){
+//        String flushDB = redisClient.flushDB();
+//        System.out.println(flushDB);
+    }
 
 }

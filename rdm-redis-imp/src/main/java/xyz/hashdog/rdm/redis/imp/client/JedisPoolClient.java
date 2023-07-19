@@ -98,6 +98,18 @@ public class JedisPoolClient implements RedisClient {
         }
     }
 
+    @Override
+    public String restore(String key, long ttl, byte[] serializedValue) {
+        return execut(jedis->jedis.restore(key,ttl,serializedValue));
+    }
+    @Override
+    public byte[] dump(String key) {
+        return execut(jedis->jedis.dump(key));
+    }
+    @Override
+    public String flushDB() {
+        return execut(jedis->jedis.flushDB());
+    }
 
     /**
      * 传了一个SocketAcquirer匿名内部类实现

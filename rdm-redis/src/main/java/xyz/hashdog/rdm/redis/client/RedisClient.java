@@ -86,4 +86,27 @@ public interface RedisClient {
      */
     long persist(String key);
 
+    /**
+     * 序列化
+     * @param key
+     * @return
+     */
+    byte[] dump(String key);
+
+    /**
+     * 反序列化
+     * @param key
+     * @param ttl
+     * @param serializedValue
+     * @return
+     */
+    String restore(String key, long ttl, byte[] serializedValue);
+
+    /**
+     * 清空当前库
+     * @return
+     */
+    String flushDB();
+
+
 }
