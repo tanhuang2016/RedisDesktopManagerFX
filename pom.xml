@@ -16,6 +16,7 @@
         <rdm.version>0.0.1</rdm.version>
         <slf4j.version>1.7.32</slf4j.version>
         <rdm.version>0.0.1</rdm.version>
+        <junit.version>4.12</junit.version>
 
     </properties>
 
