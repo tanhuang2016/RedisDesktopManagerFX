@@ -33,9 +33,58 @@ public interface RedisClient {
     long ttl(String key);
 
     /**
+     * ping
+     * @return
+     */
+    String ping();
+
+    /**
+     * redis信息
+     * @return
+     */
+    String info();
+
+    /**
+     * key 重命名
+     * @param oldkey
+     * @param newkey
+     * @return
+     */
+    String rename(String oldkey, String newkey);
+
+    /**
      * 控制台交互器
      * @return
      */
     RedisConsole getRedisConsole();
+
+    /**
+     * 设置key的时长
+     * @param key
+     * @param seconds
+     * @return
+     */
+    long expire(String key, long seconds);
+
+    /**
+     * key是否存在
+     * @param key
+     * @return
+     */
+    boolean exists(String key);
+
+    /**
+     * 删除key
+     * @param key
+     * @return
+     */
+    long del(String key);
+
+    /**
+     * 设置key永不过期
+     * @param key
+     * @return
+     */
+    long persist(String key);
 
 }

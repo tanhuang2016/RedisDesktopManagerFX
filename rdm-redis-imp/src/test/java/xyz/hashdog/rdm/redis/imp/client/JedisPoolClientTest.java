@@ -36,7 +36,47 @@ public class JedisPoolClientTest {
 
     @Test
     public void ttl(){
-        long ttl = redisClient.ttl("list");
+        long ttl = redisClient.ttl("AA");
         System.out.println(ttl);
     }
+    @Test
+    public void ping(){
+        String ping = redisClient.ping();
+        System.out.println(ping);
+    }
+    @Test
+    public void info(){
+        String info = redisClient.info();
+        System.out.println(info);
+    }
+    @Test
+    public void rename(){
+        String rename = redisClient.rename("AA","AA");
+        System.out.println(rename);
+    }
+    @Test
+    public void expire(){
+        long expire = redisClient.expire("AA",100000000);
+        System.out.println(expire);
+    }
+
+    @Test
+    public void exists(){
+        boolean exists = redisClient.exists("AA");
+        System.out.println(exists);
+    }
+
+    @Test
+    public void del(){
+        long del = redisClient.del("AA1");
+        System.out.println(del);
+    }
+
+    @Test
+    public void persist(){
+        long persist = redisClient.persist("AA");
+        System.out.println(persist);
+    }
+
+
 }
