@@ -1,11 +1,11 @@
 package xyz.hashdog.rdm.redis.imp.console;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * redis返回协议类型及其解析策略
  * @Author th
  * @Date 2023/7/18 23:24
  */
