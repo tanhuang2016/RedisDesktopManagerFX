@@ -2,7 +2,7 @@ package xyz.hashdog.rdm.ui.common;
 
 import org.junit.Before;
 import org.junit.Test;
-import xyz.hashdog.rdm.redis.RedisClient;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisConsole;
 import xyz.hashdog.rdm.redis.RedisContext;

@@ -1,4 +1,6 @@
-package xyz.hashdog.rdm.redis;
+package xyz.hashdog.rdm.redis.client;
+
+import xyz.hashdog.rdm.redis.RedisConsole;
 
 import java.io.Closeable;
 import java.util.Set;

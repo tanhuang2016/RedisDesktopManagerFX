@@ -1,6 +1,6 @@
 package xyz.hashdog.rdm.redis.imp;
 
-import xyz.hashdog.rdm.redis.RedisClient;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.imp.client.DefaultRedisClientCreator;
 import xyz.hashdog.rdm.redis.imp.client.RedisClientCreator;

@@ -2,7 +2,7 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import org.junit.Before;
 import org.junit.Test;
-import xyz.hashdog.rdm.redis.RedisClient;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 
 import java.util.Set;

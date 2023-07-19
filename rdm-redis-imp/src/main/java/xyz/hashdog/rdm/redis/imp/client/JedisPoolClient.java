@@ -2,15 +2,12 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import xyz.hashdog.rdm.common.util.Tutil;
-import xyz.hashdog.rdm.redis.RedisClient;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 import xyz.hashdog.rdm.redis.imp.Constant;
-import xyz.hashdog.rdm.redis.imp.console.SocketAcquirer;
 
-import java.net.Socket;
 import java.util.Set;
 
 /**
