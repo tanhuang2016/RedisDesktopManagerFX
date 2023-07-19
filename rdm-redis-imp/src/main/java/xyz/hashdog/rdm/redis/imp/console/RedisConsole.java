@@ -12,7 +12,7 @@ import java.util.List;
  * @Author th
  * @Date 2023/7/18 21:31
  */
-public class RedisConsole implements xyz.hashdog.rdm.redis.RedisConsole {
+public class RedisConsole implements xyz.hashdog.rdm.redis.client.RedisConsole {
 
     /**
      * socket获取器

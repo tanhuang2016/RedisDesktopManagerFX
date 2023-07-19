@@ -1,4 +1,4 @@
-package xyz.hashdog.rdm.redis;
+package xyz.hashdog.rdm.redis.client;
 
 import java.util.List;
 
