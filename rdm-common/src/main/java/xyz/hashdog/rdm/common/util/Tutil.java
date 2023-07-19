@@ -1,6 +1,8 @@
 package xyz.hashdog.rdm.common.util;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.ServiceLoader;
 
 /**
  * 泛型/反射相关操作工具
@@ -30,5 +32,26 @@ public class Tutil {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    /**
+     * spi获取此类服务
+     * @param clazz
+     * @return
+     * @param <T>
+     */
+    public static <T>T spi(Class<T> clazz) {
+        ServiceLoader<T> load = ServiceLoader.load(clazz);
+        Iterator<T> iterator = load.iterator();
+
+        //循环获取所需的对象
+        while (iterator.hasNext()){
+            T next = iterator.next();
+            if(next!=null){
+                return next;
+            }
+        }
+        throw new RuntimeException("no such spi:"+clazz.getName());
     }
 }

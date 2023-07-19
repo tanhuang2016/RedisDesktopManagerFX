@@ -9,7 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <groupId>xyz.hashdog.rdm.redis</groupId>
+    <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-redis-imp</artifactId>
 
     <properties>

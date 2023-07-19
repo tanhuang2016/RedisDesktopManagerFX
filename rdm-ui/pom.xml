@@ -22,8 +22,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>xyz.hashdog.rdm</groupId>
-            <artifactId>rdm-redis</artifactId>
+            <artifactId>rdm-common</artifactId>
+            <version>${rdm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>xyz.hashdog.rdm</groupId>
+            <artifactId>rdm-redis-imp</artifactId>
             <version>${rdm.version}</version>
         </dependency>
     </dependencies>
