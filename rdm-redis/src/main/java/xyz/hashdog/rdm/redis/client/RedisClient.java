@@ -108,5 +108,35 @@ public interface RedisClient {
      */
     String flushDB();
 
+    /**
+     * String类型的获取
+     * @param key
+     * @return
+     */
+    String get(String key);
+
+    /**
+     * String类型的获取
+     * @param key
+     * @return
+     */
+    byte[] get(byte[] key);
+
+    /**
+     * String类型的增加
+     * @param key
+     * @param value
+     * @return
+     */
+    String set(String key,String value);
+
+    /**
+     * String类型的增加
+     * @param key
+     * @param value
+     * @return
+     */
+    String set(byte[] key,byte[] value);
+
 
 }

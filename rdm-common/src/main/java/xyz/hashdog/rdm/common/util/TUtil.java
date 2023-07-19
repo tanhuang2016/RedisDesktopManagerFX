@@ -3,7 +3,6 @@ package xyz.hashdog.rdm.common.util;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -13,7 +12,7 @@ import java.util.function.Function;
  * @Author th
  * @Date 2023/7/18 21:09
  */
-public class Tutil {
+public class TUtil {
     /**
      * 反射获取对象的字段
      *

@@ -3,7 +3,8 @@ package xyz.hashdog.rdm.redis.imp.client;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.commands.JedisCommands;
-import xyz.hashdog.rdm.common.util.Tutil;
+import xyz.hashdog.rdm.common.util.TUtil;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
@@ -35,7 +36,7 @@ public class JedisPoolClient implements RedisClient {
      * @param <R>
      */
     private  <R> R execut( Function<Jedis, R> execCommand) {
-        return Tutil.execut(pool.getResource(),execCommand,Jedis::close);
+        return TUtil.execut(pool.getResource(),execCommand,Jedis::close);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class JedisPoolClient implements RedisClient {
 
     @Override
     public String type(String key) {
-        return Tutil.execut(pool.getResource(),jedis->jedis.type(key),Jedis::close);
+        return TUtil.execut(pool.getResource(),jedis->jedis.type(key),Jedis::close);
     }
 
     @Override
@@ -111,6 +112,25 @@ public class JedisPoolClient implements RedisClient {
         return execut(jedis->jedis.flushDB());
     }
 
+
+    @Override
+    public String get(String key) {
+        return execut(jedis->jedis.get(key));
+    }
+    @Override
+    public byte[] get(byte[] key) {
+        return execut(jedis->jedis.get(key));
+    }
+    @Override
+    public String set(String key,String value) {
+        return execut(jedis->jedis.set(key,value));
+    }
+    @Override
+    public String set(byte[] key,byte[] value) {
+        return execut(jedis->jedis.set(key,value));
+    }
+
+
     /**
      * 传了一个SocketAcquirer匿名内部类实现
      * SocketAcquirer 每次都是从pool获取最新的socket
@@ -122,7 +142,7 @@ public class JedisPoolClient implements RedisClient {
     public RedisConsole getRedisConsole() {
         return new RedisConsole(() -> {
             try (Jedis jedis = pool.getResource()) {
-                return Tutil.getField(jedis.getConnection(), "socket");
+                return TUtil.getField(jedis.getConnection(), "socket");
             }
         });
     }

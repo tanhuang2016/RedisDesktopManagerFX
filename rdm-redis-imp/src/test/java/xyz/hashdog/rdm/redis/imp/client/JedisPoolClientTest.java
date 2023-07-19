@@ -2,9 +2,12 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import org.junit.Before;
 import org.junit.Test;
+import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 /**
@@ -95,5 +98,38 @@ public class JedisPoolClientTest {
 //        String flushDB = redisClient.flushDB();
 //        System.out.println(flushDB);
     }
+
+    @Test
+    public void set (){
+        String set = redisClient.set("AA","中文44ik");
+        System.out.println(set);
+    }
+
+    @Test
+    public void get (){
+        String get = redisClient.get("AA");
+        System.out.println(get);
+    }
+
+    @Test
+    public void set2 (){
+//        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(Charset.forName("gbk")));
+        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(StandardCharsets.ISO_8859_1));
+        System.out.println(set);
+    }
+    @Test
+    public void get2 (){
+        byte[] get = redisClient.get("AA".getBytes(StandardCharsets.UTF_8));
+        System.out.println(new String(get, Charset.forName("gbk")));
+    }
+    @Test
+    public void testgbk (){
+        byte[] get = redisClient.get("AA".getBytes(StandardCharsets.UTF_8));
+        String utf8 = new String(get, StandardCharsets.ISO_8859_1);
+        System.out.println(utf8);
+        System.out.println(EncodeUtil.isUTF8(get));
+    }
+
+
 
 }
