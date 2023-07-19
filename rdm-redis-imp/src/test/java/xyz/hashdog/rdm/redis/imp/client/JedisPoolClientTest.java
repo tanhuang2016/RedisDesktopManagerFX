@@ -3,9 +3,14 @@ package xyz.hashdog.rdm.redis.imp.client;
 import org.junit.Before;
 import org.junit.Test;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
+import xyz.hashdog.rdm.common.util.FileUtil;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -118,14 +123,19 @@ public class JedisPoolClientTest {
         System.out.println(set);
     }
     @Test
+    public void setImage () throws IOException {
+        String set = redisClient.set("image".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png"));
+        System.out.println(set);
+    }
+    @Test
     public void get2 (){
         byte[] get = redisClient.get("AA".getBytes(StandardCharsets.UTF_8));
         System.out.println(new String(get, Charset.forName("gbk")));
     }
     @Test
     public void testgbk (){
-        byte[] get = redisClient.get("AA".getBytes(StandardCharsets.UTF_8));
-        String utf8 = new String(get, StandardCharsets.ISO_8859_1);
+        byte[] get = redisClient.get("image".getBytes(StandardCharsets.UTF_8));
+        String utf8 = new String(get, StandardCharsets.UTF_8);
         System.out.println(utf8);
         System.out.println(EncodeUtil.isUTF8(get));
     }
