@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TreeItem?>
 <?import javafx.scene.control.TreeView?>
@@ -19,11 +21,13 @@
          <top>
             <VBox prefHeight="25.0" prefWidth="470.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" text="Connect" />
-                        <Button mnemonicParsing="false" text="Add" onAction="#newConnection"/>
-                        <Button mnemonicParsing="false" text="Edit" />
+                        <Button mnemonicParsing="false" styleClass="isLeafNode" text="Connect" />
+                        <Button mnemonicParsing="false" styleClass="isNotLeafNode" text="NewGroup" />
+                        <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="NewConnection" />
+                        <Button mnemonicParsing="false" styleClass="isLeafNode" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#newConnection" text="Rename" />
                         <Button mnemonicParsing="false" text="Delete" />
                      </children>
                      <padding>
@@ -42,6 +46,18 @@
 
                       </TreeItem>
                   </root>
+               <contextMenu>
+                  <ContextMenu fx:id="contextMenu" opacity="0.8">
+                    <items>
+                        <MenuItem mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
+                        <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建分组" />
+                        <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建连接" />
+                        <MenuItem mnemonicParsing="false" text="编辑" />
+                        <MenuItem mnemonicParsing="false" text="重命名" />
+                        <MenuItem mnemonicParsing="false" text="删除" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
               </TreeView>
           </center>
          <bottom>
@@ -50,7 +66,7 @@
                   <CheckBox mnemonicParsing="false" text="启动时显示" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="连接" />
+                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
                         <Button mnemonicParsing="false" text="关闭" />
                     </buttons>
                   </ButtonBar>
