@@ -37,6 +37,20 @@ public class JedisPoolClient implements RedisClient {
         }
     }
 
+    @Override
+    public String type(String key) {
+        try (Jedis jedis = pool.getResource()) {
+            return jedis.type(key);
+        }
+    }
+
+    @Override
+    public long ttl(String key) {
+        try (Jedis jedis = pool.getResource()) {
+            return jedis.ttl(key);
+        }
+    }
+
     /**
      * 传了一个SocketAcquirer匿名内部类实现
      * SocketAcquirer 每次都是从pool获取最新的socket
