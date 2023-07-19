@@ -135,6 +135,7 @@ public class JedisPoolClientTest {
     @Test
     public void testgbk (){
         byte[] get = redisClient.get("image".getBytes(StandardCharsets.UTF_8));
+        System.out.println("size:"+get.length);
         String utf8 = new String(get, StandardCharsets.UTF_8);
         System.out.println(utf8);
         System.out.println(EncodeUtil.isUTF8(get));
