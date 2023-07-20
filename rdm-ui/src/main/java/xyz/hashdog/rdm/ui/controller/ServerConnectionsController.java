@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import xyz.hashdog.rdm.ui.common.Applications;
-import xyz.hashdog.rdm.ui.entity.ConnectionGroupNode;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class ServerConnectionsController {
     public Button bottomConnectButton;
 
     @FXML
-    public TreeView<ConnectionGroupNode> treeView;
+    public TreeView<ConnectionServerNode> treeView;
 
 
 
@@ -72,7 +71,6 @@ public class ServerConnectionsController {
                 }
                 if (menuItem.getStyleClass().contains("isNotLeafNode")) {
                     menuItem.setVisible(!isLeafNode);
-//                    menuItem.setDisable(isLeafNode);
                 }
             });
             //连接按钮禁用否
@@ -85,7 +83,7 @@ public class ServerConnectionsController {
      * 初始化树节点
      */
     private void initTreeView() {
-        setTreeViewCellFactory();
+        initTreeViewCellFactory();
         initTreeViewData();
         // 自动展开根节点
         treeView.setShowRoot(false); // 隐藏根节点
@@ -97,21 +95,21 @@ public class ServerConnectionsController {
      * 初始化树节点的数据
      */
     private void initTreeViewData() {
-        TreeItem<ConnectionGroupNode> rootItem=Applications.initConnectionTreeView();
+        TreeItem<ConnectionServerNode> rootItem=Applications.initConnectionTreeView();
         treeView.setRoot(rootItem);
     }
 
     /**
      * 设置树节点的显示方式
      */
-    private void setTreeViewCellFactory() {
-        treeView.setCellFactory(new Callback<TreeView<ConnectionGroupNode>, TreeCell<ConnectionGroupNode>>() {
+    private void initTreeViewCellFactory() {
+        treeView.setCellFactory(new Callback<TreeView<ConnectionServerNode>, TreeCell<ConnectionServerNode>>() {
             @Override
-            public TreeCell<ConnectionGroupNode> call(TreeView<ConnectionGroupNode> param) {
+            public TreeCell<ConnectionServerNode> call(TreeView<ConnectionServerNode> param) {
 
-                return new TreeCell<ConnectionGroupNode>(){
+                return new TreeCell<ConnectionServerNode>(){
                     @Override
-                    protected void updateItem(ConnectionGroupNode item, boolean empty) {
+                    protected void updateItem(ConnectionServerNode item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
                             setText(null);

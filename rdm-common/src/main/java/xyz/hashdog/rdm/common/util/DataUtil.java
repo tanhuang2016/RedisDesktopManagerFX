@@ -16,4 +16,13 @@ public class DataUtil {
     public static String getUUID() {
         return UUID.randomUUID().toString();
     }
+
+    /**
+     * 判断字符是否为空
+     * @param str
+     * @return
+     */
+    public static boolean isBlank(String str) {
+        return str==null||str.isEmpty();
+    }
 }

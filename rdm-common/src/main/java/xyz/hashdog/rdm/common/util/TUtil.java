@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.common.util;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ServiceLoader;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -13,6 +14,62 @@ import java.util.function.Function;
  * @Date 2023/7/18 21:09
  */
 public class TUtil {
+    /**
+     * 递归策略接口
+     *
+     * @param <H>
+     * @param <T>
+     */
+    public static interface RecursiveDeal<H, T> {
+
+        /**
+         * 获取节点子集
+         *
+         * @param t
+         * @return
+         */
+        List<T> subset(T t);
+
+        /**
+         * 没有子集的情况怎么处理
+         *
+         * @param h
+         * @param t
+         */
+        void noSubset(H h, T t);
+
+        /**
+         * 有子集的情况怎么处理
+         *
+         * @param h
+         * @param t
+         * @return
+         */
+        H hasSubset(H h, T t);
+    }
+
+    /**
+     * 递归
+     *
+     * @param h             结果集
+     * @param t             需要递归迭代的目标
+     * @param recursiveDeal
+     * @param <H>
+     * @param <T>
+     */
+    public static <H, T> void recursive(H h, T t, RecursiveDeal<H, T> recursiveDeal) {
+        //获取子集
+        List<T> ts = recursiveDeal.subset(t);
+        if (ts == null || ts.isEmpty()) {
+            recursiveDeal.noSubset(h, t);
+        } else {
+            H newh = recursiveDeal.hasSubset(h, t);
+            for (T t1 : ts) {
+                recursive(newh, t1, recursiveDeal);
+            }
+        }
+    }
+
     /**
      * 反射获取对象的字段
      *
@@ -64,6 +121,7 @@ public class TUtil {
     /**
      * 执行方法
      * 目前用于统一处理jedis执行命令之后的close操作
+     *
      * @param t           可以是jedis
      * @param execCommand 需要执行的具体逻辑
      * @param callback    执行逻辑之后的回调,比如关流

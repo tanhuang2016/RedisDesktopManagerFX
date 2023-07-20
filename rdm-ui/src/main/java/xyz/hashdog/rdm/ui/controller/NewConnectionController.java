@@ -115,7 +115,7 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
         if(GuiUtil.requiredTextField(connectionName,host, port)){
             return;
         }
-        ConnectionServerNode connectionServerNode =new ConnectionServerNode();
+        ConnectionServerNode connectionServerNode =new ConnectionServerNode(ConnectionServerNode.SERVER);
         connectionServerNode.setName(connectionName.getText());
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
