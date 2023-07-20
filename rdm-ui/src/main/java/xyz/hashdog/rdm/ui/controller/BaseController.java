@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 /**
@@ -15,6 +17,10 @@ public class BaseController<T> {
      * 父控制器
      */
     public T parentController;
+    @FXML
+    public void cancel(ActionEvent actionEvent) {
+        currentStage.close();
+    }
 
 
     public void setCurrentStage(Stage currentStage) {

@@ -34,7 +34,7 @@
                                            <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
                                            <TextField fx:id="parentDataId" maxWidth="-Infinity" prefWidth="-Infinity" text="-1" visible="false" />
                                           <Button mnemonicParsing="false" onAction="#ok" text="完成" />
-                                          <Button mnemonicParsing="false" text="取消" />
+                                          <Button mnemonicParsing="false" onAction="#cancel" text="取消" />
                                       </buttons>
                                     </ButtonBar>
                                  </children>
