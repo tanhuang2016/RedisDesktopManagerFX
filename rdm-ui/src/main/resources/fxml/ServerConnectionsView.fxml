@@ -24,7 +24,7 @@
                   <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Button mnemonicParsing="false" styleClass="isLeafNode" text="Connect" />
-                        <Button mnemonicParsing="false" styleClass="isNotLeafNode" text="NewGroup" />
+                        <Button mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="NewGroup" />
                         <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="NewConnection" />
                         <Button mnemonicParsing="false" styleClass="isLeafNode" text="Edit" />
                         <Button mnemonicParsing="false" onAction="#newConnection" text="Rename" />

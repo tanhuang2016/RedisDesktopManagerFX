@@ -3,21 +3,16 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 
 import java.io.IOException;
 
-public class ServerConnectionsController {
+public class ServerConnectionsController extends BaseController<MainController> {
     @FXML
     public AnchorPane root;
     /**
@@ -137,25 +132,9 @@ public class ServerConnectionsController {
      * 每次打开新窗口,所以Stage不用缓存
      * @param actionEvent
      */
+    @FXML
     public void newConnection(ActionEvent actionEvent) throws IOException {
-        Stage newConnctionWindowStage = new Stage();
-        newConnctionWindowStage.initModality(Modality.WINDOW_MODAL);
-        //去掉最小化和最大化
-        newConnctionWindowStage.initStyle(StageStyle.DECORATED);
-        //禁用掉最大最小化
-        newConnctionWindowStage.setMaximized(false);
-        newConnctionWindowStage.setTitle("新建连接");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NewConnectionView.fxml"));
-        AnchorPane borderPane = fxmlLoader.load();
-        NewConnectionController controller = fxmlLoader.getController();
-        controller.setParentController(this);
-        controller.setCurrentStage(newConnctionWindowStage);
-        Scene scene = new Scene(borderPane);
-        newConnctionWindowStage.initOwner(root.getScene().getWindow());
-        newConnctionWindowStage.setScene(scene);
-        newConnctionWindowStage.show();
-
-
+        super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow());
     }
 
     /**
@@ -172,4 +151,11 @@ public class ServerConnectionsController {
         }
         treeView.getSelectionModel().select(connectionServerNodeTreeItem);
     }
+
+    @FXML
+    public void newGroup(ActionEvent actionEvent) throws IOException {
+        super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow());
+    }
+
+
 }
