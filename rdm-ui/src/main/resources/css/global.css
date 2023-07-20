@@ -1,4 +1,5 @@
 .root{
-    -fx-font-family: "Segoe UI";
-    /*-fx-font-family: "Sitka Small";*/
+    /*-fx-font-family: "Segoe UI";*/
+    -fx-font-family: "Sitka Small";
+    /*-fx-font-family: "Arial";*/
 }

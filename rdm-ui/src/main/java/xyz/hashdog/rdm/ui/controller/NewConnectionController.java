@@ -2,12 +2,15 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.common.RedisFactorySingleton;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 /**
  * @Author th
@@ -50,7 +53,12 @@ public class NewConnectionController {
         redisConfig.setPort(Integer.parseInt(portStr));
         redisConfig.setAuth(authStr);
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-        boolean b = redisContext.testConnect();
+        Message message = redisContext.testConnect();
+        if(message.isSuccess()){
+            GuiUtil.alert(Alert.AlertType.INFORMATION,"连接成功");
+        }else {
+            GuiUtil.alert(Alert.AlertType.WARNING,message.getMessage());
+        }
 
     }
 }

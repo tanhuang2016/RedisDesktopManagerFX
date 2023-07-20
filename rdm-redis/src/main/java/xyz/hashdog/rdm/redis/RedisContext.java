@@ -27,5 +27,5 @@ public interface RedisContext {
      * 测试能否连接
      * @return
      */
-    boolean testConnect() throws RedisException;
+    Message testConnect();
 }

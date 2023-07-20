@@ -1,6 +1,8 @@
 package xyz.hashdog.rdm.redis.imp;
 
 import redis.clients.jedis.exceptions.JedisConnectionException;
+import redis.clients.jedis.resps.Tuple;
+import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
@@ -49,14 +51,16 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
     }
 
     @Override
-    public boolean testConnect() throws RedisException {
+    public Message testConnect()  {
+        Message message=new Message();
         try {
             getRedisClient().ping();
-            return true;
+            message.setSuccess(true);
         }catch (JedisConnectionException e) {
-            throw new RedisException(e.getMessage());
+            message.setSuccess(false);
+            message.setMessage(e.getMessage());
         }
-
+        return message;
     }
 
     /**

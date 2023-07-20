@@ -21,16 +21,12 @@ public class RedisContextTest {
     public void before() {
         RedisConfig redisConfig = new RedisConfig();
         redisConfig.setHost("localhost");
-        redisConfig.setPort(63791);
+        redisConfig.setPort(6379);
         redisContext = new xyz.hashdog.rdm.redis.imp.RedisContext(redisConfig);
     }
 
     @Test
     public void testConnect() {
-        try {
-            System.out.println(redisContext.testConnect());
-        }catch (RedisException e){
-            System.out.println(e.getMessage());
-        }
+        System.out.println(redisContext.testConnect());
     }
 }
