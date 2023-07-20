@@ -40,6 +40,10 @@ public class JedisPoolClient implements RedisClient {
     }
 
     @Override
+    public boolean isConnected() {
+        return execut(jedis->jedis.isConnected());
+    }
+    @Override
     public Set<String> keys(String pattern) {
         return execut(jedis->jedis.keys(pattern));
     }

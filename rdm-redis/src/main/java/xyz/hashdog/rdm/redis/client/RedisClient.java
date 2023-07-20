@@ -10,6 +10,13 @@ import java.util.Set;
  */
 public interface RedisClient {
 
+
+    /**
+     * 判断是否连接
+     * @return
+     */
+    boolean isConnected();
+
     /**
      * keys 模糊查新的命令
      * @param pattern

@@ -29,30 +29,30 @@
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Name" HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="Connection Name" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="connectionName" promptText="Connection Name" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Host" HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="127.0.0.1" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="host" promptText="127.0.0.1" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Port" HBox.hgrow="ALWAYS" />
-                                          <TextField promptText="6379" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="port" promptText="6379" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label text="Auth" HBox.hgrow="ALWAYS" />
-                                          <PasswordField promptText="Auth" HBox.hgrow="ALWAYS" />
+                                          <Label text="Auth"  HBox.hgrow="ALWAYS" />
+                                          <PasswordField fx:id="auth" promptText="Auth" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" text="测试连接" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="testConnectButton" mnemonicParsing="false" text="测试连接" HBox.hgrow="ALWAYS" onAction="#testConnect"/>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

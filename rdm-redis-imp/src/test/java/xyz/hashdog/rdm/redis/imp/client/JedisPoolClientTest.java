@@ -27,8 +27,14 @@ public class JedisPoolClientTest {
     public void before(){
         RedisConfig redisConfig =new RedisConfig();
         redisConfig.setHost("localhost");
-        redisConfig.setPort(6379);
+        redisConfig.setPort(63791);
         redisClient=new JedisPoolClient(redisConfig);
+    }
+
+    @Test
+    public void isConnected(){
+        boolean isConnected = redisClient.isConnected();
+        System.out.println(isConnected);
     }
 
     @Test

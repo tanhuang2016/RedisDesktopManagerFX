@@ -1,6 +1,7 @@
 package xyz.hashdog.rdm.redis;
 
 import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.redis.exceptions.RedisException;
 
 /**
  * redis上下文,提供了对redis操作及相关信息所有的包装
@@ -22,4 +23,9 @@ public interface RedisContext {
      */
     RedisConfig getRedisConfig();
 
+    /**
+     * 测试能否连接
+     * @return
+     */
+    boolean testConnect() throws RedisException;
 }

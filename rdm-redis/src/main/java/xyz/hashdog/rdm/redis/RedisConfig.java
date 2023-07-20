@@ -14,6 +14,10 @@ public class RedisConfig {
      * 端口
      */
     private int port;
+    /**
+     * 授权
+     */
+    private String auth;
 
     public String getHost() {
         return host;
@@ -29,5 +33,13 @@ public class RedisConfig {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }
