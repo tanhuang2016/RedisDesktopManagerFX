@@ -16,7 +16,7 @@ import java.io.IOException;
  * @Author th
  * @Date 2023/7/20 17:35
  */
-public class BaseController<T> {
+public abstract class BaseController<T> {
     /**
      * 当前Stage
      */
