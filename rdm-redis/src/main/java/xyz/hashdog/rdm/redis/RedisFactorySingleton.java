@@ -1,4 +1,4 @@
-package xyz.hashdog.rdm.ui.common;
+package xyz.hashdog.rdm.redis;
 
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.RedisFactory;

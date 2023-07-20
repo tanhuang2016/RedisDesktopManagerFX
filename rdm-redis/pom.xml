@@ -18,5 +18,12 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>xyz.hashdog.rdm</groupId>
+            <artifactId>rdm-common</artifactId>
+            <version>${rdm.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -11,7 +11,7 @@ import javafx.scene.input.KeyEvent;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
-import xyz.hashdog.rdm.ui.common.RedisFactorySingleton;
+import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
