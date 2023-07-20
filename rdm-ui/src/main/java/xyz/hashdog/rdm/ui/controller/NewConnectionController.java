@@ -9,7 +9,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
@@ -110,6 +109,12 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
             GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
         }
     }
+
+    /**
+     * 确定之后将新增的节点持久化
+     * 再对父窗口视图进行更新
+     * @param actionEvent
+     */
     @FXML
     public void ok(ActionEvent actionEvent) {
         if(GuiUtil.requiredTextField(connectionName,host, port)){

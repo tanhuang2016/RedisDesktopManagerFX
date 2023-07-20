@@ -163,5 +163,13 @@ public class ServerConnectionsController {
      * @param connectionServerNode
      */
     public void AddConnectionNodeAndSelect(ConnectionServerNode connectionServerNode) {
+        TreeItem<ConnectionServerNode> connectionServerNodeTreeItem = new TreeItem<>(connectionServerNode);
+        if(connectionServerNode.getParentDataId().equals(Applications.ROOT_ID)){
+            treeView.getRoot().getChildren().add(connectionServerNodeTreeItem);
+        }else {
+            TreeItem<ConnectionServerNode> selectedItem = treeView.getSelectionModel().getSelectedItem();
+            selectedItem.getChildren().add(connectionServerNodeTreeItem);
+        }
+        treeView.getSelectionModel().select(connectionServerNodeTreeItem);
     }
 }

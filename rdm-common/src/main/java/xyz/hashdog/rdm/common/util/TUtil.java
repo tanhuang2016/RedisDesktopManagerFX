@@ -16,59 +16,64 @@ import java.util.function.Function;
 public class TUtil {
     /**
      * 递归策略接口
+     * 将list转为true
      *
-     * @param <H>
      * @param <T>
+     * @param <L>
      */
-    public static interface RecursiveDeal<H, T> {
+    public static interface RecursiveList2Tree<T, L> {
 
         /**
-         * 获取节点子集
-         *
-         * @param t
-         * @return
+         * @param tree               树结果
+         * @param list               需要迭代的list
+         * @param recursiveList2Tree 策略
+         * @param <T>
+         * @param <L>
          */
-        List<T> subset(T t);
+        static <T, L> void recursive(T tree, List<L> list, RecursiveList2Tree<T, L> recursiveList2Tree) {
 
-        /**
-         * 没有子集的情况怎么处理
-         *
-         * @param h
-         * @param t
-         */
-        void noSubset(H h, T t);
-
-        /**
-         * 有子集的情况怎么处理
-         *
-         * @param h
-         * @param t
-         * @return
-         */
-        H hasSubset(H h, T t);
-    }
-
-    /**
-     * 递归
-     *
-     * @param h             结果集
-     * @param t             需要递归迭代的目标
-     * @param recursiveDeal
-     * @param <H>
-     * @param <T>
-     */
-    public static <H, T> void recursive(H h, T t, RecursiveDeal<H, T> recursiveDeal) {
-        //获取子集
-        List<T> ts = recursiveDeal.subset(t);
-        if (ts == null || ts.isEmpty()) {
-            recursiveDeal.noSubset(h, t);
-        } else {
-            H newh = recursiveDeal.hasSubset(h, t);
-            for (T t1 : ts) {
-                recursive(newh, t1, recursiveDeal);
+            //获取子集
+            List<L> subs = recursiveList2Tree.findSubs(tree, list);
+            //整合到tree
+            List<T> treeList = recursiveList2Tree.toTree(tree, subs);
+            //过滤掉已经迭代到tree的数据
+            List<L> newList = recursiveList2Tree.filterList(list, subs);
+            for (T tree1 : treeList) {
+                recursive(tree1, newList, recursiveList2Tree);
             }
+
         }
+        /**
+         * 获取子节
+         * 一般根据父节点id,从list匹配子节点
+         *
+         * @param tree 父节点
+         * @param list 需要迭代的集合
+         * @return 找到的子节点
+         */
+        List<L> findSubs(T tree, List<L> list);
+        /**
+         * 转为树
+         *
+         * @param tree 父节点
+         * @param subs 子节点
+         * @return 转为树的子节点
+         */
+        List<T> toTree(T tree, List<L> subs);
+
+        /**
+         * 一般已经迭代过的list可以过滤掉,避免重复,具体由子类实现
+         *
+         * @param list 原始集合
+         * @param subs 已经迭代处理过的集合
+         * @return 过滤后的集合
+         */
+        List<L> filterList(List<L> list, List<L> subs);
+
+
+
     }
+
 
     /**
      * 反射获取对象的字段

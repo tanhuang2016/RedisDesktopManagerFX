@@ -64,8 +64,10 @@ public class CacheConfigSingleton {
         ((ObservableMap) CONFIG.getConnectionNodeMap()).addListener((MapChangeListener<String, ConnectionServerNode>) change -> {
             if (change.wasAdded() || change.wasRemoved()) {
                 ThreadPool.getInstance().execute(()->{
+                    System.out.println(1);
                     Preferences node = PREFERENCES.node(Applications.NODE_APP_DATA);
                     node.put(Applications.KEY_CONNECTIONS,new Gson().toJson(CONFIG.getConnectionNodeMap().values()));
+                    System.out.println(2);
                 });
             }
         });
