@@ -8,10 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -21,7 +26,12 @@ import java.util.ResourceBundle;
  * @Author th
  * @Date 2023/7/19 21:45
  */
-public class NewConnectionController implements Initializable {
+public class NewConnectionController extends BaseController<ServerConnectionsController> implements Initializable {
+    /**
+     * 当前根节点
+     */
+    public AnchorPane root;
+
     /**
      * 测试连接按钮
      */
@@ -47,6 +57,16 @@ public class NewConnectionController implements Initializable {
      */
     @FXML
     public PasswordField auth;
+    /**
+     * 连接id,保存的时候会有
+     */
+    @FXML
+    public TextField dataId;
+    /**
+     * 父节点id,默认根节点为-1
+     */
+    @FXML
+    public TextField parentDataId;
 
 
     @FXML
@@ -95,6 +115,19 @@ public class NewConnectionController implements Initializable {
         if(GuiUtil.requiredTextField(connectionName,host, port)){
             return;
         }
+        ConnectionServerNode connectionServerNode =new ConnectionServerNode();
+        connectionServerNode.setName(connectionName.getText());
+        connectionServerNode.setHost(host.getText());
+        connectionServerNode.setPort(Integer.parseInt(port.getText()));
+        connectionServerNode.setAuth(connectionServerNode.getAuth());
+        connectionServerNode.setDataId(DataUtil.getUUID());
+        connectionServerNode.setParentDataId(parentDataId.getText());
+        Message message=Applications.addConnection(connectionServerNode);
+        if(message.isSuccess()){
+            currentStage.close();
+        }
+        //父窗口树节点新增,切选中新增节点
+        parentController.AddConnectionNodeAndSelect(connectionServerNode);
     }
 
     /**

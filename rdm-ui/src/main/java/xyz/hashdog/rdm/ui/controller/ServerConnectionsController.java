@@ -11,6 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.entity.ConnectionGroupNode;
+import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 
 import java.io.IOException;
 
@@ -29,10 +33,10 @@ public class ServerConnectionsController {
     public ContextMenu contextMenu;
     @FXML
     public Button bottomConnectButton;
-    private Stage newConnctionWindowStage;
 
     @FXML
-    public TreeView<String> treeView;
+    public TreeView<ConnectionGroupNode> treeView;
+
 
 
     @FXML
@@ -77,31 +81,47 @@ public class ServerConnectionsController {
         });
     }
 
+    /**
+     * 初始化树节点
+     */
     private void initTreeView() {
-        TreeItem<String> rootItem = treeView.getRoot();
-        rootItem.setValue("");
-
-        // 创建第一个子节点及其后代节点
-        TreeItem<String> item1 = new TreeItem<>("开发环境");
-        item1.getChildren().addAll(
-                new TreeItem<>("redis server1"),
-                new TreeItem<>("redis server2"),
-                new TreeItem<>("redis server3")
-        );
-
-        // 创建第二个子节点及其后代节点
-        TreeItem<String> item2 = new TreeItem<>("测试环境");
-        item2.getChildren().addAll(
-                new TreeItem<>("redis server1"),
-                new TreeItem<>("redis server2"),
-                new TreeItem<>("redis server3")
-        );
-        // 将子节点添加到根节点
-        rootItem.getChildren().addAll(item1, item2);
+        setTreeViewCellFactory();
+        initTreeViewData();
         // 自动展开根节点
         treeView.setShowRoot(false); // 隐藏根节点
         // Expand all nodes
-        expandAllNodes(rootItem);
+        expandAllNodes(treeView.getRoot());
+    }
+
+    /**
+     * 初始化树节点的数据
+     */
+    private void initTreeViewData() {
+        TreeItem<ConnectionGroupNode> rootItem=Applications.initConnectionTreeView();
+        treeView.setRoot(rootItem);
+    }
+
+    /**
+     * 设置树节点的显示方式
+     */
+    private void setTreeViewCellFactory() {
+        treeView.setCellFactory(new Callback<TreeView<ConnectionGroupNode>, TreeCell<ConnectionGroupNode>>() {
+            @Override
+            public TreeCell<ConnectionGroupNode> call(TreeView<ConnectionGroupNode> param) {
+
+                return new TreeCell<ConnectionGroupNode>(){
+                    @Override
+                    protected void updateItem(ConnectionGroupNode item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+            }
+        });
     }
 
     // Method to expand all nodes in the tree recursively
@@ -116,28 +136,34 @@ public class ServerConnectionsController {
 
     /**
      * 新建连接
+     * 每次打开新窗口,所以Stage不用缓存
      * @param actionEvent
      */
     public void newConnection(ActionEvent actionEvent) throws IOException {
-        if(this.newConnctionWindowStage!=null){
-            newConnctionWindowStage.show();
-        }else{
-            this.newConnctionWindowStage=new Stage();
-            newConnctionWindowStage.initModality(Modality.WINDOW_MODAL);
-            //去掉最小化和最大化
-            newConnctionWindowStage.initStyle(StageStyle.DECORATED);
-            //禁用掉最大最小化
-            newConnctionWindowStage.setMaximized(false);
-            this.newConnctionWindowStage.setTitle("新建连接");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NewConnectionView.fxml"));
-            AnchorPane borderPane = fxmlLoader.load();
-            NewConnectionController controller = fxmlLoader.getController();
-            Scene scene = new Scene(borderPane);
-            this.newConnctionWindowStage.initOwner(root.getScene().getWindow());
-            this.newConnctionWindowStage.setScene(scene);
-            this.newConnctionWindowStage.show();
+        Stage newConnctionWindowStage = new Stage();
+        newConnctionWindowStage.initModality(Modality.WINDOW_MODAL);
+        //去掉最小化和最大化
+        newConnctionWindowStage.initStyle(StageStyle.DECORATED);
+        //禁用掉最大最小化
+        newConnctionWindowStage.setMaximized(false);
+        newConnctionWindowStage.setTitle("新建连接");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NewConnectionView.fxml"));
+        AnchorPane borderPane = fxmlLoader.load();
+        NewConnectionController controller = fxmlLoader.getController();
+        controller.setParentController(this);
+        controller.setCurrentStage(newConnctionWindowStage);
+        Scene scene = new Scene(borderPane);
+        newConnctionWindowStage.initOwner(root.getScene().getWindow());
+        newConnctionWindowStage.setScene(scene);
+        newConnctionWindowStage.show();
 
 
-        }
+    }
+
+    /**
+     * 新增树节点,并选中
+     * @param connectionServerNode
+     */
+    public void AddConnectionNodeAndSelect(ConnectionServerNode connectionServerNode) {
     }
 }

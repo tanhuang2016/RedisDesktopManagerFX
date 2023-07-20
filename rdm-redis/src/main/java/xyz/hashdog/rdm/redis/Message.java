@@ -14,6 +14,13 @@ public class Message {
      */
    private String message;
 
+    public Message() {
+    }
+
+    public Message(boolean success) {
+        this.success = success;
+    }
+
     public boolean isSuccess() {
         return success;
     }

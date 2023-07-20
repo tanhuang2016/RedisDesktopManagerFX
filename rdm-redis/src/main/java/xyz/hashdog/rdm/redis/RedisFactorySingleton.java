@@ -12,7 +12,9 @@ import java.util.ServiceLoader;
  * @Author th
  * @Date 2023/7/19 9:59
  */
-public class RedisFactorySingleton {
+    public class RedisFactorySingleton {
+    private RedisFactorySingleton() {
+    }
 
     /**
      * 获取RedisFactory单例

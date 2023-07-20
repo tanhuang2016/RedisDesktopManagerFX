@@ -40,12 +40,6 @@
          </top>
           <center>
               <TreeView fx:id="treeView" VBox.vgrow="ALWAYS">
-                  <root>
-                      <!-- 创建根节点 -->
-                      <TreeItem fx:id="rootItem" value="Root">
-
-                      </TreeItem>
-                  </root>
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" opacity="0.8">
                     <items>
