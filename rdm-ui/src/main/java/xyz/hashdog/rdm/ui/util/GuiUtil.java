@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 
 import java.util.Optional;
 
@@ -10,6 +11,44 @@ import java.util.Optional;
  * @Date 2023/7/20 13:10
  */
 public class GuiUtil {
+
+    /**
+     * 只允许输入整数
+     * @param textFields
+     */
+    public static void filterIntegerInput(TextField... textFields) {
+        for (TextField textField : textFields) {
+            // 绑定监听器，当文本框内容发生变化时进行过滤
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                // 如果新的文本不是整数，则将文本还原为旧值
+                if (!newValue.matches("\\d*")) {
+                    textField.setText(oldValue);
+                }
+            });
+        }
+    }
+
+    /**
+     * 返回为true证明有未填的
+     *
+     * @param textFields
+     * @return
+     */
+    public static boolean requiredTextField(TextField... textFields) {
+        boolean flg = false;
+        for (TextField textField : textFields) {
+            String text = textField.getText();
+            if (text.isEmpty()) {
+                // 当名字未填写时，将TextField的边框颜色设置为红色
+                textField.setStyle("-fx-border-color: red;");
+                flg = true;
+            } else {
+                // 当名字已填写时，将TextField的边框颜色还原为默认值
+                textField.setStyle("");
+            }
+        }
+        return flg;
+    }
 
     /**
      * 提示框

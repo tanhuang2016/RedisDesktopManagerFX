@@ -42,7 +42,7 @@
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Port" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="port" promptText="6379" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="port" promptText="6379" HBox.hgrow="ALWAYS" onKeyTyped="#filterIntegerInput"/>
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
@@ -58,7 +58,7 @@
                                              <children>
                                                 <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <buttons>
-                                                      <Button mnemonicParsing="false" text="完成" />
+                                                      <Button mnemonicParsing="false" text="完成" onAction="#ok"/>
                                                       <Button mnemonicParsing="false" text="取消" />
                                                   </buttons>
                                                 </ButtonBar>
