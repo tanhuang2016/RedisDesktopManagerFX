@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
@@ -123,25 +122,27 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     /**
      * 设置树节点的显示方式
+     * 改为直接用TreeView泛型实体类的toString方法来显示
      */
+    @Deprecated
     private void initTreeViewCellFactory() {
-        treeView.setCellFactory(new Callback<TreeView<ConnectionServerNode>, TreeCell<ConnectionServerNode>>() {
-            @Override
-            public TreeCell<ConnectionServerNode> call(TreeView<ConnectionServerNode> param) {
-
-                return new TreeCell<ConnectionServerNode>() {
-                    @Override
-                    protected void updateItem(ConnectionServerNode item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-        });
+//        treeView.setCellFactory(new Callback<TreeView<ConnectionServerNode>, TreeCell<ConnectionServerNode>>() {
+//            @Override
+//            public TreeCell<ConnectionServerNode> call(TreeView<ConnectionServerNode> param) {
+//
+//                return new TreeCell<ConnectionServerNode>() {
+//                    @Override
+//                    protected void updateItem(ConnectionServerNode item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (empty) {
+//                            setText(null);
+//                        } else {
+//                            setText(item.getName());
+//                        }
+//                    }
+//                };
+//            }
+//        });
     }
 
     // Method to expand all nodes in the tree recursively
@@ -172,6 +173,11 @@ public class ServerConnectionsController extends BaseController<MainController> 
      */
     public void AddConnectionOrGourpNodeAndSelect(ConnectionServerNode connectionServerNode) {
         TreeItem<ConnectionServerNode> connectionServerNodeTreeItem = new TreeItem<>(connectionServerNode);
+        if(connectionServerNode.isConnection()){
+            connectionServerNodeTreeItem.setGraphic(Applications.creatGroupImageView());
+        }else {
+            connectionServerNodeTreeItem.setGraphic(Applications.creatConnctionImageView());
+        }
         if (connectionServerNode.getParentDataId().equals(Applications.ROOT_ID)) {
             treeView.getRoot().getChildren().add(connectionServerNodeTreeItem);
         } else {
@@ -273,5 +279,14 @@ public class ServerConnectionsController extends BaseController<MainController> 
         this.selectedNode.setPort(connectionServerNode.getPort());
         this.selectedNode.setAuth(connectionServerNode.getAuth());
         treeView.refresh();
+    }
+
+    /**
+     * todo
+     * @param actionEvent
+     */
+    public void connect(ActionEvent actionEvent) {
+        this.initTreeViewData();
+        this.treeView.refresh();
     }
 }

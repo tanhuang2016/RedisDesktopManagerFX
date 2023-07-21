@@ -130,4 +130,9 @@ public class ConnectionServerNode {
     public boolean isRoot() {
         return dataId.equals(Applications.ROOT_ID) ;
     }
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
 }

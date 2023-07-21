@@ -23,7 +23,7 @@
                <children>
                   <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="isLeafNode" text="Connect" />
+                        <Button mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="Connect" />
                         <Button mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="NewGroup" />
                         <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="NewConnection" />
                         <Button mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot" text="Edit" />
@@ -43,12 +43,12 @@
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" opacity="0.8">
                     <items>
-                        <MenuItem mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
-                        <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建分组" />
-                        <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建连接" />
-                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="编辑" />
-                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="重命名" />
-                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="删除" />
+                        <MenuItem mnemonicParsing="false" onAction="#connect"  styleClass="isLeafNode" text="连接" />
+                        <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="新建分组" />
+                        <MenuItem mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="新建连接" />
+                        <MenuItem mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" text="编辑" />
+                        <MenuItem mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="重命名" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="删除" />
                     </items>
                   </ContextMenu>
                </contextMenu>

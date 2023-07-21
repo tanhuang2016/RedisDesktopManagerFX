@@ -3,6 +3,8 @@ package xyz.hashdog.rdm.ui.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.Optional;
 
@@ -68,5 +70,20 @@ public class GuiUtil {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 创建新的ImageView
+     * @param icon 图标
+     * @param w 宽
+     * @param h 高
+     * @return
+     */
+    public static ImageView creatImageView(Image icon, int w, int h) {
+        ImageView imageView = new ImageView(icon);
+        imageView.setFitWidth(w);
+        imageView.setFitHeight(h);
+        return imageView;
+
     }
 }

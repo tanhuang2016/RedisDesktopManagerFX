@@ -1,11 +1,15 @@
 package xyz.hashdog.rdm.ui.common;
 
 import javafx.scene.control.TreeItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
+import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +27,17 @@ public class Applications {
     /**
      * 应用名称
      */
-    public static String NODE_APP_NAME="RedisDesktopManagerFX";
+    public static final String NODE_APP_NAME = "RedisDesktopManagerFX";
     /**
      * 配置节点
      */
-    public static String NODE_APP_CONE="Config";
+    public static final String NODE_APP_CONE = "Config";
     /**
      * 数据节点
      */
-    public static String NODE_APP_DATA="Data";
+    public static final String NODE_APP_DATA = "Data";
+    public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
+    public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
 
 
     /**
@@ -51,12 +57,12 @@ public class Applications {
      */
     public static Message addOrUpdateConnectionOrGroup(ConnectionServerNode connectionServerNode) {
         //id存在则修改,否则是新增
-        if(DataUtil.isNotBlank(connectionServerNode.getDataId())){
+        if (DataUtil.isNotBlank(connectionServerNode.getDataId())) {
             //修改,需要查久数据,补充父id和时间戳
             ConnectionServerNode old = CacheConfigSingleton.CONFIG.getConnectionNodeMap().get(connectionServerNode.getDataId());
             connectionServerNode.setParentDataId(old.getParentDataId());
             connectionServerNode.setTimestampSort(old.getTimestampSort());
-        }else {
+        } else {
             //新增需要设置id和时间戳字段
             connectionServerNode.setDataId(DataUtil.getUUID());
             connectionServerNode.setTimestampSort(System.currentTimeMillis());
@@ -68,12 +74,13 @@ public class Applications {
 
     /**
      * 节点重命名,包括连接和分组
+     *
      * @param groupNode
      * @return
      */
     public static Message renameConnectionOrGroup(ConnectionServerNode groupNode) {
         ConnectionServerNode old = CacheConfigSingleton.CONFIG.getConnectionNodeMap().get(groupNode.getDataId());
-        TUtil.copyProperties(old,groupNode);
+        TUtil.copyProperties(old, groupNode);
         //map在put的时候需要引用地址变更才会触发监听,所以这里进行了域的复制
         CacheConfigSingleton.CONFIG.getConnectionNodeMap().put(old.getDataId(), groupNode);
         return new Message(true);
@@ -82,6 +89,7 @@ public class Applications {
 
     /**
      * 根据id递归删除
+     *
      * @param tree
      * @return
      */
@@ -109,9 +117,11 @@ public class Applications {
         }
         return new Message(true);
     }
+
     /**
      * 初始化连接树
      * 从缓存去的连接集合,进行递归组装成树4
+     *
      * @return
      */
     public static TreeItem<ConnectionServerNode> initConnectionTreeView() {
@@ -121,8 +131,8 @@ public class Applications {
 //                connectionServerNode.setParentDataId("-1");
 //            }
 //        }
-        list.sort((a,b)->a.getTimestampSort()>b.getTimestampSort()?1:-1);
-        TreeItem<ConnectionServerNode> root=new TreeItem<>();
+        list.sort((a, b) -> a.getTimestampSort() > b.getTimestampSort() ? 1 : -1);
+        TreeItem<ConnectionServerNode> root = new TreeItem<>();
         //得造一个隐形的父节点
         ConnectionServerNode node = new ConnectionServerNode(ConnectionServerNode.GROUP);
         node.setDataId(Applications.ROOT_ID);
@@ -133,21 +143,27 @@ public class Applications {
                 List<ConnectionServerNode> subs = new ArrayList<>();
                 String dataId = tree.getValue().getDataId();
                 for (ConnectionServerNode connectionServerNode : list) {
-                    if(connectionServerNode.getParentDataId().equals(dataId)){
+                    if (connectionServerNode.getParentDataId().equals(dataId)) {
                         subs.add(connectionServerNode);
                     }
                 }
                 return subs;
             }
+
             @Override
             public List<TreeItem<ConnectionServerNode>> toTree(TreeItem<ConnectionServerNode> tree, List<ConnectionServerNode> subs) {
                 List<TreeItem<ConnectionServerNode>> trees = new ArrayList<>();
                 for (ConnectionServerNode sub : subs) {
-                    trees.add(new TreeItem<>(sub));
+                    if(sub.isConnection()){
+                        trees.add(new TreeItem<>(sub, creatGroupImageView()));
+                    }else {
+                        trees.add(new TreeItem<>(sub,creatConnctionImageView()));
+                    }
                 }
                 tree.getChildren().addAll(trees);
                 return trees;
             }
+
             @Override
             public List<ConnectionServerNode> filterList(List<ConnectionServerNode> list, List<ConnectionServerNode> subs) {
                 //这里未进行过滤,因为会造成元数据的删除,除非对list进行深度克隆
@@ -158,4 +174,19 @@ public class Applications {
         return root;
     }
 
+    /**
+     * 创建新的连接图标
+     * @return
+     */
+    public static ImageView creatConnctionImageView() {
+        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
+    }
+
+    /**
+     * 创建新的分组图标
+     * @return
+     */
+    public static ImageView creatGroupImageView() {
+        return GuiUtil.creatImageView(ICON_CONNECTION,16,16);
+    }
 }
