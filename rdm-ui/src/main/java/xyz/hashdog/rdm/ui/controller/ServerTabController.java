@@ -1,11 +1,11 @@
 package xyz.hashdog.rdm.ui.controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +83,6 @@ public class ServerTabController {
 
 
     private void initAutoWah() {
-        System.out.println(123321);
         // 设置ChoiceBox的宽度自适应
         choiceBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(choiceBox, javafx.scene.layout.Priority.ALWAYS);

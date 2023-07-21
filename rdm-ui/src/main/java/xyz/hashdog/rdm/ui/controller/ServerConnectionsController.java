@@ -158,7 +158,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
      */
     @FXML
     public void newConnection(ActionEvent actionEvent) throws IOException {
-        super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow());
+        super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow(),ADD);
     }
 
     /**
@@ -173,12 +173,13 @@ public class ServerConnectionsController extends BaseController<MainController> 
             TreeItem<ConnectionServerNode> selectedItem = treeView.getSelectionModel().getSelectedItem();
             selectedItem.getChildren().add(connectionServerNodeTreeItem);
         }
+        treeView.refresh();
         treeView.getSelectionModel().select(connectionServerNodeTreeItem);
     }
 
     @FXML
     public void newGroup(ActionEvent actionEvent) throws IOException {
-        super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow());
+        super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow(),ADD);
     }
 
 
@@ -197,10 +198,10 @@ public class ServerConnectionsController extends BaseController<MainController> 
     @FXML
     public void edit(ActionEvent actionEvent) throws IOException {
         if(this.selectedNode.isConnection()){
-            NewConnectionController controller = super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow());
+            NewConnectionController controller = super.loadSubWindow("编辑连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow(),UPDATE);
             controller.editInfo(this.selectedNode);
         }else {
-            NewGroupController controller = super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow());
+            NewGroupController controller = super.loadSubWindow("编辑分组","/fxml/NewGroupView.fxml",root.getScene().getWindow(),UPDATE);
             controller.editInfo(this.selectedNode);
         }
 
@@ -209,10 +210,14 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     /**
      * 节点重新命名
+     *  该名称不区分连接还是分组
+     *  用分组的视图
      * @param actionEvent
      */
     @FXML
-    public void rename(ActionEvent actionEvent) {
+    public void rename(ActionEvent actionEvent) throws IOException {
+        NewGroupController controller = super.loadSubWindow("重命名","/fxml/NewGroupView.fxml",root.getScene().getWindow(),BaseController.RENAME);
+        controller.editInfo(this.selectedNode);
     }
 
     /**

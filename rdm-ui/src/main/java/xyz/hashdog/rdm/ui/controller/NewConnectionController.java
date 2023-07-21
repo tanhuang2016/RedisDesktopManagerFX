@@ -110,6 +110,7 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
     /**
      * 确定之后将新增的节点持久化
      * 再对父窗口视图进行更新
+     *   todo 需要将改为swich,切顺序
      * @param actionEvent
      */
     @FXML

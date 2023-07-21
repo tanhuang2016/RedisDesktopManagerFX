@@ -67,12 +67,29 @@ public class Applications {
     }
 
     /**
+     * 节点重命名,包括连接和分组
+     * @param groupNode
+     * @return
+     */
+    public static Message renameConnectionOrGroup(ConnectionServerNode groupNode) {
+        ConnectionServerNode old = CacheConfigSingleton.CONFIG.getConnectionNodeMap().get(groupNode.getDataId());
+        TUtil.copyProperties(old,groupNode);
+        //map在put的时候需要引用地址变更才会触发监听,所以这里进行了域的复制
+        CacheConfigSingleton.CONFIG.getConnectionNodeMap().put(old.getDataId(), groupNode);
+        return new Message(true);
+    }
+    /**
      * 初始化连接树
      * 从缓存去的连接集合,进行递归组装成树4
      * @return
      */
     public static TreeItem<ConnectionServerNode> initConnectionTreeView() {
         List<ConnectionServerNode> list = new ArrayList<>(CacheConfigSingleton.CONFIG.getConnectionNodeMap().values());
+        for (ConnectionServerNode connectionServerNode : list) {
+            if(connectionServerNode.getParentDataId()==null){
+                connectionServerNode.setParentDataId("-1");
+            }
+        }
         list.sort((a,b)->a.getTimestampSort()>b.getTimestampSort()?1:-1);
         TreeItem<ConnectionServerNode> root=new TreeItem<>();
         //得造一个隐形的父节点
@@ -109,4 +126,5 @@ public class Applications {
         });
         return root;
     }
+
 }

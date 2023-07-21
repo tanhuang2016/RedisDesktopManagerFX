@@ -14,6 +14,36 @@ import java.util.function.Function;
  * @Date 2023/7/18 21:09
  */
 public class TUtil {
+
+    /**
+     * 同类复制属性(只复制是null的属性)
+     * @param souce
+     * @param target
+     * @param <T>
+     * @throws IllegalAccessException
+     */
+    public static <T> void copyProperties(T souce, T target) {
+        Class clazz = souce.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            //得到属性
+            Field field = fields[i];
+            //打开私有访问
+            field.setAccessible(true);
+            //如果是null,从源对象复制到模板对象
+            try {
+                Object o = field.get(target);
+                Object o2 = field.get(souce);
+                if(o==null&&o2!=null){
+                    field.set(target, field.get(souce));
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
     /**
      * 递归策略接口
      * 将list转为true

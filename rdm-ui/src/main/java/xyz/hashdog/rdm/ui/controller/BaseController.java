@@ -18,6 +18,14 @@ import java.io.IOException;
  */
 public abstract class BaseController<T> {
     /**
+     * 模式
+     */
+    protected int model;
+    protected static final int NONE = 1;
+    protected static final int ADD = 2;
+    protected static final int UPDATE = 3;
+    protected static final int RENAME = 4;
+    /**
      * 当前Stage
      */
     public Stage currentStage;
@@ -38,9 +46,10 @@ public abstract class BaseController<T> {
      * @param title  窗口标题
      * @param fxml   fxml路径
      * @param parent 父窗口
+     * @param model 模式
      * @throws IOException
      */
-    public <T extends BaseController>T loadSubWindow(String title, String fxml, Window parent) throws IOException {
+    protected <T extends BaseController>T loadSubWindow(String title, String fxml, Window parent, int model) throws IOException {
         Stage newConnctionWindowStage = new Stage();
         newConnctionWindowStage.initModality(Modality.WINDOW_MODAL);
         //去掉最小化和最大化
@@ -57,7 +66,28 @@ public abstract class BaseController<T> {
         newConnctionWindowStage.initOwner(parent);
         newConnctionWindowStage.setScene(scene);
         newConnctionWindowStage.show();
+        controller.setModel(model);
         return controller;
+    }
+    /**
+     * 子窗口模态框
+     * 每次都是打开最新的
+     *
+     * @param title  窗口标题
+     * @param fxml   fxml路径
+     * @param parent 父窗口
+     * @throws IOException
+     */
+    public <T extends BaseController>T loadSubWindow(String title, String fxml, Window parent) throws IOException {
+        return loadSubWindow(title, fxml, parent,NONE);
+    }
+
+    public int getModel() {
+        return model;
+    }
+
+    public void setModel(int model) {
+        this.model = model;
     }
 
     public void setCurrentStage(Stage currentStage) {
@@ -67,4 +97,6 @@ public abstract class BaseController<T> {
     public void setParentController(T parentController) {
         this.parentController = parentController;
     }
+
+
 }

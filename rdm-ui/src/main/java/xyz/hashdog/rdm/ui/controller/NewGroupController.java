@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
@@ -44,20 +43,34 @@ public class NewGroupController extends BaseController<ServerConnectionsControll
         }
         ConnectionServerNode groupNode =new ConnectionServerNode(ConnectionServerNode.GROUP);
         groupNode.setName(name.getText());
-        //id存在则是修改,否则是新增
-        if(DataUtil.isNotBlank(dataId.getText())){
-            groupNode.setDataId(dataId.getText());
-            //分组修改只会修改名称,直接更新节点名称就行
-            parentController.updateNodeName(groupNode.getName());
-        }else{
-            groupNode.setParentDataId(super.parentController.getSelectedDataId());
-            //父窗口树节点新增,切选中新增节点
-            parentController.AddConnectionOrGourpNodeAndSelect(groupNode);
+        Message message=null;
+        switch (this.model){
+            case ADD:
+                //父窗口树节点新增,切选中新增节点
+                groupNode.setParentDataId(super.parentController.getSelectedDataId());
+                message= Applications.addOrUpdateConnectionOrGroup(groupNode);
+                parentController.AddConnectionOrGourpNodeAndSelect(groupNode);
+                break;
+            case UPDATE:
+                groupNode.setDataId(dataId.getText());
+                message= Applications.addOrUpdateConnectionOrGroup(groupNode);
+                //分组修改只会修改名称,直接更新节点名称就行
+                parentController.updateNodeName(groupNode.getName());
+                break;
+            case RENAME:
+                groupNode.setDataId(dataId.getText());
+                message= Applications.renameConnectionOrGroup(groupNode);
+                //分组修改只会修改名称,直接更新节点名称就行
+                parentController.updateNodeName(groupNode.getName());
+                break;
+            default:
+                break;
+
         }
-        Message message= Applications.addOrUpdateConnectionOrGroup(groupNode);
         if(message.isSuccess()){
             currentStage.close();
         }
+
     }
 
     /**
