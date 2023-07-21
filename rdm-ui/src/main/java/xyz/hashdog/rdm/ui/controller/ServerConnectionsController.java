@@ -31,13 +31,16 @@ public class ServerConnectionsController extends BaseController<MainController> 
     @FXML
     public TreeView<ConnectionServerNode> treeView;
 
+    /**
+     * 被选中节点
+     */
+    private ConnectionServerNode selectedNode;
 
 
     @FXML
     public void initialize() {
-        initTreeView();
         initListener();
-
+        initTreeView();
     }
 
     private void initListener() {
@@ -46,8 +49,14 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     private void treeViewListener() {
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            boolean isLeafNode = newValue != null && newValue.isLeaf();
-            // 使用选择器获取一组按钮,叶子节点才能连接,非叶子节点才能新建分组和新建连接
+            if(newValue==null){
+                newValue=treeView.getRoot();
+            }
+            //叶子节点是连接,这位原子叶子节点
+            boolean isLeafNode = newValue.getValue().isConnection();
+            //是否为根
+            boolean isRoot = newValue.getValue().isRoot();
+            // 使用选择器获取一组按钮,原子叶子节点才能连接,否则是目录才能新建分组和新建连接
             buttonsHBox.lookupAll(".isLeafNode").forEach(node -> {
                 Button button = (Button) node;
                 button.setDisable(!isLeafNode);
@@ -55,6 +64,10 @@ public class ServerConnectionsController extends BaseController<MainController> 
             buttonsHBox.lookupAll(".isNotLeafNode").forEach(node -> {
                 Button button = (Button) node;
                 button.setDisable(isLeafNode);
+            });
+            buttonsHBox.lookupAll(".isNotRoot").forEach(node -> {
+                Button button = (Button) node;
+                button.setDisable(isRoot);
             });
             // 右键菜单显示/隐藏
             ObservableList<MenuItem> items = contextMenu.getItems();
@@ -67,9 +80,14 @@ public class ServerConnectionsController extends BaseController<MainController> 
                 if (menuItem.getStyleClass().contains("isNotLeafNode")) {
                     menuItem.setVisible(!isLeafNode);
                 }
+                if (menuItem.getStyleClass().contains("isNotRoot")) {
+                    menuItem.setVisible(!isRoot);
+                }
             });
             //连接按钮禁用否
             bottomConnectButton.setDisable(!isLeafNode);
+            //设置选中id
+            this.selectedNode=newValue.getValue();
 
         });
     }
@@ -84,6 +102,8 @@ public class ServerConnectionsController extends BaseController<MainController> 
         treeView.setShowRoot(false); // 隐藏根节点
         // Expand all nodes
         expandAllNodes(treeView.getRoot());
+        //默认根节点为选中节点
+        treeView.getSelectionModel().select(treeView.getRoot());
     }
 
     /**
@@ -141,7 +161,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
      * 新增树节点,并选中
      * @param connectionServerNode
      */
-    public void AddConnectionNodeAndSelect(ConnectionServerNode connectionServerNode) {
+    public void AddConnectionOrGourpNodeAndSelect(ConnectionServerNode connectionServerNode) {
         TreeItem<ConnectionServerNode> connectionServerNodeTreeItem = new TreeItem<>(connectionServerNode);
         if(connectionServerNode.getParentDataId().equals(Applications.ROOT_ID)){
             treeView.getRoot().getChildren().add(connectionServerNodeTreeItem);
@@ -158,4 +178,36 @@ public class ServerConnectionsController extends BaseController<MainController> 
     }
 
 
+    /**
+     * 获取被选中节点的id
+     * @return
+     */
+    public String getSelectedDataId() {
+        return this.selectedNode.getDataId();
+    }
+
+    /**
+     * 编辑节点
+     * @param actionEvent
+     */
+    @FXML
+    public void edit(ActionEvent actionEvent) {
+
+    }
+
+    /**
+     * 节点重新命名
+     * @param actionEvent
+     */
+    @FXML
+    public void rename(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 删除节点,如果该节点有子节点将递归删除掉
+     * @param actionEvent
+     */
+    @FXML
+    public void delete(ActionEvent actionEvent) {
+    }
 }

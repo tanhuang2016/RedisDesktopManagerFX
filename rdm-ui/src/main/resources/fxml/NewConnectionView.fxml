@@ -29,7 +29,7 @@
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Name" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="connectionName" promptText="Connection Name" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="name" promptText="Connection Name" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
@@ -54,7 +54,6 @@
                                        <children>
                                           <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="测试连接" HBox.hgrow="ALWAYS" />
                                            <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
-                                           <TextField fx:id="parentDataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" text="-1" />
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

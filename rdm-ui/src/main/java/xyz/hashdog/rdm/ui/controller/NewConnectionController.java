@@ -40,7 +40,7 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
      * 连接名称
      */
     @FXML
-    public TextField connectionName;
+    public TextField name;
     /**
      * 地址/域
      */
@@ -61,11 +61,7 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
      */
     @FXML
     public TextField dataId;
-    /**
-     * 父节点id,默认根节点为-1
-     */
-    @FXML
-    public TextField parentDataId;
+
 
 
     @FXML
@@ -117,22 +113,21 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
      */
     @FXML
     public void ok(ActionEvent actionEvent) {
-        if(GuiUtil.requiredTextField(connectionName,host, port)){
+        if(GuiUtil.requiredTextField(name,host, port)){
             return;
         }
         ConnectionServerNode connectionServerNode =new ConnectionServerNode(ConnectionServerNode.SERVER);
-        connectionServerNode.setName(connectionName.getText());
+        connectionServerNode.setName(name.getText());
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
         connectionServerNode.setAuth(connectionServerNode.getAuth());
-        connectionServerNode.setDataId(DataUtil.getUUID());
-        connectionServerNode.setParentDataId(parentDataId.getText());
-        Message message=Applications.addConnection(connectionServerNode);
+        connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
+        Message message=Applications.addConnectionOrGroup(connectionServerNode);
         if(message.isSuccess()){
             currentStage.close();
         }
         //父窗口树节点新增,切选中新增节点
-        parentController.AddConnectionNodeAndSelect(connectionServerNode);
+        parentController.AddConnectionOrGourpNodeAndSelect(connectionServerNode);
     }
 
     /**

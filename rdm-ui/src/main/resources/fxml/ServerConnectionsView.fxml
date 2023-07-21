@@ -26,9 +26,9 @@
                         <Button mnemonicParsing="false" styleClass="isLeafNode" text="Connect" />
                         <Button mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="NewGroup" />
                         <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="NewConnection" />
-                        <Button mnemonicParsing="false" styleClass="isLeafNode" text="Edit" />
-                        <Button mnemonicParsing="false" onAction="#newConnection" text="Rename" />
-                        <Button mnemonicParsing="false" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="Rename" />
+                        <Button mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="Delete" />
                      </children>
                      <padding>
                         <Insets bottom="2.0" left="2.0" />
@@ -46,9 +46,9 @@
                         <MenuItem mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
                         <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建分组" />
                         <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="新建连接" />
-                        <MenuItem mnemonicParsing="false" text="编辑" />
-                        <MenuItem mnemonicParsing="false" text="重命名" />
-                        <MenuItem mnemonicParsing="false" text="删除" />
+                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="编辑" />
+                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="重命名" />
+                        <MenuItem mnemonicParsing="false" styleClass="isNotRoot" text="删除" />
                     </items>
                   </ContextMenu>
                </contextMenu>

@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.common;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.text.Font;
+import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
@@ -43,12 +44,14 @@ public class Applications {
     }
 
     /**
-     * 新建连接数据的新增
+     * 新建连接/或分组数据的新增
      *
      * @param connectionServerNode
      * @return
      */
-    public static Message addConnection(ConnectionServerNode connectionServerNode) {
+    public static Message addConnectionOrGroup(ConnectionServerNode connectionServerNode) {
+        connectionServerNode.setDataId(DataUtil.getUUID());
+        connectionServerNode.setTimestampSort(System.currentTimeMillis());
         CacheConfigSingleton.CONFIG.getConnectionNodeMap().put(connectionServerNode.getDataId(), connectionServerNode);
         return new Message(true);
     }
@@ -60,6 +63,7 @@ public class Applications {
      */
     public static TreeItem<ConnectionServerNode> initConnectionTreeView() {
         List<ConnectionServerNode> list = new ArrayList<>(CacheConfigSingleton.CONFIG.getConnectionNodeMap().values());
+        list.sort((a,b)->a.getTimestampSort()>b.getTimestampSort()?1:-1);
         TreeItem<ConnectionServerNode> root=new TreeItem<>();
         //得造一个隐形的父节点
         ConnectionServerNode node = new ConnectionServerNode(ConnectionServerNode.GROUP);

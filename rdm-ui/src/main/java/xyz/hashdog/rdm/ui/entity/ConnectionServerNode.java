@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.entity;
 
+import xyz.hashdog.rdm.ui.common.Applications;
+
 /**
  * @Author th
  * @Date 2023/7/20 16:21
@@ -35,8 +37,20 @@ public class ConnectionServerNode {
      * 密码
      */
     private String auth;
+    /**
+     * 时间戳排序
+     */
+    private long timestampSort;
 
     public ConnectionServerNode() {
+    }
+
+    public long getTimestampSort() {
+        return timestampSort;
+    }
+
+    public void setTimestampSort(long timestampSort) {
+        this.timestampSort = timestampSort;
     }
 
     public ConnectionServerNode(int type) {
@@ -97,5 +111,21 @@ public class ConnectionServerNode {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * 是否是连接
+     * @return
+     */
+    public boolean isConnection() {
+        return type==2;
+    }
+
+    /**
+     * 是否是跟
+     * @return
+     */
+    public boolean isRoot() {
+        return dataId.equals(Applications.ROOT_ID) ;
     }
 }
