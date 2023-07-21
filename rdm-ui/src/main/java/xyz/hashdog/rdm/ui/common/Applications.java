@@ -38,6 +38,7 @@ public class Applications {
     public static final String NODE_APP_DATA = "Data";
     public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
+    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));;
 
 
     /**

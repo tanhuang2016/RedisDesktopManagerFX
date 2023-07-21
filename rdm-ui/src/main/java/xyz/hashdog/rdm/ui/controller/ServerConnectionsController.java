@@ -4,9 +4,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.redis.Message;
+import xyz.hashdog.rdm.redis.RedisConfig;
+import xyz.hashdog.rdm.redis.RedisContext;
+import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -54,6 +58,33 @@ public class ServerConnectionsController extends BaseController<MainController> 
     }
 
     private void treeViewListener() {
+        buttonIsShowAndSetSelectNode();
+        doubleClicked();
+
+    }
+
+    /**
+     * treeView双击事件
+     * 如果双击节点为连接,则进行连接redis
+     */
+    private void doubleClicked() {
+        // 添加鼠标点击事件处理器
+        treeView.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                // 获取选中的节点
+                TreeItem<ConnectionServerNode> selectedItem = treeView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null&&selectedItem.getValue().isConnection()) {
+                    connect(null);
+                }
+            }
+        });
+    }
+
+    /**
+     * 监听treeView选中事件,判断需要显示和隐藏的按钮/菜单
+     * 将选中的节点,缓存到类
+     */
+    private void buttonIsShowAndSetSelectNode() {
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 newValue = treeView.getRoot();
@@ -286,7 +317,17 @@ public class ServerConnectionsController extends BaseController<MainController> 
      * @param actionEvent
      */
     public void connect(ActionEvent actionEvent) {
-        this.initTreeViewData();
+        RedisConfig redisConfig = new RedisConfig();
+        redisConfig.setHost(this.selectedNode.getHost());
+        redisConfig.setPort(this.selectedNode.getPort());
+        redisConfig.setAuth(this.selectedNode.getAuth());
+        RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
+        Message message = redisContext.testConnect();
+        if (!message.isSuccess()) {
+            GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+            return;
+        }
+
         this.treeView.refresh();
     }
 }

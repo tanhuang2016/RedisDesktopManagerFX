@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import xyz.hashdog.rdm.ui.common.Applications;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ import java.io.IOException;
  * @Author th
  * @Date 2023/7/20 17:35
  */
-public abstract class BaseController<T> {
+public abstract class BaseController<T>  {
     /**
      * 模式
      */
@@ -82,6 +83,7 @@ public abstract class BaseController<T> {
         return loadSubWindow(title, fxml, parent,NONE);
     }
 
+
     public int getModel() {
         return model;
     }
@@ -92,6 +94,7 @@ public abstract class BaseController<T> {
 
     public void setCurrentStage(Stage currentStage) {
         this.currentStage = currentStage;
+        this.currentStage.getIcons().add(Applications.ICON_REDIS);
     }
 
     public void setParentController(T parentController) {

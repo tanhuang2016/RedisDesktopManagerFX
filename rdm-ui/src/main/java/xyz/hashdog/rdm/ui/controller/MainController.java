@@ -10,9 +10,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+/**
+ * 主控制层
+ */
+public class MainController extends BaseController{
     @FXML
     public AnchorPane root;
+    /**
+     * 服务连接的Stage
+     */
     private Stage serverConnectionsWindowStage;
 
     public void openServerLinkWindo(ActionEvent actionEvent) throws IOException {
@@ -32,15 +38,9 @@ public class MainController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerConnectionsView.fxml"));
             AnchorPane borderPane = fxmlLoader.load();
             ServerConnectionsController controller = fxmlLoader.getController();
-//            controller.setMain(this);
             Scene scene = new Scene(borderPane);
-//            scene.getStylesheets().add(getClass().getResource("/css/MainSearch.css").toExternalForm());
-
-//            scene.setFill(null);
             this.serverConnectionsWindowStage.initOwner(root.getScene().getWindow());
-
             this.serverConnectionsWindowStage.setScene(scene);
-//            this.searchStage.getIcons().add(new Image("/icon/doc.png"));
 //            this.searchStage.initStyle(StageStyle.TRANSPARENT);
             this.serverConnectionsWindowStage.show();
             controller.setParentController(this);

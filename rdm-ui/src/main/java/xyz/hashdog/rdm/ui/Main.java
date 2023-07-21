@@ -2,9 +2,11 @@ package xyz.hashdog.rdm.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.controller.MainController;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -23,9 +25,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("");
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
-        stage.setTitle(RESOURCE_BUNDLE.getString("Title") );
+        stage.setTitle(Applications.NODE_APP_NAME);
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
+//        stage.setTitle(RESOURCE_BUNDLE.getString(""Applications.NODE_APP_NAME"") );
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
+        AnchorPane root = fxmlLoader.load();
+        MainController controller = fxmlLoader.getController();
+        controller.setCurrentStage(stage);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());

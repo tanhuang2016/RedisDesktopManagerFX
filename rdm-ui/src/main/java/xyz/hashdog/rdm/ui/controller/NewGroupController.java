@@ -10,6 +10,7 @@ import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 /**
+ * 新建分组/分组和连接重命名通用控制层
  * @Author th
  * @Date 2023/7/20 23:36
  */
