@@ -78,6 +78,37 @@ public class Applications {
         CacheConfigSingleton.CONFIG.getConnectionNodeMap().put(old.getDataId(), groupNode);
         return new Message(true);
     }
+
+
+    /**
+     * 根据id递归删除
+     * @param tree
+     * @return
+     */
+    public static Message deleteConnectionOrGroup(TreeItem<ConnectionServerNode> tree) {
+        List<String> ids = new ArrayList<>();
+        TUtil.RecursiveTree2List.recursive(ids, tree, new TUtil.RecursiveTree2List<List<String>, TreeItem<ConnectionServerNode>>() {
+            @Override
+            public List<TreeItem<ConnectionServerNode>> subset(TreeItem<ConnectionServerNode> connectionServerNodeTreeItem) {
+                return connectionServerNodeTreeItem.getChildren();
+            }
+
+            @Override
+            public void noSubset(List<String> h, TreeItem<ConnectionServerNode> connectionServerNodeTreeItem) {
+                h.add(connectionServerNodeTreeItem.getValue().getDataId());
+            }
+
+            @Override
+            public List<String> hasSubset(List<String> h, TreeItem<ConnectionServerNode> connectionServerNodeTreeItem) {
+                h.add(connectionServerNodeTreeItem.getValue().getDataId());
+                return h;
+            }
+        });
+        for (String id : ids) {
+            CacheConfigSingleton.CONFIG.getConnectionNodeMap().remove(id);
+        }
+        return new Message(true);
+    }
     /**
      * 初始化连接树
      * 从缓存去的连接集合,进行递归组装成树4

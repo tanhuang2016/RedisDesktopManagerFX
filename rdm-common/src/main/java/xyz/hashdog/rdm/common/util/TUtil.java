@@ -46,7 +46,59 @@ public class TUtil {
 
     /**
      * 递归策略接口
-     * 将list转为true
+     * @param <L>
+     * @param <T>
+     */
+    public static interface RecursiveTree2List<L, T> {
+
+        /**
+         * 递归
+         *
+         * @param h             结果集
+         * @param t             需要递归迭代的目标
+         * @param recursiveDeal
+         * @param <L>
+         * @param <T>
+         */
+        static <L, T> void recursive(L h, T t, RecursiveTree2List<L, T> recursiveDeal) {
+            //获取子集
+            List<T> ts = recursiveDeal.subset(t);
+            if (ts == null || ts.isEmpty()) {
+                recursiveDeal.noSubset(h, t);
+            } else {
+                L newh = recursiveDeal.hasSubset(h, t);
+                for (T t1 : ts) {
+                    recursive(newh, t1, recursiveDeal);
+                }
+            }
+        }
+
+        /**
+         * 获取节点子集
+         * @param t
+         * @return
+         */
+        List<T> subset(T t) ;
+        /**
+         * 没有子集的情况怎么处理
+         * @param h
+         * @param t
+         */
+        void noSubset(L h, T t);
+        /**
+         * 有子集的情况怎么处理
+         * @param h
+         * @param t
+         * @return
+         */
+        L hasSubset(L h, T t);
+    }
+
+
+
+    /**
+     * 递归策略接口
+     * 将list转为tree
      *
      * @param <T>
      * @param <L>
@@ -99,9 +151,6 @@ public class TUtil {
          * @return 过滤后的集合
          */
         List<L> filterList(List<L> list, List<L> subs);
-
-
-
     }
 
 

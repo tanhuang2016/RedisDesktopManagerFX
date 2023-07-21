@@ -7,13 +7,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 
 /**
  * 服务连接控制层
+ *
  * @author th
  */
 public class ServerConnectionsController extends BaseController<MainController> {
@@ -53,8 +56,8 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     private void treeViewListener() {
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue==null){
-                newValue=treeView.getRoot();
+            if (newValue == null) {
+                newValue = treeView.getRoot();
             }
             //叶子节点是连接,这位原子叶子节点
             boolean isLeafNode = newValue.getValue().isConnection();
@@ -91,7 +94,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
             //连接按钮禁用否
             bottomConnectButton.setDisable(!isLeafNode);
             //设置选中id
-            this.selectedNode=newValue.getValue();
+            this.selectedNode = newValue.getValue();
 
         });
     }
@@ -114,7 +117,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
      * 初始化树节点的数据
      */
     private void initTreeViewData() {
-        TreeItem<ConnectionServerNode> rootItem=Applications.initConnectionTreeView();
+        TreeItem<ConnectionServerNode> rootItem = Applications.initConnectionTreeView();
         treeView.setRoot(rootItem);
     }
 
@@ -126,7 +129,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
             @Override
             public TreeCell<ConnectionServerNode> call(TreeView<ConnectionServerNode> param) {
 
-                return new TreeCell<ConnectionServerNode>(){
+                return new TreeCell<ConnectionServerNode>() {
                     @Override
                     protected void updateItem(ConnectionServerNode item, boolean empty) {
                         super.updateItem(item, empty);
@@ -154,22 +157,24 @@ public class ServerConnectionsController extends BaseController<MainController> 
     /**
      * 新建连接
      * 每次打开新窗口,所以Stage不用缓存
+     *
      * @param actionEvent
      */
     @FXML
     public void newConnection(ActionEvent actionEvent) throws IOException {
-        super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow(),ADD);
+        super.loadSubWindow("新建连接", "/fxml/NewConnectionView.fxml", root.getScene().getWindow(), ADD);
     }
 
     /**
      * 新增树节点,并选中
+     *
      * @param connectionServerNode
      */
     public void AddConnectionOrGourpNodeAndSelect(ConnectionServerNode connectionServerNode) {
         TreeItem<ConnectionServerNode> connectionServerNodeTreeItem = new TreeItem<>(connectionServerNode);
-        if(connectionServerNode.getParentDataId().equals(Applications.ROOT_ID)){
+        if (connectionServerNode.getParentDataId().equals(Applications.ROOT_ID)) {
             treeView.getRoot().getChildren().add(connectionServerNodeTreeItem);
-        }else {
+        } else {
             TreeItem<ConnectionServerNode> selectedItem = treeView.getSelectionModel().getSelectedItem();
             selectedItem.getChildren().add(connectionServerNodeTreeItem);
         }
@@ -179,12 +184,13 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     @FXML
     public void newGroup(ActionEvent actionEvent) throws IOException {
-        super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow(),ADD);
+        super.loadSubWindow("新建分组", "/fxml/NewGroupView.fxml", root.getScene().getWindow(), ADD);
     }
 
 
     /**
      * 获取被选中节点的id
+     *
      * @return
      */
     public String getSelectedDataId() {
@@ -193,15 +199,16 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     /**
      * 编辑节点
+     *
      * @param actionEvent
      */
     @FXML
     public void edit(ActionEvent actionEvent) throws IOException {
-        if(this.selectedNode.isConnection()){
-            NewConnectionController controller = super.loadSubWindow("编辑连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow(),UPDATE);
+        if (this.selectedNode.isConnection()) {
+            NewConnectionController controller = super.loadSubWindow("编辑连接", "/fxml/NewConnectionView.fxml", root.getScene().getWindow(), UPDATE);
             controller.editInfo(this.selectedNode);
-        }else {
-            NewGroupController controller = super.loadSubWindow("编辑分组","/fxml/NewGroupView.fxml",root.getScene().getWindow(),UPDATE);
+        } else {
+            NewGroupController controller = super.loadSubWindow("编辑分组", "/fxml/NewGroupView.fxml", root.getScene().getWindow(), UPDATE);
             controller.editInfo(this.selectedNode);
         }
 
@@ -210,26 +217,43 @@ public class ServerConnectionsController extends BaseController<MainController> 
 
     /**
      * 节点重新命名
-     *  该名称不区分连接还是分组
-     *  用分组的视图
+     * 该名称不区分连接还是分组
+     * 用分组的视图
+     *
      * @param actionEvent
      */
     @FXML
     public void rename(ActionEvent actionEvent) throws IOException {
-        NewGroupController controller = super.loadSubWindow("重命名","/fxml/NewGroupView.fxml",root.getScene().getWindow(),BaseController.RENAME);
+        NewGroupController controller = super.loadSubWindow("重命名", "/fxml/NewGroupView.fxml", root.getScene().getWindow(), BaseController.RENAME);
         controller.editInfo(this.selectedNode);
     }
 
     /**
      * 删除节点,如果该节点有子节点将递归删除掉
+     *
      * @param actionEvent
      */
     @FXML
     public void delete(ActionEvent actionEvent) {
+        String message = null;
+        if (this.selectedNode.isConnection()) {
+            message = "确认删除连接?";
+        } else {
+            if (treeView.getSelectionModel().getSelectedItem().getChildren().isEmpty()) {
+                message = "确认删除分组?";
+            } else {
+                message = "确认删除分组及其所有连接?";
+            }
+        }
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, message)) {
+            Message m = Applications.deleteConnectionOrGroup(treeView.getSelectionModel().getSelectedItem());
+            treeView.getSelectionModel().getSelectedItem().getParent().getChildren().remove(treeView.getSelectionModel().getSelectedItem());
+        }
     }
 
     /**
      * 节点名称修改
+     *
      * @param name
      */
     public void updateNodeName(String name) {
@@ -240,6 +264,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
     /**
      * 节点信息更新
      * 主要是针对连接而不是分组
+     *
      * @param connectionServerNode
      */
     public void updateNodeInfo(ConnectionServerNode connectionServerNode) {
