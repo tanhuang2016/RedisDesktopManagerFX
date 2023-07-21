@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public abstract class BaseController<T>  {
     /**
-     * 模式
+     * 模式,默认是NONE
      */
     protected int model;
     protected static final int NONE = 1;
@@ -84,9 +84,7 @@ public abstract class BaseController<T>  {
     }
 
 
-    public int getModel() {
-        return model;
-    }
+
 
     public void setModel(int model) {
         this.model = model;
