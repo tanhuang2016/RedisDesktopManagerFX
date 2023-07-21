@@ -64,6 +64,7 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
 
 
 
+
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -121,13 +122,20 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
         connectionServerNode.setAuth(connectionServerNode.getAuth());
-        connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
-        Message message=Applications.addConnectionOrGroup(connectionServerNode);
+        //id存在则是修改,否则是新增
+        if(DataUtil.isNotBlank(dataId.getText())){
+            connectionServerNode.setDataId(dataId.getText());
+        }else{
+            connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
+            //父窗口树节点新增,切选中新增节点
+            parentController.AddConnectionOrGourpNodeAndSelect(connectionServerNode);
+        }
+        //更新或修改保存
+        Message message=Applications.addOrUpdateConnectionOrGroup(connectionServerNode);
         if(message.isSuccess()){
             currentStage.close();
         }
-        //父窗口树节点新增,切选中新增节点
-        parentController.AddConnectionOrGourpNodeAndSelect(connectionServerNode);
+
     }
 
     /**
@@ -145,5 +153,15 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
     }
 
 
-
+    /**
+     * 填充编辑数据
+     * @param selectedNode
+     */
+    public void editInfo(ConnectionServerNode selectedNode) {
+        name.setText(selectedNode.getName());
+        host.setText(selectedNode.getHost());
+        port.setText(String.valueOf(selectedNode.getPort()));
+        auth.setText(selectedNode.getAuth());
+        dataId.setText(selectedNode.getDataId());
+    }
 }

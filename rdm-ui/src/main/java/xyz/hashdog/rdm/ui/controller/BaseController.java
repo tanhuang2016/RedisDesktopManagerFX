@@ -40,7 +40,7 @@ public abstract class BaseController<T> {
      * @param parent 父窗口
      * @throws IOException
      */
-    public void loadSubWindow(String title, String fxml, Window parent) throws IOException {
+    public <T extends BaseController>T loadSubWindow(String title, String fxml, Window parent) throws IOException {
         Stage newConnctionWindowStage = new Stage();
         newConnctionWindowStage.initModality(Modality.WINDOW_MODAL);
         //去掉最小化和最大化
@@ -50,13 +50,14 @@ public abstract class BaseController<T> {
         newConnctionWindowStage.setTitle(title);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
         AnchorPane borderPane = fxmlLoader.load();
-        BaseController controller = fxmlLoader.getController();
+        T controller = fxmlLoader.getController();
         controller.setParentController(this);
         controller.setCurrentStage(newConnctionWindowStage);
         Scene scene = new Scene(borderPane);
         newConnctionWindowStage.initOwner(parent);
         newConnctionWindowStage.setScene(scene);
         newConnctionWindowStage.show();
+        return controller;
     }
 
     public void setCurrentStage(Stage currentStage) {

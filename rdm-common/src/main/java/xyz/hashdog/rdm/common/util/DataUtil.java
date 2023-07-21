@@ -25,4 +25,12 @@ public class DataUtil {
     public static boolean isBlank(String str) {
         return str==null||str.isEmpty();
     }
+    /**
+     * 判断字符是否不为空
+     * @param str
+     * @return
+     */
+    public static boolean isNotBlank(String str) {
+        return !isBlank(str);
+    }
 }

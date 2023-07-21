@@ -44,14 +44,24 @@ public class Applications {
     }
 
     /**
-     * 新建连接/或分组数据的新增
+     * 连接/或分组数据的新增和修改
      *
      * @param connectionServerNode
      * @return
      */
-    public static Message addConnectionOrGroup(ConnectionServerNode connectionServerNode) {
-        connectionServerNode.setDataId(DataUtil.getUUID());
-        connectionServerNode.setTimestampSort(System.currentTimeMillis());
+    public static Message addOrUpdateConnectionOrGroup(ConnectionServerNode connectionServerNode) {
+        //id存在则修改,否则是新增
+        if(DataUtil.isNotBlank(connectionServerNode.getDataId())){
+            //修改,需要查久数据,补充父id和时间戳
+            ConnectionServerNode old = CacheConfigSingleton.CONFIG.getConnectionNodeMap().get(connectionServerNode.getDataId());
+            connectionServerNode.setParentDataId(old.getParentDataId());
+            connectionServerNode.setTimestampSort(old.getTimestampSort());
+        }else {
+            //新增需要设置id和时间戳字段
+            connectionServerNode.setDataId(DataUtil.getUUID());
+            connectionServerNode.setTimestampSort(System.currentTimeMillis());
+        }
+        //put进缓存,会触发持久化
         CacheConfigSingleton.CONFIG.getConnectionNodeMap().put(connectionServerNode.getDataId(), connectionServerNode);
         return new Message(true);
     }

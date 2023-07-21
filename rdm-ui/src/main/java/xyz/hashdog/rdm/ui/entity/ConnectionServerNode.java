@@ -3,6 +3,8 @@ package xyz.hashdog.rdm.ui.entity;
 import xyz.hashdog.rdm.ui.common.Applications;
 
 /**
+ * 连接实体类,分组和连接共用1个实体
+ * type,dataId,parentDataId,timestampSort这几个字段在编辑是不可修改的
  * @Author th
  * @Date 2023/7/20 16:21
  */

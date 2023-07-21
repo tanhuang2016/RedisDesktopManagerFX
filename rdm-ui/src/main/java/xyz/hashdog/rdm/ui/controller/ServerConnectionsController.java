@@ -12,6 +12,10 @@ import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 
 import java.io.IOException;
 
+/**
+ * 服务连接控制层
+ * @author th
+ */
 public class ServerConnectionsController extends BaseController<MainController> {
     @FXML
     public AnchorPane root;
@@ -191,7 +195,15 @@ public class ServerConnectionsController extends BaseController<MainController> 
      * @param actionEvent
      */
     @FXML
-    public void edit(ActionEvent actionEvent) {
+    public void edit(ActionEvent actionEvent) throws IOException {
+        if(this.selectedNode.isConnection()){
+            NewConnectionController controller = super.loadSubWindow("新建连接","/fxml/NewConnectionView.fxml",root.getScene().getWindow());
+            controller.editInfo(this.selectedNode);
+        }else {
+            NewGroupController controller = super.loadSubWindow("新建分组","/fxml/NewGroupView.fxml",root.getScene().getWindow());
+            controller.editInfo(this.selectedNode);
+        }
+
 
     }
 
@@ -209,5 +221,14 @@ public class ServerConnectionsController extends BaseController<MainController> 
      */
     @FXML
     public void delete(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 节点名称修改
+     * @param name
+     */
+    public void updateNodeName(String name) {
+        this.selectedNode.setName(name);
+        treeView.refresh();
     }
 }
