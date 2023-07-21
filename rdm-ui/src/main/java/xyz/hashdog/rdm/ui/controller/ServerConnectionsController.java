@@ -231,4 +231,17 @@ public class ServerConnectionsController extends BaseController<MainController> 
         this.selectedNode.setName(name);
         treeView.refresh();
     }
+
+    /**
+     * 节点信息更新
+     * 主要是针对连接而不是分组
+     * @param connectionServerNode
+     */
+    public void updateNodeInfo(ConnectionServerNode connectionServerNode) {
+        this.selectedNode.setName(connectionServerNode.getName());
+        this.selectedNode.setHost(connectionServerNode.getHost());
+        this.selectedNode.setPort(connectionServerNode.getPort());
+        this.selectedNode.setAuth(connectionServerNode.getAuth());
+        treeView.refresh();
+    }
 }

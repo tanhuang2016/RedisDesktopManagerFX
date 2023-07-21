@@ -121,10 +121,12 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
         connectionServerNode.setName(name.getText());
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
-        connectionServerNode.setAuth(connectionServerNode.getAuth());
+        connectionServerNode.setAuth(auth.getText());
         //id存在则是修改,否则是新增
         if(DataUtil.isNotBlank(dataId.getText())){
             connectionServerNode.setDataId(dataId.getText());
+            //更新
+            parentController.updateNodeInfo(connectionServerNode);
         }else{
             connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
             //父窗口树节点新增,切选中新增节点
