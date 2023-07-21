@@ -85,11 +85,11 @@ public class Applications {
      */
     public static TreeItem<ConnectionServerNode> initConnectionTreeView() {
         List<ConnectionServerNode> list = new ArrayList<>(CacheConfigSingleton.CONFIG.getConnectionNodeMap().values());
-        for (ConnectionServerNode connectionServerNode : list) {
-            if(connectionServerNode.getParentDataId()==null){
-                connectionServerNode.setParentDataId("-1");
-            }
-        }
+//        for (ConnectionServerNode connectionServerNode : list) {
+//            if(connectionServerNode.getParentDataId()==null){
+//                connectionServerNode.setParentDataId("-1");
+//            }
+//        }
         list.sort((a,b)->a.getTimestampSort()>b.getTimestampSort()?1:-1);
         TreeItem<ConnectionServerNode> root=new TreeItem<>();
         //得造一个隐形的父节点

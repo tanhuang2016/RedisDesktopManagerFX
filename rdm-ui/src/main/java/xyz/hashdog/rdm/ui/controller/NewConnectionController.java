@@ -9,7 +9,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -110,7 +109,6 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
     /**
      * 确定之后将新增的节点持久化
      * 再对父窗口视图进行更新
-     *   todo 需要将改为swich,切顺序
      * @param actionEvent
      */
     @FXML
@@ -123,18 +121,27 @@ public class NewConnectionController extends BaseController<ServerConnectionsCon
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
         connectionServerNode.setAuth(auth.getText());
-        //id存在则是修改,否则是新增
-        if(DataUtil.isNotBlank(dataId.getText())){
-            connectionServerNode.setDataId(dataId.getText());
-            //更新
-            parentController.updateNodeInfo(connectionServerNode);
-        }else{
-            connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
-            //父窗口树节点新增,切选中新增节点
-            parentController.AddConnectionOrGourpNodeAndSelect(connectionServerNode);
+        Message message=null;
+        switch (this.model){
+            case ADD:
+                //父窗口树节点新增,切选中新增节点
+                connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
+                //更新或修改保存
+                message=Applications.addOrUpdateConnectionOrGroup(connectionServerNode);
+                //父窗口树节点新增,切选中新增节点
+                parentController.AddConnectionOrGourpNodeAndSelect(connectionServerNode);
+                break;
+            case UPDATE:
+                connectionServerNode.setDataId(dataId.getText());
+                //更新或修改保存
+                message=Applications.addOrUpdateConnectionOrGroup(connectionServerNode);
+                //更新
+                parentController.updateNodeInfo(connectionServerNode);
+                break;
+            default:
+                break;
+
         }
-        //更新或修改保存
-        Message message=Applications.addOrUpdateConnectionOrGroup(connectionServerNode);
         if(message.isSuccess()){
             currentStage.close();
         }
