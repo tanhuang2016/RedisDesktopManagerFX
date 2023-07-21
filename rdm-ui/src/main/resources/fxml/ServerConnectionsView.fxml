@@ -61,7 +61,7 @@
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
                       <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
-                        <Button mnemonicParsing="false" text="关闭" />
+                        <Button  onAction="#cancel" mnemonicParsing="false" text="关闭" />
                     </buttons>
                   </ButtonBar>
                </children>

@@ -43,6 +43,8 @@ public class MainController {
 //            this.searchStage.getIcons().add(new Image("/icon/doc.png"));
 //            this.searchStage.initStyle(StageStyle.TRANSPARENT);
             this.serverConnectionsWindowStage.show();
+            controller.setParentController(this);
+            controller.setCurrentStage(serverConnectionsWindowStage);
 
 
         }
