@@ -99,7 +99,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setPort(Integer.parseInt(portStr));
         redisConfig.setAuth(authStr);
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-        Message message = redisContext.testConnect();
+        Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
             GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
         } else {

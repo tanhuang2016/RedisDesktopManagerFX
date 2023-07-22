@@ -1,18 +1,21 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
+import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.ui.entity.DBNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class ServerTabController extends BaseController<MainController>{
+public class ServerTabController extends BaseController<MainController> {
 
 
     /**
@@ -20,14 +23,23 @@ public class ServerTabController extends BaseController<MainController>{
      */
     @FXML
     public AnchorPane root;
+    /**
+     * 搜索的内容
+     */
+    @FXML
+    public TextField searchText;
     @FXML
     private TreeView<String> treeView;
     @FXML
-    private ChoiceBox<String> choiceBox;
+    private ChoiceBox<DBNode> choiceBox;
     /**
      * redis上下文,由父类传递绑定
      */
     private RedisContext redisContext;
+    /**
+     * 当前控制层操作的tab所用的redis客户端连接
+     */
+    private RedisClient redisClient;
 
 
     @FXML
@@ -40,22 +52,74 @@ public class ServerTabController extends BaseController<MainController>{
      * 初始化监听时间
      */
     private void initListener() {
-        super.userDataProperty.addListener((observable, oldValue, newValue) -> {
-            this.redisContext=(RedisContext)newValue;
-            initTreeView();
+        userDataPropertyListener();
+
+        choiceBoxSelectedLinstener();
+
+    }
+
+    /**
+     * db选择框监听
+     * db切换后,更新key节点
+     */
+    private void choiceBoxSelectedLinstener() {
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            int db = newValue.getDb();
+            ThreadPool.getInstance().execute(() -> {
+//                Platform
+                this.redisClient.select(db);
+                List<String> keys = this.redisClient.scanAll(searchText.getText());
+                keys.forEach(System.out::println);
+
+            });
+
+//            initTreeView();
+
         });
     }
 
+    /**
+     * 父层传送的数据监听
+     * 监听到进行db选择框的初始化
+     */
+    private void userDataPropertyListener() {
+        super.userDataProperty.addListener((observable, oldValue, newValue) -> {
+            this.redisContext = (RedisContext) newValue;
+            this.redisClient = this.redisContext.newRedisClient();
+            initDBSelects();
+        });
+    }
 
+    /**
+     * 初始化db选择框
+     */
+    private void initDBSelects() {
+        ObservableList<DBNode> items = choiceBox.getItems();
+        ThreadPool.getInstance().execute(() -> {
+            Map<Integer, String> map = this.redisClient.dbSize();
+            Platform.runLater(() -> {
+                for (Map.Entry<Integer, String> en : map.entrySet()) {
+                    items.add(new DBNode(en.getValue(), en.getKey()));
+                }
+                choiceBox.setValue(items.get(0));
+            });
+        });
+
+    }
+
+
+    /**
+     * 初始化数据
+     */
     private void initTreeView() {
+
 
         // 启用多选功能
         treeView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
         //shift 或则ctrol+鼠标单机为选取操作,会触发选中,选择父节点会同步选中子节点
         treeView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) { // Check for single click
-                if(event.isShiftDown()||event.isControlDown()){
-                    System.out.println(222);
+                if (event.isShiftDown() || event.isControlDown()) {
                     List<TreeItem<String>> list = new ArrayList<>();
                     for (TreeItem<String> selectedItem : treeView.getSelectionModel().getSelectedItems()) {
                         if (!selectedItem.isLeaf()) { // Check if the selected node is a parent node
@@ -71,8 +135,6 @@ public class ServerTabController extends BaseController<MainController>{
 
             }
         });
-
-
         TreeItem<String> rootItem = treeView.getRoot();
         rootItem.setValue("");
 
@@ -103,6 +165,9 @@ public class ServerTabController extends BaseController<MainController>{
     }
 
 
+    /**
+     * 自适应宽高
+     */
     private void initAutoWah() {
         // 设置ChoiceBox的宽度自适应
         choiceBox.setMaxWidth(Double.MAX_VALUE);
@@ -111,7 +176,7 @@ public class ServerTabController extends BaseController<MainController>{
 
     // Recursive method to select all children of a parent node
     private void selectChildren(TreeItem<String> parent) {
-        if (parent == null){
+        if (parent == null) {
             return;
         }
         if (!parent.isLeaf()) {

@@ -1,13 +1,11 @@
 package xyz.hashdog.rdm.redis.imp;
 
-import redis.clients.jedis.exceptions.JedisConnectionException;
-import redis.clients.jedis.resps.Tuple;
-import xyz.hashdog.rdm.redis.Message;
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
-import xyz.hashdog.rdm.redis.exceptions.RedisException;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.client.DefaultRedisClientCreator;
 import xyz.hashdog.rdm.redis.imp.client.RedisClientCreator;
+
+import java.io.IOException;
 
 /**
  * @Author th
@@ -22,10 +20,8 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
      * redis客户创建器
      */
     private RedisClientCreator redisClientCreator;
-    /**
-     * redis客户端
-     */
-    private RedisClient redisClient;
+
+
 
 
     public RedisContext(RedisConfig redisConfig) {
@@ -38,11 +34,8 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
      * @return
      */
     @Override
-    public RedisClient getRedisClient() {
-        if(redisClient==null){
-            redisClient=redisClientCreator.create(redisConfig);
-        }
-        return redisClient;
+    public RedisClient newRedisClient() {
+        return redisClientCreator.create(redisConfig);
     }
 
     @Override
@@ -50,18 +43,7 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
         return redisConfig;
     }
 
-    @Override
-    public Message testConnect()  {
-        Message message=new Message();
-        try {
-            getRedisClient().ping();
-            message.setSuccess(true);
-        }catch (JedisConnectionException e) {
-            message.setSuccess(false);
-            message.setMessage(e.getMessage());
-        }
-        return message;
-    }
+
 
     /**
      * 获取创建器,可以进行创建多个客户端实例
@@ -77,5 +59,10 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
      */
     public void setRedisClientCreator(RedisClientCreator redisClientCreator) {
         this.redisClientCreator = redisClientCreator;
+    }
+
+    @Override
+    public void close() throws IOException {
+        redisClientCreator.close();
     }
 }

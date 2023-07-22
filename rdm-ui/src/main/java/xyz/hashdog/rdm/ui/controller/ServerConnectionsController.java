@@ -323,7 +323,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setPort(this.selectedNode.getPort());
             redisConfig.setAuth(this.selectedNode.getAuth());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-            Message message = redisContext.testConnect();
+            Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {
                 GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
                 return;

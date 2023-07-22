@@ -1,7 +1,8 @@
 package xyz.hashdog.rdm.redis;
 
 import xyz.hashdog.rdm.redis.client.RedisClient;
-import xyz.hashdog.rdm.redis.exceptions.RedisException;
+
+import java.io.Closeable;
 
 /**
  * redis上下文,提供了对redis操作及相关信息所有的包装
@@ -9,13 +10,12 @@ import xyz.hashdog.rdm.redis.exceptions.RedisException;
  * @Author th
  * @Date 2023/7/18 10:48
  */
-public interface RedisContext {
+public interface RedisContext extends Closeable {
     /**
      * redis客户端获取,用于操作redis
-     * redis客户端的获取,内部是单例实现,每次都是获取的同一个
      * @return
      */
-    RedisClient getRedisClient();
+    RedisClient newRedisClient();
 
     /**
      * 获取redis的配置
@@ -23,9 +23,5 @@ public interface RedisContext {
      */
     RedisConfig getRedisConfig();
 
-    /**
-     * 测试能否连接
-     * @return
-     */
-    Message testConnect();
+
 }

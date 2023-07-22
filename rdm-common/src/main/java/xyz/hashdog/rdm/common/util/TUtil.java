@@ -217,7 +217,7 @@ public class TUtil {
         try {
             return execCommand.apply(t);
         } finally {
-            callback.accept(t);
+//            callback.accept(t);
         }
     }
 }

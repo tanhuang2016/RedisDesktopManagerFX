@@ -27,20 +27,20 @@
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
                                <ChoiceBox fx:id="choiceBox" prefHeight="23.0" prefWidth="187.0" HBox.hgrow="ALWAYS">
-                                   <items>
-                                       <FXCollections fx:factory="observableArrayList">
-                                           <String fx:value="Option 1" />
-                                           <String fx:value="Option 2" />
-                                           <String fx:value="Option 3" />
-                                       </FXCollections>
-                                   </items>
+<!--                                   <items>-->
+<!--                                       <FXCollections fx:factory="observableArrayList">-->
+<!--                                           <String fx:value="Option 1" />-->
+<!--                                           <String fx:value="Option 2" />-->
+<!--                                           <String fx:value="Option 3" />-->
+<!--                                       </FXCollections>-->
+<!--                                   </items>-->
                                </ChoiceBox>
                               <CheckBox minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" text="分组" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" prefHeight="23.0" prefWidth="237.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField HBox.hgrow="ALWAYS" />
+                              <TextField fx:id="searchText" HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" text="搜索" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
