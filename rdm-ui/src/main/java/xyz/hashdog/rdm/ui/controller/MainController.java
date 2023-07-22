@@ -4,18 +4,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import xyz.hashdog.rdm.redis.RedisContext;
 
 import java.io.IOException;
 
 /**
  * 主控制层
  */
-public class MainController extends BaseController{
+public class MainController extends BaseWindowController {
     @FXML
     public AnchorPane root;
+    /**
+     * tab页容器
+     */
+    @FXML
+    public TabPane serverTabPane;
     /**
      * 服务连接的Stage
      */
@@ -41,7 +49,6 @@ public class MainController extends BaseController{
             Scene scene = new Scene(borderPane);
             this.serverConnectionsWindowStage.initOwner(root.getScene().getWindow());
             this.serverConnectionsWindowStage.setScene(scene);
-//            this.searchStage.initStyle(StageStyle.TRANSPARENT);
             this.serverConnectionsWindowStage.show();
             controller.setParentController(this);
             controller.setCurrentStage(serverConnectionsWindowStage);
@@ -49,5 +56,22 @@ public class MainController extends BaseController{
 
         }
 
+    }
+
+    /**
+     * 创建新的tab页
+     *
+     * @param redisContext redis上下文
+     * @param name 服务名称
+     */
+    public void newRedisTab(RedisContext redisContext, String name) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerTabView.fxml"));
+        AnchorPane borderPane = fxmlLoader.load();
+        ServerTabController controller = fxmlLoader.getController();
+        controller.setParentController(this);
+        controller.setUserDataProperty(redisContext);
+        Tab tab = new Tab(name);
+        tab.setContent(borderPane);
+        this.serverTabPane.getTabs().add(tab);
     }
 }

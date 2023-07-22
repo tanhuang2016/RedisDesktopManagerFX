@@ -14,7 +14,7 @@ import xyz.hashdog.rdm.ui.util.GuiUtil;
  * @Author th
  * @Date 2023/7/20 23:36
  */
-public class NewGroupController extends BaseController<ServerConnectionsController>{
+public class NewGroupController extends BaseWindowController<ServerConnectionsController> {
     /**
      * 根
      */

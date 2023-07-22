@@ -22,7 +22,7 @@ import java.io.IOException;
  *
  * @author th
  */
-public class ServerConnectionsController extends BaseController<MainController> {
+public class ServerConnectionsController extends BaseWindowController<MainController> {
     @FXML
     public AnchorPane root;
     /**
@@ -261,7 +261,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
      */
     @FXML
     public void rename(ActionEvent actionEvent) throws IOException {
-        NewGroupController controller = super.loadSubWindow("重命名", "/fxml/NewGroupView.fxml", root.getScene().getWindow(), BaseController.RENAME);
+        NewGroupController controller = super.loadSubWindow("重命名", "/fxml/NewGroupView.fxml", root.getScene().getWindow(), BaseWindowController.RENAME);
         controller.editInfo(this.selectedNode);
     }
 
@@ -283,7 +283,7 @@ public class ServerConnectionsController extends BaseController<MainController> 
             }
         }
         if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, message)) {
-            Message m = Applications.deleteConnectionOrGroup(treeView.getSelectionModel().getSelectedItem());
+            Applications.deleteConnectionOrGroup(treeView.getSelectionModel().getSelectedItem());
             treeView.getSelectionModel().getSelectedItem().getParent().getChildren().remove(treeView.getSelectionModel().getSelectedItem());
         }
     }
@@ -317,17 +317,23 @@ public class ServerConnectionsController extends BaseController<MainController> 
      * @param actionEvent
      */
     public void connect(ActionEvent actionEvent) {
-        RedisConfig redisConfig = new RedisConfig();
-        redisConfig.setHost(this.selectedNode.getHost());
-        redisConfig.setPort(this.selectedNode.getPort());
-        redisConfig.setAuth(this.selectedNode.getAuth());
-        RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-        Message message = redisContext.testConnect();
-        if (!message.isSuccess()) {
-            GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
-            return;
+        try {
+            RedisConfig redisConfig = new RedisConfig();
+            redisConfig.setHost(this.selectedNode.getHost());
+            redisConfig.setPort(this.selectedNode.getPort());
+            redisConfig.setAuth(this.selectedNode.getAuth());
+            RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
+            Message message = redisContext.testConnect();
+            if (!message.isSuccess()) {
+                GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+                return;
+            }
+            super.currentStage.close();
+            super.parentController.newRedisTab(redisContext,this.selectedNode.getName());
+        }catch (Exception e){
+            log.error("连接错误",e);
+            GuiUtil.alert(Alert.AlertType.ERROR,e.getMessage());
         }
 
-        this.treeView.refresh();
     }
 }

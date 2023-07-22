@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * @Author th
  * @Date 2023/7/19 21:45
  */
-public class NewConnectionController extends BaseController<ServerConnectionsController> implements Initializable {
+public class NewConnectionController extends BaseWindowController<ServerConnectionsController> implements Initializable {
     /**
      * 当前根节点
      */

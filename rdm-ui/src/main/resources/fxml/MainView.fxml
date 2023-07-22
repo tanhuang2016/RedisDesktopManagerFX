@@ -14,9 +14,9 @@
          <center>
              <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                  <children>
-                     <TabPane layoutX="160.0" layoutY="73.0" prefHeight="650.0" prefWidth="1200.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <TabPane fx:id="serverTabPane" layoutX="160.0" layoutY="73.0" prefHeight="650.0" prefWidth="1200.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                          <tabs>
-                             <Tab text="redis1">
+                             <!--<Tab text="redis1">
                                  <content>
                                      <fx:include source="ServerTabView.fxml" />
 
@@ -26,7 +26,7 @@
                                  <content>
                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
-                             </Tab>
+                             </Tab>-->
                          </tabs>
                      </TabPane>
                  </children>

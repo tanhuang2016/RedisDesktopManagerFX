@@ -5,26 +5,47 @@ import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import xyz.hashdog.rdm.redis.RedisContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerTabController {
+public class ServerTabController extends BaseController<MainController>{
 
 
+    /**
+     * 根节点有绑定RedisContext
+     */
+    @FXML
+    public AnchorPane root;
     @FXML
     private TreeView<String> treeView;
     @FXML
     private ChoiceBox<String> choiceBox;
+    /**
+     * redis上下文,由父类传递绑定
+     */
+    private RedisContext redisContext;
 
 
     @FXML
     public void initialize() {
         initAutoWah();
-        initTreeView();
-
+        initListener();
     }
+
+    /**
+     * 初始化监听时间
+     */
+    private void initListener() {
+        super.userDataProperty.addListener((observable, oldValue, newValue) -> {
+            this.redisContext=(RedisContext)newValue;
+            initTreeView();
+        });
+    }
+
 
     private void initTreeView() {
 
@@ -101,4 +122,5 @@ public class ServerTabController {
             }
         }
     }
+
 }

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
+<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
 <children>
     <SplitPane dividerPositions="0.2" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -59,9 +59,9 @@
                <children>
                   <BorderPane layoutX="308.0" layoutY="161.0" prefHeight="648.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                        <TabPane prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
                           <tabs>
-                            <Tab text="控制台">
+                        <!--    <Tab text="控制台">
                               <content>
                                   <fx:include source="ConsoleView.fxml" />
                               </content>
@@ -70,7 +70,7 @@
                               <content>
                                   <fx:include source="StringTabView.fxml" />
                               </content>
-                            </Tab>
+                            </Tab>-->
                           </tabs>
                         </TabPane>
                      </center>
