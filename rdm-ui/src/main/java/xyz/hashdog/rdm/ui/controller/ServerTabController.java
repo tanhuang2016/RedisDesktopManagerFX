@@ -320,6 +320,8 @@ public class ServerTabController extends BaseController<MainController> {
         Tab tab = new Tab(String.format("%s|%s",type,key));
         tab.setContent(borderPane);
         this.dbTabPane.getTabs().add(tab);
+        this.dbTabPane.getSelectionModel().select(tab);
+
     }
 
     /**

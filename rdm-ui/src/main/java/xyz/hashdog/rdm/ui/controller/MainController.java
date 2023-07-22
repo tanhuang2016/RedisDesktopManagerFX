@@ -73,5 +73,6 @@ public class MainController extends BaseWindowController {
         Tab tab = new Tab(name);
         tab.setContent(borderPane);
         this.serverTabPane.getTabs().add(tab);
+        this.serverTabPane.getSelectionModel().select(tab);
     }
 }
