@@ -1,15 +1,18 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.commands.JedisCommands;
 import redis.clients.jedis.exceptions.JedisConnectionException;
+import redis.clients.jedis.exceptions.JedisException;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 
 import java.io.IOException;
@@ -23,13 +26,19 @@ import java.util.function.Function;
  * @Date 2023/7/18 12:59
  */
 public class JedisPoolClient implements RedisClient {
-  
+    protected static Logger log = LoggerFactory.getLogger(JedisPoolClient.class);
+
     
     private Jedis jedis;
     public JedisPoolClient(JedisPool pool) {
         jedis = pool.getResource();
     }
 
+    /**
+     * 这里通过message进行传输异常
+     * 可以优化为统一异常处理,这个方法暂时保留 FIXME
+     * @return
+     */
     @Override
     public Message testConnect()  {
         Message message=new Message();
@@ -45,12 +54,19 @@ public class JedisPoolClient implements RedisClient {
 
     /**
      * 执行命令的封装
+     * 统一命令的异常转换
      * @param execCommand
      * @return
      * @param <R>
      */
     private  <R> R execut( Function<Jedis, R> execCommand) {
-        return TUtil.execut(this.jedis,execCommand,Jedis::close);
+        try {
+            return TUtil.execut(this.jedis,execCommand,Jedis::close);
+
+        }catch (JedisException e){
+            log.info("redis api exception",e);
+            throw new RedisException(e.getMessage());
+        }
     }
 
     @Override
@@ -121,14 +137,12 @@ public class JedisPoolClient implements RedisClient {
 
     @Override
     public String type(String key) {
-        return TUtil.execut(this.jedis,jedis->jedis.type(key),Jedis::close);
+        return execut(jedis->jedis.type(key));
     }
 
     @Override
     public long ttl(String key) {
-        try (Jedis jedis = this.jedis) {
-            return jedis.ttl(key);
-        }
+        return execut(jedis->jedis.ttl(key));
     }
 
     @Override
@@ -138,40 +152,32 @@ public class JedisPoolClient implements RedisClient {
     }
     @Override
     public String info() {
-        try (Jedis jedis = this.jedis) {
-            return jedis.info();
-        }
+        return execut(jedis->jedis.info());
+
     }
     @Override
     public String rename(String oldkey, String newkey) {
-        try (Jedis jedis = this.jedis) {
-            return jedis.rename(oldkey,newkey);
-        }
+        return execut(jedis->jedis.rename(oldkey,newkey));
+
     }
     @Override
     public long expire(String key, long seconds) {
-        try (Jedis jedis = this.jedis) {
-            return jedis.expire(key,seconds);
-        }
+        return execut(jedis->jedis.expire(key,seconds));
+
     }
     @Override
     public boolean exists(String key) {
-        try (Jedis jedis = this.jedis) {
-            return jedis.exists(key);
-        }
+        return execut(jedis->jedis.exists(key));
     }
     @Override
     public long del(String key) {
-        try (Jedis jedis = this.jedis) {
-            return jedis.del(key);
-        }
+        return execut(jedis->jedis.del(key));
+
     }
     @Override
     public long persist(String key) {
-        try (Jedis jedis = this.jedis) {
-            JedisCommands a=jedis;
-            return jedis.persist(key);
-        }
+        return execut(jedis->jedis.persist(key));
+
     }
 
     @Override

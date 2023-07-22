@@ -72,13 +72,10 @@ public class ServerTabController extends BaseController<MainController> {
      * db切换后,更新key节点
      */
     private void choiceBoxSelectedLinstener() {
-        int a=1/0;
-
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             int db = newValue.getDb();
             Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(db), true);
             try {
-
                 if(submit.get()){
                     search(null);
                 }
