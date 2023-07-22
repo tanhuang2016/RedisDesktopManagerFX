@@ -41,6 +41,7 @@ public class StringTabController extends BaseController<ServerTabController> imp
     public void initialize(URL location, ResourceBundle resources) {
         initListener();
     }
+
     /**
      * 初始化监听
      */
@@ -82,27 +83,54 @@ public class StringTabController extends BaseController<ServerTabController> imp
 
     /**
      * key重命名
+     *
      * @param actionEvent
      */
     @FXML
     public void rename(ActionEvent actionEvent) {
-        if(GuiUtil.requiredTextField(this.key)){
+        if (GuiUtil.requiredTextField(this.key)) {
             return;
         }
-        asynexec(()->{
+        asynexec(() -> {
             this.redisClient.rename(currentKey.get(), this.key.getText());
             this.currentKey.set(this.key.getText());
-            Platform.runLater(()->{
-                GuiUtil.alert(Alert.AlertType.INFORMATION,"重命名成功");
+            Platform.runLater(() -> {
+                GuiUtil.alert(Alert.AlertType.INFORMATION, "重命名成功");
             });
         });
 
     }
 
 
-
+    /**
+     * 设置有效期
+     *
+     * @param actionEvent
+     */
     @FXML
     public void editTTL(ActionEvent actionEvent) {
+        if (GuiUtil.requiredTextField(this.ttl)) {
+            return;
+        }
+        int ttl = Integer.parseInt(this.ttl.getText());
+        if (ttl <= -1) {
+            if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "设为负数将永久保存?")) {
+                asynexec(()->{
+                    this.redisClient.persist(this.currentKey.get());
+                    Platform.runLater(()->{
+                        GuiUtil.alert(Alert.AlertType.INFORMATION,"设置成功");
+                    });
+                });
+            }
+            return;
+        }
+
+        asynexec(()->{
+            this.redisClient.expire(this.currentKey.get(),ttl);
+            Platform.runLater(()->{
+                GuiUtil.alert(Alert.AlertType.INFORMATION,"设置成功");
+            });
+        });
     }
 
     @FXML
