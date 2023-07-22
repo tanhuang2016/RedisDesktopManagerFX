@@ -4,18 +4,19 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +36,22 @@ public class ServerTabController extends BaseController<MainController> {
      */
     @FXML
     public TextField searchText;
+
+    /**
+     * 右键菜单
+     */
+    @FXML
+    public ContextMenu contextMenu;
     @FXML
     private TreeView<String> treeView;
     @FXML
     private ChoiceBox<DBNode> choiceBox;
+    /**
+     * tab页容器
+     */
+    @FXML
+    public TabPane dbTabPane;
+
     /**
      * redis上下文,由父类传递绑定
      */
@@ -47,6 +60,10 @@ public class ServerTabController extends BaseController<MainController> {
      * 当前控制层操作的tab所用的redis客户端连接
      */
     private RedisClient redisClient;
+    /**
+     * 最后一个选中节点
+     */
+    private TreeItem<String> lastSelectedNode;
 
 
     @FXML
@@ -61,11 +78,81 @@ public class ServerTabController extends BaseController<MainController> {
     private void initListener() {
         userDataPropertyListener();
         choiceBoxSelectedLinstener();
-        initTreeViewMultiple();
+        initTreeViewRoot();
+        treeViewListener();
+
 
     }
 
 
+    /**
+     * 根节点初始化一个空的
+     */
+    private void initTreeViewRoot() {
+        treeView.setRoot(new TreeItem<>());
+        // 自动展开根节点
+        treeView.setShowRoot(false); // 隐藏根节点
+        //默认根节点为选中节点
+        treeView.getSelectionModel().select(treeView.getRoot());
+    }
+
+    /**
+     * key树的监听
+     */
+    private void treeViewListener() {
+        initTreeViewMultiple();
+        buttonIsShowAndSetSelectNode();
+        doubleClicked();
+    }
+    /**
+     * 监听treeView选中事件,判断需要显示和隐藏的按钮/菜单
+     * 将选中的节点,缓存到类
+     */
+    private void buttonIsShowAndSetSelectNode() {
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                newValue = treeView.getRoot();
+            }
+            //叶子节点是连接
+            boolean isLeafNode = newValue.isLeaf();
+            //是否为根
+            boolean isRoot = newValue.getParent()==null;
+            // 右键菜单显示/隐藏
+            ObservableList<MenuItem> items = contextMenu.getItems();
+            items.forEach(menuItem -> {
+                if (menuItem.getStyleClass().contains("isLeafNode")) {
+                    menuItem.setVisible(isLeafNode);
+                }
+                if (menuItem.getStyleClass().contains("isNotRoot")) {
+                    menuItem.setVisible(!isRoot);
+                }
+            });
+            //设置最后一个选中节点
+            this.lastSelectedNode = newValue;
+
+        });
+    }
+
+    /**
+     * treeView双击事件
+     * 如果双击节点为连接,则打开链接
+     */
+    private void doubleClicked() {
+        // 添加鼠标点击事件处理器
+        treeView.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                // 获取选中的节点
+                TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null&&selectedItem.isLeaf()) {
+                    try {
+                        open(null);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+    }
 
     /**
      * db选择框监听
@@ -139,18 +226,13 @@ public class ServerTabController extends BaseController<MainController> {
                         }
                     }
                     for (TreeItem<String> selectedItem : list) {
-                        // If the selected node is a parent node, select all its children
+                        //设置选中
                         selectChildren((TreeItem<String>) selectedItem);
                     }
                 }
 
             }
         });
-        treeView.setRoot(new TreeItem<>());
-        // 自动展开根节点
-        treeView.setShowRoot(false); // 隐藏根节点
-        //默认根节点为选中节点
-        treeView.getSelectionModel().select(treeView.getRoot());
     }
 
     /**
@@ -179,7 +261,10 @@ public class ServerTabController extends BaseController<MainController> {
         HBox.setHgrow(choiceBox, javafx.scene.layout.Priority.ALWAYS);
     }
 
-    // Recursive method to select all children of a parent node
+    /**
+     * 选中父节点就把子节点全选
+     * @param parent
+     */
     private void selectChildren(TreeItem<String> parent) {
         if (parent == null) {
             return;
@@ -219,7 +304,18 @@ public class ServerTabController extends BaseController<MainController> {
      * 打开key
      * @param actionEvent
      */
-    public void open(ActionEvent actionEvent) {
+    public void open(ActionEvent actionEvent) throws IOException {
+        String key = this.lastSelectedNode.getValue();
+        String type = this.redisClient.type(key);
+        RedisDataTypeEnum te=RedisDataTypeEnum.getByType(type);
+        FXMLLoader fxmlLoader = loadFXML(te.fxml);
+        AnchorPane borderPane = fxmlLoader.load();
+        BaseController controller = fxmlLoader.getController();
+        controller.setParentController(this);
+        controller.setUserDataProperty(key);
+        Tab tab = new Tab(String.format("%s|%s",type,key));
+        tab.setContent(borderPane);
+        this.dbTabPane.getTabs().add(tab);
     }
 
     /**

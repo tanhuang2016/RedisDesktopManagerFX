@@ -57,7 +57,7 @@ public abstract class BaseWindowController<T> extends BaseController<T> {
         //禁用掉最大最小化
         newConnctionWindowStage.setMaximized(false);
         newConnctionWindowStage.setTitle(title);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader fxmlLoader=loadFXML(fxml);
         AnchorPane borderPane = fxmlLoader.load();
         T controller = fxmlLoader.getController();
         controller.setParentController(this);
@@ -69,6 +69,9 @@ public abstract class BaseWindowController<T> extends BaseController<T> {
         controller.setModel(model);
         return controller;
     }
+
+
+
     /**
      * 子窗口模态框
      * 每次都是打开最新的

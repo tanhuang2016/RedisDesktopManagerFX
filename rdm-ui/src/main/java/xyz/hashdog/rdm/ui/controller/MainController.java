@@ -65,7 +65,7 @@ public class MainController extends BaseWindowController {
      * @param name 服务名称
      */
     public void newRedisTab(RedisContext redisContext, String name) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ServerTabView.fxml"));
+        FXMLLoader fxmlLoader = loadFXML("/fxml/ServerTabView.fxml");
         AnchorPane borderPane = fxmlLoader.load();
         ServerTabController controller = fxmlLoader.getController();
         controller.setParentController(this);

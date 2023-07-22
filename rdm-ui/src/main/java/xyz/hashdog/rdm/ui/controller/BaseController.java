@@ -2,8 +2,7 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javafx.fxml.FXMLLoader;
 
 /**
  *
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
  * @Date 2023/7/22 10:43
  */
 public abstract class BaseController<T> {
-    protected static Logger log = LoggerFactory.getLogger(BaseController.class);
     /**
      * 父控制器
      */
@@ -22,11 +20,15 @@ public abstract class BaseController<T> {
      */
     protected ObjectProperty<Object> userDataProperty = new SimpleObjectProperty<>();
 
-    public void setUserDataProperty(Object userDataProperty) {
+    protected FXMLLoader loadFXML(String fxml) {
+        return new FXMLLoader(getClass().getResource(fxml));
+    }
+
+    protected void setUserDataProperty(Object userDataProperty) {
         this.userDataProperty.set(userDataProperty);
     }
 
-    public void setParentController(T parentController) {
+    protected void setParentController(T parentController) {
         this.parentController = parentController;
     }
 

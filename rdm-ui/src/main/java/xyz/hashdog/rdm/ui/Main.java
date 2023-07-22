@@ -6,15 +6,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.controller.MainController;
+import xyz.hashdog.rdm.ui.exceptions.GeneralException;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
+    protected static Logger log = LoggerFactory.getLogger(Main.class);
+
     public static final String BASE_NAME = "i18n.messages";
 
     public static Locale DEFAULT_LOCALE = Locale.getDefault();
@@ -30,7 +35,9 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         // 设置默认的未捕获异常处理器
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            if(throwable instanceof RedisException){
+            throwable.printStackTrace();
+            log.error("",throwable);
+            if(throwable instanceof RedisException||throwable instanceof GeneralException){
                 // 在此处您可以自定义处理异常的逻辑
                 GuiUtil.alert(Alert.AlertType.WARNING,throwable.getLocalizedMessage());
                 return;
