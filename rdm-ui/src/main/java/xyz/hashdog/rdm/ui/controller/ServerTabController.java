@@ -2,8 +2,12 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
@@ -15,6 +19,8 @@ import xyz.hashdog.rdm.ui.entity.DBNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class ServerTabController extends BaseController<MainController> {
 
@@ -66,16 +72,26 @@ public class ServerTabController extends BaseController<MainController> {
      * db切换后,更新key节点
      */
     private void choiceBoxSelectedLinstener() {
+        int a=1/0;
+
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             int db = newValue.getDb();
-            ThreadPool.getInstance().execute(() -> {
-                this.redisClient.select(db);
-                List<String> keys = this.redisClient.scanAll(searchText.getText());
-                Platform.runLater(()->{
-                    //key已经查出来,只管展示
-                    initTreeView(keys);
-                });
-            });
+            Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(db), true);
+            try {
+
+                if(submit.get()){
+                    search(null);
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+
+//            ThreadPool.getInstance().execute(() -> {
+//                this.redisClient.select(db);
+//                search(null);
+//            });
         });
     }
 
@@ -151,16 +167,6 @@ public class ServerTabController extends BaseController<MainController> {
             children.add(new TreeItem<>(key, Applications.creatKeyImageView()));
 
         }
-
-
-
-//        initTreeViewData();
-//        // 自动展开根节点
-//        treeView.setShowRoot(false); // 隐藏根节点
-//        // Expand all nodes
-//        expandAllNodes(treeView.getRoot());
-//        //默认根节点为选中节点
-//        treeView.getSelectionModel().select(treeView.getRoot());
     }
 
 
@@ -190,4 +196,47 @@ public class ServerTabController extends BaseController<MainController> {
         }
     }
 
+    /**
+     * 新增key
+     * @param actionEvent
+     */
+    public void newKey(ActionEvent actionEvent) {
+
+    }
+
+    /**
+     * 模糊搜索
+     * @param actionEvent
+     */
+    public void search(ActionEvent actionEvent) {
+        ThreadPool.getInstance().execute(()->{
+            List<String> keys = this.redisClient.scanAll(searchText.getText());
+            Platform.runLater(()->{
+                //key已经查出来,只管展示
+                initTreeView(keys);
+            });
+        });
+    }
+
+    /**
+     * 打开key
+     * @param actionEvent
+     */
+    public void open(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 删除key
+     * @param actionEvent
+     */
+    public void delete(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 清空
+     * @param actionEvent
+     */
+    public void flush(ActionEvent actionEvent) {
+
+    }
 }

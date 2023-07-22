@@ -11,6 +11,7 @@ import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
+import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -323,8 +324,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             super.currentStage.close();
             super.parentController.newRedisTab(redisContext,this.selectedNode.getName());
         }catch (Exception e){
-            log.error("连接错误",e);
-            GuiUtil.alert(Alert.AlertType.ERROR,e.getMessage());
+            throw new RedisException(e.getMessage());
         }
 
     }
