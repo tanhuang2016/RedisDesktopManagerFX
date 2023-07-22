@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 
 import java.util.ArrayList;
@@ -53,10 +54,12 @@ public class ServerTabController extends BaseController<MainController> {
      */
     private void initListener() {
         userDataPropertyListener();
-
         choiceBoxSelectedLinstener();
+        initTreeViewMultiple();
 
     }
+
+
 
     /**
      * db选择框监听
@@ -66,15 +69,13 @@ public class ServerTabController extends BaseController<MainController> {
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             int db = newValue.getDb();
             ThreadPool.getInstance().execute(() -> {
-//                Platform
                 this.redisClient.select(db);
                 List<String> keys = this.redisClient.scanAll(searchText.getText());
-                keys.forEach(System.out::println);
-
+                Platform.runLater(()->{
+                    //key已经查出来,只管展示
+                    initTreeView(keys);
+                });
             });
-
-//            initTreeView();
-
         });
     }
 
@@ -107,13 +108,10 @@ public class ServerTabController extends BaseController<MainController> {
 
     }
 
-
     /**
-     * 初始化数据
+     * 节点多选设置
      */
-    private void initTreeView() {
-
-
+    private void initTreeViewMultiple() {
         // 启用多选功能
         treeView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
         //shift 或则ctrol+鼠标单机为选取操作,会触发选中,选择父节点会同步选中子节点
@@ -135,34 +133,38 @@ public class ServerTabController extends BaseController<MainController> {
 
             }
         });
-        TreeItem<String> rootItem = treeView.getRoot();
-        rootItem.setValue("");
-
-        // 创建第一个子节点及其后代节点
-        CheckBoxTreeItem<String> item1 = new CheckBoxTreeItem<>("a");
-        item1.getChildren().addAll(
-                new CheckBoxTreeItem<>("a:123"),
-                new CheckBoxTreeItem<>("a:124"),
-                new CheckBoxTreeItem<>("a:125")
-        );
-
-        // 创建第二个子节点及其后代节点
-        CheckBoxTreeItem<String> item2 = new CheckBoxTreeItem<>("b");
-        item2.getChildren().addAll(
-                new CheckBoxTreeItem<>("b:123"),
-                new CheckBoxTreeItem<>("b:124"),
-                new CheckBoxTreeItem<>("b:125")
-        );
-        // 将子节点添加到根节点
-        rootItem.getChildren().addAll(item1, item2);
-
-        // 设置TreeCell的显示方式为CheckBoxTreeCell
-//        treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
-
-
+        treeView.setRoot(new TreeItem<>());
         // 自动展开根节点
         treeView.setShowRoot(false); // 隐藏根节点
+        //默认根节点为选中节点
+        treeView.getSelectionModel().select(treeView.getRoot());
     }
+
+    /**
+     * 数据已经有了,直接更新到视图
+     */
+    private void initTreeView(List<String> keys) {
+
+        ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
+        children.clear();
+        for (String key : keys) {
+            children.add(new TreeItem<>(key, Applications.creatKeyImageView()));
+
+        }
+
+
+
+//        initTreeViewData();
+//        // 自动展开根节点
+//        treeView.setShowRoot(false); // 隐藏根节点
+//        // Expand all nodes
+//        expandAllNodes(treeView.getRoot());
+//        //默认根节点为选中节点
+//        treeView.getSelectionModel().select(treeView.getRoot());
+    }
+
+
+
 
 
     /**

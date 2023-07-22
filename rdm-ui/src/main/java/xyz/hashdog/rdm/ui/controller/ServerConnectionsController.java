@@ -138,7 +138,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         // 自动展开根节点
         treeView.setShowRoot(false); // 隐藏根节点
         // Expand all nodes
-        expandAllNodes(treeView.getRoot());
+        GuiUtil.expandAllNodes(treeView.getRoot());
         //默认根节点为选中节点
         treeView.getSelectionModel().select(treeView.getRoot());
     }
@@ -176,15 +176,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
 //        });
     }
 
-    // Method to expand all nodes in the tree recursively
-    private void expandAllNodes(TreeItem<?> item) {
-        if (item != null && !item.isLeaf()) {
-            item.setExpanded(true);
-            for (TreeItem<?> child : item.getChildren()) {
-                expandAllNodes(child);
-            }
-        }
-    }
+
 
     /**
      * 新建连接

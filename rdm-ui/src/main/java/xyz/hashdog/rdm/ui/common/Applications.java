@@ -38,7 +38,8 @@ public class Applications {
     public static final String NODE_APP_DATA = "Data";
     public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
-    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));;
+    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));
+    private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
 
 
     /**
@@ -189,5 +190,12 @@ public class Applications {
      */
     public static ImageView creatGroupImageView() {
         return GuiUtil.creatImageView(ICON_CONNECTION,16,16);
+    }
+    /**
+     * 创建新的key图标
+     * @return
+     */
+    public static ImageView creatKeyImageView() {
+        return GuiUtil.creatImageView(ICON_KEY,16,16);
     }
 }

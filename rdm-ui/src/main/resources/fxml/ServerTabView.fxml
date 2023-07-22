@@ -32,23 +32,22 @@
 <!--                                       </FXCollections>-->
 <!--                                   </items>-->
                                </ChoiceBox>
-                              <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" text="新增" HBox.hgrow="ALWAYS" />
+                              <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" onAction="#newKey" text="新增" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
                               <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                              <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" text="搜索" HBox.hgrow="ALWAYS" />
+                              <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" onAction="#search" text="搜索" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                          <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                              <contextMenu>
                                  <ContextMenu fx:id="contextMenu" opacity="0.8">
                                      <items>
-                                         <MenuItem mnemonicParsing="false" text="新增" />
-                                         <MenuItem mnemonicParsing="false" styleClass="isLeafNode" text="open" />
-                                         <MenuItem mnemonicParsing="false" styleClass="isNotLeafNode" text="delete" />
-                                         <MenuItem mnemonicParsing="false" text="清空" />
+                                         <MenuItem mnemonicParsing="false" onAction="#open" styleClass="isLeafNode" text="open" />
+                                         <MenuItem mnemonicParsing="false" onAction="#delete"  text="delete" />
+                                         <MenuItem mnemonicParsing="false" onAction="#flush" text="清空" />
                                      </items>
                                  </ContextMenu>
                              </contextMenu>

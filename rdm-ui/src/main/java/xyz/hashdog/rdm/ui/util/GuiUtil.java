@@ -3,6 +3,7 @@ package xyz.hashdog.rdm.ui.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -85,5 +86,19 @@ public class GuiUtil {
         imageView.setFitHeight(h);
         return imageView;
 
+    }
+
+
+    /**
+     * 所有节点展开
+     * @param item
+     */
+    public static void expandAllNodes(TreeItem<?> item) {
+        if (item != null && !item.isLeaf()) {
+            item.setExpanded(true);
+            for (TreeItem<?> child : item.getChildren()) {
+                expandAllNodes(child);
+            }
+        }
     }
 }
