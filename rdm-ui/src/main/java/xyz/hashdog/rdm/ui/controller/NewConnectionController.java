@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
@@ -76,15 +75,10 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 初始化监听
      */
     private void initListener() {
-        filterIntegerInputListener();
+        filterIntegerInputListener(this.port);
     }
 
-    /**
-     * 只让输入整数
-     */
-    private void filterIntegerInputListener() {
-        GuiUtil.filterIntegerInput(port);
-    }
+
 
     @FXML
     public void testConnect(ActionEvent actionEvent) {
@@ -149,19 +143,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
 
     }
 
-    /**
-     * port只能为整数
-     * @param keyEvent
-     */
-    @FXML
-    public void filterIntegerInput(KeyEvent keyEvent) {
-        // 获取用户输入的字符
-        String inputChar = keyEvent.getCharacter();
-        // 如果输入字符不是整数，则阻止其显示在TextField中
-        if (!inputChar.matches("\\d")) {
-            keyEvent.consume();
-        }
-    }
+
 
 
     /**

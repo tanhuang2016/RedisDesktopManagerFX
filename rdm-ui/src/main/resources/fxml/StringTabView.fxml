@@ -12,20 +12,20 @@
 
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<AnchorPane prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.StringTabController">
+<AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.StringTabController">
    <children>
       <VBox layoutX="300.0" layoutY="118.0" prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="String" />
-                  <TextField text="a:10" />
-                  <Button mnemonicParsing="false" text="重命名" />
+                  <TextField fx:id="key" text="a:10" />
+                  <Button mnemonicParsing="false" onAction="#rename" text="重命名" />
                   <Label text="TTL:" />
-                  <TextField text="-1" />
-                  <Button mnemonicParsing="false" text="修改" />
-                  <Button mnemonicParsing="false" text="删除" />
-                  <Button mnemonicParsing="false" text="刷新" />
+                  <TextField fx:id="ttl" text="-1" onKeyTyped="#filterIntegerInput" />
+                  <Button mnemonicParsing="false" onAction="#editTTL" text="修改" />
+                  <Button mnemonicParsing="false" onAction="#delete" text="删除" />
+                  <Button mnemonicParsing="false" onAction="#refresh" text="刷新" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
@@ -40,7 +40,7 @@
                      </items>
                   </ChoiceBox>
                   <Label text="size:2B" />
-                  <Button mnemonicParsing="false" text="复制" />
+                  <Button mnemonicParsing="false" onAction="#copy" text="复制" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -48,12 +48,12 @@
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextArea layoutX="200.0" layoutY="59.0" prefHeight="312.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextArea fx:id="value" layoutX="200.0" layoutY="59.0" prefHeight="312.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" text="保存" />
+                  <Button mnemonicParsing="false" onAction="#save" text="保存" />
                </children>
             </HBox>
          </children>

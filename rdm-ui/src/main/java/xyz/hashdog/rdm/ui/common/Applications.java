@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.common;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -197,5 +199,20 @@ public class Applications {
      */
     public static ImageView creatKeyImageView() {
         return GuiUtil.creatImageView(ICON_KEY,16,16);
+    }
+
+    /**
+     *  创建String绑定对象
+     *  重新toString,是为了展示在ui上
+     * @param key
+     * @return
+     */
+    public static StringProperty creatStringProperty(String key) {
+        return new SimpleStringProperty(key){
+            @Override
+            public String toString() {
+                return get();
+            }
+        };
     }
 }

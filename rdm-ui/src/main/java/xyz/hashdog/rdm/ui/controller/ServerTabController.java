@@ -1,6 +1,8 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,9 +28,7 @@ import java.util.concurrent.Future;
 public class ServerTabController extends BaseController<MainController> {
 
 
-    /**
-     * 根节点有绑定RedisContext
-     */
+
     @FXML
     public AnchorPane root;
     /**
@@ -307,12 +307,16 @@ public class ServerTabController extends BaseController<MainController> {
     public void open(ActionEvent actionEvent) throws IOException {
         String key = this.lastSelectedNode.getValue();
         String type = this.redisClient.type(key);
+        StringProperty keySend = new SimpleStringProperty(key);
+        //操作的kye和子界面进行绑定,这样更新key就会更新树节点
+        this.lastSelectedNode.valueProperty().bind(keySend);
         RedisDataTypeEnum te=RedisDataTypeEnum.getByType(type);
         FXMLLoader fxmlLoader = loadFXML(te.fxml);
         AnchorPane borderPane = fxmlLoader.load();
         BaseController controller = fxmlLoader.getController();
         controller.setParentController(this);
-        controller.setUserDataProperty(key);
+        borderPane.setUserData(keySend);
+        controller.setUserDataProperty(this.redisClient);
         Tab tab = new Tab(String.format("%s|%s",type,key));
         tab.setContent(borderPane);
         this.dbTabPane.getTabs().add(tab);
