@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import xyz.hashdog.rdm.ui.Main;
@@ -26,6 +28,17 @@ public class GuiUtil {
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
     public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));
     private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
+
+    /**
+     * 系统剪贴板
+     * @param copyString 文本
+     */
+    public static void copyString(String copyString) {
+        Clipboard systemClipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(copyString);
+        systemClipboard.setContent(content);
+    }
 
     /**
      * 创建新的连接图标

@@ -188,8 +188,10 @@ public class ServerTabController extends BaseController<MainController> {
             this.redisContext = (RedisContext) newValue;
             this.redisClient = this.redisContext.newRedisClient();
             initDBSelects();
+
         });
     }
+
 
     /**
      * 初始化db选择框
@@ -202,7 +204,8 @@ public class ServerTabController extends BaseController<MainController> {
                 for (Map.Entry<Integer, String> en : map.entrySet()) {
                     items.add(new DBNode(en.getValue(), en.getKey()));
                 }
-                choiceBox.setValue(items.get(0));
+                //默认选中第一个
+                choiceBox.setValue(choiceBox.getItems().get(0));
             });
         });
 
@@ -331,6 +334,28 @@ public class ServerTabController extends BaseController<MainController> {
      * @param actionEvent
      */
     public void delete(ActionEvent actionEvent) {
+        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认删除?" )){
+            return;
+        }
+        List<String> delKeys=new ArrayList<>();
+        // 获取选中的节点
+        List<TreeItem<String>> delItems =new ArrayList<>();
+        treeView.getSelectionModel().getSelectedItems().forEach(item -> {
+            if (item != treeView.getRoot()) {
+                //叶子节点是连接,需要删除redis上的key
+                if(item.isLeaf()){
+                    delKeys.add(item.getValue());
+                }
+                delItems.add(item);
+            }
+        });
+        //得从新用list装一次再遍历删除,否则会有安全问题
+        for (TreeItem<String> delItem : delItems) {
+            delItem.getParent().getChildren().remove(delItem); // 将选中的节点从父节点的子节点列表中移除
+        }
+        asynexec(()->{
+            this.redisClient.del(delKeys.toArray(new String[delKeys.size()]));
+        });
     }
 
     /**
@@ -339,7 +364,12 @@ public class ServerTabController extends BaseController<MainController> {
      * @param actionEvent
      */
     public void flush(ActionEvent actionEvent) {
-
+        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认清空?" )){
+            return;
+        }
+        asynexec(()->{
+            this.redisClient.flushDB();
+        });
     }
 
     /**
@@ -351,7 +381,7 @@ public class ServerTabController extends BaseController<MainController> {
     }
 
     public boolean delKey(String key) {
-        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确定删除?")) {
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?")) {
             asynexec(() -> {
                 redisClient.del(key);
                 Platform.runLater(()->{
@@ -361,6 +391,7 @@ public class ServerTabController extends BaseController<MainController> {
         }
         return true;
     }
+
 
 
 }

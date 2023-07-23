@@ -13,7 +13,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
-                               <ChoiceBox fx:id="choiceBox" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                               <ChoiceBox fx:id="choiceBox"  minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
 <!--                                   <items>-->
 <!--                                       <FXCollections fx:factory="observableArrayList">-->
 <!--                                           <String fx:value="Option 1" />-->
@@ -41,7 +41,7 @@
                                                  <String fx:value="isLeafNode" />
                                                  <String fx:value="isNotRoot" />
                                              </styleClass>
-                                         </MenuItem>>
+                                         </MenuItem>
                                          <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot"  text="delete" />
                                          <MenuItem mnemonicParsing="false" onAction="#flush" text="清空" />
                                      </items>
@@ -55,7 +55,7 @@
                <children>
                   <BorderPane layoutX="308.0" layoutY="161.0" prefHeight="648.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
+                        <TabPane fx:id="dbTabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
                           <tabs>
                         <!--    <Tab text="控制台">
                               <content>

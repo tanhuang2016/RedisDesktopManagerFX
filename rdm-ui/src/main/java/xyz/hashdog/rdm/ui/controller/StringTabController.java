@@ -153,15 +153,28 @@ public class StringTabController extends BaseController<ServerTabController> imp
         this.parentController.closeSelectedDbTab();
     }
 
+    /**
+     * 刷新数据
+     * @param actionEvent
+     */
     @FXML
     public void refresh(ActionEvent actionEvent) {
         initInfo();
     }
 
+    /**
+     * 复制值
+     * @param actionEvent
+     */
     @FXML
     public void copy(ActionEvent actionEvent) {
+        GuiUtil.copyString(value.getText());
     }
 
+    /**
+     * 保存值
+     * @param actionEvent
+     */
     @FXML
     public void save(ActionEvent actionEvent) {
         asynexec(()->{

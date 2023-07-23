@@ -106,7 +106,7 @@ public interface RedisClient extends Closeable {
      * @param key
      * @return
      */
-    long del(String key);
+    long del(String... key);
 
     /**
      * 设置key永不过期

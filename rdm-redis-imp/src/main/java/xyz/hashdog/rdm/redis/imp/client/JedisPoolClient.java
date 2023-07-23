@@ -170,7 +170,7 @@ public class JedisPoolClient implements RedisClient {
         return execut(jedis->jedis.exists(key));
     }
     @Override
-    public long del(String key) {
+    public long del(String... key) {
         return execut(jedis->jedis.del(key));
 
     }
