@@ -359,6 +359,16 @@ public class ServerTabController extends BaseController<MainController> {
             this.redisClient.del(delKeys.toArray(new String[delKeys.size()]));
         });
 
+        //删除对应打开的tab
+        List<Tab> delTabs = new ArrayList<>();
+        for (Tab tab : dbTabPane.getTabs()) {
+            StringProperty userData =(StringProperty) tab.getContent().getUserData();
+            if(delKeys.contains(userData.getValue())){
+                delTabs.add(tab);
+            }
+        }
+        dbTabPane.getTabs().removeAll(delTabs);
+
     }
 
     /**
@@ -372,6 +382,9 @@ public class ServerTabController extends BaseController<MainController> {
         }
         asynexec(()->{
             this.redisClient.flushDB();
+            Platform.runLater(()->{
+                treeView.getRoot().getChildren().clear();
+            });
         });
     }
 
