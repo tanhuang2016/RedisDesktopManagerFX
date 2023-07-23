@@ -329,7 +329,7 @@ public class ServerTabController extends BaseController<MainController> {
     }
 
     /**
-     * 删除key
+     * 删除key,包括多选的
      *
      * @param actionEvent
      */
@@ -349,13 +349,16 @@ public class ServerTabController extends BaseController<MainController> {
                 delItems.add(item);
             }
         });
-        //得从新用list装一次再遍历删除,否则会有安全问题
+        //删除tree节点,得从新用list装一次再遍历删除,否则会有安全问题
         for (TreeItem<String> delItem : delItems) {
             delItem.getParent().getChildren().remove(delItem); // 将选中的节点从父节点的子节点列表中移除
         }
+
+        //删除服务器的key
         asynexec(()->{
             this.redisClient.del(delKeys.toArray(new String[delKeys.size()]));
         });
+
     }
 
     /**
