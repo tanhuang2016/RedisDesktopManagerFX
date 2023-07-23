@@ -22,9 +22,10 @@ public abstract class BaseController<T> {
      */
     public T parentController;
     /**
-     * 用于父向子传递数据
+     * 用于父向子传递对redis操作的api对象
      */
     protected ObjectProperty<Object> userDataProperty = new SimpleObjectProperty<>();
+
     /**
      * port只能为整数
      * @param keyEvent
@@ -64,6 +65,8 @@ public abstract class BaseController<T> {
     protected void setParentController(T parentController) {
         this.parentController = parentController;
     }
+
+
 
 
 

@@ -1,7 +1,7 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,9 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
+import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ServerTabController extends BaseController<MainController> {
+public class ServerTabController extends BaseKeyController<MainController> {
 
 
     @FXML
@@ -55,10 +55,7 @@ public class ServerTabController extends BaseController<MainController> {
      * redis上下文,由父类传递绑定
      */
     private RedisContext redisContext;
-    /**
-     * 当前控制层操作的tab所用的redis客户端连接
-     */
-    private RedisClient redisClient;
+
     /**
      * 最后一个选中节点
      */
@@ -160,8 +157,8 @@ public class ServerTabController extends BaseController<MainController> {
      */
     private void choiceBoxSelectedLinstener() {
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            int db = newValue.getDb();
-            Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(db), true);
+            this.currentDb=newValue.getDb();
+            Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(this.currentDb), true);
             try {
                 if (submit.get()) {
                     search(null);
@@ -295,7 +292,7 @@ public class ServerTabController extends BaseController<MainController> {
      */
     public void search(ActionEvent actionEvent) {
         ThreadPool.getInstance().execute(() -> {
-            List<String> keys = this.redisClient.scanAll(searchText.getText());
+            List<String> keys = exeRedis(j -> j.scanAll(searchText.getText()));
             Platform.runLater(() -> {
                 //key已经查出来,只管展示
                 initTreeView(keys);
@@ -310,19 +307,23 @@ public class ServerTabController extends BaseController<MainController> {
      */
     public void open(ActionEvent actionEvent) throws IOException {
         String key = this.lastSelectedNode.getValue();
-        String type = this.redisClient.type(key);
-        StringProperty keySend = new SimpleStringProperty(key);
-        //操作的kye和子界面进行绑定,这样更新key就会更新树节点
-        this.lastSelectedNode.valueProperty().bind(keySend);
+        String type = exeRedis(j -> j.type(key));
         RedisDataTypeEnum te = RedisDataTypeEnum.getByType(type);
         FXMLLoader fxmlLoader = loadFXML(te.fxml);
         AnchorPane borderPane = fxmlLoader.load();
-        BaseController controller = fxmlLoader.getController();
+        BaseKeyController controller = fxmlLoader.getController();
         controller.setParentController(this);
-        borderPane.setUserData(keySend);
+        PassParameter passParameter = new PassParameter();
+        passParameter.setDb(this.currentDb);
+        passParameter.setKey(key);
+        StringProperty keySend = passParameter.keyProperty();
+        //操作的kye和子界面进行绑定,这样更新key就会更新树节点
+        this.lastSelectedNode.valueProperty().bind(keySend);
+        controller.setParameter(passParameter);
         controller.setUserDataProperty(this.redisClient);
-        Tab tab = new Tab(String.format("%s|%s", type, key));
+        Tab tab = new Tab(String.format("%s|%s|%s", this.currentDb,type, key));
         tab.setContent(borderPane);
+        borderPane.setUserData(passParameter);
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
 
@@ -356,19 +357,30 @@ public class ServerTabController extends BaseController<MainController> {
 
         //删除服务器的key
         asynexec(()->{
-            this.redisClient.del(delKeys.toArray(new String[delKeys.size()]));
+            exeRedis(j -> j.del(delKeys.toArray(new String[delKeys.size()])));
         });
 
         //删除对应打开的tab
+        removeTabByKeys(delKeys);
+
+
+
+    }
+
+    /**
+     * 删除对应key的tab
+     * @param delKeys
+     */
+    public void removeTabByKeys(List<String> delKeys) {
         List<Tab> delTabs = new ArrayList<>();
         for (Tab tab : dbTabPane.getTabs()) {
-            StringProperty userData =(StringProperty) tab.getContent().getUserData();
-            if(delKeys.contains(userData.getValue())){
+            //todo 这里已经没用userData,看是否能通过节点获取对应控制层
+            PassParameter passParameter =(PassParameter) tab.getContent().getUserData();
+            if(delKeys.contains(passParameter.getKey())){
                 delTabs.add(tab);
             }
         }
         dbTabPane.getTabs().removeAll(delTabs);
-
     }
 
     /**
@@ -381,28 +393,25 @@ public class ServerTabController extends BaseController<MainController> {
             return;
         }
         asynexec(()->{
-            this.redisClient.flushDB();
+            exeRedis(j -> j.flushDB());
             Platform.runLater(()->{
                 treeView.getRoot().getChildren().clear();
             });
         });
     }
 
-    /**
-     * 关闭选中tab
-     */
-    public void closeSelectedDbTab() {
-        Tab selectedItem = this.dbTabPane.getSelectionModel().getSelectedItem();
-        this.dbTabPane.getTabs().remove(selectedItem);
-    }
 
-    public boolean delKey(String key) {
-        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?")) {
-            asynexec(() -> {
-                redisClient.del(key);
-                Platform.runLater(()->{
-                    GuiUtil.deleteTreeNodeByKey(treeView.getRoot(),key);
-                });
+
+    /**
+     * 删除单个treeView对应的key,由子层调用
+     * @param p
+     * @return
+     */
+    public boolean delKey(ObjectProperty<PassParameter> p) {
+        //如果treeView是的db和删除key的db相同,则需要对应删除treeView中的节点
+        if(p.get().getDb()==this.currentDb){
+            Platform.runLater(()->{
+                GuiUtil.deleteTreeNodeByKey(treeView.getRoot(),p.get().getKey());
             });
         }
         return true;

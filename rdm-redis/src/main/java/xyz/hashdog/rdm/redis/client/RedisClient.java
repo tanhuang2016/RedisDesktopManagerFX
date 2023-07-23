@@ -198,4 +198,10 @@ public interface RedisClient extends Closeable {
      * @return
      */
     List<String> scanAll(String pattern);
+
+    /**
+     * 返回当前db
+     * @return
+     */
+    int getDb();
 }

@@ -1,7 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,9 +13,10 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class StringTabController extends BaseController<ServerTabController> implements Initializable {
+public class StringTabController extends BaseKeyController<ServerTabController> implements Initializable {
 
     @FXML
     public TextField key;
@@ -28,14 +28,8 @@ public class StringTabController extends BaseController<ServerTabController> imp
      * 根上有绑定userdata,绑定的是key
      */
     public AnchorPane root;
-    /**
-     * 父层传过来的当前key
-     */
-    private StringProperty currentKey;
-    /**
-     * 当前控制层操作的tab所用的redis客户端连接
-     */
-    private RedisClient redisClient;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,7 +51,6 @@ public class StringTabController extends BaseController<ServerTabController> imp
     private void userDataPropertyListener() {
         super.userDataProperty.addListener((observable, oldValue, newValue) -> {
             this.redisClient = (RedisClient) newValue;
-            this.currentKey = (StringProperty) root.getUserData();
             initInfo();
         });
     }
@@ -66,12 +59,12 @@ public class StringTabController extends BaseController<ServerTabController> imp
      * 初始化数据展示
      */
     private void initInfo() {
-        key.setText(this.currentKey.get());
+        key.setText(this.getParameter().getKey());
         ThreadPool.getInstance().execute(() -> {
-            long ttl = this.redisClient.ttl(this.currentKey.get());
+            long ttl = this.exeRedis(j -> j.ttl(this.getParameter().getKey()));
             //todo 根据数据类型,可能是图片,然后是编码变化
-//        this.redisClient.get(this.currentKey.getBytes())
-            String value = this.redisClient.get(this.currentKey.get());
+//        this.exeRedis(j -> j.get(this.currentKey.getBytes())
+            String value = this.exeRedis(j -> j.get(this.getParameter().getKey()));
             Platform.runLater(() -> {
                 this.ttl.setText(String.valueOf(ttl));
                 this.value.setText(value);
@@ -92,8 +85,8 @@ public class StringTabController extends BaseController<ServerTabController> imp
             return;
         }
         asynexec(() -> {
-            this.redisClient.rename(currentKey.get(), this.key.getText());
-            this.currentKey.set(this.key.getText());
+            this.exeRedis(j -> j.rename(this.getParameter().getKey(), this.key.getText()));
+            this.getParameter().setKey(this.key.getText());
             Platform.runLater(() -> {
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "重命名成功");
             });
@@ -116,7 +109,7 @@ public class StringTabController extends BaseController<ServerTabController> imp
         if (ttl <= -1) {
             if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "设为负数将永久保存?")) {
                 asynexec(()->{
-                    this.redisClient.persist(this.currentKey.get());
+                    this.exeRedis(j -> j.persist(this.getParameter().getKey()));
                     Platform.runLater(()->{
                         GuiUtil.alert(Alert.AlertType.INFORMATION,"设置成功");
                     });
@@ -126,7 +119,7 @@ public class StringTabController extends BaseController<ServerTabController> imp
         }
 
         asynexec(()->{
-            this.redisClient.expire(this.currentKey.get(),ttl);
+            this.exeRedis(j -> j.expire(this.getParameter().getKey(),ttl));
             Platform.runLater(()->{
                 GuiUtil.alert(Alert.AlertType.INFORMATION,"设置成功");
             });
@@ -140,18 +133,15 @@ public class StringTabController extends BaseController<ServerTabController> imp
      */
     @FXML
     public void delete(ActionEvent actionEvent) {
-       boolean a= super.parentController.delKey(this.currentKey.get());
-       if(a){
-           closeTab();
-       }
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?")) {
+            exeRedis(j -> j.del(parameter.get().getKey()));
+            if(super.parentController.delKey(parameter)){
+                super.parentController.removeTabByKeys(Arrays.asList(parameter.get().getKey()));
+            }
+        }
     }
 
-    /**
-     * 调用父类关闭当前tab
-     */
-    private void closeTab() {
-        this.parentController.closeSelectedDbTab();
-    }
+
 
     /**
      * 刷新数据
@@ -178,12 +168,13 @@ public class StringTabController extends BaseController<ServerTabController> imp
     @FXML
     public void save(ActionEvent actionEvent) {
         asynexec(()->{
-            redisClient.set(this.currentKey.get(), value.getText());
+            exeRedis(j -> j.set(this.getParameter().getKey(), value.getText()));
             Platform.runLater(()->{
                 GuiUtil.alert(Alert.AlertType.INFORMATION,"保存成功");
             });
         });
     }
+
 
 
 }

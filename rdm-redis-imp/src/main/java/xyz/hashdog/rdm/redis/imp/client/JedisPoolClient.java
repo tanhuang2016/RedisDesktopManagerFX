@@ -34,6 +34,8 @@ public class JedisPoolClient implements RedisClient {
         jedis = pool.getResource();
     }
 
+
+    private int db;
     /**
      * 这里通过message进行传输异常
      * 可以优化为统一异常处理,这个方法暂时保留 FIXME
@@ -50,6 +52,11 @@ public class JedisPoolClient implements RedisClient {
             message.setMessage(e.getMessage());
         }
         return message;
+    }
+
+    @Override
+    public int getDb() {
+        return db;
     }
 
     /**
@@ -105,7 +112,9 @@ public class JedisPoolClient implements RedisClient {
 
     @Override
     public String select(int db) {
-        return execut(jedis->jedis.select(db));
+        String execut = execut(jedis -> jedis.select(db));
+        this.db=db;
+        return execut;
     }
 
     @Override
@@ -129,6 +138,8 @@ public class JedisPoolClient implements RedisClient {
             return keys;
         });
     }
+
+
 
     @Override
     public Set<String> keys(String pattern) {
