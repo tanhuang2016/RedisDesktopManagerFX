@@ -1,21 +1,20 @@
 package xyz.hashdog.rdm.ui.common;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
-import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 虚拟化和反虚拟化操作工具
+ * 封装对数据持久化,及视图数据初始化的相关操作
+ */
 public class Applications {
 
     /**
@@ -38,10 +37,7 @@ public class Applications {
      * 数据节点
      */
     public static final String NODE_APP_DATA = "Data";
-    public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
-    public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
-    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));
-    private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
+
 
 
     /**
@@ -159,9 +155,9 @@ public class Applications {
                 List<TreeItem<ConnectionServerNode>> trees = new ArrayList<>();
                 for (ConnectionServerNode sub : subs) {
                     if(sub.isConnection()){
-                        trees.add(new TreeItem<>(sub, creatGroupImageView()));
+                        trees.add(new TreeItem<>(sub, GuiUtil.creatGroupImageView()));
                     }else {
-                        trees.add(new TreeItem<>(sub,creatConnctionImageView()));
+                        trees.add(new TreeItem<>(sub,GuiUtil.creatConnctionImageView()));
                     }
                 }
                 tree.getChildren().addAll(trees);
@@ -178,41 +174,5 @@ public class Applications {
         return root;
     }
 
-    /**
-     * 创建新的连接图标
-     * @return
-     */
-    public static ImageView creatConnctionImageView() {
-        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
-    }
 
-    /**
-     * 创建新的分组图标
-     * @return
-     */
-    public static ImageView creatGroupImageView() {
-        return GuiUtil.creatImageView(ICON_CONNECTION,16,16);
-    }
-    /**
-     * 创建新的key图标
-     * @return
-     */
-    public static ImageView creatKeyImageView() {
-        return GuiUtil.creatImageView(ICON_KEY,16,16);
-    }
-
-    /**
-     *  创建String绑定对象
-     *  重新toString,是为了展示在ui上
-     * @param key
-     * @return
-     */
-    public static StringProperty creatStringProperty(String key) {
-        return new SimpleStringProperty(key){
-            @Override
-            public String toString() {
-                return get();
-            }
-        };
-    }
 }

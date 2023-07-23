@@ -9,7 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 
@@ -94,7 +94,7 @@ public abstract class BaseWindowController<T> extends BaseController<T> {
 
     public void setCurrentStage(Stage currentStage) {
         this.currentStage = currentStage;
-        this.currentStage.getIcons().add(Applications.ICON_REDIS);
+        this.currentStage.getIcons().add(GuiUtil.ICON_REDIS);
     }
 
 

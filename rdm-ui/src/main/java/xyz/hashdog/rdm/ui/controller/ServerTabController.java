@@ -14,9 +14,9 @@ import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.client.RedisClient;
-import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class ServerTabController extends BaseController<MainController> {
-
 
 
     @FXML
@@ -104,6 +103,7 @@ public class ServerTabController extends BaseController<MainController> {
         buttonIsShowAndSetSelectNode();
         doubleClicked();
     }
+
     /**
      * 监听treeView选中事件,判断需要显示和隐藏的按钮/菜单
      * 将选中的节点,缓存到类
@@ -116,7 +116,7 @@ public class ServerTabController extends BaseController<MainController> {
             //叶子节点是连接
             boolean isLeafNode = newValue.isLeaf();
             //是否为根
-            boolean isRoot = newValue.getParent()==null;
+            boolean isRoot = newValue.getParent() == null;
             // 右键菜单显示/隐藏
             ObservableList<MenuItem> items = contextMenu.getItems();
             items.forEach(menuItem -> {
@@ -143,7 +143,7 @@ public class ServerTabController extends BaseController<MainController> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 // 获取选中的节点
                 TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-                if (selectedItem != null&&selectedItem.isLeaf()) {
+                if (selectedItem != null && selectedItem.isLeaf()) {
                     try {
                         open(null);
                     } catch (IOException e) {
@@ -163,7 +163,7 @@ public class ServerTabController extends BaseController<MainController> {
             int db = newValue.getDb();
             Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(db), true);
             try {
-                if(submit.get()){
+                if (submit.get()) {
                     search(null);
                 }
             } catch (InterruptedException e) {
@@ -243,13 +243,10 @@ public class ServerTabController extends BaseController<MainController> {
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
         for (String key : keys) {
-            children.add(new TreeItem<>(key, Applications.creatKeyImageView()));
+            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
 
         }
     }
-
-
-
 
 
     /**
@@ -263,6 +260,7 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 选中父节点就把子节点全选
+     *
      * @param parent
      */
     private void selectChildren(TreeItem<String> parent) {
@@ -280,6 +278,7 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 新增key
+     *
      * @param actionEvent
      */
     public void newKey(ActionEvent actionEvent) {
@@ -288,12 +287,13 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 模糊搜索
+     *
      * @param actionEvent
      */
     public void search(ActionEvent actionEvent) {
-        ThreadPool.getInstance().execute(()->{
+        ThreadPool.getInstance().execute(() -> {
             List<String> keys = this.redisClient.scanAll(searchText.getText());
-            Platform.runLater(()->{
+            Platform.runLater(() -> {
                 //key已经查出来,只管展示
                 initTreeView(keys);
             });
@@ -302,6 +302,7 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 打开key
+     *
      * @param actionEvent
      */
     public void open(ActionEvent actionEvent) throws IOException {
@@ -310,14 +311,14 @@ public class ServerTabController extends BaseController<MainController> {
         StringProperty keySend = new SimpleStringProperty(key);
         //操作的kye和子界面进行绑定,这样更新key就会更新树节点
         this.lastSelectedNode.valueProperty().bind(keySend);
-        RedisDataTypeEnum te=RedisDataTypeEnum.getByType(type);
+        RedisDataTypeEnum te = RedisDataTypeEnum.getByType(type);
         FXMLLoader fxmlLoader = loadFXML(te.fxml);
         AnchorPane borderPane = fxmlLoader.load();
         BaseController controller = fxmlLoader.getController();
         controller.setParentController(this);
         borderPane.setUserData(keySend);
         controller.setUserDataProperty(this.redisClient);
-        Tab tab = new Tab(String.format("%s|%s",type,key));
+        Tab tab = new Tab(String.format("%s|%s", type, key));
         tab.setContent(borderPane);
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
@@ -326,6 +327,7 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 删除key
+     *
      * @param actionEvent
      */
     public void delete(ActionEvent actionEvent) {
@@ -333,9 +335,32 @@ public class ServerTabController extends BaseController<MainController> {
 
     /**
      * 清空
+     *
      * @param actionEvent
      */
     public void flush(ActionEvent actionEvent) {
 
     }
+
+    /**
+     * 关闭选中tab
+     */
+    public void closeSelectedDbTab() {
+        Tab selectedItem = this.dbTabPane.getSelectionModel().getSelectedItem();
+        this.dbTabPane.getTabs().remove(selectedItem);
+    }
+
+    public boolean delKey(String key) {
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确定删除?")) {
+            asynexec(() -> {
+                redisClient.del(key);
+                Platform.runLater(()->{
+                    GuiUtil.deleteTreeNodeByKey(treeView.getRoot(),key);
+                });
+            });
+        }
+        return true;
+    }
+
+
 }

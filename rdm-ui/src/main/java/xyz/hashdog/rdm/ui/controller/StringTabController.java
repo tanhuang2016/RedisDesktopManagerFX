@@ -133,12 +133,29 @@ public class StringTabController extends BaseController<ServerTabController> imp
         });
     }
 
+    /**
+     * 删除键
+     * 切需要关闭当前tab
+     * @param actionEvent
+     */
     @FXML
     public void delete(ActionEvent actionEvent) {
+       boolean a= super.parentController.delKey(this.currentKey.get());
+       if(a){
+           closeTab();
+       }
+    }
+
+    /**
+     * 调用父类关闭当前tab
+     */
+    private void closeTab() {
+        this.parentController.closeSelectedDbTab();
     }
 
     @FXML
     public void refresh(ActionEvent actionEvent) {
+        initInfo();
     }
 
     @FXML
@@ -147,6 +164,12 @@ public class StringTabController extends BaseController<ServerTabController> imp
 
     @FXML
     public void save(ActionEvent actionEvent) {
+        asynexec(()->{
+            redisClient.set(this.currentKey.get(), value.getText());
+            Platform.runLater(()->{
+                GuiUtil.alert(Alert.AlertType.INFORMATION,"保存成功");
+            });
+        });
     }
 
 
