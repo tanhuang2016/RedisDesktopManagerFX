@@ -233,9 +233,7 @@ public class JedisPoolClient implements RedisClient {
     @Override
     public RedisConsole getRedisConsole() {
         return new RedisConsole(() -> {
-            try (Jedis jedis = this.jedis) {
-                return TUtil.getField(jedis.getConnection(), "socket");
-            }
+            return TUtil.getField(jedis.getConnection(), "socket");
         });
     }
 

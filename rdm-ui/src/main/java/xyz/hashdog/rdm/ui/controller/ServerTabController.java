@@ -316,20 +316,40 @@ public class ServerTabController extends BaseKeyController<MainController> {
         this.lastSelectedNode.valueProperty().bind(keySend);
         controller.setParameter(passParameter);
         Tab tab = new Tab(String.format("%s|%s|%s", this.currentDb,type, key));
-
-
-        if(passParameter.getTabType()==PassParameter.CONSOLE){
-            // 监听Tab被关闭事件,但是remove是无法监听的
-            tab.setOnClosed(event2 -> {
-               ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
-            });
-        }
-
         ContextMenu cm=GuiUtil.newTabContextMenu(tab);
         tab.setContent(borderPane);
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
 
+    }
+
+    /**
+     * 控制台
+     * @param actionEvent
+     */
+    @FXML
+    public void console(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = loadFXML("/fxml/ConsoleView.fxml");
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        ConsoleController controller = fxmlLoader.getController();
+        controller.setParentController(this);
+        PassParameter passParameter = new PassParameter(PassParameter.CONSOLE);
+        passParameter.setDb(this.currentDb);
+        passParameter.setRedisClient(redisContext.newRedisClient());
+        passParameter.setRedisContext(redisContext);
+        controller.setParameter(passParameter);
+        Tab tab = new Tab("console");
+        if(passParameter.getTabType()==PassParameter.CONSOLE){
+            // 监听Tab被关闭事件,但是remove是无法监听的
+            tab.setOnClosed(event2 -> {
+                ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
+            });
+        }
+        ContextMenu cm=GuiUtil.newTabContextMenu(tab);
+        tab.setContent(anchorPane);
+        this.dbTabPane.getTabs().add(tab);
+        this.dbTabPane.getSelectionModel().select(tab);
     }
 
     /**

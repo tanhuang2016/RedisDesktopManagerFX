@@ -64,12 +64,12 @@ public class BaseKeyController<T> extends BaseController<T>{
     }
 
     public void setParameter(PassParameter parameter) {
-        this.parameter.set(parameter);
         this.redisClient=parameter.getRedisClient();
         this.redisContext=parameter.getRedisContext();
         //数据也需要绑定到根布局上
         root.setUserData(this);
         this.currentDb=parameter.getDb();
+        this.parameter.set(parameter);
     }
 
     public RedisClient getRedisClient() {

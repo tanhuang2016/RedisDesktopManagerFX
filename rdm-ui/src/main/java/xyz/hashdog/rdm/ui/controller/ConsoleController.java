@@ -1,15 +1,18 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import xyz.hashdog.rdm.common.pool.ThreadPool;
 
-public class ConsoleController {
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ConsoleController extends BaseKeyController<ServerTabController> implements Initializable {
 
     @FXML
     public TextArea textArea;
@@ -56,9 +59,37 @@ public class ConsoleController {
 
     public void addToTextAreaAction(ActionEvent actionEvent) {
         String inputText = textField.getText();
-        if (!inputText.isEmpty()) {
-            textArea.appendText( "\n"+"docker-localhost:0> "+inputText );
+        if("clear".equalsIgnoreCase(inputText)){
+            textArea.clear();
+            return;
         }
+        if (!inputText.isEmpty()) {
+            textArea.appendText( "\n"+"> "+inputText );
+            textField.clear();
+            ThreadPool.getInstance().execute(()->{
+                List<String> strings = redisClient.getRedisConsole().sendCommand(inputText);
+                Platform.runLater(()->{
+                    for (String string : strings) {
+                        textArea.appendText( "\n"+""+string );
+                    }
+                });
+            });
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        textArea.setPrefRowCount(10);
+
+        // 监听TextArea的textProperty，每当有新内容添加时滚动到底部
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            // 将光标定位到文本末尾，这会自动将滚动条滚动到最下面
+//            textArea.positionCaret(textArea.getText().length());
+//            textArea.setScrollTop(-1d);
+        });
+        super.parameter.addListener((observable, oldValue, newValue) -> {
+            textArea.appendText( "\n"+redisContext.getRedisConfig().getName()+" 连接成功" );
+        });
     }
 }
 

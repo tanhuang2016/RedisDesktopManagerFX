@@ -11,6 +11,10 @@ public class RedisConfig {
      */
     private String host;
     /**
+     * 名称
+     */
+    private String name;
+    /**
      * 端口
      */
     private int port;
@@ -18,6 +22,14 @@ public class RedisConfig {
      * 授权
      */
     private String auth;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getHost() {
         return host;

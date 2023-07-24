@@ -315,6 +315,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setHost(this.selectedNode.getHost());
             redisConfig.setPort(this.selectedNode.getPort());
             redisConfig.setAuth(this.selectedNode.getAuth());
+            redisConfig.setName(this.selectedNode.getName());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {
