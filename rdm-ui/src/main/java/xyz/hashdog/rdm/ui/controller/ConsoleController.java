@@ -62,6 +62,9 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
         super.parameter.addListener((observable, oldValue, newValue) -> {
             label.setText(redisContext.getRedisConfig().getName()+":"+this.currentDb+">");
             textArea.appendText( "\n"+redisContext.getRedisConfig().getName()+" 连接成功" );
+            if(currentDb!=0){
+                ThreadPool.getInstance().execute(()->this.redisClient.select(currentDb));
+            }
         });
     }
 }
