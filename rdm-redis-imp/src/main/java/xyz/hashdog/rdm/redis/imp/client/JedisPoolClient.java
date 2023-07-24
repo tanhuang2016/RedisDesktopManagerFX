@@ -123,6 +123,7 @@ public class JedisPoolClient implements RedisClient {
             List<String> keys = new ArrayList<>();
             // 定义SCAN命令参数，匹配所有键
             ScanParams scanParams = new ScanParams();
+            scanParams.count(5000);
             if(DataUtil.isNotBlank(pattern)){
                 scanParams.match(pattern);
             }

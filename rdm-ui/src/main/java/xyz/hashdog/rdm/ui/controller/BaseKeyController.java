@@ -2,6 +2,8 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 
@@ -28,6 +30,12 @@ public class BaseKeyController<T> extends BaseController<T>{
     protected ObjectProperty<PassParameter> parameter = new SimpleObjectProperty<>();
 
     /**
+     * 根上有绑定userdata,setParameter进行绑定操作
+     */
+    @FXML
+    public Node root;
+
+    /**
      * 执行方法
      * 目前用于统一处理jedis执行命令之后的close操作
      *
@@ -52,6 +60,9 @@ public class BaseKeyController<T> extends BaseController<T>{
 
     public void setParameter(PassParameter parameter) {
         this.parameter.set(parameter);
+        //数据也需要绑定到根布局上
+        root.setUserData(parameter);
+
         this.currentDb=parameter.getDb();
     }
 }

@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -24,10 +23,7 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
     public TextField ttl;
     @FXML
     public TextArea value;
-    /**
-     * 根上有绑定userdata,绑定的是key
-     */
-    public AnchorPane root;
+
 
 
 

@@ -28,8 +28,7 @@ import java.util.concurrent.Future;
 public class ServerTabController extends BaseKeyController<MainController> {
 
 
-    @FXML
-    public AnchorPane root;
+
     /**
      * 搜索的内容
      */
@@ -323,7 +322,6 @@ public class ServerTabController extends BaseKeyController<MainController> {
         controller.setUserDataProperty(this.redisClient);
         Tab tab = new Tab(String.format("%s|%s|%s", this.currentDb,type, key));
         tab.setContent(borderPane);
-        borderPane.setUserData(passParameter);
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
 
