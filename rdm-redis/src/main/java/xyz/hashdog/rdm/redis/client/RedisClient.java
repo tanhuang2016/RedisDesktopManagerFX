@@ -204,4 +204,7 @@ public interface RedisClient extends Closeable {
      * @return
      */
     int getDb();
+
+    @Override
+    void close() ;
 }

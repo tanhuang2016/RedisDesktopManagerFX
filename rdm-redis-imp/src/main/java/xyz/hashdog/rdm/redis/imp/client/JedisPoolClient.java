@@ -15,7 +15,6 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 
@@ -241,7 +240,7 @@ public class JedisPoolClient implements RedisClient {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close()  {
         if(this.jedis!=null){
             this.jedis.close();
         }

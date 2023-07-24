@@ -24,4 +24,6 @@ public interface RedisContext extends Closeable {
     RedisConfig getRedisConfig();
 
 
+    @Override
+    void close();
 }

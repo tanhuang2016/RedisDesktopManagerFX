@@ -62,7 +62,7 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
     }
 
     @Override
-    public void close() throws IOException {
+    public void close()  {
         redisClientCreator.close();
     }
 }

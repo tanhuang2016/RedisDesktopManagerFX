@@ -3,18 +3,20 @@ package xyz.hashdog.rdm.ui.util;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.controller.BaseKeyController;
+import xyz.hashdog.rdm.ui.entity.PassParameter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -209,5 +211,129 @@ public class GuiUtil {
                 deleteTreeNodeByKey(child, key); // 递归查找子节点
             }
         }
+    }
+
+    /**
+     * 创建新的邮件菜单,切添加菜单事件
+     * @param tab
+     * @return
+     */
+    public static ContextMenu newTabContextMenu(Tab tab) {
+        MenuItem close = new MenuItem("关闭");
+        MenuItem closeOther = new MenuItem("关闭其他");
+        MenuItem closeLeft = new MenuItem("关闭左边所有");
+        MenuItem closeRight = new MenuItem("关闭右边所有");
+        MenuItem closeAll = new MenuItem("关闭所有");
+        ContextMenu cm = new ContextMenu(close,closeOther,closeLeft,closeRight,closeAll);
+        tab.setContextMenu(cm);
+        // 关闭当前
+        close.setOnAction(event -> {
+            // 获取触发事件的MenuItem
+            MenuItem clickedMenuItem = (MenuItem) event.getSource();
+            // 获取与MenuItem关联的ContextMenu
+            ContextMenu triggeredMenu = clickedMenuItem.getParentPopup();
+            TabPane tabPane = tab.getTabPane();
+            for (Tab tab1 : tabPane.getTabs()) {
+                if (tab1.getContextMenu() == triggeredMenu) {
+                    //关闭redis连接,移除tab
+                    closeTab(tabPane,tab1);
+                    break;
+                }
+            }
+        });
+
+        // 关闭其他
+        closeOther.setOnAction(event -> {
+            // 获取触发事件的MenuItem
+            MenuItem clickedMenuItem = (MenuItem) event.getSource();
+            // 获取与MenuItem关联的ContextMenu
+            ContextMenu triggeredMenu = clickedMenuItem.getParentPopup();
+            TabPane tabPane = tab.getTabPane();
+            List<Tab> dels  = new ArrayList<>();
+            for (Tab tab1 : tabPane.getTabs()) {
+                if (tab1.getContextMenu() != triggeredMenu) {
+                    dels.add(tab1);
+                }
+            }
+            //关闭redis连接,移除tab
+            closeTab(tabPane,dels);
+        });
+
+        // 关闭左边所有
+        closeLeft.setOnAction(event -> {
+            // 获取触发事件的MenuItem
+            MenuItem clickedMenuItem = (MenuItem) event.getSource();
+            // 获取与MenuItem关联的ContextMenu
+            ContextMenu triggeredMenu = clickedMenuItem.getParentPopup();
+            TabPane tabPane = tab.getTabPane();
+            List<Tab> dels  = new ArrayList<>();
+            for (Tab tab1 : tabPane.getTabs()) {
+                if (tab1.getContextMenu() != triggeredMenu) {
+                    dels.add(tab1);
+                }else{
+                    break;
+                }
+            }
+            //关闭redis连接,移除tab
+            closeTab(tabPane,dels);
+        });
+
+        // 关闭右边所有
+        closeRight.setOnAction(event -> {
+            // 获取触发事件的MenuItem
+            MenuItem clickedMenuItem = (MenuItem) event.getSource();
+            // 获取与MenuItem关联的ContextMenu
+            ContextMenu triggeredMenu = clickedMenuItem.getParentPopup();
+            TabPane tabPane = tab.getTabPane();
+            boolean flg=false;
+            List<Tab> dels  = new ArrayList<>();
+            for (Tab tab1 : tabPane.getTabs()) {
+                if (tab1.getContextMenu() == triggeredMenu) {
+                    flg=true;
+                }else{
+                    if(flg){
+                        dels.add(tab1);
+                    }
+                }
+            }
+            //关闭redis连接,移除tab
+            closeTab(tabPane,dels);
+        });
+        // 关闭所有
+        closeAll.setOnAction(event -> {
+            TabPane tabPane = tab.getTabPane();
+            List<Tab> dels = new ArrayList<>(tabPane.getTabs());
+            //关闭redis连接,移除tab
+            closeTab(tabPane,dels);
+        });
+        return cm;
+    }
+
+    /**
+     * 关闭多个
+     * @param tabPane
+     * @param dels
+     */
+    private static void closeTab(TabPane tabPane, List<Tab> dels) {
+        for (Tab del : dels) {
+            closeTab(tabPane,del);
+        }
+    }
+
+    /**
+     * 关闭redis连接,移除tab
+     * @param tabPane
+     * @param selectedTab
+     */
+    private static void closeTab(TabPane tabPane,Tab selectedTab) {
+        BaseKeyController userData = (BaseKeyController)selectedTab.getContent().getUserData();
+        //CONSOLE类型需要关闭redis连接
+        if(userData.getParameter().getTabType()== PassParameter.CONSOLE){
+            ThreadPool.getInstance().execute(()->userData.getRedisClient().close());
+        }
+        if(userData.getParameter().getTabType()== PassParameter.REDIS){
+            ThreadPool.getInstance().execute(()->userData.getRedisContext().close());
+        }
+        tabPane.getTabs().remove(selectedTab);
     }
 }

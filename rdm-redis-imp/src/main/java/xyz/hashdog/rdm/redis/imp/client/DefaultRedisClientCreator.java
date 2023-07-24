@@ -1,11 +1,9 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
 import redis.clients.jedis.JedisPool;
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
-
-import java.io.IOException;
 
 /**
  * @Author th
@@ -29,7 +27,7 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
     }
 
     @Override
-    public void close() throws IOException {
+    public void close()  {
         if(pool!=null){
             pool.close();
         }

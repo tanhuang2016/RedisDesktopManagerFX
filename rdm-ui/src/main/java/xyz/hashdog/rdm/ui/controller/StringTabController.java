@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -45,8 +44,7 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
      * 监听到key的传递
      */
     private void userDataPropertyListener() {
-        super.userDataProperty.addListener((observable, oldValue, newValue) -> {
-            this.redisClient = (RedisClient) newValue;
+        super.parameter.addListener((observable, oldValue, newValue) -> {
             initInfo();
         });
     }

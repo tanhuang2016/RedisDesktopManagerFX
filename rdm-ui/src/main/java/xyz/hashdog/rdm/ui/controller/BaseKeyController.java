@@ -4,6 +4,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 
@@ -19,6 +20,10 @@ public class BaseKeyController<T> extends BaseController<T>{
      * 此客户端可能是单例,也就是共享的
      */
     protected RedisClient redisClient;
+    /**
+     * redis上下文,由父类传递绑定
+     */
+    protected RedisContext redisContext;
     /**
      * 当前db
      */
@@ -60,9 +65,23 @@ public class BaseKeyController<T> extends BaseController<T>{
 
     public void setParameter(PassParameter parameter) {
         this.parameter.set(parameter);
+        this.redisClient=parameter.getRedisClient();
+        this.redisContext=parameter.getRedisContext();
         //数据也需要绑定到根布局上
-        root.setUserData(parameter);
-
+        root.setUserData(this);
         this.currentDb=parameter.getDb();
+    }
+
+    public RedisClient getRedisClient() {
+        return redisClient;
+    }
+
+    public void setRedisClient(RedisClient redisClient) {
+        this.redisClient = redisClient;
+    }
+
+
+    public RedisContext getRedisContext() {
+        return redisContext;
     }
 }

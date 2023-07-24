@@ -1,7 +1,7 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
+import xyz.hashdog.rdm.redis.client.RedisClient;
 
 import java.io.Closeable;
 
@@ -18,4 +18,7 @@ public interface RedisClientCreator extends Closeable {
      * @return
      */
     RedisClient create(RedisConfig redisConfig);
+
+    @Override
+    void close();
 }

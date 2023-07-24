@@ -4,12 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.RedisContext;
+import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 
@@ -69,10 +73,21 @@ public class MainController extends BaseWindowController {
         AnchorPane borderPane = fxmlLoader.load();
         ServerTabController controller = fxmlLoader.getController();
         controller.setParentController(this);
-        controller.setUserDataProperty(redisContext);
+        PassParameter passParameter = new PassParameter(PassParameter.REDIS);
+        passParameter.setRedisContext(redisContext);
+        passParameter.setRedisClient(redisContext.newRedisClient());
+        controller.setParameter(passParameter);
         Tab tab = new Tab(name);
         tab.setContent(borderPane);
         this.serverTabPane.getTabs().add(tab);
         this.serverTabPane.getSelectionModel().select(tab);
+
+        if(passParameter.getTabType()== PassParameter.REDIS){
+            // 监听Tab被关闭事件,但是remove是无法监听的
+            tab.setOnClosed(event2 -> {
+                ThreadPool.getInstance().execute(()->controller.getRedisContext().close());
+            });
+        }
+        ContextMenu cm= GuiUtil.newTabContextMenu(tab);
     }
 }

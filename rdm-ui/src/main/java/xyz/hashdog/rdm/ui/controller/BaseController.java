@@ -1,7 +1,5 @@
 package xyz.hashdog.rdm.ui.controller;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
@@ -21,10 +19,6 @@ public abstract class BaseController<T> {
      * 父控制器
      */
     public T parentController;
-    /**
-     * 用于父向子传递对redis操作的api对象
-     */
-    protected ObjectProperty<Object> userDataProperty = new SimpleObjectProperty<>();
 
     /**
      * port只能为整数
@@ -58,9 +52,7 @@ public abstract class BaseController<T> {
         return new FXMLLoader(getClass().getResource(fxml));
     }
 
-    protected void setUserDataProperty(Object userDataProperty) {
-        this.userDataProperty.set(userDataProperty);
-    }
+
 
     protected void setParentController(T parentController) {
         this.parentController = parentController;

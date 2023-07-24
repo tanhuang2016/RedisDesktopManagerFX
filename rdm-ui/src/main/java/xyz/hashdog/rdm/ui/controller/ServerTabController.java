@@ -12,7 +12,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
-import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
@@ -50,10 +49,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
     @FXML
     public TabPane dbTabPane;
 
-    /**
-     * redis上下文,由父类传递绑定
-     */
-    private RedisContext redisContext;
+
 
     /**
      * 最后一个选中节点
@@ -180,9 +176,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      * 监听到进行db选择框的初始化
      */
     private void userDataPropertyListener() {
-        super.userDataProperty.addListener((observable, oldValue, newValue) -> {
-            this.redisContext = (RedisContext) newValue;
-            this.redisClient = this.redisContext.newRedisClient();
+        super.parameter.addListener((observable, oldValue, newValue) -> {
             initDBSelects();
 
         });
@@ -312,15 +306,26 @@ public class ServerTabController extends BaseKeyController<MainController> {
         AnchorPane borderPane = fxmlLoader.load();
         BaseKeyController controller = fxmlLoader.getController();
         controller.setParentController(this);
-        PassParameter passParameter = new PassParameter();
+        PassParameter passParameter = new PassParameter(PassParameter.STRING);
         passParameter.setDb(this.currentDb);
         passParameter.setKey(key);
+        passParameter.setRedisClient(redisClient);
+        passParameter.setRedisContext(redisContext);
         StringProperty keySend = passParameter.keyProperty();
         //操作的kye和子界面进行绑定,这样更新key就会更新树节点
         this.lastSelectedNode.valueProperty().bind(keySend);
         controller.setParameter(passParameter);
-        controller.setUserDataProperty(this.redisClient);
         Tab tab = new Tab(String.format("%s|%s|%s", this.currentDb,type, key));
+
+
+        if(passParameter.getTabType()==PassParameter.CONSOLE){
+            // 监听Tab被关闭事件,但是remove是无法监听的
+            tab.setOnClosed(event2 -> {
+               ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
+            });
+        }
+
+        ContextMenu cm=GuiUtil.newTabContextMenu(tab);
         tab.setContent(borderPane);
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
