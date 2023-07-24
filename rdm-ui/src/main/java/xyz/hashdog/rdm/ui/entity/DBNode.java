@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.entity;
 
+import javafx.beans.property.SimpleObjectProperty;
+
 /**
  *
  * 库单选框实体
@@ -10,24 +12,17 @@ public class DBNode {
     /**
      * 名称
      */
-    private String name;
+    private SimpleObjectProperty<String> name;
     /**
      * 库号
      */
     private int db;
 
     public DBNode(String name, int db) {
-        this.name = name;
         this.db = db;
+        this.name = new SimpleObjectProperty<>(name);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getDb() {
         return db;
@@ -37,8 +32,20 @@ public class DBNode {
         this.db = db;
     }
 
+    public String getName() {
+        return name.get();
+    }
+
+    public SimpleObjectProperty<String> nameProperty() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
     @Override
     public String toString() {
-        return name;
+        return name.get();
     }
 }

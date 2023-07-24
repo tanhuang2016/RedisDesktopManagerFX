@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
@@ -151,6 +152,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      * db切换后,更新key节点
      */
     private void choiceBoxSelectedLinstener() {
+
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.currentDb=newValue.getDb();
             Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(this.currentDb), true);
@@ -178,7 +180,6 @@ public class ServerTabController extends BaseKeyController<MainController> {
     private void userDataPropertyListener() {
         super.parameter.addListener((observable, oldValue, newValue) -> {
             initDBSelects();
-
         });
     }
 
@@ -198,6 +199,29 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 choiceBox.setValue(choiceBox.getItems().get(0));
             });
         });
+
+    }
+
+    /**
+     * 重置db数量
+     */
+    private void resetDBSelects(){
+        ObservableList<DBNode> items = choiceBox.getItems();
+        ThreadPool.getInstance().execute(() -> {
+            Map<Integer, String> map = this.redisClient.dbSize();
+            Platform.runLater(() -> {
+                for (Map.Entry<Integer, String> en : map.entrySet()) {
+                    for (DBNode item : items) {
+                        if(item.getDb()==en.getKey()){
+                            item.setName(en.getValue());
+                        }
+                    }
+                }
+
+
+            });
+        });
+
 
     }
 
@@ -441,5 +465,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
     }
 
 
+    /**
+     * db单选框点击则刷新
+     * @param mouseEvent
+     */
+    public void onChoiceBoxMouseClicked(MouseEvent mouseEvent) {
+        resetDBSelects();
+        System.out.println("oool");
 
+    }
 }

@@ -24,7 +24,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
-                               <ChoiceBox fx:id="choiceBox" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                               <ChoiceBox fx:id="choiceBox" onMouseClicked="#onChoiceBoxMouseClicked"  minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
 <!--                                   <items>-->
 <!--                                       <FXCollections fx:factory="observableArrayList">-->
 <!--                                           <String fx:value="Option 1" />-->
