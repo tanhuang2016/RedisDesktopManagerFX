@@ -397,9 +397,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
     public void removeTabByKeys(List<String> delKeys) {
         List<Tab> delTabs = new ArrayList<>();
         for (Tab tab : dbTabPane.getTabs()) {
-            //todo 这里已经没用userData,看是否能通过节点获取对应控制层
-            PassParameter passParameter =(PassParameter) tab.getContent().getUserData();
-            if(delKeys.contains(passParameter.getKey())){
+            BaseKeyController controller =(BaseKeyController) tab.getContent().getUserData();
+            String key = controller.getParameter().getKey();
+            if(delKeys.contains(key)){
                 delTabs.add(tab);
             }
         }
