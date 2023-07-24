@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
@@ -18,6 +19,8 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
     public TextArea textArea;
     @FXML
     public TextField textField;
+    @FXML
+    public Label label;
 
 
     // 绑定属性，使TextArea的高度随内容变化而自动调整
@@ -61,6 +64,7 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
         String inputText = textField.getText();
         if("clear".equalsIgnoreCase(inputText)){
             textArea.clear();
+            textField.clear();
             return;
         }
         if (!inputText.isEmpty()) {
@@ -69,6 +73,10 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
             ThreadPool.getInstance().execute(()->{
                 List<String> strings = redisClient.getRedisConsole().sendCommand(inputText);
                 Platform.runLater(()->{
+                    if(inputText.trim().startsWith("select")&&!strings.isEmpty()&&strings.get(0).equalsIgnoreCase("ok")){
+                        this.currentDb=Integer.parseInt(inputText.replace("select","").trim());
+                        label.setText(redisContext.getRedisConfig().getName()+":"+this.currentDb+">");
+                    }
                     for (String string : strings) {
                         textArea.appendText( "\n"+""+string );
                     }
@@ -88,6 +96,7 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
 //            textArea.setScrollTop(-1d);
         });
         super.parameter.addListener((observable, oldValue, newValue) -> {
+            label.setText(redisContext.getRedisConfig().getName()+":"+this.currentDb+">");
             textArea.appendText( "\n"+redisContext.getRedisConfig().getName()+" 连接成功" );
         });
     }
