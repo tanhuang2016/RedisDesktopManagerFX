@@ -2,14 +2,13 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import org.junit.Before;
 import org.junit.Test;
+import redis.clients.jedis.JedisPool;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
-import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.RedisConfig;
+import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.redis.imp.Constant;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -27,8 +26,8 @@ public class JedisPoolClientTest {
     public void before(){
         RedisConfig redisConfig =new RedisConfig();
         redisConfig.setHost("localhost");
-        redisConfig.setPort(63791);
-        redisClient=new JedisPoolClient(redisConfig);
+        redisConfig.setPort(6379);
+        redisClient=new JedisPoolClient(new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort()));
     }
 
     @Test
@@ -140,11 +139,11 @@ public class JedisPoolClientTest {
     }
     @Test
     public void testgbk (){
-        byte[] get = redisClient.get("image".getBytes(StandardCharsets.UTF_8));
+        byte[] get = redisClient.get("a:b:10".getBytes(StandardCharsets.UTF_8));
         System.out.println("size:"+get.length);
-        String utf8 = new String(get, StandardCharsets.UTF_8);
-        System.out.println(utf8);
         System.out.println(EncodeUtil.isUTF8(get));
+        String fileTypeByStream = FileUtil.getFileTypeByStream(get);
+        System.out.println(fileTypeByStream);
     }
 
 

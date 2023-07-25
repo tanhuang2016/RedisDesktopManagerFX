@@ -4,10 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
-import xyz.hashdog.rdm.redis.client.RedisClient;
-import xyz.hashdog.rdm.redis.client.RedisConsole;
-import xyz.hashdog.rdm.redis.exceptions.RedisException;
-import xyz.hashdog.rdm.redis.imp.client.JedisPoolClient;
 
 /**
  * @Author th
@@ -27,6 +23,6 @@ public class RedisContextTest {
 
     @Test
     public void testConnect() {
-        System.out.println(redisContext.testConnect());
+        System.out.println(redisContext.newRedisClient().testConnect());
     }
 }

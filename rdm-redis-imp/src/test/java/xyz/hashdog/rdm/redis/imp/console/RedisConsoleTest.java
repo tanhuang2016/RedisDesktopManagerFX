@@ -24,7 +24,7 @@ public class RedisConsoleTest {
         redisConfig.setHost("localhost");
         redisConfig.setPort(6379);
         RedisContext redisContext = redisFactory.createRedisContext(redisConfig);
-        RedisClient redisClient=redisContext.getRedisClient();
+        RedisClient redisClient=redisContext.newRedisClient();
         this.redisConsole=redisClient.getRedisConsole();
     }
 
