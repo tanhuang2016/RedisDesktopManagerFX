@@ -53,6 +53,7 @@
                                                  <String fx:value="isNotRoot" />
                                              </styleClass>
                                          </MenuItem>
+                                         <MenuItem mnemonicParsing="false" onAction="#refresh" text="刷新" />
                                          <MenuItem mnemonicParsing="false" onAction="#console" text="控制台" />
                                          <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="delete" />
                                          <MenuItem mnemonicParsing="false" onAction="#flush" text="清空" />

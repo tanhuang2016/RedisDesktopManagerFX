@@ -3,6 +3,7 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -154,10 +155,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
     private void choiceBoxSelectedLinstener() {
 
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue==null){
+                return;
+            }
             this.currentDb=newValue.getDb();
             Future<Boolean> submit = ThreadPool.getInstance().submit(() -> this.redisClient.select(this.currentDb), true);
             try {
-                if (submit.get()) {
+                if (submit.get()!=null) {
                     search(null);
                 }
             } catch (InterruptedException e) {
@@ -165,7 +169,6 @@ public class ServerTabController extends BaseKeyController<MainController> {
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             }
-
 //            ThreadPool.getInstance().execute(() -> {
 //                this.redisClient.select(db);
 //                search(null);
@@ -206,19 +209,18 @@ public class ServerTabController extends BaseKeyController<MainController> {
      * 重置db数量
      */
     private void resetDBSelects(){
-        ObservableList<DBNode> items = choiceBox.getItems();
+
+        DBNode selectedItem = choiceBox.getSelectionModel().getSelectedItem();
+        ObservableList<DBNode> items= FXCollections.observableArrayList();
         ThreadPool.getInstance().execute(() -> {
             Map<Integer, String> map = this.redisClient.dbSize();
             Platform.runLater(() -> {
                 for (Map.Entry<Integer, String> en : map.entrySet()) {
-                    for (DBNode item : items) {
-                        if(item.getDb()==en.getKey()){
-                            item.setName(en.getValue());
-                        }
-                    }
+                    DBNode dbNode = new DBNode(en.getValue(), en.getKey());
+                    items.add(dbNode);
                 }
-
-
+                choiceBox.setItems(items);
+                choiceBox.setValue(items.get(selectedItem.getDb()));
             });
         });
 
@@ -381,6 +383,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      *
      * @param actionEvent
      */
+    @FXML
     public void delete(ActionEvent actionEvent) {
         if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认删除?" )){
             return;
@@ -435,6 +438,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      *
      * @param actionEvent
      */
+    @FXML
     public void flush(ActionEvent actionEvent) {
         if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认清空?" )){
             return;
@@ -467,11 +471,22 @@ public class ServerTabController extends BaseKeyController<MainController> {
 
     /**
      * db单选框点击则刷新
+     * 或则全部重新加进去,然后再选中上次的
+     *  不能通过点击就去刷新db,改为refresh手动刷新了
      * @param mouseEvent
      */
+    @Deprecated
+    @FXML
     public void onChoiceBoxMouseClicked(MouseEvent mouseEvent) {
-        resetDBSelects();
-        System.out.println("oool");
+    }
 
+    /**
+     * 刷新db
+     * 同时会触发db的选择事件,触发search
+     * @param actionEvent
+     */
+    @FXML
+    public void refresh(ActionEvent actionEvent) {
+        resetDBSelects();
     }
 }
