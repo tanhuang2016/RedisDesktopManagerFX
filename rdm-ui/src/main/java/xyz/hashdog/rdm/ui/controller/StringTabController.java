@@ -1,20 +1,25 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.common.service.ValueTypeEnum;
+import xyz.hashdog.rdm.common.util.EncodeUtil;
+import xyz.hashdog.rdm.common.util.FileUtil;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class StringTabController extends BaseKeyController<ServerTabController> implements Initializable {
+
+    protected static final String SIZE="size:%dB";
 
     @FXML
     public TextField key;
@@ -22,13 +27,40 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
     public TextField ttl;
     @FXML
     public TextArea value;
+    @FXML
+    public Label size;
+    @FXML
+    public ChoiceBox typeChoiceBox;
+    /**
+     * 当前value的二进制
+     */
+    private byte[] currentValue;
 
+    private long currentTtl;
 
+    private long currentSize;
+    /**
+     * 当前type
+     */
+    private ValueTypeEnum type;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initTypeChoiceBox();
         initListener();
+
+    }
+
+    /**
+     * 初始化单选框
+     */
+    private void initTypeChoiceBox() {
+        ObservableList items = typeChoiceBox.getItems();
+        items.clear();
+        for (ValueTypeEnum valueTypeEnum : ValueTypeEnum.values()) {
+            items.add(valueTypeEnum.name);
+        }
     }
 
     /**
@@ -37,6 +69,16 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
     private void initListener() {
         userDataPropertyListener();
         filterIntegerInputListener(this.ttl);
+        typeChoiceBoxListener();
+    }
+
+    /**
+     * 类型选择触发事件
+     */
+    private void typeChoiceBoxListener() {
+        typeChoiceBox.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
     }
 
     /**
@@ -50,18 +92,83 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
     }
 
     /**
+     * 重新加载
+     * todo 需要 先把其他key类型的命令写完再做
+     */
+    private void reloadInfo() {
+        ThreadPool.getInstance().execute(() -> {
+            String text=null;
+            loadData();
+
+
+
+//            String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
+//            //不是可识别的文件类型,都默认采用16进制展示
+//            if(fileTypeByStream==null){
+//                boolean isUtf8 = EncodeUtil.isUTF8(bytes);
+//                //是utf8编码或则非特殊字符,直接转utf8字符串
+//                if(isUtf8||!EncodeUtil.containsSpecialCharacters(bytes)){
+//                    text= new String(bytes);
+//                }
+//            }
+//            if(text==null){
+//                text = FileUtil.byte2HexString(bytes);
+//                type=ValueTypeEnum.HEX;
+//            } else {
+//                type = ValueTypeEnum.TEXT;
+//            }
+//            String finalText = text;
+//            Platform.runLater(() -> {
+//                this.ttl.setText(String.valueOf(ttl));
+//                this.value.setText(finalText);
+//                this.size.setText(String.format(SIZE, bytes.length));
+//                this.typeChoiceBox.setValue(type.name);
+//            });
+        });
+
+    }
+
+    /**
+     * 加载数据
+     */
+    private void loadData() {
+        long ttl = this.exeRedis(j -> j.ttl(this.getParameter().getKey()));
+        byte[] bytes = this.exeRedis(j -> j.get(this.getParameter().getKey().getBytes(StandardCharsets.UTF_8)));
+        this.currentValue=bytes;
+        this.currentTtl=ttl;
+        this.currentSize=bytes.length;
+    }
+
+    /**
      * 初始化数据展示
      */
     private void initInfo() {
         key.setText(this.getParameter().getKey());
         ThreadPool.getInstance().execute(() -> {
-            long ttl = this.exeRedis(j -> j.ttl(this.getParameter().getKey()));
-            //todo 根据数据类型,可能是图片,然后是编码变化
-//        this.exeRedis(j -> j.get(this.currentKey.getBytes())
-            String value = this.exeRedis(j -> j.get(this.getParameter().getKey()));
+            ValueTypeEnum type;
+            String text=null;
+            loadData();
+            String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
+            //不是可识别的文件类型,都默认采用16进制展示
+            if(fileTypeByStream==null){
+                boolean isUtf8 = EncodeUtil.isUTF8(currentValue);
+                //是utf8编码或则非特殊字符,直接转utf8字符串
+                if(isUtf8||!EncodeUtil.containsSpecialCharacters(currentValue)){
+                    text= new String(currentValue);
+                }
+            }
+            if(text==null){
+                text = FileUtil.byte2HexString(currentValue);
+                type=ValueTypeEnum.HEX;
+            } else {
+                type = ValueTypeEnum.TEXT;
+            }
+            String finalText = text;
             Platform.runLater(() -> {
-                this.ttl.setText(String.valueOf(ttl));
-                this.value.setText(value);
+                this.ttl.setText(String.valueOf(currentTtl));
+                this.value.setText(finalText);
+                this.size.setText(String.format(SIZE, currentSize));
+                this.typeChoiceBox.setValue(type.name);
             });
         });
 
@@ -143,8 +250,10 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
      */
     @FXML
     public void refresh(ActionEvent actionEvent) {
-        initInfo();
+        reloadInfo();
     }
+
+
 
     /**
      * 复制值

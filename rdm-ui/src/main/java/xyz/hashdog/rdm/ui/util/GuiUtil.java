@@ -225,6 +225,7 @@ public class GuiUtil {
         MenuItem closeRight = new MenuItem("关闭右边所有");
         MenuItem closeAll = new MenuItem("关闭所有");
         ContextMenu cm = new ContextMenu(close,closeOther,closeLeft,closeRight,closeAll);
+//        cm.setOpacity(0.8d);
         tab.setContextMenu(cm);
         // 关闭当前
         close.setOnAction(event -> {

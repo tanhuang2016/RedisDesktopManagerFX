@@ -237,23 +237,39 @@ public class FileUtil {
 
     /**
      * 转16进制
-     * @param b
+     * @param
      * @return
      */
-    public final static String getFileHexString(byte[] b) {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (b == null || b.length <= 0) {
-            return null;
-        }
-        for (int i = 0; i < b.length; i++) {
-            int v = b[i] & 0xFF;
-            String hv = Integer.toHexString(v);
-            if (hv.length() < 2) {
-                stringBuilder.append(0);
-            }
-            stringBuilder.append(hv);
-        }
-        return stringBuilder.toString();
+    public final static String getFileHexString(byte[] byteArray) {
+        return byte2HexString(byteArray);
     }
+
+
+
+    public static String byte2HexString(byte[] bytes) {
+        String hex = "";
+        if (bytes != null) {
+            for (Byte b : bytes) {
+                hex += String.format("%02X", b.intValue() & 0xFF);
+            }
+        }
+        return hex;
+    }
+
+    public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        try {
+            for (int i = 0; i < len; i += 2) {
+                data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                        + Character.digit(s.charAt(i+1), 16));
+            }
+        } catch (Exception e) {
+            // Log.d("", "Argument(s) for hexStringToByteArray(String s)"+ "was not a hex string");
+        }
+        return data;
+    }
+
+
 
 }

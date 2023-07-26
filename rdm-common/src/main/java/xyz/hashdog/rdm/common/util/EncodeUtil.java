@@ -6,6 +6,19 @@ package xyz.hashdog.rdm.common.util;
  */
 public class EncodeUtil {
 
+
+    public static boolean containsSpecialCharacters( byte[] bytes) {
+        // 检查字节数组中是否包含特殊字符的字节
+        for (byte b : bytes) {
+            if ((b & 0x80) != 0) {
+                // 非ASCII字符，可能是特殊字符
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private static int byteToUnsignedInt(byte data) {
         return data & 0xff;
     }

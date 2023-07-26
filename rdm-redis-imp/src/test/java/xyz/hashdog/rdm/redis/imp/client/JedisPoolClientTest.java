@@ -123,8 +123,8 @@ public class JedisPoolClientTest {
 
     @Test
     public void set2 (){
-//        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(Charset.forName("gbk")));
-        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(StandardCharsets.ISO_8859_1));
+        String set = redisClient.set("AAA".getBytes(),"你好".getBytes(Charset.forName("gbk")));
+//        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(StandardCharsets.ISO_8859_1));
         System.out.println(set);
     }
     @Test
