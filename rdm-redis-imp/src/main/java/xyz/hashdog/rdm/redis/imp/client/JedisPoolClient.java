@@ -222,6 +222,72 @@ public class JedisPoolClient implements RedisClient {
         return execut(jedis->jedis.set(key,value));
     }
 
+    @Override
+    public long llen(String list) {
+        return execut(jedis->jedis.llen(list));
+    }
+
+    @Override
+    public List<String> lrange(String list, int start, int stop) {
+        return execut(jedis->jedis.lrange(list,start,stop));
+    }
+
+    @Override
+    public List<byte[]> lrange(byte[] list, int start, int stop) {
+        return execut(jedis->jedis.lrange(list,start,stop));
+    }
+
+
+
+    @Override
+    public String lset(byte[] list, int i, byte[] value) {
+        return execut(jedis->jedis.lset(list,i,value));
+    }
+
+    @Override
+    public String lset(String list, int i, String value) {
+        return execut(jedis->jedis.lset(list,i,value));
+    }
+
+    @Override
+    public long lrem(byte[] list, int i, byte[] value) {
+        return execut(jedis->jedis.lrem(list,i,value));
+    }
+
+    @Override
+    public long lrem(String list, int i, String value) {
+        return execut(jedis->jedis.lrem(list,i,value));
+    }
+
+    @Override
+    public String lpop(String list) {
+        return execut(jedis->jedis.lpop(list));
+    }
+
+    @Override
+    public String rpop(String list) {
+        return execut(jedis->jedis.rpop(list));
+    }
+
+    @Override
+    public long lpush(String list, String value) {
+        return execut(jedis->jedis.lpush(list,value));
+    }
+
+    @Override
+    public long lpush(byte[] list, byte[] value) {
+        return execut(jedis->jedis.lpush(list,value));
+    }
+
+    @Override
+    public long rpush(String list, String value) {
+        return execut(jedis->jedis.rpush(list,value));
+    }
+
+    @Override
+    public long rpush(byte[] list, byte[] value) {
+        return execut(jedis->jedis.rpush(list,value));
+    }
 
     /**
      * 传了一个SocketAcquirer匿名内部类实现

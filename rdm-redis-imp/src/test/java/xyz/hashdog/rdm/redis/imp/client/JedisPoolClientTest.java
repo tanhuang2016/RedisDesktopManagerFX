@@ -12,6 +12,7 @@ import xyz.hashdog.rdm.redis.imp.Constant;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -120,6 +121,86 @@ public class JedisPoolClientTest {
         String get = redisClient.get("AA");
         System.out.println(get);
     }
+
+    @Test
+    public void llen (){
+        long list = redisClient.llen("list");
+        System.out.println(list);
+    }
+    @Test
+    public void lrange (){
+        List<String> lrange = redisClient.lrange("list", 0, 50);
+        System.out.println(lrange);
+    }
+    @Test
+    public void lrange2 (){
+        List<byte[]> lrange = redisClient.lrange("list".getBytes(), 0, 50);
+        System.out.println(lrange);
+    }
+
+    @Test
+    public void lset (){
+        String lset = redisClient.lset("list".getBytes(), 7, "7".getBytes());
+        System.out.println(lset);
+    }
+    @Test
+    public void lset2 (){
+        String lset = redisClient.lset("list", 7, "7");
+        System.out.println(lset);
+    }
+    @Test
+    public void lrem (){
+        long lrem = redisClient.lrem("list".getBytes(), 7, "7".getBytes());
+        System.out.println(lrem);
+    }
+    @Test
+    public void lrem2 (){
+        long lrem = redisClient.lrem("list", 7, "7");
+        System.out.println(lrem);
+    }
+
+    @Test
+    public void lpop (){
+        String list = redisClient.lpop("list");
+        System.out.println(list);
+    }
+    @Test
+    public void rpop (){
+        //删除尾巴
+        String list2 = redisClient.rpop("list");
+        System.out.println(list2);
+    }
+    @Test
+    public void lpush (){
+        long list1 = redisClient.lpush("list", "7");
+        System.out.println(list1);
+    }
+    @Test
+    public void lpush2 (){
+        long list3 = redisClient.lpush("list".getBytes(), "7".getBytes());
+        System.out.println(list3);
+    }
+
+    @Test
+    public void rpush (){
+        long list1 = redisClient.rpush("list", "7");
+        System.out.println(list1);
+    }
+    @Test
+    public void rpush2 (){
+        long list3 = redisClient.rpush("list".getBytes(), "7".getBytes());
+        System.out.println(list3);
+    }
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void set2 (){

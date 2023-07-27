@@ -207,4 +207,116 @@ public interface RedisClient extends Closeable {
 
     @Override
     void close() ;
+
+    /**
+     * 查询list类型元素长度
+     * @param list
+     * @return
+     */
+    long llen(String list);
+
+    /**
+     * list范围查询
+     * @param list list的key
+     * @param start
+     * @param stop
+     * @return
+     */
+    List<String> lrange(String list, int start, int stop);
+
+    /**
+     * list范围查询
+     * @param list list的key
+     * @param start
+     * @param stop
+     * @return
+     */
+    List<byte[]> lrange(byte[] list, int start, int stop);
+
+    /**
+     * 给list指定下标元素设置值
+     * @param list
+     * @param i
+     * @param value
+     * @return
+     */
+    String lset(byte[] list, int i, byte[] value);
+
+    /**
+     * 给list指定下标元素设置值
+     * @param list
+     * @param i
+     * @param value
+     * @return
+     */
+    String lset(String list, int i, String value);
+
+    /**
+     * 删除list元素
+     * @param list
+     * @param i 删除个数
+     * @param value 被删除的值为这个
+     * @return
+     */
+    long lrem(byte[] list, int i, byte[] value);
+
+    /**
+     * 删除list元素
+     * @param list
+     * @param i 删除个数
+     * @param value 被删除的值为这个
+     * @return
+     */
+    long lrem(String list, int i, String value);
+
+    /**
+     * 删除list头元素
+     * @param list
+     * @return
+     */
+    String lpop(String list);
+
+    /**
+     * 删除list尾元素
+     * @param list
+     * @return
+     */
+    String rpop(String list);
+
+    /**
+     * list头元素添加
+     * @param list
+     * @param value
+     * @return
+     */
+    long lpush(String list, String value);
+
+    /**
+     * list头元素添加
+     * @param list
+     * @param value
+     * @return
+     */
+    long lpush(byte[] list, byte[] value);
+
+
+
+
+    /**
+     * list尾元素添加
+     * @param list
+     * @param value
+     * @return
+     */
+    long rpush(String list, String value);
+
+    /**
+     * list尾元素添加
+     * @param list
+     * @param value
+     * @return
+     */
+    long rpush(byte[] list, byte[] value);
+
+
 }
