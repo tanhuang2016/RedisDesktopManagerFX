@@ -30,6 +30,7 @@ public class GuiUtil {
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
     public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis.png"));
     private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
+    private static final Image ICON_CONSOLE =new Image(Main.class.getResourceAsStream("/icon/console.png"));
 
     /**
      * 系统剪贴板
@@ -47,7 +48,7 @@ public class GuiUtil {
      * @return
      */
     public static ImageView creatConnctionImageView() {
-        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
+        return GuiUtil.creatImageView(ICON_CONNECTION ,16,16);
     }
 
     /**
@@ -55,7 +56,7 @@ public class GuiUtil {
      * @return
      */
     public static ImageView creatGroupImageView() {
-        return GuiUtil.creatImageView(ICON_CONNECTION,16,16);
+        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
     }
     /**
      * 创建新的key图标
@@ -63,6 +64,13 @@ public class GuiUtil {
      */
     public static ImageView creatKeyImageView() {
         return GuiUtil.creatImageView(ICON_KEY,16,16);
+    }
+    /**
+     * 创建新的控制台图标
+     * @return
+     */
+    public static ImageView creatConsoleImageView() {
+        return GuiUtil.creatImageView(ICON_CONSOLE,16,16);
     }
 
     /**

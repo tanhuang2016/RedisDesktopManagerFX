@@ -344,6 +344,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         Tab tab = new Tab(String.format("%s|%s|%s", this.currentDb,type, key));
         ContextMenu cm=GuiUtil.newTabContextMenu(tab);
         tab.setContent(borderPane);
+        tab.setGraphic(GuiUtil.creatKeyImageView());
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
 
@@ -374,6 +375,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         }
         ContextMenu cm=GuiUtil.newTabContextMenu(tab);
         tab.setContent(anchorPane);
+        tab.setGraphic(GuiUtil.creatConsoleImageView());
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
     }

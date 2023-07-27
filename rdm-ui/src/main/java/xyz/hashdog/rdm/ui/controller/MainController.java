@@ -81,6 +81,7 @@ public class MainController extends BaseWindowController {
         tab.setContent(borderPane);
         this.serverTabPane.getTabs().add(tab);
         this.serverTabPane.getSelectionModel().select(tab);
+        tab.setGraphic(GuiUtil.creatConnctionImageView());
 
         if(passParameter.getTabType()== PassParameter.REDIS){
             // 监听Tab被关闭事件,但是remove是无法监听的
