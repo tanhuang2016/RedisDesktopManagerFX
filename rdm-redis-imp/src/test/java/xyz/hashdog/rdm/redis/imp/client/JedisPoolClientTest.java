@@ -254,6 +254,15 @@ public class JedisPoolClientTest {
         System.out.println(redisClient.sadd("set".getBytes(),"aa12".getBytes()));
     }
 
+    @Test
+    public void sscanAll (){
+        System.out.println(redisClient.sscanAll("set"));
+    }
+    @Test
+    public void sscanAll2 (){
+        System.out.println(redisClient.sscanAll("set".getBytes()));
+    }
+
 
 
 

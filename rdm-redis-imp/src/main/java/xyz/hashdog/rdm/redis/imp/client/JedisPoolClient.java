@@ -185,6 +185,45 @@ public class JedisPoolClient implements RedisClient {
         });
     }
 
+    @Override
+    public List<String> sscanAll(String key) {
+        return execut(jedis -> {
+            List<String> ress = new ArrayList<>();
+            // 定义SSCAN命令参数，匹配所有键
+            ScanParams scanParams = new ScanParams();
+            scanParams.count(5000);
+            // 开始SCAN迭代
+            String cursor = "0";
+            do {
+                ScanResult<String> scanResult = jedis.sscan(key,cursor, scanParams);
+                for (String res : scanResult.getResult()) {
+                    ress.add(res);
+                }
+                cursor = scanResult.getCursor();
+            } while (!cursor.equals("0"));
+            return ress;
+        });
+    }
+
+    @Override
+    public List<byte[]> sscanAll(byte[] key) {
+        return execut(jedis -> {
+            List<byte[]> ress = new ArrayList<>();
+            // 定义SSCAN命令参数，匹配所有键
+            ScanParams scanParams = new ScanParams();
+            scanParams.count(5000);
+            // 开始SCAN迭代
+            String cursor = "0";
+            do {
+                ScanResult<byte[]> scanResult = jedis.sscan(key,cursor.getBytes(), scanParams);
+                for (byte[] res : scanResult.getResult()) {
+                    ress.add(res);
+                }
+                cursor = scanResult.getCursor();
+            } while (!cursor.equals("0"));
+            return ress;
+        });
+    }
 
 
     @Override

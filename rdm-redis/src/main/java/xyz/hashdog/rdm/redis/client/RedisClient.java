@@ -426,4 +426,19 @@ public interface RedisClient extends Closeable {
      * @return
      */
     long sadd(byte[] key,byte[] value);
+
+
+    /**
+     * 查询set所有元素
+     * @param key
+     * @return
+     */
+    List<byte[]> sscanAll(byte[] key);
+
+    /**
+     * 查询set所有元素
+     * @param key
+     * @return
+     */
+    List<String> sscanAll(String key);
 }
