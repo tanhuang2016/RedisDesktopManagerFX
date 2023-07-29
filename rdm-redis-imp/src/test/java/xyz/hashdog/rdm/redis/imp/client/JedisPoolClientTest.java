@@ -208,8 +208,31 @@ public class JedisPoolClientTest {
         System.out.println(redisClient.hscanAll("hash".getBytes()));
     }
 
+    @Test
+    public void hset (){
+        System.out.println(redisClient.hset("hash","aa12","12sd"));
+    }
+    @Test
+    public void hset2 (){
+        System.out.println(redisClient.hset("hash".getBytes(),"aa12".getBytes(),"12sd0".getBytes()));
+    }
+    @Test
+    public void hsetnx (){
+        System.out.println(redisClient.hsetnx("hash","aa12","12sd"));
+    }
+    @Test
+    public void hsetnx2 (){
+        System.out.println(redisClient.hsetnx("hash".getBytes(),"aa12".getBytes(),"12sd".getBytes()));
+    }
 
-
+    @Test
+    public void hdel (){
+        System.out.println(redisClient.hdel("hash","aa12"));
+    }
+    @Test
+    public void hdel2 (){
+        System.out.println(redisClient.hdel("hash".getBytes(),"aa12".getBytes()));
+    }
 
 
 

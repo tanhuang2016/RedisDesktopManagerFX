@@ -340,4 +340,53 @@ public interface RedisClient extends Closeable {
      */
     Map<String,String> hscanAll(String key);
 
+    /**
+     * 给hash中设置数据,如果存在将覆盖原来的k
+     * @param key
+     * @param field
+     * @param value
+     * @return
+     */
+    long hset(String key, String field, String value);
+    /**
+     * 给hash中设置数据,如果存在将覆盖原来的k
+     * @param key
+     * @param field
+     * @param value
+     * @return
+     */
+    long hset(byte[] key, byte[] field, byte[] value);
+    /**
+     * 给hash中设置数据,不存在才能设置
+     * @param key
+     * @param field
+     * @param value
+     * @return
+     */
+    long hsetnx(String key, String field, String value);
+    /**
+     * 给hash中设置数据,不存在才能设置
+     * @param key
+     * @param field
+     * @param value
+     * @return
+     */
+    long hsetnx(byte[] key, byte[] field, byte[] value);
+
+    /**
+     * 删除哈数中的元素
+     * @param key
+     * @param field
+     * @return
+     */
+    long hdel(byte[] key, byte[] field);
+
+    /**
+     * 删除hash中的元素
+     * @param key
+     * @param field
+     * @return
+     */
+    long hdel(String key, String field);
+
 }
