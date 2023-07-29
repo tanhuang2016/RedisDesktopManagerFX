@@ -8,6 +8,7 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisException;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
+import redis.clients.jedis.resps.Tuple;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
@@ -423,6 +424,52 @@ public class JedisPoolClient implements RedisClient {
     @Override
     public long sadd(byte[] key,byte[] value) {
         return execut(jedis->jedis.sadd(key,value));
+    }
+    @Override
+    public long zadd(byte[] key,double scorem,byte[] value) {
+        return execut(jedis->jedis.zadd(key,scorem,value));
+    }
+
+    @Override
+    public long zadd(String key,double scorem,String value) {
+        return execut(jedis->jedis.zadd(key,scorem,value));
+    }
+    @Override
+    public long zrem(String key,String value) {
+        return execut(jedis->jedis.zrem(key,value));
+    }
+    @Override
+    public long zrem(byte[] key,byte[] value) {
+        return execut(jedis->jedis.zrem(key,value));
+    }
+
+    @Override
+    public long zcard(byte[] key) {
+        return execut(jedis->jedis.zcard(key));
+    }
+    @Override
+    public long zcard(String key) {
+        return execut(jedis->jedis.zcard(key));
+    }
+
+    @Override
+    public Map<Double,String> zrangeWithScores(String key,long start, long stop) {
+        return execut(jedis->{
+            List<Tuple> tuples = jedis.zrangeWithScores(key, start, stop);
+            Map<Double,String> map = new LinkedHashMap<>();
+            tuples.forEach(e->map.put(e.getScore(),e.getElement()));
+            return map;
+        });
+    }
+
+    @Override
+    public Map<Double,byte[]> zrangeWithScores(byte[] key,long start, long stop) {
+        return execut(jedis->{
+            List<Tuple> tuples = jedis.zrangeWithScores(key, start, stop);
+            Map<Double,byte[]> map = new LinkedHashMap<>();
+            tuples.forEach(e->map.put(e.getScore(),e.getBinaryElement()));
+            return map;
+        });
     }
 
     /**

@@ -441,4 +441,67 @@ public interface RedisClient extends Closeable {
      * @return
      */
     List<String> sscanAll(String key);
+
+    /**
+     * 对zset进行新增
+     * @param key
+     * @param scorem
+     * @param value
+     * @return
+     */
+    long zadd(byte[] key,double scorem,byte[] value);
+    /**
+     * 对zset进行新增
+     * @param key
+     * @param scorem
+     * @param value
+     * @return
+     */
+    long zadd(String key,double scorem,String value);
+
+    /**
+     * 对zset进行删除
+     * @param key
+     * @param value
+     * @return
+     */
+    long zrem(String key,String value);
+
+    /**
+     * 对zset进行删除
+     * @param key
+     * @param value
+     * @return
+     */
+    long zrem(byte[] key,byte[] value);
+
+    /**
+     * 查询zset元素个数
+     * @param key
+     * @return
+     */
+    long zcard(byte[] key);
+    /**
+     * 查询zset元素个数
+     * @param key
+     * @return
+     */
+    long zcard(String key);
+
+    /**
+     * 查询zset元素,并返回分数
+     * @param key
+     * @param start
+     * @param stop
+     * @return
+     */
+    Map<Double,String> zrangeWithScores(String key,long start, long stop);
+    /**
+     * 查询zset元素,并返回分数
+     * @param key
+     * @param start
+     * @param stop
+     * @return
+     */
+    Map<Double,byte[]> zrangeWithScores(byte[] key,long start, long stop);
 }

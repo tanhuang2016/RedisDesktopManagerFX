@@ -263,6 +263,41 @@ public class JedisPoolClientTest {
         System.out.println(redisClient.sscanAll("set".getBytes()));
     }
 
+    @Test
+    public void zadd (){
+        System.out.println(redisClient.zadd("zset".getBytes(),1d,"你也好".getBytes()));
+    }
+    @Test
+    public void zadd2 (){
+        System.out.println(redisClient.zadd("zset",1d,"你也好"));
+    }
+
+
+    @Test
+    public void zrem (){
+        System.out.println(redisClient.zrem("zset".getBytes(),"你也好".getBytes()));
+    }
+    @Test
+    public void zrem2 (){
+        System.out.println(redisClient.zrem("zset","你也好"));
+    }
+
+    @Test
+    public void zcard (){
+        System.out.println(redisClient.zcard("zset".getBytes()));
+    }
+    @Test
+    public void zcard2 (){
+        System.out.println(redisClient.zcard("zset"));
+    }
+    @Test
+    public void zrangeWithScores (){
+        System.out.println(redisClient.zrangeWithScores("zset".getBytes(),0,50));
+    }
+    @Test
+    public void zrangeWithScores2 (){
+        System.out.println(redisClient.zrangeWithScores("zset",5,55));
+    }
 
 
 
