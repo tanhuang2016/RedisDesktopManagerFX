@@ -193,6 +193,21 @@ public class JedisPoolClientTest {
     }
 
 
+    @Test
+    public void hlen (){
+        long hlen = redisClient.hlen("hash");
+        System.out.println(hlen);
+    }
+
+    @Test
+    public void hscanAll (){
+        System.out.println(redisClient.hscanAll("hash"));
+    }
+    @Test
+    public void hscanAll2 (){
+        System.out.println(redisClient.hscanAll("hash".getBytes()));
+    }
+
 
 
 

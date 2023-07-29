@@ -318,5 +318,26 @@ public interface RedisClient extends Closeable {
      */
     long rpush(byte[] list, byte[] value);
 
+    /**
+     * 查hash的元素数量
+     * @param key
+     * @return
+     */
+    long hlen(String key);
+
+
+    /**
+     * 查hash所有元素
+     * @param key
+     * @return
+     */
+    Map<byte[],byte[]> hscanAll(byte[] key);
+
+    /**
+     * 查hash所有元素
+     * @param key
+     * @return
+     */
+    Map<String,String> hscanAll(String key);
 
 }
