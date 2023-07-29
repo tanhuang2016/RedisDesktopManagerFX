@@ -363,6 +363,29 @@ public class JedisPoolClient implements RedisClient {
         return execut(jedis->jedis.hdel(key,field));
     }
 
+    @Override
+    public long scard(String key) {
+        return execut(jedis->jedis.scard(key));
+    }
+
+    @Override
+    public long srem(String key,String value) {
+        return execut(jedis->jedis.srem(key,value));
+    }
+    @Override
+    public long srem(byte[] key,byte[] value) {
+        return execut(jedis->jedis.srem(key,value));
+    }
+
+    @Override
+    public long sadd(String key,String value) {
+        return execut(jedis->jedis.sadd(key,value));
+    }
+    @Override
+    public long sadd(byte[] key,byte[] value) {
+        return execut(jedis->jedis.sadd(key,value));
+    }
+
     /**
      * 传了一个SocketAcquirer匿名内部类实现
      * SocketAcquirer 每次都是从pool获取最新的socket

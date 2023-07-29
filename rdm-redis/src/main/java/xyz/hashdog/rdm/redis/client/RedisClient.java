@@ -389,4 +389,41 @@ public interface RedisClient extends Closeable {
      */
     long hdel(String key, String field);
 
+    /**
+     * 查询set的元素数量
+     * @param key
+     * @return
+     */
+    long scard(String key);
+
+    /**
+     * 删除set的元素
+     * @param key
+     * @param value
+     * @return
+     */
+    long srem(String key,String value);
+    /**
+     * 删除set的元素
+     * @param key
+     * @param value
+     * @return
+     */
+    long srem(byte[] key,byte[] value);
+
+    /**
+     * set添加元素
+     * @param key
+     * @param value
+     * @return
+     */
+    long sadd(String key,String value);
+
+    /**
+     * set添加元素
+     * @param key
+     * @param value
+     * @return
+     */
+    long sadd(byte[] key,byte[] value);
 }

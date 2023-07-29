@@ -233,6 +233,26 @@ public class JedisPoolClientTest {
     public void hdel2 (){
         System.out.println(redisClient.hdel("hash".getBytes(),"aa12".getBytes()));
     }
+    @Test
+    public void scard (){
+        System.out.println(redisClient.scard("set"));
+    }
+    @Test
+    public void srem (){
+        System.out.println(redisClient.srem("set","aa12"));
+    }
+    @Test
+    public void srem2 (){
+        System.out.println(redisClient.srem("set".getBytes(),"aa12".getBytes()));
+    }
+    @Test
+    public void sadd (){
+        System.out.println(redisClient.sadd("set","aa12"));
+    }
+    @Test
+    public void sadd2 (){
+        System.out.println(redisClient.sadd("set".getBytes(),"aa12".getBytes()));
+    }
 
 
 
