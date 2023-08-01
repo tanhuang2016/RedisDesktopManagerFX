@@ -84,4 +84,11 @@ public class BaseKeyController<T> extends BaseController<T>{
     public RedisContext getRedisContext() {
         return redisContext;
     }
+
+    /**
+     * 保存由需要的子类自行实现
+     */
+    protected void save() {
+
+    }
 }

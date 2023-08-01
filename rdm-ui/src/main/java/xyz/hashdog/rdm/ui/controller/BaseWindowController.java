@@ -2,13 +2,13 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
@@ -57,9 +57,9 @@ public abstract class BaseWindowController<T> extends BaseController<T> {
         //禁用掉最大最小化
         newConnctionWindowStage.setMaximized(false);
         newConnctionWindowStage.setTitle(title);
-        FXMLLoader fxmlLoader=loadFXML(fxml);
-        AnchorPane borderPane = fxmlLoader.load();
-        T controller = fxmlLoader.getController();
+        Tuple2<AnchorPane,T> tuple2 = loadFXML(fxml);
+        AnchorPane borderPane = tuple2.getT1();
+        T controller = tuple2.getT2();
         controller.setParentController(this);
         controller.setCurrentStage(newConnctionWindowStage);
         Scene scene = new Scene(borderPane);

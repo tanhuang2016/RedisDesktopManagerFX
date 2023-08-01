@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
+
+import java.io.IOException;
 
 /**
  *
@@ -48,8 +51,18 @@ public abstract class BaseController<T> {
     protected void filterIntegerInputListener(TextField... port) {
         GuiUtil.filterIntegerInput(port);
     }
-    protected FXMLLoader loadFXML(String fxml) {
-        return new FXMLLoader(getClass().getResource(fxml));
+
+    protected <T1,T2>Tuple2<T1,T2> loadFXML(String fxml) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+            T1 t1 = fxmlLoader.load();
+            T2 t2 = fxmlLoader.getController();
+            Tuple2<T1,T2> tuple2 =new Tuple2<>(t1,t2);
+            return tuple2;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

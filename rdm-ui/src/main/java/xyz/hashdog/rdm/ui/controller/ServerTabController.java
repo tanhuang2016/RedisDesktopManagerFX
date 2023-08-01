@@ -7,14 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
-import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -327,14 +326,14 @@ public class ServerTabController extends BaseKeyController<MainController> {
     public void open(ActionEvent actionEvent) throws IOException {
         String key = this.lastSelectedNode.getValue();
         String type = exeRedis(j -> j.type(key));
-        RedisDataTypeEnum te = RedisDataTypeEnum.getByType(type);
-        FXMLLoader fxmlLoader = loadFXML(te.fxml);
-        AnchorPane borderPane = fxmlLoader.load();
-        BaseKeyController controller = fxmlLoader.getController();
+        Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML("/fxml/KeyTabView.fxml");
+        AnchorPane borderPane = tuple2.getT1();
+        BaseKeyController controller = tuple2.getT2();
         controller.setParentController(this);
-        PassParameter passParameter = new PassParameter(PassParameter.STRING);
+        PassParameter passParameter = new PassParameter(PassParameter.NONE);
         passParameter.setDb(this.currentDb);
         passParameter.setKey(key);
+        passParameter.setKeyType(type);
         passParameter.setRedisClient(redisClient);
         passParameter.setRedisContext(redisContext);
         StringProperty keySend = passParameter.keyProperty();
@@ -356,10 +355,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
      */
     @FXML
     public void console(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = loadFXML("/fxml/ConsoleView.fxml");
-        AnchorPane anchorPane = fxmlLoader.load();
-
-        ConsoleController controller = fxmlLoader.getController();
+        Tuple2<AnchorPane,ConsoleController> tuple2 = loadFXML("/fxml/ConsoleView.fxml");
+        AnchorPane anchorPane = tuple2.getT1();
+        BaseKeyController controller = tuple2.getT2();
         controller.setParentController(this);
         PassParameter passParameter = new PassParameter(PassParameter.CONSOLE);
         passParameter.setDb(this.currentDb);

@@ -1,67 +1,55 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
-import xyz.hashdog.rdm.common.service.ValueTypeEnum;
-import xyz.hashdog.rdm.common.util.EncodeUtil;
-import xyz.hashdog.rdm.common.util.FileUtil;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
-public class StringTabController extends BaseKeyController<ServerTabController> implements Initializable {
+public class KeyTabController extends BaseKeyController<ServerTabController> implements Initializable {
 
-    protected static final String SIZE="size:%dB";
 
     @FXML
     public TextField key;
     @FXML
     public TextField ttl;
     @FXML
-    public TextArea value;
+    public Label keyType;
     @FXML
-    public Label size;
-    @FXML
-    public ChoiceBox typeChoiceBox;
-    /**
-     * 当前value的二进制
-     */
-    private byte[] currentValue;
+    public BorderPane borderPane;
+
+
 
     private long currentTtl;
 
-    private long currentSize;
+
     /**
-     * 当前type
+     * 子类型控制层
      */
-    private ValueTypeEnum type;
+    private BaseKeyController subTypeController;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initTypeChoiceBox();
         initListener();
 
     }
 
-    /**
-     * 初始化单选框
-     */
-    private void initTypeChoiceBox() {
-        ObservableList items = typeChoiceBox.getItems();
-        items.clear();
-        for (ValueTypeEnum valueTypeEnum : ValueTypeEnum.values()) {
-            items.add(valueTypeEnum.name);
-        }
-    }
 
     /**
      * 初始化监听
@@ -69,17 +57,9 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
     private void initListener() {
         userDataPropertyListener();
         filterIntegerInputListener(this.ttl);
-        typeChoiceBoxListener();
     }
 
-    /**
-     * 类型选择触发事件
-     */
-    private void typeChoiceBoxListener() {
-        typeChoiceBox.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
 
-        });
-    }
 
     /**
      * 父层传送的数据监听
@@ -132,45 +112,48 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
      * 加载数据
      */
     private void loadData() {
+
         long ttl = this.exeRedis(j -> j.ttl(this.getParameter().getKey()));
-        byte[] bytes = this.exeRedis(j -> j.get(this.getParameter().getKey().getBytes(StandardCharsets.UTF_8)));
-        this.currentValue=bytes;
         this.currentTtl=ttl;
-        this.currentSize=bytes.length;
+        Platform.runLater(() -> {
+            this.key.setText(this.getParameter().getKey());
+            this.ttl.setText(String.valueOf(currentTtl));
+            this.keyType.setText(this.getParameter().getKeyType());
+        });
+
     }
 
     /**
      * 初始化数据展示
      */
-    private void initInfo() {
-        key.setText(this.getParameter().getKey());
-        ThreadPool.getInstance().execute(() -> {
-            ValueTypeEnum type;
-            String text=null;
+    private void initInfo()  {
+        Future<Boolean> submit = ThreadPool.getInstance().submit(() -> {
+            //加载通用数据
             loadData();
-            String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
-            //不是可识别的文件类型,都默认采用16进制展示
-            if(fileTypeByStream==null){
-                boolean isUtf8 = EncodeUtil.isUTF8(currentValue);
-                //是utf8编码或则非特殊字符,直接转utf8字符串
-                if(isUtf8||!EncodeUtil.containsSpecialCharacters(currentValue)){
-                    text= new String(currentValue);
-                }
+        }, true);
+
+
+        try {
+            if(submit.get()){
+                RedisDataTypeEnum te = RedisDataTypeEnum.getByType(this.parameter.get().getKeyType());
+                Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML(te.fxml);
+                AnchorPane anchorPane = tuple2.getT1();
+                this.subTypeController  = tuple2.getT2();
+                this.subTypeController.setParentController(this);
+                PassParameter passParameter = new PassParameter(PassParameter.STRING);
+                passParameter.setDb(this.currentDb);
+                passParameter.setKey(this.parameter.get().getKey());
+                passParameter.setKeyType(this.parameter.get().getKeyType());
+                passParameter.setRedisClient(redisClient);
+                passParameter.setRedisContext(redisContext);
+                this.subTypeController.setParameter(passParameter);
+                borderPane.setCenter(anchorPane);
             }
-            if(text==null){
-                text = FileUtil.byte2HexString(currentValue);
-                type=ValueTypeEnum.HEX;
-            } else {
-                type = ValueTypeEnum.TEXT;
-            }
-            String finalText = text;
-            Platform.runLater(() -> {
-                this.ttl.setText(String.valueOf(currentTtl));
-                this.value.setText(finalText);
-                this.size.setText(String.format(SIZE, currentSize));
-                this.typeChoiceBox.setValue(type.name);
-            });
-        });
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
@@ -255,14 +238,7 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
 
 
 
-    /**
-     * 复制值
-     * @param actionEvent
-     */
-    @FXML
-    public void copy(ActionEvent actionEvent) {
-        GuiUtil.copyString(value.getText());
-    }
+
 
     /**
      * 保存值
@@ -270,12 +246,7 @@ public class StringTabController extends BaseKeyController<ServerTabController> 
      */
     @FXML
     public void save(ActionEvent actionEvent) {
-        asynexec(()->{
-            exeRedis(j -> j.set(this.getParameter().getKey(), value.getText()));
-            Platform.runLater(()->{
-                GuiUtil.alert(Alert.AlertType.INFORMATION,"保存成功");
-            });
-        });
+        this.subTypeController.save();
     }
 
 

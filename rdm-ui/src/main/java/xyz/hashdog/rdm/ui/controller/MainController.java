@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -69,9 +70,9 @@ public class MainController extends BaseWindowController {
      * @param name 服务名称
      */
     public void newRedisTab(RedisContext redisContext, String name) throws IOException {
-        FXMLLoader fxmlLoader = loadFXML("/fxml/ServerTabView.fxml");
-        AnchorPane borderPane = fxmlLoader.load();
-        ServerTabController controller = fxmlLoader.getController();
+        Tuple2<AnchorPane,ServerTabController> tuple2 = loadFXML("/fxml/ServerTabView.fxml");
+        AnchorPane borderPane = tuple2.getT1();
+        ServerTabController controller = tuple2.getT2();
         controller.setParentController(this);
         PassParameter passParameter = new PassParameter(PassParameter.REDIS);
         passParameter.setRedisContext(redisContext);

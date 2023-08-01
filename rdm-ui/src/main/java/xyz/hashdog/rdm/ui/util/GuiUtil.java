@@ -89,7 +89,7 @@ public class GuiUtil {
     }
 
     /**
-     * 只允许输入整数
+     * 只允许输入整数,可以负数
      * @param textFields
      */
     public static void filterIntegerInput(TextField... textFields) {
@@ -97,7 +97,7 @@ public class GuiUtil {
             // 绑定监听器，当文本框内容发生变化时进行过滤
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 // 如果新的文本不是整数，则将文本还原为旧值
-                if (!newValue.matches("\\d*")) {
+                if (!newValue.matches("-?\\d*")) {
                     textField.setText(oldValue);
                 }
             });

@@ -7,7 +7,7 @@ import xyz.hashdog.rdm.ui.exceptions.GeneralException;
  * @Date 2023/7/23 0:42
  */
 public enum RedisDataTypeEnum {
-    STRING("string","/fxml/StringTabView.fxml");
+    STRING("string","/fxml/StringTypeView.fxml");
 
 
     public String type;
