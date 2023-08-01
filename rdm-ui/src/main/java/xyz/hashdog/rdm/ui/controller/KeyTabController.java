@@ -240,14 +240,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
 
 
-    /**
-     * 保存值
-     * @param actionEvent
-     */
-    @FXML
-    public void save(ActionEvent actionEvent) {
-        this.subTypeController.save();
-    }
+
 
 
 
