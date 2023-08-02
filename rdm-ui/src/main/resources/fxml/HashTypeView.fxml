@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.StringTypeController">
+    <children>
+        <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <BorderPane prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <bottom>
+                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#save" text="保存" />
+                                    </children>
+                                </HBox>
+                            </bottom>
+                     <center>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                                      <fx:include source="ByteArrayView.fxml" />
+                              <fx:include source="ByteArrayView.fxml" />
+                           </children>
+                        </VBox>
+                     </center>
+                        </BorderPane>
+                    </children>
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <VBox prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Total:10" />
+                                        <Label text="Size:1024B" />
+                                        <TextField />
+                                        <Button mnemonicParsing="false" text="查询" />
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TableView VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn prefWidth="75.0" text="C1" />
+                                                        <TableColumn prefWidth="75.0" text="C2" />
+                                                    </columns>
+                                                </TableView>
+                                                <Pagination maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Button mnemonicParsing="false" text="插入头" VBox.vgrow="ALWAYS" />
+                                                <Button mnemonicParsing="false" text="插入尾" />
+                                                <Button mnemonicParsing="false" text="删除头" />
+                                                <Button mnemonicParsing="false" text="删除尾" />
+                                                <Button mnemonicParsing="false" text="删除行" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+
+    <stylesheets>
+        <URL value="@../css/global.css" />
+    </stylesheets>
+</AnchorPane>
