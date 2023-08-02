@@ -93,11 +93,22 @@ public class GuiUtil {
      * @param textFields
      */
     public static void filterIntegerInput(TextField... textFields) {
+        filterIntegerInput(true,textFields);
+    }
+    /**
+     * flg为true允许输入整数,可以负数
+     * flg为false只能正整数
+     * @param textFields
+     */
+    public static void filterIntegerInput(boolean flg,TextField... textFields) {
         for (TextField textField : textFields) {
             // 绑定监听器，当文本框内容发生变化时进行过滤
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 // 如果新的文本不是整数，则将文本还原为旧值
-                if (!newValue.matches("-?\\d*")) {
+                if (flg&&!newValue.matches("-?\\d*")) {
+                    textField.setText(oldValue);
+                }
+                if (!flg&&!newValue.matches("\\d*")) {
                     textField.setText(oldValue);
                 }
             });

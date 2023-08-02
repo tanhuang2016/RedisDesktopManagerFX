@@ -75,7 +75,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 初始化监听
      */
     private void initListener() {
-        filterIntegerInputListener(this.port);
+        filterIntegerInputListener(false,this.port);
     }
 
 

@@ -56,7 +56,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
      */
     private void initListener() {
         userDataPropertyListener();
-        filterIntegerInputListener(this.ttl);
+        filterIntegerInputListener(true,this.ttl);
     }
 
 

@@ -2,28 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.KeyTabController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <top>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="keyType" />
-                  <TextField fx:id="key" />
-                  <Button mnemonicParsing="false" onAction="#rename" text="重命名" />
-                  <Label text="TTL:" />
-                  <TextField fx:id="ttl" onKeyTyped="#filterIntegerInput" />
-                  <Button mnemonicParsing="false" onAction="#editTTL" text="修改" />
-                  <Button mnemonicParsing="false" onAction="#delete" text="删除" />
-                  <Button mnemonicParsing="false" onAction="#refresh" text="刷新" />
-               </children>
-            </HBox>
-         </top>
 <!--         <bottom>-->
 <!--            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">-->
 <!--               <children>-->
@@ -34,6 +22,25 @@
          <center>
 <!--            <fx:include source="StringTypeView.fxml"/>-->
          </center>
+         <top>
+            <VBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="keyType" />
+                        <TextField fx:id="key" />
+                        <Button mnemonicParsing="false" onAction="#rename" text="重命名" />
+                        <Label text="TTL:" />
+                        <TextField fx:id="ttl"  />
+                        <Button mnemonicParsing="false" onAction="#editTTL" text="修改" />
+                        <Button mnemonicParsing="false" onAction="#delete" text="删除" />
+                        <Button mnemonicParsing="false" onAction="#refresh" text="刷新" />
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

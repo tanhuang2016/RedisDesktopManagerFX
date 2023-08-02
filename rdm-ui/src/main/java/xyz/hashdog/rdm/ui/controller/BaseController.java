@@ -24,7 +24,7 @@ public abstract class BaseController<T> {
     public T parentController;
 
     /**
-     * port只能为整数
+     * port只能为正整数
      * @param keyEvent
      */
     @FXML
@@ -48,8 +48,8 @@ public abstract class BaseController<T> {
     /**
      * 只让输入整数
      */
-    protected void filterIntegerInputListener(TextField... port) {
-        GuiUtil.filterIntegerInput(port);
+    protected void filterIntegerInputListener(boolean flg,TextField... port) {
+        GuiUtil.filterIntegerInput(flg,port);
     }
 
     protected <T1,T2>Tuple2<T1,T2> loadFXML(String fxml) {

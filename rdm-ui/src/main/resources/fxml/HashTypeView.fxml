@@ -32,7 +32,7 @@
                         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
                                       <fx:include source="ByteArrayView.fxml" />
-                              <fx:include source="ByteArrayView.fxml" />
+                              <fx:include source="ByteArrayView.fxml" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </center>
