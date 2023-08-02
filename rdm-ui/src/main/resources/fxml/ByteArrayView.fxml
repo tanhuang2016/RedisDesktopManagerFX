@@ -15,7 +15,7 @@
    <children>
       <VBox prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <ChoiceBox fx:id="typeChoiceBox" prefWidth="150.0">
                      <items>
@@ -35,7 +35,7 @@
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextArea fx:id="value" layoutX="200.0" layoutY="59.0" prefHeight="312.0" prefWidth="955.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextArea fx:id="value" layoutX="200.0" layoutY="59.0" prefWidth="955.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

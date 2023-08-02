@@ -3,3 +3,7 @@
     -fx-font-family: "Sitka Small";
     /*-fx-font-family: "Arial";*/
 }
+
+.split-pane > .split-pane-divider {
+    -fx-padding: 0.083333em; /* 设置分隔条的宽度为1像素 */
+}
