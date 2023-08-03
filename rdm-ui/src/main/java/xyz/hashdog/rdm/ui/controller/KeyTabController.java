@@ -140,7 +140,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
                 AnchorPane anchorPane = tuple2.getT1();
                 this.subTypeController  = tuple2.getT2();
                 this.subTypeController.setParentController(this);
-                PassParameter passParameter = new PassParameter(PassParameter.STRING);
+                PassParameter passParameter = new PassParameter(te.tabType);
                 passParameter.setDb(this.currentDb);
                 passParameter.setKey(this.parameter.get().getKey());
                 passParameter.setKeyType(this.parameter.get().getKeyType());

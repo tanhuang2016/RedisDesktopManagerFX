@@ -6,4 +6,13 @@
 
 .split-pane > .split-pane-divider {
     -fx-padding: 0.083333em; /* 设置分隔条的宽度为1像素 */
+    /*这将让中间的分隔线也没了*/
+    /*-fx-background-color: transparent; */
 }
+
+.split-pane .split-pane {
+    /*只让四周边框没了*/
+    -fx-background-color: transparent;
+}
+
+

@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
+import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
 
 /**
@@ -7,14 +8,19 @@ import xyz.hashdog.rdm.ui.exceptions.GeneralException;
  * @Date 2023/7/23 0:42
  */
 public enum RedisDataTypeEnum {
-    STRING("string","/fxml/StringTypeView.fxml");
+    STRING("string","/fxml/StringTypeView.fxml", PassParameter.STRING),
+    HASH("hash","/fxml/HashTypeView.fxml", PassParameter.HASH),
+    LIST("list","/fxml/ListTypeView.fxml", PassParameter.LIST),
+    ;
 
 
     public String type;
     public String fxml;
-    RedisDataTypeEnum(String type,String fxml) {
+    public int tabType;
+    RedisDataTypeEnum(String type,String fxml,int tabType) {
         this.type=type;
         this.fxml=fxml;
+        this.tabType=tabType;
     }
 
     /**

@@ -14,6 +14,8 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 public class PassParameter {
     public final  static int CONSOLE=2;
     public final  static int STRING=3;
+    public final  static int HASH=5;
+    public final  static int LIST=6;
     public static final int REDIS = 4;
     public static final int NONE = 1;
 
