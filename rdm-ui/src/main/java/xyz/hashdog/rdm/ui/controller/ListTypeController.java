@@ -20,6 +20,7 @@ import xyz.hashdog.rdm.ui.entity.ListTypeTable;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -110,13 +111,12 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         //分页默认0页,初始化设置为0页不会触发监听,所以在监听之前先把页码调为1
         pagination.setCurrentPageIndex(1);
         pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
-            System.out.println(newIndex);
             int pageIndex=(int)newIndex;
             if(pageIndex<pagination.getPageCount()-1){
-                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE);
+                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE+1);
                 tableView.setItems(FXCollections.observableArrayList(pageList));
             }else{
-                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size()-1);
+                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
                 tableView.setItems(FXCollections.observableArrayList(pageList));
             }
 
@@ -135,8 +135,10 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     private void listListener() {
         this.list.addListener((ListChangeListener<ListTypeTable>) change -> {
             while (change.next()) {
-                if (change.wasRemoved()) {
-                    System.out.println("Elements were removed: " + change.getRemoved());
+                //删除到最后一个元素时,key也被删了,需要关闭tab
+                if (change.wasRemoved() && this.list.size()==0) {
+                    super.parentController.parentController.removeTabByKeys(Arrays.asList(parameter.get().getKey()));
+                    super.parentController.parentController.delKey(parameter);
                 }
             }
         });
@@ -148,7 +150,6 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     private void tableViewListener() {
         // 监听选中事件
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("有变化");
             if (newValue == null) {
                 delRow.setDisable(true);
                 save.setDisable(true);
