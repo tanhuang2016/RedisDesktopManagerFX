@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
@@ -164,6 +165,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                     VBox vBox = (VBox)borderPane.getCenter();
                     vBox.getChildren().clear();
                     vBox.getChildren().add(keyTuple2.getT1());
+                    VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
                     vBox.getChildren().add(valueTuple2.getT1());
                 });
             }
