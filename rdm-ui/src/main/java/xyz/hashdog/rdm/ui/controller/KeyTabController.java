@@ -79,7 +79,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
         ThreadPool.getInstance().execute(() -> {
             String text=null;
             loadData();
-
+            // todo 现在只刷新了基本信息,具体类型的信息刷新还没做,需要调用具体类型的子控制层
 
 
 //            String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);

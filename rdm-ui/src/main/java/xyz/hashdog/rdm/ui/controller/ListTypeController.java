@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
  * @Date 2023/8/3 9:52
  */
 public class ListTypeController extends BaseKeyController<KeyTabController> implements Initializable {
+    private static final int ROWS_PER_PAGE = 32;
     @FXML
     public TableView<ListTypeTable> tableView;
     @FXML
@@ -57,10 +58,16 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     public Button delTail;
     @FXML
     public Button delRow;
+    @FXML
+    public Pagination pagination;
     /**
      * 缓存所有表格数据
      */
     private ObservableList<ListTypeTable> list = FXCollections.observableArrayList();
+    /**
+     * 查询后的表格数据
+     */
+    private ObservableList<ListTypeTable> findList = FXCollections.observableArrayList();
     /**
      * 最后选中的行缓存
      */
@@ -74,19 +81,47 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        bindData();
         initListener();
+//        initPagination();
+
     }
 
     /**
      * 初始化监听
      */
     private void initListener() {
-        bindData();
+
         userDataPropertyListener();
         tableViewListener();
         listListener();
+        paginationListener();
 
 
+
+    }
+
+
+    /**
+     * 分页监听
+     * 数据显示,全靠分页监听
+     */
+    private void paginationListener() {
+        //分页默认0页,初始化设置为0页不会触发监听,所以在监听之前先把页码调为1
+        pagination.setCurrentPageIndex(1);
+        pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            System.out.println(newIndex);
+            int pageIndex=(int)newIndex;
+            if(pageIndex<pagination.getPageCount()-1){
+                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE);
+                tableView.setItems(FXCollections.observableArrayList(pageList));
+            }else{
+                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size()-1);
+                tableView.setItems(FXCollections.observableArrayList(pageList));
+            }
+
+            tableView.refresh();
+        });
     }
 
     private void bindData() {
@@ -215,8 +250,10 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         }
         Predicate<ListTypeTable> nameFilter = createNameFilter(text);
         newList = this.list.stream().filter(nameFilter).collect(Collectors.toList());
-        tableView.setItems(FXCollections.observableList(newList));
-        tableView.refresh();
+        findList.clear();
+        findList.addAll(newList);
+        pagination.setPageCount((int) Math.ceil((double) findList.size() / ROWS_PER_PAGE));
+        pagination.setCurrentPageIndex(0);
     }
 
     @FXML
