@@ -25,7 +25,7 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
     public ChoiceBox typeChoiceBox;
     @FXML
     public TextArea value;
-    protected static final String SIZE = "size:%dB";
+    protected static final String SIZE = "Size:%dB";
 
     @FXML
     public Label size;

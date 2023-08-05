@@ -356,4 +356,12 @@ public class GuiUtil {
         }
         tabPane.getTabs().remove(selectedTab);
     }
+
+    /**
+     * 是否删除弹窗
+     * @return
+     */
+    public static boolean alertRemove() {
+       return GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?");
+    }
 }
