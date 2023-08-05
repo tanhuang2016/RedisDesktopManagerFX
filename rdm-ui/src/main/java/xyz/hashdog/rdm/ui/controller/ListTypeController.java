@@ -92,14 +92,10 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      * 初始化监听
      */
     private void initListener() {
-
         userDataPropertyListener();
         tableViewListener();
         listListener();
         paginationListener();
-
-
-
     }
 
 
@@ -108,20 +104,28 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      * 数据显示,全靠分页监听
      */
     private void paginationListener() {
-        //分页默认0页,初始化设置为0页不会触发监听,所以在监听之前先把页码调为1
-        pagination.setCurrentPageIndex(1);
         pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             int pageIndex=(int)newIndex;
-            if(pageIndex<pagination.getPageCount()-1){
-                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE+1);
-                tableView.setItems(FXCollections.observableArrayList(pageList));
-            }else{
-                List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
-                tableView.setItems(FXCollections.observableArrayList(pageList));
-            }
+            setCurrentPageIndex(pageIndex);
 
-            tableView.refresh();
         });
+    }
+
+    /**
+     * 可以手动触发分页
+     * @param pageIndex
+     */
+    private void setCurrentPageIndex(int pageIndex) {
+        if(pageIndex<pagination.getPageCount()-1){
+            List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE+1);
+            tableView.setItems(FXCollections.observableArrayList(pageList));
+        }else{
+            List<ListTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
+            tableView.setItems(FXCollections.observableArrayList(pageList));
+        }
+
+        tableView.refresh();
+
     }
 
     private void bindData() {
@@ -254,7 +258,10 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         findList.clear();
         findList.addAll(newList);
         pagination.setPageCount((int) Math.ceil((double) findList.size() / ROWS_PER_PAGE));
-        pagination.setCurrentPageIndex(0);
+        //当前页就是0页才需要手动触发,否则原事件触发不了
+        if(pagination.getCurrentPageIndex()==0){
+            this.setCurrentPageIndex(0);
+        }
     }
 
     @FXML

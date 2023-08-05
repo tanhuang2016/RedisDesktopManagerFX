@@ -19,11 +19,11 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <BorderPane prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane fx:id="borderPane" prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <bottom>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button mnemonicParsing="false" onAction="#save" text="保存" />
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="保存" />
                                     </children>
                                 </HBox>
                             </bottom>
@@ -47,29 +47,30 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Label text="Total:10" />
-                                        <Label text="Size:1024B" />
-                                        <TextField />
-                                        <Button mnemonicParsing="false" text="查询" />
+                                        <Label fx:id="total" text="Total:10" />
+                                        <Label fx:id="size" text="Size:1024B" />
+                                        <TextField fx:id="findTextField"/>
+                                        <Button fx:id="findButton"  mnemonicParsing="false" text="查询" onAction="#find"/>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
                                     <children>
                                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TableView VBox.vgrow="ALWAYS">
+                                                <TableView fx:id="tableView"  tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
                                                     <columns>
-                                                        <TableColumn prefWidth="75.0" text="C1" />
-                                                        <TableColumn prefWidth="75.0" text="C2" />
+                                                        <TableColumn prefWidth="60.0" text="#" />
+                                                        <TableColumn prefWidth="60.0" text="Key" />
+                                                        <TableColumn prefWidth="180.0" text="Value" />
                                                     </columns>
                                                 </TableView>
-                                                <Pagination maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
+                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button mnemonicParsing="false" text="新增" VBox.vgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" text="删除" />
+                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#add" text="新增" VBox.vgrow="ALWAYS" />
+                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除" />
                                             </children>
                                         </VBox>
                                     </children>
