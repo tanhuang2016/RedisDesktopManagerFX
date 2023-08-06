@@ -289,7 +289,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         asynexec(() -> {
             exeRedis(j -> j.lpop(this.getParameter().getKey()));
             ListTypeTable listTypeTable = list.get(0);
-            remove2UI(listTypeTable);
+            GuiUtil.remove2UI(this.list,this.tableView,listTypeTable);
         });
 
     }
@@ -307,7 +307,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         asynexec(() -> {
             exeRedis(j -> j.rpop(this.getParameter().getKey()));
             ListTypeTable listTypeTable = list.get(list.size() - 1);
-            remove2UI(listTypeTable);
+            GuiUtil.remove2UI(this.list,this.tableView,listTypeTable);
         });
 
     }
@@ -326,27 +326,9 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         asynexec(() -> {
             exeRedis(j -> j.lset(this.getParameter().getKey().getBytes(), this.list.indexOf(lastSelect), DEL_MARK));
             exeRedis(j -> j.lrem(this.getParameter().getKey().getBytes(), 0, DEL_MARK));
-            remove2UI(lastSelect);
+            GuiUtil.remove2UI(this.list,this.tableView,lastSelect);
         });
     }
 
-    /**
-     * 视图上删除对应数据
-     *
-     * @param lastSelect
-     */
-    private void remove2UI(ListTypeTable lastSelect) {
-        Platform.runLater(() -> {
-            //缓存的所有数据需要删除
-            this.list.remove(lastSelect);
-        });
-        int i = tableView.getItems().indexOf(lastSelect);
-        if (i > -1) {
-            Platform.runLater(() -> {
-                //视图需要删除
-                tableView.getItems().remove(i);
-                tableView.refresh();
-            });
-        }
-    }
+
 }

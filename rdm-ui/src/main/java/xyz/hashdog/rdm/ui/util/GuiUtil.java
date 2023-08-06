@@ -1,8 +1,10 @@
 package xyz.hashdog.rdm.ui.util;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -363,5 +365,25 @@ public class GuiUtil {
      */
     public static boolean alertRemove() {
        return GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?");
+    }
+
+    /**
+     * 视图上删除对应数据
+     *
+     * @param lastSelect
+     */
+    public static <T>void remove2UI(ObservableList<T> list, TableView<T> tableView, T lastSelect) {
+        Platform.runLater(() -> {
+            //缓存的所有数据需要删除
+            list.remove(lastSelect);
+        });
+        int i = tableView.getItems().indexOf(lastSelect);
+        if (i > -1) {
+            Platform.runLater(() -> {
+                //视图需要删除
+                tableView.getItems().remove(i);
+                tableView.refresh();
+            });
+        }
     }
 }

@@ -296,5 +296,14 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      * @param actionEvent
      */
     public void delRow(ActionEvent actionEvent) {
+        if (!GuiUtil.alertRemove()) {
+            return;
+        }
+        asynexec(() -> {
+            exeRedis(j -> j.hdel(this.getParameter().getKey().getBytes(), lastSelect.getKeyBytes()));
+            GuiUtil.remove2UI(this.list,this.tableView,lastSelect);
+        });
     }
+
+
 }
