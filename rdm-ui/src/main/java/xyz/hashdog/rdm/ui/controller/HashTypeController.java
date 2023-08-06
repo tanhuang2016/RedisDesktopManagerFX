@@ -19,6 +19,7 @@ import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.ui.entity.HashTypeTable;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -73,7 +74,8 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      * 最后一个选中的行对应的最新的value展示
      */
     private ByteArrayController byteArrayController;
-    private ByteArrayController KeyByteArrayController;
+    private ByteArrayController keyByteArrayController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bindData();
@@ -89,26 +91,29 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         listListener();
         paginationListener();
     }
+
     /**
      * 分页监听
      * 数据显示,全靠分页监听
      */
     private void paginationListener() {
         pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
-            int pageIndex=(int)newIndex;
+            int pageIndex = (int) newIndex;
             setCurrentPageIndex(pageIndex);
 
         });
     }
+
     /**
      * 可以手动触发分页
+     *
      * @param pageIndex
      */
     private void setCurrentPageIndex(int pageIndex) {
-        if(pageIndex<pagination.getPageCount()-1){
-            List<HashTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE+1);
+        if (pageIndex < pagination.getPageCount() - 1) {
+            List<HashTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE + 1);
             tableView.setItems(FXCollections.observableArrayList(pageList));
-        }else{
+        } else {
             List<HashTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
             tableView.setItems(FXCollections.observableArrayList(pageList));
         }
@@ -116,6 +121,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         tableView.refresh();
 
     }
+
     /**
      * 缓存list数据监听
      */
@@ -123,13 +129,14 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         this.list.addListener((ListChangeListener<HashTypeTable>) change -> {
             while (change.next()) {
                 //删除到最后一个元素时,key也被删了,需要关闭tab
-                if (change.wasRemoved() && this.list.size()==0) {
+                if (change.wasRemoved() && this.list.size() == 0) {
                     super.parentController.parentController.removeTabByKeys(Arrays.asList(parameter.get().getKey()));
                     super.parentController.parentController.delKey(parameter);
                 }
             }
         });
     }
+
     /**
      * 父层传送的数据监听
      * 监听到key的传递
@@ -141,8 +148,8 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
     }
 
     private void bindData() {
-        total.textProperty().bind(Bindings.createStringBinding(() -> String.format(TOTAL,this.list.size()), this.list));
-        size.textProperty().bind(Bindings.createStringBinding(() -> String.format(SIZE,this.list.stream().mapToLong(e -> e.getBytes().length+e.getKeyBytes().length).sum()), this.list));
+        total.textProperty().bind(Bindings.createStringBinding(() -> String.format(TOTAL, this.list.size()), this.list));
+        size.textProperty().bind(Bindings.createStringBinding(() -> String.format(SIZE, this.list.stream().mapToLong(e -> e.getBytes().length + e.getKeyBytes().length).sum()), this.list));
     }
 
     /**
@@ -162,7 +169,9 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                 Platform.runLater(() -> {
                     Tuple2<AnchorPane, ByteArrayController> keyTuple2 = loadByteArrayView(newValue.getKeyBytes());
                     Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView(newValue.getBytes());
-                    VBox vBox = (VBox)borderPane.getCenter();
+                    byteArrayController = valueTuple2.getT2();
+                    keyByteArrayController = keyTuple2.getT2();
+                    VBox vBox = (VBox) borderPane.getCenter();
                     vBox.getChildren().clear();
                     vBox.getChildren().add(keyTuple2.getT1());
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
@@ -174,14 +183,14 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
 
     /**
      * 加载byteArrayView
+     *
      * @param bytes
      * @return
      */
     private Tuple2<AnchorPane, ByteArrayController> loadByteArrayView(byte[] bytes) {
         Tuple2<AnchorPane, ByteArrayController> tuple2 = loadFXML("/fxml/ByteArrayView.fxml");
-        byteArrayController = tuple2.getT2();
-        byteArrayController.setParentController(this);
-        byteArrayController.setByteArray(bytes);
+        tuple2.getT2().setParentController(this);
+        tuple2.getT2().setByteArray(bytes);
         return tuple2;
     }
 
@@ -191,7 +200,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
     private void initInfo() {
         ThreadPool.getInstance().execute(() -> {
             Map<byte[], byte[]> map = this.exeRedis(j -> j.hscanAll(this.parameter.get().getKey().getBytes()));
-            map.forEach((k,v)->this.list.add(new HashTypeTable(k,v)));
+            map.forEach((k, v) -> this.list.add(new HashTypeTable(k, v)));
             Platform.runLater(() -> {
                 ObservableList<TableColumn<HashTypeTable, ?>> columns = tableView.getColumns();
                 TableColumn<HashTypeTable, Integer> c0 = (TableColumn) columns.get(0);
@@ -232,11 +241,10 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         findList.addAll(newList);
         pagination.setPageCount((int) Math.ceil((double) findList.size() / ROWS_PER_PAGE));
         //当前页就是0页才需要手动触发,否则原事件触发不了
-        if(pagination.getCurrentPageIndex()==0){
+        if (pagination.getCurrentPageIndex() == 0) {
             this.setCurrentPageIndex(0);
         }
     }
-
 
 
     private Predicate<HashTypeTable> createNameFilter(String query) {
@@ -244,17 +252,38 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         return o -> pattern.matcher(o.getKey()).find();
     }
+
     /**
      * 保存值
+     *
      * @param actionEvent
      */
     @FXML
     public void save(ActionEvent actionEvent) {
-
+        //修改后的key
+        byte[] key = keyByteArrayController.getByteArray();
+        byte[] value = byteArrayController.getByteArray();
+        int i = this.list.indexOf(lastSelect);
+        asynexec(() -> {
+            //key发生变化的情况,需要set新键值对,切删除老键值对
+            if (!key.equals(lastSelect.getKeyBytes())) {
+                exeRedis(j -> j.hdel(this.getParameter().getKey().getBytes(), lastSelect.getKeyBytes()));
+                lastSelect.setKeyBytes(key);
+            }
+            exeRedis(j -> j.hset(this.getParameter().getKey().getBytes(), key, value));
+            lastSelect.setBytes(value);
+            Platform.runLater(() -> {
+                //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
+                this.list.set(i,lastSelect);
+                tableView.refresh();
+                GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
+            });
+        });
     }
 
     /**
      * 新增
+     *
      * @param actionEvent
      */
     @FXML
@@ -263,6 +292,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
 
     /**
      * 删除行
+     *
      * @param actionEvent
      */
     public void delRow(ActionEvent actionEvent) {

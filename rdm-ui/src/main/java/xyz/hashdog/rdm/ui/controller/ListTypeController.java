@@ -232,10 +232,13 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public void save(ActionEvent actionEvent) {
         byte[] byteArray = byteArrayController.getByteArray();
+        int i = this.list.indexOf(lastSelect);
         asynexec(() -> {
             exeRedis(j -> j.lset(this.getParameter().getKey().getBytes(), this.list.indexOf(lastSelect), byteArray));
             lastSelect.setBytes(byteArray);
             Platform.runLater(() -> {
+                //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
+                this.list.set(i,lastSelect);
                 tableView.refresh();
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
             });
