@@ -11,6 +11,7 @@ public enum RedisDataTypeEnum {
     STRING("string","/fxml/StringTypeView.fxml", PassParameter.STRING),
     HASH("hash","/fxml/HashTypeView.fxml", PassParameter.HASH),
     LIST("list","/fxml/ListTypeView.fxml", PassParameter.LIST),
+    SET("set","/fxml/SetTypeView.fxml", PassParameter.SET),
     ;
 
 

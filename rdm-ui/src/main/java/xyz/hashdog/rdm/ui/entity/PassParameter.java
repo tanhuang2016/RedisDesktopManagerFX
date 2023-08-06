@@ -12,12 +12,13 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
  * @Date 2023/7/23 22:28
  */
 public class PassParameter {
-    public final  static int CONSOLE=2;
-    public final  static int STRING=3;
+    public static final int NONE = 1;
+    public static final int REDIS = 2;
+    public final  static int CONSOLE=3;
+    public final  static int STRING=4;
     public final  static int HASH=5;
     public final  static int LIST=6;
-    public static final int REDIS = 4;
-    public static final int NONE = 1;
+    public static final int SET = 7;
 
     private int tabType;
     private int db;
