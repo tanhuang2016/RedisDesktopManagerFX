@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -325,7 +326,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      */
     public void open(ActionEvent actionEvent) throws IOException {
         String key = this.lastSelectedNode.getValue();
-        String type = exeRedis(j -> j.type(key));
+        String type = RedisDataTypeEnum.getByType(exeRedis(j -> j.type(key))).type;
         Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML("/fxml/KeyTabView.fxml");
         AnchorPane borderPane = tuple2.getT1();
         BaseKeyController controller = tuple2.getT2();
@@ -364,7 +365,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         passParameter.setRedisClient(redisContext.newRedisClient());
         passParameter.setRedisContext(redisContext);
         controller.setParameter(passParameter);
-        Tab tab = new Tab("console");
+        Tab tab = new Tab("Console");
         if(passParameter.getTabType()==PassParameter.CONSOLE){
             // 监听Tab被关闭事件,但是remove是无法监听的
             tab.setOnClosed(event2 -> {

@@ -19,6 +19,7 @@ public class PassParameter {
     public final  static int HASH=5;
     public final  static int LIST=6;
     public static final int SET = 7;
+    public static final int ZSET = 8;
 
     private int tabType;
     private int db;

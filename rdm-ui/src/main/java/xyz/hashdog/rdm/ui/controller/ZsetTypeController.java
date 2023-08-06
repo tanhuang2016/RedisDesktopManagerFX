@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
-import xyz.hashdog.rdm.ui.entity.HashTypeTable;
+import xyz.hashdog.rdm.ui.entity.ZsetTypeTable;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -34,10 +35,10 @@ import java.util.stream.Collectors;
  * @Author th
  * @Date 2023/8/3 9:41
  */
-public class HashTypeController extends BaseKeyController<KeyTabController> implements Initializable {
+public class ZsetTypeController extends BaseKeyController<KeyTabController> implements Initializable {
     private static final int ROWS_PER_PAGE = 32;
     @FXML
-    public TableView<HashTypeTable> tableView;
+    public TableView<ZsetTypeTable> tableView;
     @FXML
     public BorderPane borderPane;
     @FXML
@@ -58,18 +59,20 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
     public Button add;
     @FXML
     public Pagination pagination;
+    @FXML
+    public TextField score;
     /**
      * 缓存所有表格数据
      */
-    private ObservableList<HashTypeTable> list = FXCollections.observableArrayList();
+    private ObservableList<ZsetTypeTable> list = FXCollections.observableArrayList();
     /**
      * 查询后的表格数据
      */
-    private ObservableList<HashTypeTable> findList = FXCollections.observableArrayList();
+    private ObservableList<ZsetTypeTable> findList = FXCollections.observableArrayList();
     /**
      * 最后选中的行缓存
      */
-    private HashTypeTable lastSelect;
+    private ZsetTypeTable lastSelect;
     /**
      * 最后一个选中的行对应的最新的value展示
      */
@@ -111,10 +114,10 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      */
     private void setCurrentPageIndex(int pageIndex) {
         if (pageIndex < pagination.getPageCount() - 1) {
-            List<HashTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE + 1);
+            List<ZsetTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE + 1);
             tableView.setItems(FXCollections.observableArrayList(pageList));
         } else {
-            List<HashTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
+            List<ZsetTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
             tableView.setItems(FXCollections.observableArrayList(pageList));
         }
 
@@ -126,7 +129,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      * 缓存list数据监听
      */
     private void listListener() {
-        this.list.addListener((ListChangeListener<HashTypeTable>) change -> {
+        this.list.addListener((ListChangeListener<ZsetTypeTable>) change -> {
             while (change.next()) {
                 //删除到最后一个元素时,key也被删了,需要关闭tab
                 if (change.wasRemoved() && this.list.size() == 0) {
@@ -149,7 +152,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
 
     private void bindData() {
         total.textProperty().bind(Bindings.createStringBinding(() -> String.format(TOTAL, this.list.size()), this.list));
-        size.textProperty().bind(Bindings.createStringBinding(() -> String.format(SIZE, this.list.stream().mapToLong(e -> e.getBytes().length + e.getKeyBytes().length).sum()), this.list));
+        size.textProperty().bind(Bindings.createStringBinding(() -> String.format(SIZE, this.list.stream().mapToLong(e -> e.getBytes().length ).sum()), this.list));
     }
 
     /**
@@ -167,16 +170,14 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                 save.setDisable(false);
                 this.lastSelect = newValue;
                 Platform.runLater(() -> {
-                    Tuple2<AnchorPane, ByteArrayController> keyTuple2 = loadByteArrayView(newValue.getKeyBytes());
                     Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView(newValue.getBytes());
                     byteArrayController = valueTuple2.getT2();
-                    keyByteArrayController = keyTuple2.getT2();
-                    keyByteArrayController.setName("Key");
                     VBox vBox = (VBox) borderPane.getCenter();
-                    vBox.getChildren().clear();
-                    vBox.getChildren().add(keyTuple2.getT1());
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
-                    vBox.getChildren().add(valueTuple2.getT1());
+                    ObservableList<Node> children = vBox.getChildren();
+                    children.set(children.size()-1,valueTuple2.getT1());
+                    score.setText(String.valueOf(newValue.getScore()));
+
                 });
             }
         });
@@ -200,18 +201,19 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      */
     private void initInfo() {
         ThreadPool.getInstance().execute(() -> {
-            Map<byte[], byte[]> map = this.exeRedis(j -> j.hscanAll(this.parameter.get().getKey().getBytes()));
-            map.forEach((k, v) -> this.list.add(new HashTypeTable(k, v)));
+            Long total = this.exeRedis(j -> j.zcard(this.parameter.get().getKey()));
+            Map<Double, byte[]> map = this.exeRedis(j -> j.zrangeWithScores(this.parameter.get().getKey().getBytes(), 0l, total));
+            map.forEach((k, v) -> this.list.add(new ZsetTypeTable(k, v)));
             Platform.runLater(() -> {
-                ObservableList<TableColumn<HashTypeTable, ?>> columns = tableView.getColumns();
-                TableColumn<HashTypeTable, Integer> c0 = (TableColumn) columns.get(0);
+                ObservableList<TableColumn<ZsetTypeTable, ?>> columns = tableView.getColumns();
+                TableColumn<ZsetTypeTable, Integer> c0 = (TableColumn) columns.get(0);
                 c0.setCellValueFactory(
                         param -> new ReadOnlyObjectWrapper<>(tableView.getItems().indexOf(param.getValue()) + 1)
                 );
                 for (int i = 1; i < columns.size(); i++) {
                     TableColumn c1 = (TableColumn) columns.get(i);
                     c1.setCellValueFactory(
-                            new PropertyValueFactory<HashTypeTable, String>(HashTypeTable.getProperties()[i])
+                            new PropertyValueFactory<ZsetTypeTable, String>(ZsetTypeTable.getProperties()[i])
                     );
                 }
                 find(null);
@@ -232,11 +234,11 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      */
     public void find(ActionEvent actionEvent) {
         String text = this.findTextField.getText();
-        List<HashTypeTable> newList;
+        List<ZsetTypeTable> newList;
         if (DataUtil.isBlank(text)) {
             text = "*";
         }
-        Predicate<HashTypeTable> nameFilter = createNameFilter(text);
+        Predicate<ZsetTypeTable> nameFilter = createNameFilter(text);
         newList = this.list.stream().filter(nameFilter).collect(Collectors.toList());
         findList.clear();
         findList.addAll(newList);
@@ -248,10 +250,10 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
     }
 
 
-    private Predicate<HashTypeTable> createNameFilter(String query) {
+    private Predicate<ZsetTypeTable> createNameFilter(String query) {
         String regex = query.replace("?", ".?").replace("*", ".*?");
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        return o -> pattern.matcher(o.getKey()).find();
+        return o -> pattern.matcher(o.getValue()).find();
     }
 
     /**
@@ -261,18 +263,18 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void save(ActionEvent actionEvent) {
-        //修改后的key
-        byte[] key = keyByteArrayController.getByteArray();
+        //修改后的value
         byte[] value = byteArrayController.getByteArray();
+        Double score = Double.valueOf(this.score.getText());
         int i = this.list.indexOf(lastSelect);
         asynexec(() -> {
-            //key发生变化的情况,需要set新键值对,切删除老键值对
-            if (!Arrays.equals(key,lastSelect.getKeyBytes())) {
-                exeRedis(j -> j.hdel(this.getParameter().getKey().getBytes(), lastSelect.getKeyBytes()));
-                lastSelect.setKeyBytes(key);
+            //value发生变化的情况,需要先删后增
+            if (!Arrays.equals(value,lastSelect.getBytes())) {
+                exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
+                lastSelect.setBytes(value);
             }
-            exeRedis(j -> j.hset(this.getParameter().getKey().getBytes(), key, value));
-            lastSelect.setBytes(value);
+            exeRedis(j -> j.zadd(this.getParameter().getKey().getBytes(), score, value));
+            lastSelect.setScore(score);
             Platform.runLater(() -> {
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
@@ -301,7 +303,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
             return;
         }
         asynexec(() -> {
-            exeRedis(j -> j.hdel(this.getParameter().getKey().getBytes(), lastSelect.getKeyBytes()));
+            exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
             GuiUtil.remove2UI(this.list,this.tableView,lastSelect);
         });
     }

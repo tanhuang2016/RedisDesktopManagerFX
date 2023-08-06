@@ -29,6 +29,8 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
 
     @FXML
     public Label size;
+    @FXML
+    public Label name;
     /**
      * 当前value的二进制
      */
@@ -125,5 +127,14 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
         this.size.setText(String.format(SIZE, currentSize));
         this.value.setText(finalText);
         this.typeChoiceBox.setValue(type.name);
+    }
+
+    /**
+     * 设置名称
+     * @param key
+     */
+    public void setName(String key) {
+        this.name.setText(key);
+
     }
 }
