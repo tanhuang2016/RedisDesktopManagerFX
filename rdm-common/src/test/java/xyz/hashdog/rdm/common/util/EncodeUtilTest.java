@@ -1,9 +1,10 @@
-package xyz.hashdog.rdm.common;
+package xyz.hashdog.rdm.common.util;
 
 import org.junit.Test;
-import xyz.hashdog.rdm.common.util.EncodeUtil;
 
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @Author th
@@ -12,11 +13,19 @@ import java.nio.charset.Charset;
 public class EncodeUtilTest {
 
     @Test
-    public void containsSpecialCharactersTest(){
+    public void containsSpecialCharactersTest() {
         System.out.println(EncodeUtil.containsSpecialCharacters("123".getBytes(Charset.forName("gbk"))));
         System.out.println(EncodeUtil.containsSpecialCharacters("123".getBytes()));
         System.out.println(EncodeUtil.containsSpecialCharacters("你好".getBytes()));
         byte[] gbks = "你好".getBytes(Charset.forName("gbk"));
         System.out.println(EncodeUtil.containsSpecialCharacters(gbks));
     }
+
+
+
+
+
+
+
+
 }

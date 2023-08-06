@@ -386,4 +386,25 @@ public class GuiUtil {
             });
         }
     }
+
+
+    /**
+     * 用于tableView压缩为单行
+     * @param <T>
+     */
+    public static class OneLineTableCell<T> extends TableCell<T, Object> {
+        @Override
+        protected void updateItem(Object item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item != null) {
+                if(item instanceof String){
+                    String item2=(String)item;
+                    setText(item2.replaceAll("\\s+", " ").trim());
+                }
+            } else {
+                setText(null);
+            }
+        }
+    }
 }

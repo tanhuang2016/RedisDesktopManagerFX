@@ -196,6 +196,7 @@ public class SetTypeController extends BaseKeyController<KeyTabController> imple
                     c1.setCellValueFactory(
                             new PropertyValueFactory<SetTypeTable, String>(SetTypeTable.getProperties()[i])
                     );
+                    c1.setCellFactory(param -> new GuiUtil.OneLineTableCell<>());
                 }
                 find(null);
                 //设置默认选中第一行

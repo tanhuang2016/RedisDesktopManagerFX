@@ -213,6 +213,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                     c1.setCellValueFactory(
                             new PropertyValueFactory<HashTypeTable, String>(HashTypeTable.getProperties()[i])
                     );
+                    c1.setCellFactory(param -> new GuiUtil.OneLineTableCell<>());
                 }
                 find(null);
                 //设置默认选中第一行

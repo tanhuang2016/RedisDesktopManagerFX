@@ -215,6 +215,7 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
                     c1.setCellValueFactory(
                             new PropertyValueFactory<ZsetTypeTable, String>(ZsetTypeTable.getProperties()[i])
                     );
+                    c1.setCellFactory(param -> new GuiUtil.OneLineTableCell<>());
                 }
                 find(null);
                 //设置默认选中第一行
