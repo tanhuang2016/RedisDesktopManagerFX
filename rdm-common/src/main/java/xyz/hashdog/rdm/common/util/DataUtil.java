@@ -64,8 +64,8 @@ public class DataUtil {
      * @param charset
      * @return
      */
-    public static String formatJson(byte[] value, String charset,boolean isFormat) {
-        String s = new String(value, Charset.forName(charset));
+    public static String formatJson(byte[] value, Charset charset,boolean isFormat) {
+        String s = new String(value, charset);
         // 创建一个 GsonBuilder 来配置 Gson 的格式化选项
         GsonBuilder gsonBuilder = new GsonBuilder();
         if(isFormat){
@@ -85,8 +85,8 @@ public class DataUtil {
      * @param isFormat true是需要格式化
      * @return
      */
-    public static byte[] json2Byte(String value, String charset,boolean isFormat) {
-       return formatJson(value.getBytes(Charset.forName(charset)),charset,isFormat).getBytes();
+    public static byte[] json2Byte(String value, Charset charset,boolean isFormat) {
+       return formatJson(value.getBytes(charset),charset,isFormat).getBytes();
 
     }
 }

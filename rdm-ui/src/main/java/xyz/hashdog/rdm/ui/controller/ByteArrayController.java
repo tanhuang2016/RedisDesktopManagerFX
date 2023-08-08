@@ -9,13 +9,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import xyz.hashdog.rdm.common.Constant;
-import xyz.hashdog.rdm.common.service.ValueTypeEnum;
-import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
+import xyz.hashdog.rdm.ui.common.ValueTypeEnum;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
@@ -108,10 +108,9 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             //设置node不可见时不占用空间
             export.setManaged(isBinary);
 
-            if(newValue.equals(ValueTypeEnum.JSON.name)){
-                String formatJson = DataUtil.formatJson(this.currentValue,characterChoiceBox.getValue(),true);
-                this.value.setText(formatJson);
-            }
+            this.type=ValueTypeEnum.getByName(newValue);
+            this.value.setText(type.handler.byte2Text(this.currentValue,Charset.forName(characterChoiceBox.getValue())));
+
         });
     }
 
@@ -147,7 +146,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         this.currentValue = currentValue;
         this.currentSize = currentValue.length;
         //根据key的类型切换对应视图
-        ValueTypeEnum type;
+        ValueTypeEnum type = null;
         String text = null;
         String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
         //不是可识别的文件类型,都默认采用16进制展示
@@ -155,16 +154,18 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             boolean isUtf8 = EncodeUtil.isUTF8(currentValue);
             //是utf8编码或则非特殊字符,直接转utf8字符串
             if (isUtf8 || !EncodeUtil.containsSpecialCharacters(currentValue)) {
-                text = new String(currentValue);
+//                text = new String(currentValue);
+                type = ValueTypeEnum.TEXT;
             }
         }
-        if (text == null) {
-            text = FileUtil.byte2HexString(currentValue);
+        if (type == null) {
+//            text = FileUtil.byte2HexString(currentValue);
             type = ValueTypeEnum.HEX;
         } else {
             type = ValueTypeEnum.TEXT;
         }
-        String finalText = text;
+
+        String finalText = type.handler.byte2Text(currentValue, StandardCharsets.UTF_8);
         this.size.setText(String.format(SIZE, currentSize));
         this.value.setText(finalText);
         this.typeChoiceBox.setValue(type.name);
