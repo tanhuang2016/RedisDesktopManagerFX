@@ -4,25 +4,28 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import xyz.hashdog.rdm.common.Constant;
 import xyz.hashdog.rdm.common.service.ValueTypeEnum;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 /**
  * @Author th
  * @Date 2023/8/1 14:46
  */
-public class ByteArrayController  extends BaseController<BaseController> implements Initializable {
+public class ByteArrayController extends BaseController<BaseController> implements Initializable {
 
     @FXML
-    public ChoiceBox typeChoiceBox;
+    public ChoiceBox<String> typeChoiceBox;
     @FXML
     public TextArea value;
     protected static final String SIZE = "Size:%dB";
@@ -31,6 +34,12 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
     public Label size;
     @FXML
     public Label name;
+    @FXML
+    public ChoiceBox<String> characterChoiceBox;
+    @FXML
+    public Button into;
+    @FXML
+    public Button export;
     /**
      * 当前value的二进制
      */
@@ -41,10 +50,22 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
      * 当前type
      */
     private ValueTypeEnum type;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initCharacterChoiceBox();
         initTypeChoiceBox();
         initListener();
+    }
+
+    /**
+     * 初始化字符集选项
+     */
+    private void initCharacterChoiceBox() {
+        ObservableList items = characterChoiceBox.getItems();
+        items.clear();
+        items.addAll(Constant.CHARSETS);
+        characterChoiceBox.setValue(StandardCharsets.UTF_8.displayName());
     }
 
     /**
@@ -53,7 +74,6 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
     private void initListener() {
         typeChoiceBoxListener();
     }
-
 
 
     /**
@@ -69,10 +89,23 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
 
     /**
      * 类型选择触发事件
+     * text系列才会显示编码字符集
+     * 二进制数据,才会显示导入导出
      */
     private void typeChoiceBoxListener() {
-        typeChoiceBox.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
-
+        typeChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue==null){
+                return;
+            }
+            boolean isText = newValue.startsWith(ValueTypeEnum.TEXT.name);
+            characterChoiceBox.setVisible(isText);
+            characterChoiceBox.setManaged(isText);
+            boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name);
+            into.setVisible(isBinary);
+            into.setManaged(isBinary);
+            export.setVisible(isBinary);
+            //设置node不可见时不占用空间
+            export.setManaged(isBinary);
         });
     }
 
@@ -89,6 +122,7 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
 
     /**
      * 返回最新的数据
+     *
      * @return
      */
     public byte[] getByteArray() {
@@ -100,10 +134,11 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
 
     /**
      * 设置数据
+     *
      * @param currentValue
      */
     public void setByteArray(byte[] currentValue) {
-        this.currentValue=currentValue;
+        this.currentValue = currentValue;
         this.currentSize = currentValue.length;
         //根据key的类型切换对应视图
         ValueTypeEnum type;
@@ -131,6 +166,7 @@ public class ByteArrayController  extends BaseController<BaseController> impleme
 
     /**
      * 设置名称
+     *
      * @param key
      */
     public void setName(String key) {

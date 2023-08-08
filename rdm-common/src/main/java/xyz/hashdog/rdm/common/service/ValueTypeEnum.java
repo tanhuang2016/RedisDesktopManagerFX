@@ -6,10 +6,10 @@ package xyz.hashdog.rdm.common.service;
  */
 public enum ValueTypeEnum {
     TEXT("Text"),
+    JSON("Text(Json)"),
+    ZIP("Text(Zip)"),
     HEX("Hex"),
     BINARY("Binary"),
-    ZIP("Zip"),
-    JSON("Json"),
     IMAGE("Image"),
     IMAGE_BASE64("Image(Base64)"),
     ;
