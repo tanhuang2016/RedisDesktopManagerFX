@@ -4,10 +4,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.Constant;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
@@ -41,6 +45,8 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     public Button into;
     @FXML
     public Button export;
+    @FXML
+    public AnchorPane root;
     /**
      * 当前value的二进制
      */
@@ -110,6 +116,14 @@ public class ByteArrayController extends BaseController<BaseController> implemen
 
             this.type=ValueTypeEnum.getByName(newValue);
             this.value.setText(type.handler.byte2Text(this.currentValue,Charset.forName(characterChoiceBox.getValue())));
+            if(this.type.handler.isView()){
+                Parent view = this.type.handler.view(this.currentValue, Charset.forName(characterChoiceBox.getValue()));
+                Scene scene = new Scene(view);
+                Stage stage=new Stage();
+                stage.initOwner(root.getScene().getWindow());
+                stage.setScene(scene);
+                stage.show();
+            }
 
         });
     }

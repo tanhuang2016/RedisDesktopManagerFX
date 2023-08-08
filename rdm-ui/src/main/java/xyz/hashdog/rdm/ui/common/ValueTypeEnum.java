@@ -12,7 +12,7 @@ public enum ValueTypeEnum {
     ZIP("Text(Zip)",new TextConvertHandler()),
     HEX("Hex",new HexConvertHandler()),
     BINARY("Binary",new BinaryConvertHandler()),
-    IMAGE("Image",new TextConvertHandler()),
+    IMAGE("Image",new ImageConvertHandler()),
     IMAGE_BASE64("Image(Base64)",new TextConvertHandler()),
     ;
 

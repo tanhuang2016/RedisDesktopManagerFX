@@ -1,6 +1,6 @@
 package xyz.hashdog.rdm.ui.handler;
 
-import javafx.scene.Node;
+import javafx.scene.Parent;
 
 import java.nio.charset.Charset;
 
@@ -32,7 +32,7 @@ public interface ValueConvertHandler {
      * @param charset
      * @return
      */
-    default Node view(byte[] bytes, Charset charset){
+    default Parent view(byte[] bytes, Charset charset){
         return null;
     }
 
