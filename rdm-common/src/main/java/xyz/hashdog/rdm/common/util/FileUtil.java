@@ -270,6 +270,36 @@ public class FileUtil {
         return data;
     }
 
+    /**
+     * byte[]转二进制字符串
+     * @param byteArray
+     * @return
+     */
+    public static String byteArrayToBinaryString(byte[] byteArray) {
+        StringBuilder binaryString = new StringBuilder();
+        for (byte b : byteArray) {
+            for (int i = 7; i >= 0; i--) {
+                binaryString.append((b >> i) & 1);
+            }
+        }
+        return binaryString.toString();
+    }
+
+    /**
+     * 二进制字符串转byte[]
+     * @param binaryString
+     * @return
+     */
+    public static byte[] binaryStringToByteArray(String binaryString) {
+        int length = binaryString.length() / 8;
+        byte[] byteArray = new byte[length];
+        for (int i = 0; i < length; i++) {
+            String byteString = binaryString.substring(i * 8, (i + 1) * 8);
+            byteArray[i] = (byte) Integer.parseInt(byteString, 2);
+        }
+        return byteArray;
+    }
+
 
 
 }

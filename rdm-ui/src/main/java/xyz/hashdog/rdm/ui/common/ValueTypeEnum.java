@@ -1,9 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
-import xyz.hashdog.rdm.ui.handler.HexConvertHandler;
-import xyz.hashdog.rdm.ui.handler.TextConvertHandler;
-import xyz.hashdog.rdm.ui.handler.TextJsonConvertHandler;
-import xyz.hashdog.rdm.ui.handler.ValueConvertHandler;
+import xyz.hashdog.rdm.ui.handler.*;
 
 /**
  * @Author th
@@ -14,7 +11,7 @@ public enum ValueTypeEnum {
     JSON("Text(Json)",new TextJsonConvertHandler()),
     ZIP("Text(Zip)",new TextConvertHandler()),
     HEX("Hex",new HexConvertHandler()),
-    BINARY("Binary",new TextConvertHandler()),
+    BINARY("Binary",new BinaryConvertHandler()),
     IMAGE("Image",new TextConvertHandler()),
     IMAGE_BASE64("Image(Base64)",new TextConvertHandler()),
     ;
