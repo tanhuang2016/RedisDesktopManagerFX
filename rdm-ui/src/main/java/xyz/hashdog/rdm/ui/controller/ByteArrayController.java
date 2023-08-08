@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import xyz.hashdog.rdm.common.Constant;
 import xyz.hashdog.rdm.common.service.ValueTypeEnum;
+import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -106,6 +107,11 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             export.setVisible(isBinary);
             //设置node不可见时不占用空间
             export.setManaged(isBinary);
+
+            if(newValue.equals(ValueTypeEnum.JSON.name)){
+                String formatJson = DataUtil.formatJson(this.currentValue,characterChoiceBox.getValue(),true);
+                this.value.setText(formatJson);
+            }
         });
     }
 

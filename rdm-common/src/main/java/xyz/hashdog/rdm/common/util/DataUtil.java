@@ -1,6 +1,10 @@
 package xyz.hashdog.rdm.common.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.awt.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -52,5 +56,37 @@ public class DataUtil {
         Font[] allFonts = ge.getAllFonts();
         fonts.addAll(Arrays.asList(allFonts).stream().map(e->e.getFontName(locale)).collect(Collectors.toList()));
         return fonts;
+    }
+
+    /**
+     * json字符串格式化
+     * @param value
+     * @param charset
+     * @return
+     */
+    public static String formatJson(byte[] value, String charset,boolean isFormat) {
+        String s = new String(value, Charset.forName(charset));
+        // 创建一个 GsonBuilder 来配置 Gson 的格式化选项
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if(isFormat){
+            gsonBuilder.setPrettyPrinting(); // 启用格式化输出
+        }
+        Gson gson = gsonBuilder.create();
+        // 使用 Gson 格式化 JSON 字符串
+        String formattedJson = gson.toJson(gson.fromJson(s, Object.class)); // 解析 JSON 字符串后再格式化
+        return formattedJson;
+
+    }
+
+    /**
+     * json转byte[]
+     * @param value
+     * @param charset
+     * @param isFormat true是需要格式化
+     * @return
+     */
+    public static byte[] json2Byte(String value, String charset,boolean isFormat) {
+       return formatJson(value.getBytes(Charset.forName(charset)),charset,isFormat).getBytes();
+
     }
 }
