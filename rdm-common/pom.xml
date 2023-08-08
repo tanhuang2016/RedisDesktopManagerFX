@@ -25,11 +25,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>30.1-jre</version> <!-- 使用最新版本 -->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.google.guava</groupId>-->
+<!--            <artifactId>guava</artifactId>-->
+<!--            <version>30.1-jre</version> &lt;!&ndash; 使用最新版本 &ndash;&gt;-->
+<!--        </dependency>-->
 
     </dependencies>
 
