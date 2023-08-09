@@ -3,8 +3,8 @@ package xyz.hashdog.rdm.redis.imp.client;
 import org.junit.Before;
 import org.junit.Test;
 import redis.clients.jedis.JedisPool;
-import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
+import xyz.hashdog.rdm.common.util.GzipUtil;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
@@ -306,31 +306,21 @@ public class JedisPoolClientTest {
 
 
     @Test
-    public void set2 (){
-        String set = redisClient.set("AAA".getBytes(),"你好".getBytes(Charset.forName("gbk")));
-//        String set = redisClient.set("AAA".getBytes(),"中文44ik".getBytes(StandardCharsets.ISO_8859_1));
-        System.out.println(set);
-    }
-    @Test
     public void setImage () throws IOException {
+
         String set = redisClient.set("image".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png"));
-        String set2 = redisClient.set("image2".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
-        String set3 = redisClient.set("image3".getBytes(), Base64.getEncoder().encode(FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png")));
+        String set2 = redisClient.set("imageBig".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
+        String set3 = redisClient.set("imageBase64".getBytes(), Base64.getEncoder().encode(FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png")));
+        String set4 = redisClient.set("stringGBK".getBytes(),"你好".getBytes(Charset.forName("gbk")));
+        String set5 = redisClient.set("stringISO-8859-1".getBytes(),"你好".getBytes(StandardCharsets.ISO_8859_1));
+        String set6 = redisClient.set("stringGZiputf8".getBytes(), GzipUtil.compress("你好",StandardCharsets.UTF_8));
+        String set7 = redisClient.set("stringGZipgbk".getBytes(),GzipUtil.compress("你好",Charset.forName("gbk")));
+        String set8 = redisClient.set("stringUTF-16".getBytes(),"你好".getBytes(StandardCharsets.UTF_16));
+
+
         System.out.println(set);
     }
-    @Test
-    public void get2 (){
-        byte[] get = redisClient.get("AA".getBytes(StandardCharsets.UTF_8));
-        System.out.println(new String(get, Charset.forName("gbk")));
-    }
-    @Test
-    public void testgbk (){
-        byte[] get = redisClient.get("a:b:10".getBytes(StandardCharsets.UTF_8));
-        System.out.println("size:"+get.length);
-        System.out.println(EncodeUtil.isUTF8(get));
-        String fileTypeByStream = FileUtil.getFileTypeByStream(get);
-        System.out.println(fileTypeByStream);
-    }
+
 
 
 

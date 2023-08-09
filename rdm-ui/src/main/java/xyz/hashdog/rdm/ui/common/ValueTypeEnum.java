@@ -9,7 +9,7 @@ import xyz.hashdog.rdm.ui.handler.*;
 public enum ValueTypeEnum {
     TEXT("Text",new TextConvertHandler()),
     JSON("Text(Json)",new TextJsonConvertHandler()),
-    ZIP("Text(Zip)",new TextConvertHandler()),
+    ZIP("Text(Gzip)",new TextGzipConvertHandler()),
     HEX("Hex",new HexConvertHandler()),
     BINARY("Binary",new BinaryConvertHandler()),
     IMAGE("Image",new ImageConvertHandler()),
