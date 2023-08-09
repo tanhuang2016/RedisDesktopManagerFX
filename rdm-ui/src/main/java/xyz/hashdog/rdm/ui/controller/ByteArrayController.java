@@ -177,27 +177,22 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         this.currentValue = currentValue;
         this.currentSize = currentValue.length;
         //根据key的类型切换对应视图
-        String text = null;
         String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
         //不是可识别的文件类型,都默认采用16进制展示
         if (fileTypeByStream == null) {
             boolean isUtf8 = EncodeUtil.isUTF8(currentValue);
             //是utf8编码或则非特殊字符,直接转utf8字符串
             if (isUtf8 || !EncodeUtil.containsSpecialCharacters(currentValue)) {
-//                text = new String(currentValue);
                 type = ValueTypeEnum.TEXT;
             }
         }
         if (type == null) {
-//            text = FileUtil.byte2HexString(currentValue);
             type = ValueTypeEnum.HEX;
         } else {
             type = ValueTypeEnum.TEXT;
         }
 
-//        String finalText = type.handler.byte2Text(currentValue, StandardCharsets.UTF_8);
         this.size.setText(String.format(SIZE, currentSize));
-//        this.value.setText(finalText);
         this.typeChoiceBox.setValue(type.name);
     }
 
