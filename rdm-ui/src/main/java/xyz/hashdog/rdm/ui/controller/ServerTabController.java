@@ -65,8 +65,20 @@ public class ServerTabController extends BaseKeyController<MainController> {
 
     @FXML
     public void initialize() {
+        initNewKey();
         initAutoWah();
         initListener();
+    }
+
+    /**
+     * 初始化新增类型
+     */
+    private void initNewKey() {
+        ObservableList<MenuItem> items = newKey.getItems();
+        items.clear();
+        for (RedisDataTypeEnum value : RedisDataTypeEnum.values()) {
+            items.add(new MenuItem(value.type));
+        }
     }
 
     /**
@@ -77,8 +89,22 @@ public class ServerTabController extends BaseKeyController<MainController> {
         choiceBoxSelectedLinstener();
         initTreeViewRoot();
         treeViewListener();
+        newKeyListener();
 
 
+
+    }
+
+    /**
+     * 新增key的点击事件
+     */
+    private void newKeyListener() {
+        for (MenuItem item : newKey.getItems()) {
+            item.setOnAction(e->{
+                MenuItem selectedItem = (MenuItem) e.getSource();
+                System.out.println(selectedItem.getText());
+            });
+        }
     }
 
 
