@@ -47,6 +47,8 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     public Button export;
     @FXML
     public AnchorPane root;
+    @FXML
+    public Button view;
     /**
      * 当前value的二进制
      */
@@ -129,16 +131,15 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             export.setVisible(isBinary);
             //设置node不可见时不占用空间
             export.setManaged(isBinary);
+            boolean isView = newValue.startsWith(ValueTypeEnum.IMAGE.name);
+            view.setVisible(isView);
+            view.setManaged(isView);
+
 
             this.type=ValueTypeEnum.getByName(newValue);
             this.value.setText(type.handler.byte2Text(this.currentValue,Charset.forName(characterChoiceBox.getValue())));
             if(this.type.handler.isView()){
-                Parent view = this.type.handler.view(this.currentValue, Charset.forName(characterChoiceBox.getValue()));
-                Scene scene = new Scene(view);
-                Stage stage=new Stage();
-                stage.initOwner(root.getScene().getWindow());
-                stage.setScene(scene);
-                stage.show();
+                view(null);
             }
 
         });
@@ -208,5 +209,20 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     public void setName(String key) {
         this.name.setText(key);
 
+    }
+
+    /**
+     * 查看
+     * @param actionEvent
+     */
+    @FXML
+    public void view(ActionEvent actionEvent) {
+        Parent view = this.type.handler.view(this.currentValue, Charset.forName(characterChoiceBox.getValue()));
+        Scene scene = new Scene(view);
+        Stage stage=new Stage();
+        stage.getIcons().add(GuiUtil.ICON_REDIS);
+        stage.initOwner(root.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
     }
 }

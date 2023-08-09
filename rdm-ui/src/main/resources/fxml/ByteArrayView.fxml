@@ -31,9 +31,10 @@
                   <Button mnemonicParsing="false" onAction="#copy" text="复制" />
                   <Button fx:id="into" mnemonicParsing="false" text="导入" />
                   <Button fx:id="export" mnemonicParsing="false" text="导出" />
-                  <ChoiceBox fx:id="characterChoiceBox" prefWidth="80.0" HBox.hgrow="ALWAYS" >
+                  <Button fx:id="view" mnemonicParsing="false" text="查看" onAction="#view" />
+                  <ChoiceBox fx:id="characterChoiceBox" prefWidth="80.0" HBox.hgrow="ALWAYS">
                      <items>
-                        <FXCollections  fx:factory="observableArrayList">
+                        <FXCollections fx:factory="observableArrayList">
                            <String fx:value="UTF-8" />
                            <String fx:value="GBK" />
                         </FXCollections>
