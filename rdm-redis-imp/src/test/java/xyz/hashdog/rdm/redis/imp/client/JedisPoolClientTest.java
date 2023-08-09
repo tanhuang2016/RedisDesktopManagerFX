@@ -306,16 +306,17 @@ public class JedisPoolClientTest {
 
 
     @Test
-    public void setImage () throws IOException {
+    public void setTestData () throws IOException {
 
         String set = redisClient.set("image".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png"));
-        String set2 = redisClient.set("imageBig".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
-        String set3 = redisClient.set("imageBase64".getBytes(), Base64.getEncoder().encode(FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png")));
-        String set4 = redisClient.set("stringGBK".getBytes(),"你好".getBytes(Charset.forName("gbk")));
-        String set5 = redisClient.set("stringISO-8859-1".getBytes(),"你好".getBytes(StandardCharsets.ISO_8859_1));
-        String set6 = redisClient.set("stringGZiputf8".getBytes(), GzipUtil.compress("你好",StandardCharsets.UTF_8));
-        String set7 = redisClient.set("stringGZipgbk".getBytes(),GzipUtil.compress("你好",Charset.forName("gbk")));
-        String set8 = redisClient.set("stringUTF-16".getBytes(),"你好".getBytes(StandardCharsets.UTF_16));
+        String set2 = redisClient.set("image:big".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
+        String set3 = redisClient.set("image:base64".getBytes(), Base64.getEncoder().encode(FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png")));
+        String set41 = redisClient.set("string:utf-8".getBytes(),"你好".getBytes(Charset.forName("utf-8")));
+        String set4 = redisClient.set("string:gbk".getBytes(),"你好".getBytes(Charset.forName("gbk")));
+        String set5 = redisClient.set("string:iso-8859-1".getBytes(),"你好".getBytes(StandardCharsets.ISO_8859_1));
+        String set6 = redisClient.set("string:gzip:utf8".getBytes(), GzipUtil.compress("你好",StandardCharsets.UTF_8));
+        String set7 = redisClient.set("string:gzip:gbk".getBytes(),GzipUtil.compress("你好",Charset.forName("gbk")));
+        String set8 = redisClient.set("string:utf-16".getBytes(),"你好".getBytes(StandardCharsets.UTF_16));
 
 
         System.out.println(set);
