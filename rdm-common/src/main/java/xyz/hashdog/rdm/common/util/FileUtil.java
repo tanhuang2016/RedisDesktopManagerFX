@@ -195,7 +195,7 @@ public class FileUtil {
     }
 
     /**
-     * 获取文件类型
+     * 获取文件类型,只用转前面一段16进制就行,没必要全部转
      * @param b
      * @return
      */
