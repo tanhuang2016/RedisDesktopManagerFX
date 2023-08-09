@@ -2,9 +2,12 @@ package xyz.hashdog.rdm.ui.handler;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import xyz.hashdog.rdm.common.util.FileUtil;
 
+import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -26,11 +29,17 @@ public class ImageConvertHandler implements ValueConvertHandler{
 
     @Override
     public Parent view(byte[] bytes, Charset charset) {
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.setPadding(new Insets(10));
-        anchorPane.setPrefHeight(500);
-        anchorPane.setPrefWidth(500);
-        return anchorPane;
+        // 创建StackPane并将ImageView添加到其中
+        StackPane stackPane = new StackPane();
+        stackPane.setPadding(new Insets(10));
+        stackPane.setPrefHeight(500);
+        stackPane.setPrefWidth(500);
+        ImageView imageView = new ImageView(new Image(new ByteArrayInputStream(bytes)));
+        stackPane.getChildren().add(imageView);
+        // 设置ImageView居中对齐
+        StackPane.setAlignment(imageView, javafx.geometry.Pos.CENTER);;
+
+        return stackPane;
     }
 
     @Override

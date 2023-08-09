@@ -313,6 +313,7 @@ public class JedisPoolClientTest {
     @Test
     public void setImage () throws IOException {
         String set = redisClient.set("image".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png"));
+        String set2 = redisClient.set("image2".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
         System.out.println(set);
     }
     @Test

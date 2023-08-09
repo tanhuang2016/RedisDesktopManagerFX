@@ -80,7 +80,9 @@ public class ByteArrayController extends BaseController<BaseController> implemen
      */
     private void initListener() {
         typeChoiceBoxListener();
+        characterChoiceBoxListener();
     }
+
 
 
     /**
@@ -92,6 +94,16 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         for (ValueTypeEnum valueTypeEnum : ValueTypeEnum.values()) {
             items.add(valueTypeEnum.name);
         }
+    }
+
+    /**
+     * 字符集选中监听
+     */
+    private void characterChoiceBoxListener() {
+        characterChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+            this.value.setText(type.handler.byte2Text(this.currentValue,Charset.forName(newValue)));
+        });
     }
 
     /**
@@ -107,6 +119,10 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             boolean isText = newValue.startsWith(ValueTypeEnum.TEXT.name);
             characterChoiceBox.setVisible(isText);
             characterChoiceBox.setManaged(isText);
+            //如果选择text显示,且不是utf8编码,则用US-ASCII字符集
+            if(isText && !EncodeUtil.isUTF8(this.currentValue)){
+                characterChoiceBox.setValue(StandardCharsets.US_ASCII.displayName());
+            }
             boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name);
             into.setVisible(isBinary);
             into.setManaged(isBinary);
@@ -160,7 +176,6 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         this.currentValue = currentValue;
         this.currentSize = currentValue.length;
         //根据key的类型切换对应视图
-        ValueTypeEnum type = null;
         String text = null;
         String fileTypeByStream = FileUtil.getFileTypeByStream(currentValue);
         //不是可识别的文件类型,都默认采用16进制展示
@@ -179,9 +194,9 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             type = ValueTypeEnum.TEXT;
         }
 
-        String finalText = type.handler.byte2Text(currentValue, StandardCharsets.UTF_8);
+//        String finalText = type.handler.byte2Text(currentValue, StandardCharsets.UTF_8);
         this.size.setText(String.format(SIZE, currentSize));
-        this.value.setText(finalText);
+//        this.value.setText(finalText);
         this.typeChoiceBox.setValue(type.name);
     }
 

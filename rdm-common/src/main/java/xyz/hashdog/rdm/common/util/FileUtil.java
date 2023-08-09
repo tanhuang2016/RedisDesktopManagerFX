@@ -5,6 +5,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -199,7 +200,7 @@ public class FileUtil {
      * @return
      */
     public final static String getFileTypeByStream(byte[] b) {
-        String filetypeHex = String.valueOf(getFileHexString(b));
+        String filetypeHex = String.valueOf(getFileHexString(b,50));
         Iterator<Map.Entry<String, String>> entryiterator = FILE_TYPE_MAP.entrySet().iterator();
         while (entryiterator.hasNext()) {
             Map.Entry<String, String> entry = entryiterator.next();
@@ -236,24 +237,28 @@ public class FileUtil {
     }
 
     /**
-     * 转16进制
+     * 转16进制,从开头截止到stop
      * @param
      * @return
      */
-    public final static String getFileHexString(byte[] byteArray) {
-        return byte2HexString(byteArray);
+    public final static String getFileHexString(byte[] byteArray,int stop) {
+        if(byteArray.length<stop){
+            stop=byteArray.length;
+        }
+        byte[] bytes = Arrays.copyOfRange(byteArray, 0, stop);
+        return byte2HexString(bytes);
     }
 
 
 
     public static String byte2HexString(byte[] bytes) {
-        String hex = "";
+        StringBuilder hex = new StringBuilder();
         if (bytes != null) {
             for (Byte b : bytes) {
-                hex += String.format("%02X", b.intValue() & 0xFF);
+                hex.append( String.format("%02X", b.intValue() & 0xFF));
             }
         }
-        return hex;
+        return hex.toString();
     }
 
     public static byte[] hexStringToByteArray(String s) {
