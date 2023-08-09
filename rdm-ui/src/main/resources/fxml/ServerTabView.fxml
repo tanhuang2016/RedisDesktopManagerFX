@@ -4,11 +4,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,7 +27,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
-                               <ChoiceBox fx:id="choiceBox" onMouseClicked="#onChoiceBoxMouseClicked"  minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                               <ChoiceBox fx:id="choiceBox" minWidth="-Infinity" onMouseClicked="#onChoiceBoxMouseClicked" prefWidth="150.0" HBox.hgrow="ALWAYS">
 <!--                                   <items>-->
 <!--                                       <FXCollections fx:factory="observableArrayList">-->
 <!--                                           <String fx:value="Option 1" />-->
@@ -33,13 +36,32 @@
 <!--                                       </FXCollections>-->
 <!--                                   </items>-->
                                </ChoiceBox>
-                              <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#newKey" prefWidth="40.0" text="新增" HBox.hgrow="ALWAYS" />
+                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="new">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                                </items>
+                                 <graphic>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/new_key.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MenuButton>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
                               <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                              <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="40.0" text="搜索" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="search" HBox.hgrow="ALWAYS">
+                                 <graphic>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/search.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
                            </children>
                         </HBox>
                          <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

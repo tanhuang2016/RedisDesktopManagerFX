@@ -42,6 +42,10 @@ public class ServerTabController extends BaseKeyController<MainController> {
     @FXML
     public ContextMenu contextMenu;
     @FXML
+    public MenuButton newKey;
+    @FXML
+    public Button search;
+    @FXML
     private TreeView<String> treeView;
     @FXML
     private ChoiceBox<DBNode> choiceBox;
@@ -275,6 +279,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         // 设置ChoiceBox的宽度自适应
         choiceBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(choiceBox, javafx.scene.layout.Priority.ALWAYS);
+        search.prefWidthProperty().bind(newKey.widthProperty());
     }
 
     /**
