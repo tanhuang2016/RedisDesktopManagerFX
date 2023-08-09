@@ -12,6 +12,7 @@ import xyz.hashdog.rdm.redis.imp.Constant;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -314,6 +315,7 @@ public class JedisPoolClientTest {
     public void setImage () throws IOException {
         String set = redisClient.set("image".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png"));
         String set2 = redisClient.set("image2".getBytes(), FileUtil.file2byte("C:\\Users\\11036\\Desktop\\QQ录屏20230807174249.gif"));
+        String set3 = redisClient.set("image3".getBytes(), Base64.getEncoder().encode(FileUtil.file2byte("C:\\Users\\11036\\Desktop\\123.png")));
         System.out.println(set);
     }
     @Test

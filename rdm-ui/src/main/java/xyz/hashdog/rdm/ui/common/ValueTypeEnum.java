@@ -13,7 +13,7 @@ public enum ValueTypeEnum {
     HEX("Hex",new HexConvertHandler()),
     BINARY("Binary",new BinaryConvertHandler()),
     IMAGE("Image",new ImageConvertHandler()),
-    IMAGE_BASE64("Image(Base64)",new TextConvertHandler()),
+    IMAGE_BASE64("Image(Base64)",new ImageBase64ConvertHandler()),
     ;
 
 
