@@ -218,6 +218,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         stage.getIcons().add(GuiUtil.ICON_REDIS);
         stage.initOwner(root.getScene().getWindow());
         stage.setScene(scene);
+        stage.setTitle(String.format("View Of %s",this.type.name ));
         stage.show();
     }
 }

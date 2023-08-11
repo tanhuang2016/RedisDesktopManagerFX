@@ -7,11 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
@@ -102,7 +104,26 @@ public class ServerTabController extends BaseKeyController<MainController> {
         for (MenuItem item : newKey.getItems()) {
             item.setOnAction(e->{
                 MenuItem selectedItem = (MenuItem) e.getSource();
-                System.out.println(selectedItem.getText());
+                String text = selectedItem.getText();
+                RedisDataTypeEnum byType = RedisDataTypeEnum.getByType(text);
+                Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML("/fxml/NewKeyView.fxml");
+                AnchorPane anchorPane = tuple2.getT1();
+                BaseKeyController controller = tuple2.getT2();
+                controller.setParentController(this);
+                PassParameter passParameter = new PassParameter(byType.tabType);
+                passParameter.setDb(this.currentDb);
+                //这里设置null,是怕忘记
+                passParameter.setKey(null);
+                passParameter.setKeyType(byType.type);
+                passParameter.setRedisClient(redisClient);
+                passParameter.setRedisContext(redisContext);
+                Stage stage = new Stage();
+                stage.setTitle(String.format("新增%s类型的Key",text ));
+                Scene scene = new Scene(anchorPane);
+                stage.initOwner(root.getScene().getWindow());
+                stage.setScene(scene);
+                stage.show();
+
             });
         }
     }
