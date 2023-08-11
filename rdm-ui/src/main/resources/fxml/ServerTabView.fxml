@@ -36,7 +36,7 @@
 <!--                                       </FXCollections>-->
 <!--                                   </items>-->
                                </ChoiceBox>
-                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="new">
+                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="New">
                                 <items>
                                   <MenuItem mnemonicParsing="false" text="Action 1" />
                                   <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -54,7 +54,7 @@
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
                               <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="search" HBox.hgrow="ALWAYS">
+                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="Search" HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
