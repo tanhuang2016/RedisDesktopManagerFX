@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.entity;
 
+import java.util.Arrays;
+
 /**
  * @Author th
  * @Date 2023/8/3 22:35
@@ -22,6 +24,18 @@ public class HashTypeTable {
         return new String[]{"#row", "key","value"};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HashTypeTable that = (HashTypeTable) o;
+        return Arrays.equals(keyBytes, that.keyBytes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(keyBytes);
+    }
 
     public byte[] getBytes() {
         return bytes;

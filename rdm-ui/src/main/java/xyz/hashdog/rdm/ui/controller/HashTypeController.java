@@ -310,10 +310,23 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         stage.show();
         //设置确定事件咯
         appendTuple2.getT2().ok.setOnAction(event -> {
-            String text = valueTuple2.getT2().value.getText();
-            String text2 = keyTuple2.getT2().value.getText();
-            System.out.println(text);
-            System.out.println(text2);
+            byte[] key = keyTuple2.getT2().getByteArray();
+            byte[] value = valueTuple2.getT2().getByteArray();
+            asynexec(()->{
+                exeRedis(j->j.hset(this.getParameter().getKey().getBytes(),key, value));
+                Platform.runLater(()->{
+                    //需要判断list是否存在该元素,由于是hash类型,只判断key是否存在就行,需要重新equals方法
+                    HashTypeTable hashTypeTable = new HashTypeTable(key, value);
+                    if(list.contains(hashTypeTable)){
+                        int i = list.indexOf(hashTypeTable);
+                        list.set(i,hashTypeTable);
+                    }else{
+                        list.add(hashTypeTable);
+                    }
+                    find(null);
+                    stage.close();
+                });
+            });
         });
     }
 
