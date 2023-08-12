@@ -106,9 +106,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 MenuItem selectedItem = (MenuItem) e.getSource();
                 String text = selectedItem.getText();
                 RedisDataTypeEnum byType = RedisDataTypeEnum.getByType(text);
-                Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML("/fxml/NewKeyView.fxml");
+                Tuple2<AnchorPane,NewKeyController> tuple2 = loadFXML("/fxml/NewKeyView.fxml");
                 AnchorPane anchorPane = tuple2.getT1();
-                BaseKeyController controller = tuple2.getT2();
+                NewKeyController controller = tuple2.getT2();
                 controller.setParentController(this);
                 PassParameter passParameter = new PassParameter(byType.tabType);
                 passParameter.setDb(this.currentDb);
@@ -117,11 +117,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 passParameter.setKeyType(byType.type);
                 passParameter.setRedisClient(redisClient);
                 passParameter.setRedisContext(redisContext);
+                controller.setParameter(passParameter);
                 Stage stage = new Stage();
                 stage.setTitle(String.format("新增%s类型的Key",text ));
                 Scene scene = new Scene(anchorPane);
                 stage.initOwner(root.getScene().getWindow());
                 stage.setScene(scene);
+                controller.setCurrentStage(stage);
                 stage.show();
 
             });
@@ -189,11 +191,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 // 获取选中的节点
                 TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
                 if (selectedItem != null && selectedItem.isLeaf()) {
-                    try {
-                        open(null);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    open(null);
                 }
             }
         });
@@ -376,7 +374,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      *
      * @param actionEvent
      */
-    public void open(ActionEvent actionEvent) throws IOException {
+    public void open(ActionEvent actionEvent)  {
         String key = this.lastSelectedNode.getValue();
         String type = RedisDataTypeEnum.getByType(exeRedis(j -> j.type(key))).type;
         Tuple2<AnchorPane,BaseKeyController> tuple2 = loadFXML("/fxml/KeyTabView.fxml");
@@ -520,6 +518,25 @@ public class ServerTabController extends BaseKeyController<MainController> {
         }
         return true;
     }
+
+    /**
+     * 新增key并选中
+     * @param p
+     * @return
+     */
+    public boolean addKeyAndSelect(ObjectProperty<PassParameter> p) {
+        //如果treeView是的db和删除key的db相同,则需要对应删除treeView中的节点
+        if(p.get().getDb()==this.currentDb){
+            Platform.runLater(()->{
+                TreeItem treeItem = new TreeItem(p.get().getKey(),GuiUtil.creatKeyImageView());
+                treeView.getRoot().getChildren().add(treeItem);
+                treeView.getSelectionModel().select(treeItem);
+                open(null);
+            });
+        }
+        return true;
+    }
+
 
 
     /**

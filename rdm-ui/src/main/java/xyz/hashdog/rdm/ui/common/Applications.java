@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class Applications {
 
+    public static  final String DEFUALT_VALUE="520";
+
+
     /**
      * 连接
      */

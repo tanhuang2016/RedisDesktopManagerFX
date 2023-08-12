@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.NewKeyController">
+<AnchorPane fx:id="root" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.NewKeyController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="154.0" layoutY="64.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -20,7 +20,7 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="key" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -30,13 +30,13 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField HBox.hgrow="ALWAYS" text="-1" />
+                  <TextField fx:id="ttl" HBox.hgrow="ALWAYS" text="-1" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" text="取消" />
-                  <Button mnemonicParsing="false" text="确定" />
+                  <Button mnemonicParsing="false" onAction="#ok"  text="确定" />
+                  <Button mnemonicParsing="false" onAction="#cancel" text="取消" />
                </children>
             </HBox>
          </children>
