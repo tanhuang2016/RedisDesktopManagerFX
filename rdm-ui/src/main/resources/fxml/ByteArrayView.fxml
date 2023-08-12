@@ -31,7 +31,7 @@
                   <Button mnemonicParsing="false" onAction="#copy" text="复制" />
                   <Button fx:id="into" mnemonicParsing="false" text="导入" />
                   <Button fx:id="export" mnemonicParsing="false" text="导出" />
-                  <Button fx:id="view" mnemonicParsing="false" text="查看" onAction="#view" />
+                  <Button fx:id="view" mnemonicParsing="false" onAction="#view" text="查看" />
                   <ChoiceBox fx:id="characterChoiceBox" prefWidth="80.0" HBox.hgrow="ALWAYS">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -45,7 +45,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <AnchorPane prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
                   <TextArea fx:id="value" layoutX="200.0" layoutY="59.0" prefWidth="955.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>

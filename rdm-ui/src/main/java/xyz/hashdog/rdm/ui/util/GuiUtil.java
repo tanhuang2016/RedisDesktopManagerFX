@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -403,6 +404,7 @@ public class GuiUtil {
         Scene scene = new Scene(anchorPane);
         stage.initOwner(window);
         stage.setScene(scene);
+        stage.initModality(Modality.WINDOW_MODAL);
         return stage;
     }
 

@@ -3,8 +3,8 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +31,7 @@ public class AppendController extends BaseWindowController<BaseKeyController> im
      * 设置内容
      * @param t1
      */
-    public void setSubContent(AnchorPane t1) {
+    public void setSubContent(Pane t1) {
         borderPane.setCenter(t1);
     }
 }

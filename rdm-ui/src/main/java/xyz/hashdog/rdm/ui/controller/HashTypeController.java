@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
@@ -292,7 +293,30 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void add(ActionEvent actionEvent) {
+        Button source = (Button)actionEvent.getSource();
+        Tuple2<AnchorPane, ByteArrayController> keyTuple2 = loadByteArrayView("".getBytes());
+        Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView("".getBytes());
+        keyTuple2.getT2().setName("Key");
+        VBox vBox = new VBox();
+        vBox.getChildren().add(keyTuple2.getT1());
+        VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
+        vBox.getChildren().add(valueTuple2.getT1());
+
+
+        Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
+        Stage stage= GuiUtil.createSubStage(source.getText(),appendTuple2.getT1(),root.getScene().getWindow());
+        appendTuple2.getT2().setCurrentStage(stage);
+        appendTuple2.getT2().setSubContent(vBox);
+        stage.show();
+        //设置确定事件咯
+        appendTuple2.getT2().ok.setOnAction(event -> {
+            String text = valueTuple2.getT2().value.getText();
+            String text2 = keyTuple2.getT2().value.getText();
+            System.out.println(text);
+            System.out.println(text2);
+        });
     }
+
 
     /**
      * 删除行

@@ -279,8 +279,21 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         }
     }
 
+    /**
+     * 插入头
+     * @param actionEvent
+     */
     @FXML
     public void addHead(ActionEvent actionEvent) {
+        this.add(actionEvent,0);
+    }
+
+    /**
+     * 封装插入方法
+     * @param actionEvent
+     * @param index 下标
+     */
+    private void add(ActionEvent actionEvent, int index) {
         Button source = (Button)actionEvent.getSource();
         Tuple2<AnchorPane, ByteArrayController> tuple2 = loadByteArrayInfo(this, "".getBytes());
         Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
@@ -290,16 +303,29 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         stage.show();
         //设置确定事件咯
         appendTuple2.getT2().ok.setOnAction(event -> {
-            String text = tuple2.getT2().value.getText();
-            System.out.println(text);
             byte[] byteArray = tuple2.getT2().getByteArray();
+            asynexec(()->{
+                if(index==0){
+                    exeRedis(j->j.lpush(this.parameter.get().getKey().getBytes(),byteArray));
+                }else {
+                    exeRedis(j->j.rpush(this.parameter.get().getKey().getBytes(),byteArray));
+                }
+                Platform.runLater(()->{
+                    list.add(index,new ListTypeTable(byteArray));
+                    find(null);
+                    stage.close();
+                });
+            });
         });
-
     }
 
+    /**
+     * 插入尾
+     * @param actionEvent
+     */
     @FXML
     public void addTail(ActionEvent actionEvent) {
-
+        this.add(actionEvent,list.size());
     }
 
     /**
