@@ -30,7 +30,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField HBox.hgrow="ALWAYS" />
+                  <TextField HBox.hgrow="ALWAYS" text="-1" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
