@@ -163,8 +163,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
      */
     public byte[] getByteArray() {
         //这里需要通过Text即时计算byte数组,根据类型进行转换为byte数组
-//        return currentValue;
-        return value.getText().getBytes();
+        return type.handler.text2Byte(value.getText(),Charset.forName(characterChoiceBox.getValue()));
     }
 
 

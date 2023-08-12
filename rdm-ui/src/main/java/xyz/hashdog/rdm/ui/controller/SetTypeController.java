@@ -233,6 +233,7 @@ public class SetTypeController extends BaseKeyController<KeyTabController> imple
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
                 tableView.refresh();
+                byteArrayController.setByteArray(byteArray);
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
             });
         });

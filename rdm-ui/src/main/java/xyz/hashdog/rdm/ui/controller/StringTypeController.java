@@ -79,6 +79,7 @@ public class StringTypeController extends BaseKeyController<KeyTabController> im
         asynexec(() -> {
             exeRedis(j -> j.set(this.getParameter().getKey().getBytes(), byteArray));
             Platform.runLater(() -> {
+                byteArrayController.setByteArray(byteArray);
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
             });
         });

@@ -278,6 +278,8 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
                 tableView.refresh();
+                keyByteArrayController.setByteArray(key);
+                byteArrayController.setByteArray(value);
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
             });
         });

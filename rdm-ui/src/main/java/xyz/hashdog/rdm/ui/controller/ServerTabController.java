@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -118,11 +117,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 passParameter.setRedisClient(redisClient);
                 passParameter.setRedisContext(redisContext);
                 controller.setParameter(passParameter);
-                Stage stage = new Stage();
-                stage.setTitle(String.format("新增%s类型的Key",text ));
-                Scene scene = new Scene(anchorPane);
-                stage.initOwner(root.getScene().getWindow());
-                stage.setScene(scene);
+                Stage stage= GuiUtil.createSubStage(String.format("新增%s类型的Key",text ),anchorPane,root.getScene().getWindow());
                 controller.setCurrentStage(stage);
                 stage.show();
 

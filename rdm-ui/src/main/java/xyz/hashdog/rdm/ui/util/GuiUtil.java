@@ -5,12 +5,15 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.ui.Main;
@@ -385,6 +388,22 @@ public class GuiUtil {
                 tableView.refresh();
             });
         }
+    }
+
+    /**
+     * 创建通用子stae
+     * @param title
+     * @param anchorPane
+     * @param window
+     * @return
+     */
+    public static Stage createSubStage(String title, Parent anchorPane, Window window) {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        Scene scene = new Scene(anchorPane);
+        stage.initOwner(window);
+        stage.setScene(scene);
+        return stage;
     }
 
 
