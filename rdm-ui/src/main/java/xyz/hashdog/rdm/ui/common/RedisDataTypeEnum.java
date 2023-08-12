@@ -19,25 +19,25 @@ public enum RedisDataTypeEnum {
     })),
     HASH("Hash","/fxml/HashTypeView.fxml", PassParameter.HASH,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
-        redisClient.set(key, Applications.DEFUALT_VALUE);
+        redisClient.hsetnx(key, Applications.DEFUALT_VALUE,Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     })),
     LIST("List","/fxml/ListTypeView.fxml", PassParameter.LIST,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
-        redisClient.set(key, Applications.DEFUALT_VALUE);
+        redisClient.lpush(key, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     })),
     SET("Set","/fxml/SetTypeView.fxml", PassParameter.SET,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
-        redisClient.set(key, Applications.DEFUALT_VALUE);
+        redisClient.sadd(key, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     })),
     ZSET("Zset","/fxml/ZsetTypeView.fxml", PassParameter.ZSET,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
-        redisClient.set(key, Applications.DEFUALT_VALUE);
+        redisClient.zadd(key,0, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     })),
