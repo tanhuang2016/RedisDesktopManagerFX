@@ -36,7 +36,7 @@
 <!--                                       </FXCollections>-->
 <!--                                   </items>-->
                                </ChoiceBox>
-                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="New">
+                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="%server.new">
                                 <items>
                                   <MenuItem mnemonicParsing="false" text="Action 1" />
                                   <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -54,7 +54,7 @@
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                            <children>
                               <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="Search" HBox.hgrow="ALWAYS">
+                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="%server.search" HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -68,17 +68,17 @@
                              <contextMenu>
                                  <ContextMenu fx:id="contextMenu" opacity="0.8">
                                      <items>
-                                         <MenuItem mnemonicParsing="false" onAction="#open" text="open">
+                                         <MenuItem mnemonicParsing="false" onAction="#open" text="%server.open">
                                              <styleClass>
                                                  <!-- 使用空格分隔，添加多个样式类 -->
                                                  <String fx:value="isLeafNode" />
                                                  <String fx:value="isNotRoot" />
                                              </styleClass>
                                          </MenuItem>
-                                         <MenuItem mnemonicParsing="false" onAction="#refresh" text="刷新" />
-                                         <MenuItem mnemonicParsing="false" onAction="#console" text="控制台" />
-                                         <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="delete" />
-                                         <MenuItem mnemonicParsing="false" onAction="#flush" text="清空" />
+                                         <MenuItem mnemonicParsing="false" onAction="#refresh" text="%server.refresh" />
+                                         <MenuItem mnemonicParsing="false" onAction="#console" text="%server.console" />
+                                         <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%server.delete" />
+                                         <MenuItem mnemonicParsing="false" onAction="#flush" text="%server.flush" />
                                      </items>
                                  </ContextMenu>
                              </contextMenu>
