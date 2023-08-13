@@ -200,9 +200,14 @@ public class GuiUtil {
 
         // 设置按钮文本
         Button okButton = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.OK));
+        if(okButton!=null){
+            okButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.OK));
+        }
+
         Button cancelButton = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cancelButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.CANCEL));
+        if(cancelButton!=null){
+            cancelButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.CANCEL));
+        }
         return a;
     }
 

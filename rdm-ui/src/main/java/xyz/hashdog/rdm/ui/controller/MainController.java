@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.redis.RedisContext;
+import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -51,7 +53,7 @@ public class MainController extends BaseWindowController {
         }else{
             this.serverConnectionsWindowStage=new Stage();
             serverConnectionsWindowStage.initModality(Modality.WINDOW_MODAL);
-            this.serverConnectionsWindowStage.setTitle("link");
+            this.serverConnectionsWindowStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.TITLE_CONNECTION));
 
             Tuple2<AnchorPane,ServerConnectionsController> tuple2 = loadFXML("/fxml/ServerConnectionsView.fxml");
             AnchorPane borderPane =tuple2.getT1();

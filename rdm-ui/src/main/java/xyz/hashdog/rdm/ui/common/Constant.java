@@ -17,4 +17,6 @@ public interface Constant {
     String ALERT_MESSAGE_DELGROUP ="alert.message.delGroup" ;
     String ALERT_MESSAGE_DELFLUSH = "alert.message.delFlush";
     String ALERT_MESSAGE_DELALL = "alert.message.delAll";
+    String TITLE_CONNECTION = "title.connection";
+    String TITLE_NEW_KEY ="title.newKey";
 }

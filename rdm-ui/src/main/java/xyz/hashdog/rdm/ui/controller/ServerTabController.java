@@ -119,7 +119,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 passParameter.setRedisClient(redisClient);
                 passParameter.setRedisContext(redisContext);
                 controller.setParameter(passParameter);
-                Stage stage= GuiUtil.createSubStage(String.format("新增%s类型的Key",text ),anchorPane,root.getScene().getWindow());
+                Stage stage= GuiUtil.createSubStage(String.format(Main.RESOURCE_BUNDLE.getString(Constant.TITLE_NEW_KEY),text ),anchorPane,root.getScene().getWindow());
                 controller.setCurrentStage(stage);
                 stage.show();
 
