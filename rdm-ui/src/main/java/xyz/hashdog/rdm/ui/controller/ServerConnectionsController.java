@@ -12,7 +12,9 @@ import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
+import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -267,12 +269,12 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
     public void delete(ActionEvent actionEvent) {
         String message = null;
         if (this.selectedNode.isConnection()) {
-            message = "确认删除连接?";
+            message = Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DELCONNECTION);
         } else {
             if (treeView.getSelectionModel().getSelectedItem().getChildren().isEmpty()) {
-                message = "确认删除分组?";
+                message = Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DELGROUP);
             } else {
-                message = "确认删除分组及其所有连接?";
+                message = Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DELALL);
             }
         }
         if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, message)) {

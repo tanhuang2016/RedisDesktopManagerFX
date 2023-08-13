@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -217,7 +219,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
      */
     @FXML
     public void delete(ActionEvent actionEvent) {
-        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?")) {
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DEL))) {
             exeRedis(j -> j.del(parameter.get().getKey()));
             if(super.parentController.delKey(parameter)){
                 super.parentController.removeTabByKeys(Arrays.asList(parameter.get().getKey()));

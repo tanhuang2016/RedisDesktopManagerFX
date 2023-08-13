@@ -20,6 +20,7 @@ import javafx.util.Duration;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.controller.BaseController;
 import xyz.hashdog.rdm.ui.controller.BaseKeyController;
 import xyz.hashdog.rdm.ui.controller.ByteArrayController;
@@ -193,7 +194,15 @@ public class GuiUtil {
     private static Alert createAlert(Alert.AlertType alertType, String message) {
         Alert a = new Alert(alertType);
         a.getDialogPane().getStylesheets().add("/css/global.css");
+        a.setHeaderText(Main.RESOURCE_BUNDLE.getString("alert."+alertType.name().toLowerCase()));
         a.setContentText(message);
+
+
+        // 设置按钮文本
+        Button okButton = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.OK));
+        Button cancelButton = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setText(Main.RESOURCE_BUNDLE.getString(Constant.CANCEL));
         return a;
     }
 
@@ -248,11 +257,11 @@ public class GuiUtil {
      * @return
      */
     public static ContextMenu newTabContextMenu(Tab tab) {
-        MenuItem close = new MenuItem("关闭");
-        MenuItem closeOther = new MenuItem("关闭其他");
-        MenuItem closeLeft = new MenuItem("关闭左边所有");
-        MenuItem closeRight = new MenuItem("关闭右边所有");
-        MenuItem closeAll = new MenuItem("关闭所有");
+        MenuItem close = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE));
+        MenuItem closeOther = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_OTHER));
+        MenuItem closeLeft = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_LEFT));
+        MenuItem closeRight = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_RIGHT));
+        MenuItem closeAll = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_ALL));
         ContextMenu cm = new ContextMenu(close,closeOther,closeLeft,closeRight,closeAll);
 //        cm.setOpacity(0.8d);
         tab.setContextMenu(cm);
@@ -372,7 +381,7 @@ public class GuiUtil {
      * @return
      */
     public static boolean alertRemove() {
-       return GuiUtil.alert(Alert.AlertType.CONFIRMATION, "确认删除?");
+       return GuiUtil.alert(Alert.AlertType.CONFIRMATION, Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DEL));
     }
 
     /**

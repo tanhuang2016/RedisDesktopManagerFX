@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
@@ -431,7 +433,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      */
     @FXML
     public void delete(ActionEvent actionEvent) {
-        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认删除?" )){
+        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION, Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DEL))){
             return;
         }
         List<String> delKeys=new ArrayList<>();
@@ -486,7 +488,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      */
     @FXML
     public void flush(ActionEvent actionEvent) {
-        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,"确认清空?" )){
+        if(!GuiUtil.alert(Alert.AlertType.CONFIRMATION,Main.RESOURCE_BUNDLE.getString(Constant.ALERT_MESSAGE_DELCONNECTION) )){
             return;
         }
         asynexec(()->{
