@@ -165,7 +165,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
                 save.setDisable(false);
                 this.lastSelect = newValue;
                 Platform.runLater(() -> {
-                    Tuple2<AnchorPane, ByteArrayController> tuple2 = loadByteArrayInfo(this,newValue.getBytes());
+                    Tuple2<AnchorPane, ByteArrayController> tuple2 = GuiUtil.loadByteArrayView(newValue.getBytes(),this);
 
                     AnchorPane anchorPane = tuple2.getT1();
                     byteArrayController = tuple2.getT2();
@@ -175,13 +175,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         });
     }
 
-    private Tuple2<AnchorPane, ByteArrayController> loadByteArrayInfo(ListTypeController listTypeController, byte[] bytes) {
-        Tuple2<AnchorPane, ByteArrayController> tuple2 = loadFXML("/fxml/ByteArrayView.fxml");
-        ByteArrayController byteArrayController = tuple2.getT2();
-        byteArrayController.setParentController(listTypeController);
-        byteArrayController.setByteArray(bytes);
-        return tuple2;
-    }
+
 
     /**
      * 父层传送的数据监听
@@ -295,7 +289,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     private void add(ActionEvent actionEvent, int index) {
         Button source = (Button)actionEvent.getSource();
-        Tuple2<AnchorPane, ByteArrayController> tuple2 = loadByteArrayInfo(this, "".getBytes());
+        Tuple2<AnchorPane, ByteArrayController> tuple2 =  GuiUtil.loadByteArrayView("".getBytes(),this);
         Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
         Stage stage= GuiUtil.createSubStage(source.getText(),appendTuple2.getT1(),root.getScene().getWindow());
         appendTuple2.getT2().setCurrentStage(stage);

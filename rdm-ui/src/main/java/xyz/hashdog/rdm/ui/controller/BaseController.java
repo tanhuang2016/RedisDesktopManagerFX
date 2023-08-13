@@ -52,7 +52,7 @@ public abstract class BaseController<T> {
         GuiUtil.filterIntegerInput(flg,port);
     }
 
-    protected <T1,T2>Tuple2<T1,T2> loadFXML(String fxml) {
+    public <T1,T2>Tuple2<T1,T2> loadFXML(String fxml) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             T1 t1 = fxmlLoader.load();
@@ -67,7 +67,7 @@ public abstract class BaseController<T> {
 
 
 
-    protected void setParentController(T parentController) {
+    public void setParentController(T parentController) {
         this.parentController = parentController;
     }
 

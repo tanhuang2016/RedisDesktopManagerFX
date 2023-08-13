@@ -12,13 +12,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.controller.BaseController;
 import xyz.hashdog.rdm.ui.controller.BaseKeyController;
+import xyz.hashdog.rdm.ui.controller.ByteArrayController;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 
 import java.util.ArrayList;
@@ -406,6 +410,21 @@ public class GuiUtil {
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         return stage;
+    }
+
+
+
+    /**
+     * 加载byteArrayView
+     *
+     * @param bytes
+     * @return
+     */
+    public static Tuple2<AnchorPane, ByteArrayController> loadByteArrayView(byte[] bytes, BaseController baseController) {
+        Tuple2<AnchorPane, ByteArrayController> tuple2 = baseController.loadFXML("/fxml/ByteArrayView.fxml");
+        tuple2.getT2().setParentController(baseController);
+        tuple2.getT2().setByteArray(bytes);
+        return tuple2;
     }
 
 

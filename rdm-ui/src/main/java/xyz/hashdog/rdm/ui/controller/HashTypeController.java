@@ -168,8 +168,8 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                 save.setDisable(false);
                 this.lastSelect = newValue;
                 Platform.runLater(() -> {
-                    Tuple2<AnchorPane, ByteArrayController> keyTuple2 = loadByteArrayView(newValue.getKeyBytes());
-                    Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView(newValue.getBytes());
+                    Tuple2<AnchorPane, ByteArrayController> keyTuple2 = GuiUtil.loadByteArrayView(newValue.getKeyBytes(),this);
+                    Tuple2<AnchorPane, ByteArrayController> valueTuple2 = GuiUtil.loadByteArrayView(newValue.getBytes(),this);
                     byteArrayController = valueTuple2.getT2();
                     keyByteArrayController = keyTuple2.getT2();
                     keyByteArrayController.setName("Key");
@@ -183,18 +183,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         });
     }
 
-    /**
-     * 加载byteArrayView
-     *
-     * @param bytes
-     * @return
-     */
-    private Tuple2<AnchorPane, ByteArrayController> loadByteArrayView(byte[] bytes) {
-        Tuple2<AnchorPane, ByteArrayController> tuple2 = loadFXML("/fxml/ByteArrayView.fxml");
-        tuple2.getT2().setParentController(this);
-        tuple2.getT2().setByteArray(bytes);
-        return tuple2;
-    }
+
 
     /**
      * 初始化数据展示
@@ -294,8 +283,8 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public void add(ActionEvent actionEvent) {
         Button source = (Button)actionEvent.getSource();
-        Tuple2<AnchorPane, ByteArrayController> keyTuple2 = loadByteArrayView("".getBytes());
-        Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView("".getBytes());
+        Tuple2<AnchorPane, ByteArrayController> keyTuple2 = GuiUtil.loadByteArrayView("".getBytes(),this);
+        Tuple2<AnchorPane, ByteArrayController> valueTuple2 = GuiUtil.loadByteArrayView("".getBytes(),this);
         keyTuple2.getT2().setName("Key");
         VBox vBox = new VBox();
         vBox.getChildren().add(keyTuple2.getT1());
