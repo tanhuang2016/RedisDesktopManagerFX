@@ -21,7 +21,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Name" HBox.hgrow="ALWAYS" />
+                              <Label text="%connect.info.name" HBox.hgrow="ALWAYS" />
                               <TextField fx:id="name" promptText="Connection Name" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
@@ -32,8 +32,8 @@
                                     <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <buttons>
                                            <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
-                                          <Button mnemonicParsing="false" onAction="#ok" text="确定" />
-                                          <Button mnemonicParsing="false" onAction="#cancel" text="取消" />
+                                          <Button mnemonicParsing="false" onAction="#ok" text="%common.ok" />
+                                          <Button mnemonicParsing="false" onAction="#cancel" text="%common.cancel" />
                                       </buttons>
                                     </ButtonBar>
                                  </children>

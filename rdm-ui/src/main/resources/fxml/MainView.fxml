@@ -35,19 +35,19 @@
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="%top.MenuBar.File">
+                <Menu mnemonicParsing="false" text="%main.file">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="link" onAction="#openServerLinkWindo"/>
+                    <MenuItem mnemonicParsing="false" text="%main.file.connect" onAction="#openServerLinkWindo"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="%main.edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+<!--                    <MenuItem mnemonicParsing="false" text="Delete" />-->
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="%main.help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+<!--                    <MenuItem mnemonicParsing="false" text="About" />-->
                   </items>
                 </Menu>
               </menus>

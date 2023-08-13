@@ -23,12 +23,12 @@
                <children>
                   <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="Connect" />
-                        <Button mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="NewGroup" />
-                        <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="NewConnection" />
-                        <Button mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot" text="Edit" />
-                        <Button mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="Rename" />
-                        <Button mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="%main.file.connect.connect" />
+                        <Button mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGourp" />
+                        <Button mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="%main.file.connect.newConnect" />
+                        <Button mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot" text="%main.file.connect.edit" />
+                        <Button mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="%main.file.connect.rename" />
+                        <Button mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%main.file.connect.delete" />
                      </children>
                      <padding>
                         <Insets bottom="2.0" left="2.0" />
@@ -43,12 +43,12 @@
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" opacity="0.8">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#connect"  styleClass="isLeafNode" text="连接" />
-                        <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="新建分组" />
-                        <MenuItem mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="新建连接" />
-                        <MenuItem mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" text="编辑" />
-                        <MenuItem mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="重命名" />
-                        <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="删除" />
+                        <MenuItem mnemonicParsing="false" onAction="#connect"  styleClass="isLeafNode" text="%main.file.connect.connect" />
+                        <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGourp" />
+                        <MenuItem mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="%main.file.connect.newConnect" />
+                        <MenuItem mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" text="%main.file.connect.edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="%main.file.connect.rename" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%main.file.connect.delete" />
                     </items>
                   </ContextMenu>
                </contextMenu>
@@ -57,10 +57,10 @@
          <bottom>
             <VBox prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <CheckBox mnemonicParsing="false" text="启动时显示" />
+<!--                  <CheckBox mnemonicParsing="false" text="启动时显示" />-->
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="连接" />
+                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="%main.file.connect.connect" />
                         <Button  onAction="#cancel" mnemonicParsing="false" text="关闭" />
                     </buttons>
                   </ButtonBar>

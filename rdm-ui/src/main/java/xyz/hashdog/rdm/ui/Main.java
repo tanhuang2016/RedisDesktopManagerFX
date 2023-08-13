@@ -58,8 +58,9 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
 //        Application.setUserAgentStylesheet();
         stage.setScene(scene);
-//        stage.getIcons().add(new Image("/icon/CT.png"));
         stage.show();
+        //先默认打开
+        controller.openServerLinkWindo(null);
     }
 
     @Override
