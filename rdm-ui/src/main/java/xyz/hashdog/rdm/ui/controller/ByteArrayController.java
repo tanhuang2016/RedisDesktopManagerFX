@@ -125,7 +125,8 @@ public class ByteArrayController extends BaseController<BaseController> implemen
             if(isText && !EncodeUtil.isUTF8(this.currentValue)){
                 characterChoiceBox.setValue(StandardCharsets.US_ASCII.displayName());
             }
-            boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name);
+            //todo 导入导出先不做
+            boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name)&&false;
             into.setVisible(isBinary);
             into.setManaged(isBinary);
             export.setVisible(isBinary);

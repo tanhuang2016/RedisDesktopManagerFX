@@ -29,12 +29,12 @@
                      <children>
                         <Label fx:id="keyType" />
                         <TextField fx:id="key" />
-                        <Button mnemonicParsing="false" onAction="#rename" text="重命名" />
+                        <Button mnemonicParsing="false" onAction="#rename" text="%key.rename" />
                         <Label text="TTL:" />
                         <TextField fx:id="ttl"  />
-                        <Button mnemonicParsing="false" onAction="#editTTL" text="修改" />
-                        <Button mnemonicParsing="false" onAction="#delete" text="删除" />
-                        <Button mnemonicParsing="false" onAction="#refresh" text="刷新" />
+                        <Button mnemonicParsing="false" onAction="#editTTL" text="%key.edit" />
+                        <Button mnemonicParsing="false" onAction="#delete" text="%key.delete" />
+                        <Button mnemonicParsing="false" onAction="#refresh" text="%key.refresh" />
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />

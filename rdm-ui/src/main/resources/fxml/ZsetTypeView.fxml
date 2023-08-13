@@ -23,7 +23,7 @@
                             <bottom>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="保存" />
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save" />
                                     </children>
                                 </HBox>
                             </bottom>
@@ -55,7 +55,7 @@
                                         <Label fx:id="total" text="Total:10" />
                                         <Label fx:id="size" text="Size:1024B" />
                                         <TextField fx:id="findTextField" />
-                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find" text="查询" />
+                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find" text="%key.zset.find" />
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
@@ -74,8 +74,8 @@
                                         </VBox>
                                         <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#add" text="新增" VBox.vgrow="ALWAYS" />
-                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除" />
+                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#add" text="%key.zset.add" VBox.vgrow="ALWAYS" />
+                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.zset.delete" />
                                             </children>
                                         </VBox>
                                     </children>

@@ -52,7 +52,7 @@
          <bottom>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#save" text="保存" />
+                  <Button mnemonicParsing="false" onAction="#save" text="%key.save" />
                </children>
             </HBox>
          </bottom>

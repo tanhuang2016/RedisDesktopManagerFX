@@ -26,7 +26,7 @@
                             <bottom>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="保存" />
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save" />
                                     </children>
                                 </HBox>
                             </bottom>
@@ -45,7 +45,7 @@
                                         <Label fx:id="total" text="Total:10" />
                                         <Label fx:id="size" text="Size:1024B" />
                                         <TextField fx:id="findTextField" />
-                                        <Button fx:id="findButton" mnemonicParsing="false" text="查询" onAction="#find"/>
+                                        <Button fx:id="findButton" mnemonicParsing="false" text="%key.list.find" onAction="#find"/>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
@@ -63,11 +63,11 @@
                                         </VBox>
                                         <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#addHead" text="插入头" VBox.vgrow="ALWAYS" />
-                                                <Button fx:id="addTail" mnemonicParsing="false" onAction="#addTail" text="插入尾" />
-                                                <Button fx:id="delHead" mnemonicParsing="false" onAction="#delHead" text="删除头" />
-                                                <Button fx:id="delTail" mnemonicParsing="false" onAction="#delTail" text="删除尾" />
-                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除行" />
+                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#addHead" text="%key.list.addHead" VBox.vgrow="ALWAYS" />
+                                                <Button fx:id="addTail" mnemonicParsing="false" onAction="#addTail" text="%key.list.addTail" />
+                                                <Button fx:id="delHead" mnemonicParsing="false" onAction="#delHead" text="%key.list.delHead" />
+                                                <Button fx:id="delTail" mnemonicParsing="false" onAction="#delTail" text="%key.list.delTail" />
+                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow" />
                                             </children>
                                         </VBox>
                                     </children>
