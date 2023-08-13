@@ -9,13 +9,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
@@ -170,7 +169,7 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
                 save.setDisable(false);
                 this.lastSelect = newValue;
                 Platform.runLater(() -> {
-                    Tuple2<AnchorPane, ByteArrayController> valueTuple2 = loadByteArrayView(newValue.getBytes());
+                    Tuple2<AnchorPane, ByteArrayController> valueTuple2 = GuiUtil.loadByteArrayView(newValue.getBytes(),this);
                     byteArrayController = valueTuple2.getT2();
                     VBox vBox = (VBox) borderPane.getCenter();
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
@@ -183,18 +182,7 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
         });
     }
 
-    /**
-     * 加载byteArrayView
-     *
-     * @param bytes
-     * @return
-     */
-    private Tuple2<AnchorPane, ByteArrayController> loadByteArrayView(byte[] bytes) {
-        Tuple2<AnchorPane, ByteArrayController> tuple2 = loadFXML("/fxml/ByteArrayView.fxml");
-        tuple2.getT2().setParentController(this);
-        tuple2.getT2().setByteArray(bytes);
-        return tuple2;
-    }
+
 
     /**
      * 初始化数据展示
@@ -293,6 +281,43 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void add(ActionEvent actionEvent) {
+        Button source = (Button)actionEvent.getSource();
+        Tuple2<AnchorPane, ByteArrayController> tuple2 = GuiUtil.loadByteArrayView( "".getBytes(),this);
+        VBox vBox = new VBox();
+        VBox.setVgrow(tuple2.getT1(), Priority.ALWAYS);
+        ObservableList<Node> children = vBox.getChildren();
+        Label label = new Label("Score");
+        label.setAlignment(Pos.CENTER);
+        HBox hBox = new HBox(label);
+        HBox.setHgrow(label,Priority.ALWAYS);
+        hBox.setPrefHeight(40);
+        hBox.setMaxHeight(hBox.getPrefHeight());
+        hBox.setMinHeight(hBox.getPrefHeight());
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        BorderPane.setAlignment(vBox,Pos.CENTER);
+        children.add(hBox);
+        TextField score = new TextField();
+        children.add(score);
+        children.add(tuple2.getT1());
+        VBox.setVgrow(hBox,Priority.ALWAYS);
+        Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
+        Stage stage= GuiUtil.createSubStage(source.getText(),appendTuple2.getT1(),root.getScene().getWindow());
+        appendTuple2.getT2().setCurrentStage(stage);
+        appendTuple2.getT2().setSubContent(vBox);
+        stage.show();
+        //设置确定事件咯
+        appendTuple2.getT2().ok.setOnAction(event -> {
+            double v = Double.parseDouble(score.getText());
+            byte[] byteArray = tuple2.getT2().getByteArray();
+            asynexec(()->{
+                exeRedis(j->j.zadd(this.parameter.get().getKey().getBytes(),v,byteArray));
+                Platform.runLater(()->{
+                    list.add(new ZsetTypeTable(v,byteArray));
+                    find(null);
+                    stage.close();
+                });
+            });
+        });
     }
 
     /**

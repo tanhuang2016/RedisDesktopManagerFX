@@ -441,6 +441,9 @@ public class GuiUtil {
                 if(item instanceof String){
                     String item2=(String)item;
                     setText(item2.replaceAll("\\s+", " ").trim());
+                }else if(item instanceof Number) {
+                    String item2=item.toString();
+                    setText(item2.replaceAll("\\s+", " ").trim());
                 }
             } else {
                 setText(null);
