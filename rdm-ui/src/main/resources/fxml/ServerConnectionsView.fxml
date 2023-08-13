@@ -60,7 +60,7 @@
 <!--                  <CheckBox mnemonicParsing="false" text="启动时显示" />-->
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="%main.file.connect.connect" />
+                      <Button fx:id="bottomConnectButton" disable="true" onAction="#connect" mnemonicParsing="false" styleClass="isLeafNode" text="%main.file.connect.connect" />
                         <Button  onAction="#cancel" mnemonicParsing="false" text="%common.close" />
                     </buttons>
                   </ButtonBar>
