@@ -43,8 +43,9 @@ public class Main extends Application {
                     GuiUtil.alert(Alert.AlertType.WARNING,throwable.getLocalizedMessage());
                     return;
                 }
+                Throwable cause = getRootCause(throwable);
                 // 在此处您可以自定义处理异常的逻辑
-                GuiUtil.alert(Alert.AlertType.ERROR,throwable.getLocalizedMessage());
+                GuiUtil.alert(Alert.AlertType.ERROR,cause.getMessage());
             });
             stage.setTitle(Applications.NODE_APP_NAME);
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
@@ -67,7 +68,13 @@ public class Main extends Application {
         }
 
     }
-
+    public Throwable getRootCause(Throwable throwable) {
+        Throwable cause = throwable.getCause();
+        if (cause == null) {
+            return throwable; // This is the root cause
+        }
+        return getRootCause(cause); // Continue searching deeper
+    }
     @Override
     public void init() throws Exception {
 //        DEFAULT_LOCALE= new Locale("en", "US");

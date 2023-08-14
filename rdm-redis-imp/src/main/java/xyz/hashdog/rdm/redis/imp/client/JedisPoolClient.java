@@ -36,6 +36,14 @@ public class JedisPoolClient implements RedisClient {
 
 
     private int db;
+
+//    public JedisPoolClient(JedisPool pool, RedisConfig redisConfig) {
+//        jedis = pool.getResource();
+//        if(DataUtil.isNotBlank(redisConfig.getAuth())){
+//            jedis.auth(redisConfig.getAuth());
+//        }
+//    }
+
     /**
      * 这里通过message进行传输异常
      * 可以优化为统一异常处理,这个方法暂时保留 FIXME

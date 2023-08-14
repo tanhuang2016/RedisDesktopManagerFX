@@ -1,11 +1,11 @@
 package xyz.hashdog.rdm.redis.imp;
 
+import redis.clients.jedis.exceptions.JedisException;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.redis.imp.client.DefaultRedisClientCreator;
 import xyz.hashdog.rdm.redis.imp.client.RedisClientCreator;
-
-import java.io.IOException;
 
 /**
  * @Author th
@@ -35,7 +35,12 @@ public class RedisContext implements xyz.hashdog.rdm.redis.RedisContext{
      */
     @Override
     public RedisClient newRedisClient() {
-        return redisClientCreator.create(redisConfig);
+        try {
+            return redisClientCreator.create(redisConfig);
+
+        }catch (JedisException e){
+            throw new RedisException(e.getMessage());
+        }
     }
 
     @Override

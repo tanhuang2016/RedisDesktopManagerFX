@@ -1,6 +1,7 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
 import redis.clients.jedis.JedisPool;
+import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
@@ -22,7 +23,13 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
      */
     @Override
     public RedisClient create(RedisConfig redisConfig) {
-        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
+        if(DataUtil.isNotBlank(redisConfig.getAuth())){
+            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth());
+
+        }else {
+            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
+
+        }
         return new JedisPoolClient(pool);
     }
 
