@@ -42,31 +42,35 @@
 
     <build>
         <plugins>
+
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <archive>
-                        <manifest>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.7.3</version>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
+                        <id>bundling-for-windows</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>assembly</goal>
+                            <goal>package</goal>
                         </goals>
+                        <configuration>
+                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                            <bundleJre>true</bundleJre>
+                            <jrePath>C:\Program Files\Java\jdk-1.8\jre</jrePath>
+                            <generateInstaller>false</generateInstaller>
+                            <administratorRequired>false</administratorRequired>
+                            <platform>windows</platform>
+                            <createZipball>true</createZipball>
+                            <winConfig>
+                                <icoFile>src/main/resources/icon/redis256.ico</icoFile>
+                            </winConfig>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
