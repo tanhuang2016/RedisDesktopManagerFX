@@ -59,3 +59,9 @@ RedisDesktopManagerFX
    │     ├─i18n 国际化
    │     └─ico 图标
 ```
+
+## 展示
+
+![create.gif](doc%2Fimage%2Fcreate.gif)
+![string.gif](doc%2Fimage%2Fstring.gif)
+![other.gif](doc%2Fimage%2Fother.gif)
