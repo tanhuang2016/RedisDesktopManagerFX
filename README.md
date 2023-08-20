@@ -1,2 +1,4 @@
 # RedisDesktopManagerFX
-This is a redis desktop manager
+
+## Language
+English |  [中文](README.zh-CN.md)
