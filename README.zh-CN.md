@@ -5,7 +5,7 @@
 - [下载地址](https://github.com/tanhuang2016/RedisDesktopManagerFX/releases)
 
 ## 语言
-[English](README.md)  | 中文
+[English](README.en-US.md)  | 中文
 
 ## 特性
 
@@ -57,7 +57,7 @@ RedisDesktopManagerFX
    │     ├─css ui相关样式表
    │     ├─fxml 视图对应的fxml文件
    │     ├─i18n 国际化
-   │     └─ico 图标
+   │     └─icon 图标
 ```
 
 ## 展示
