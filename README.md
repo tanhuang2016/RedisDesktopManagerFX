@@ -57,7 +57,7 @@ RedisDesktopManagerFX
    │     ├─css ui相关样式表
    │     ├─fxml 视图对应的fxml文件
    │     ├─i18n 国际化
-   │     └─ico 图标
+   │     └─icon 图标
 ```
 
 ## 展示
