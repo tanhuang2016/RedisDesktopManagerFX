@@ -6,8 +6,9 @@ import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 
 /**
- * @Author th
- * @Date 2023/7/20 10:21
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 10:21
  */
 public class RedisContextTest {
 

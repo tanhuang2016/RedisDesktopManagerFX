@@ -17,8 +17,9 @@ import java.io.IOException;
  * 用于新开窗口的父子关系
  * 只用于对非redis操作的窗口
  * 如果需要对redis操作,需要用BaseKeyController
- * @Author th
- * @Date 2023/7/20 17:35
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 17:35
  */
 public abstract class BaseWindowController<T> extends BaseController<T> {
 

@@ -29,8 +29,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * @Author th
- * @Date 2023/8/3 9:52
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/3 9:52
  */
 public class SetTypeController extends BaseKeyController<KeyTabController> implements Initializable {
     private static final int ROWS_PER_PAGE = 32;

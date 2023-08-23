@@ -11,8 +11,9 @@ import xyz.hashdog.rdm.redis.imp.RedisFactory;
 import java.util.List;
 
 /**
- * @Author th
- * @Date 2023/7/19 9:26
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 9:26
  */
 public class RedisConsoleTest {
     private RedisConsole redisConsole;

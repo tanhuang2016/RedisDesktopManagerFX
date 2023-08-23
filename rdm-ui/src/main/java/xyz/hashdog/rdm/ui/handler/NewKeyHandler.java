@@ -5,8 +5,9 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 
 /**
  * 新增key的处理
- * @Author th
- * @Date 2023/8/12 13:28
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/12 13:28
  */
 public interface NewKeyHandler {
 

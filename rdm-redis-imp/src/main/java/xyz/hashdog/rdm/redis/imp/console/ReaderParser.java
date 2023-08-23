@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @Author th
- * @Date 2023/7/18 23:24
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 23:24
  */
 public interface ReaderParser {
     /**

@@ -3,8 +3,9 @@ package xyz.hashdog.rdm.ui.common;
 import xyz.hashdog.rdm.ui.handler.*;
 
 /**
- * @Author th
- * @Date 2023/7/26 21:22
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/26 21:22
  */
 public enum ValueTypeEnum {
     TEXT("Text",new TextConvertHandler()),

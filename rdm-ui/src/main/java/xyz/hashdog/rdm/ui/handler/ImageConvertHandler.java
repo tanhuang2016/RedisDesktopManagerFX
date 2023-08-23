@@ -12,8 +12,9 @@ import java.nio.charset.Charset;
 
 /**
  * 属于二进制类型
- * @Author th
- * @Date 2023/8/8 22:48
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/8 22:48
  */
 public class ImageConvertHandler implements ValueConvertHandler{
 

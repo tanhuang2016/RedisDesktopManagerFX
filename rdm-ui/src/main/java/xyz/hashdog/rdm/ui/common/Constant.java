@@ -1,8 +1,9 @@
 package xyz.hashdog.rdm.ui.common;
 
 /**
- * @Author th
- * @Date 2023/8/13 20:53
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/13 20:53
  */
 public interface Constant {
     String CLOSE = "common.tab.close";

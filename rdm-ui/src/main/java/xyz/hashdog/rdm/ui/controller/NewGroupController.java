@@ -11,8 +11,9 @@ import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 /**
  * 新建分组/分组和连接重命名通用控制层
- * @Author th
- * @Date 2023/7/20 23:36
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 23:36
  */
 public class NewGroupController extends BaseWindowController<ServerConnectionsController> {
     /**

@@ -1,8 +1,9 @@
 package xyz.hashdog.rdm.redis;
 
 /**
- * @Author th
- * @Date 2023/7/18 9:49
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 9:49
  */
 public interface RedisFactory {
 

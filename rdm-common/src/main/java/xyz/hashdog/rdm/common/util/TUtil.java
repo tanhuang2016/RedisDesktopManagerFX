@@ -10,8 +10,9 @@ import java.util.function.Function;
 /**
  * 泛型/反射相关操作工具
  *
- * @Author th
- * @Date 2023/7/18 21:09
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 21:09
  */
 public class TUtil {
 

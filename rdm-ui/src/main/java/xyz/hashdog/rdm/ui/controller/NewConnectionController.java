@@ -21,8 +21,9 @@ import java.util.ResourceBundle;
 
 /**
  * 新建连接的控制层
- * @Author th
- * @Date 2023/7/19 21:45
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 21:45
  */
 public class NewConnectionController extends BaseWindowController<ServerConnectionsController> implements Initializable {
     /**

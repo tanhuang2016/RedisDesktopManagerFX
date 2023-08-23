@@ -31,8 +31,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * @Author th
- * @Date 2023/8/3 9:41
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/3 9:41
  */
 public class ZsetTypeController extends BaseKeyController<KeyTabController> implements Initializable {
     private static final int ROWS_PER_PAGE = 32;
@@ -190,7 +191,7 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
     private void initInfo() {
         ThreadPool.getInstance().execute(() -> {
             Long total = this.exeRedis(j -> j.zcard(this.parameter.get().getKey()));
-            Map<Double, byte[]> map = this.exeRedis(j -> j.zrangeWithScores(this.parameter.get().getKey().getBytes(), 0l, total));
+            Map<Double, byte[]> map = this.exeRedis(j -> j.zrangeWithScores(this.parameter.get().getKey().getBytes(), 0L, total));
             map.forEach((k, v) -> this.list.add(new ZsetTypeTable(k, v)));
             Platform.runLater(() -> {
                 ObservableList<TableColumn<ZsetTypeTable, ?>> columns = tableView.getColumns();

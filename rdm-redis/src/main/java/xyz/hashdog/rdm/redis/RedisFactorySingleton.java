@@ -9,8 +9,9 @@ import java.util.ServiceLoader;
 /**
  * 静态内部类实现单例
  * RedisFactory只用获取一次,使用spi机制
- * @Author th
- * @Date 2023/7/19 9:59
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 9:59
  */
     public class RedisFactorySingleton {
     private RedisFactorySingleton() {

@@ -2,8 +2,9 @@ package xyz.hashdog.rdm.common.tuple;
 
 /**
  * 元组
- * @Author th
- * @Date 2023/8/1 12:43
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/1 12:43
  */
 public class Tuple2 <T1,T2>{
 

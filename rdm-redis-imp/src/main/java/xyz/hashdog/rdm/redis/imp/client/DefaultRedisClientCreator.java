@@ -7,8 +7,9 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
 
 /**
- * @Author th
- * @Date 2023/7/18 12:47
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 12:47
  */
 public class DefaultRedisClientCreator implements RedisClientCreator{
 

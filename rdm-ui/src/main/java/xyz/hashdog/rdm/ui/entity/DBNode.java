@@ -5,8 +5,9 @@ import javafx.beans.property.SimpleObjectProperty;
 /**
  *
  * 库单选框实体
- * @Author th
- * @Date 2023/7/22 15:27
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/22 15:27
  */
 public class DBNode {
     /**

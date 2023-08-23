@@ -11,8 +11,9 @@ import xyz.hashdog.rdm.redis.RedisContext;
 import java.util.List;
 
 /**
- * @Author th
- * @Date 2023/7/19 10:23
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 10:23
  */
 public class RedisFactorySingletonTest {
 

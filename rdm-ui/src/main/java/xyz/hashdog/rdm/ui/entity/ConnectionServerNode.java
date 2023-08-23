@@ -5,8 +5,9 @@ import xyz.hashdog.rdm.ui.common.Applications;
 /**
  * 连接实体类,分组和连接共用1个实体
  * type,dataId,parentDataId,timestampSort这几个字段在编辑是不可修改的
- * @Author th
- * @Date 2023/7/20 16:21
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 16:21
  */
 public class ConnectionServerNode {
     public static final int SERVER = 2;

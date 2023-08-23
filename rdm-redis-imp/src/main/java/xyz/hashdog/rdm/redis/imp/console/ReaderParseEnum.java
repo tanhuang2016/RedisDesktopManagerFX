@@ -6,8 +6,9 @@ import java.util.List;
 
 /**
  * redis返回协议类型及其解析策略
- * @Author th
- * @Date 2023/7/18 23:24
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 23:24
  */
 public enum ReaderParseEnum {
 

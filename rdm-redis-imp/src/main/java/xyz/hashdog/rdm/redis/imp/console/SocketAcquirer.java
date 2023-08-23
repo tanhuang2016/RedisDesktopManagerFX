@@ -3,8 +3,9 @@ package xyz.hashdog.rdm.redis.imp.console;
 import java.net.Socket;
 
 /**
- * @Author th
- * @Date 2023/7/18 21:35
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 21:35
  */
 @FunctionalInterface
 public interface SocketAcquirer {

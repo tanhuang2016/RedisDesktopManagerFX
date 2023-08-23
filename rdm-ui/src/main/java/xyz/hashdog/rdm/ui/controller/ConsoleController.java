@@ -37,7 +37,7 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
             ThreadPool.getInstance().execute(()->{
                 List<String> strings = redisClient.getRedisConsole().sendCommand(inputText);
                 Platform.runLater(()->{
-                    if(inputText.trim().startsWith("select")&&!strings.isEmpty()&&strings.get(0).equalsIgnoreCase("ok")){
+                    if(inputText.trim().startsWith("select")&&!strings.isEmpty()&& "ok".equalsIgnoreCase(strings.get(0))){
                         this.currentDb=Integer.parseInt(inputText.replace("select","").trim());
                         label.setText(redisContext.getRedisConfig().getName()+":"+this.currentDb+">");
                     }

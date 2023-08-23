@@ -17,8 +17,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Author th
- * @Date 2023/7/19 11:05
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 11:05
  */
 public class JedisPoolClientTest {
 

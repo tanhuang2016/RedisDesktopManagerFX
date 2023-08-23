@@ -14,8 +14,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @Author th
- * @Date 2023/8/11 22:56
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/11 22:56
  */
 public class NewKeyController extends BaseKeyController<ServerTabController> implements Initializable {
 

@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @Author th
- * @Date 2023/8/6 23:40
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/6 23:40
  */
 public class DataUtilTest {
 

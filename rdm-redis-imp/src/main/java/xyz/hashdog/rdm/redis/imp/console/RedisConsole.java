@@ -9,8 +9,9 @@ import java.util.List;
  * 通用RedisConsole实现,不管什么类型的RedisClient,都只要实现不同的SocketAcquirer,
  * 就可以获取对应的socket进行交互通信
  *
- * @Author th
- * @Date 2023/7/18 21:31
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 21:31
  */
 public class RedisConsole implements xyz.hashdog.rdm.redis.client.RedisConsole {
 

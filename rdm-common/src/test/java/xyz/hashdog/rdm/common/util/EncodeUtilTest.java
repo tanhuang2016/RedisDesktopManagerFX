@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @Author th
- * @Date 2023/7/25 22:56
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/25 22:56
  */
 public class EncodeUtilTest {
 

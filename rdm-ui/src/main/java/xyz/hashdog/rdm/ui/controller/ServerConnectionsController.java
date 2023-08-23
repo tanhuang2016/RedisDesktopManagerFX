@@ -24,6 +24,7 @@ import java.io.IOException;
  * 服务连接控制层
  *
  * @author th
+ * @version 1.0.0
  */
 public class ServerConnectionsController extends BaseWindowController<MainController> {
     @FXML

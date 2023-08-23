@@ -10,8 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @Author th
- * @Date 2023/8/12 22:10
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/12 22:10
  */
 public class AppendController extends BaseWindowController<BaseKeyController> implements Initializable {
     @FXML

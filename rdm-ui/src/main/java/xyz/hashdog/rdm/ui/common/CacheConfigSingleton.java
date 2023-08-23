@@ -18,8 +18,9 @@ import java.util.prefs.Preferences;
  * 首选项配置是肯定需要用到的
  * 恶汉单例缓存配置
  *
- * @Author th
- * @Date 2023/7/20 16:46
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 16:46
  */
 public class CacheConfigSingleton {
 

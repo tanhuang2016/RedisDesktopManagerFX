@@ -32,8 +32,9 @@ import java.util.Optional;
 
 /**
  * 针对视图的操作工具
- * @Author th
- * @Date 2023/7/20 13:10
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 13:10
  */
 public class GuiUtil {
 

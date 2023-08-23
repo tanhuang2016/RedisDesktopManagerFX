@@ -11,8 +11,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @Author th
- * @Date 2023/7/19 17:13
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 17:13
  */
 public class FileUtil {
 

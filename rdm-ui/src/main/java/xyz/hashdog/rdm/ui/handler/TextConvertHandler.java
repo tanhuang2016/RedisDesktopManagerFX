@@ -3,8 +3,9 @@ package xyz.hashdog.rdm.ui.handler;
 import java.nio.charset.Charset;
 
 /**
- * @Author th
- * @Date 2023/8/8 22:48
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/8 22:48
  */
 public class TextConvertHandler implements ValueConvertHandler{
 

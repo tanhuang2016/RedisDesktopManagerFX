@@ -5,8 +5,9 @@ import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import java.util.Map;
 
 /**
- * @Author th
- * @Date 2023/7/20 16:46
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/20 16:46
  */
 public class Config {
 

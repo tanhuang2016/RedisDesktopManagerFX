@@ -5,6 +5,7 @@
  * <p>Date:2022-07-02</p>
  *
  * @author th
+ * @version 1.0.0
  * @version 1.0
  */
 package xyz.hashdog.rdm.common.pool;

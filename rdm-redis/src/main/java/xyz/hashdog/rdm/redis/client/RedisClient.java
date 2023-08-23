@@ -11,8 +11,9 @@ import java.util.Set;
  * redis客户端操作
  * 相关redis操作命令都在这儿
  *
- * @Author th
- * @Date 2023/7/18 11:03
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 11:03
  */
 public interface RedisClient extends Closeable {
 

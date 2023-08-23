@@ -15,8 +15,9 @@ import java.io.IOException;
  *
  * 用于父子关系
  * 封装通用方法
- * @Author th
- * @Date 2023/7/22 10:43
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/22 10:43
  */
 public abstract class BaseController<T> {
     /**

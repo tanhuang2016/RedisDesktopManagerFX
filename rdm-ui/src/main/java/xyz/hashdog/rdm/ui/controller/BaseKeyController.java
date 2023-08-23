@@ -11,8 +11,9 @@ import xyz.hashdog.rdm.ui.entity.PassParameter;
 import java.util.function.Function;
 
 /**
- * @Author th
- * @Date 2023/7/23 22:30
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/23 22:30
  */
 public class BaseKeyController<T> extends BaseController<T>{
     /**

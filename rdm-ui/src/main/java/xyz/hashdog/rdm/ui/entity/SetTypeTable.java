@@ -1,8 +1,9 @@
 package xyz.hashdog.rdm.ui.entity;
 
 /**
- * @Author th
- * @Date 2023/8/3 22:35
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/3 22:35
  */
 public class SetTypeTable {
 

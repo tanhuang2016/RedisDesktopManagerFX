@@ -5,8 +5,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
- * @Author th
- * @Date 2023/7/18 13:12
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 13:12
  */
 public class Constant {
 

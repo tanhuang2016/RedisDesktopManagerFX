@@ -8,8 +8,9 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 /**
  * 参数传递
  * 父向子传递
- * @Author th
- * @Date 2023/7/23 22:28
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/23 22:28
  */
 public class PassParameter {
     public static final int NONE = 1;

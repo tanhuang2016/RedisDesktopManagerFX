@@ -3,8 +3,9 @@ package xyz.hashdog.rdm.ui.entity;
 import java.util.Arrays;
 
 /**
- * @Author th
- * @Date 2023/8/3 22:35
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/3 22:35
  */
 public class HashTypeTable {
 
@@ -26,8 +27,12 @@ public class HashTypeTable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         HashTypeTable that = (HashTypeTable) o;
         return Arrays.equals(keyBytes, that.keyBytes);
     }

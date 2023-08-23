@@ -16,8 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 /**
- * @Author th
- * @Date 2023/7/31 12:08
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/31 12:08
  */
 public class StringTypeController extends BaseKeyController<KeyTabController> implements Initializable {
 

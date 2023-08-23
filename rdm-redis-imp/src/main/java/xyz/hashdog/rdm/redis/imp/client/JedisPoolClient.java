@@ -22,8 +22,9 @@ import java.util.function.Function;
 /**
  * 单机版jedis,用JedisPool包装实现
  *
- * @Author th
- * @Date 2023/7/18 12:59
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 12:59
  */
 public class JedisPoolClient implements RedisClient {
     protected static Logger log = LoggerFactory.getLogger(JedisPoolClient.class);
@@ -146,7 +147,7 @@ public class JedisPoolClient implements RedisClient {
                     map.put(entry.getKey(),entry.getValue());
                 }
                 cursor = scanResult.getCursor();
-            } while (!cursor.equals("0"));
+            } while (!"0".equals(cursor));
             return map;
         });
     }
@@ -166,7 +167,7 @@ public class JedisPoolClient implements RedisClient {
                     map.put(entry.getKey(),entry.getValue());
                 }
                 cursor = scanResult.getCursor();
-            } while (!cursor.equals("0"));
+            } while (!"0".equals(cursor));
             return map;
         });
     }
@@ -189,7 +190,7 @@ public class JedisPoolClient implements RedisClient {
                     keys.add(key);
                 }
                 cursor = scanResult.getCursor();
-            } while (!cursor.equals("0"));
+            } while (!"0".equals(cursor));
             return keys;
         });
     }
@@ -209,7 +210,7 @@ public class JedisPoolClient implements RedisClient {
                     ress.add(res);
                 }
                 cursor = scanResult.getCursor();
-            } while (!cursor.equals("0"));
+            } while (!"0".equals(cursor));
             return ress;
         });
     }
@@ -229,7 +230,7 @@ public class JedisPoolClient implements RedisClient {
                     ress.add(res);
                 }
                 cursor = scanResult.getCursor();
-            } while (!cursor.equals("0"));
+            } while (!"0".equals(cursor));
             return ress;
         });
     }

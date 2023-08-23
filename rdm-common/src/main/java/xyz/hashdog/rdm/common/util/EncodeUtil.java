@@ -1,8 +1,9 @@
 package xyz.hashdog.rdm.common.util;
 
 /**
- * @Author th
- * @Date 2023/7/19 16:59
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/19 16:59
  */
 public class EncodeUtil {
 

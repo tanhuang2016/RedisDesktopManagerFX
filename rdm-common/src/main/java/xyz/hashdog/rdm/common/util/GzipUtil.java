@@ -8,8 +8,9 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * @Author th
- * @Date 2023/8/9 12:37
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/9 12:37
  */
 public class GzipUtil {
     /**

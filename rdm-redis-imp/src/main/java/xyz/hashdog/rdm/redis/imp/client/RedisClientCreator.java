@@ -8,8 +8,9 @@ import java.io.Closeable;
 /**
  *
  * RedisClinent创建器
- * @Author th
- * @Date 2023/7/18 12:45
+ * @author th
+ * @version 1.0.0
+ * @since 2023/7/18 12:45
  */
 public interface RedisClientCreator extends Closeable {
     /**

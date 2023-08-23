@@ -5,6 +5,7 @@
  * <p>Date:2022-07-02</p>
  *
  * @author th
+ * @version 1.0.0
  * @version 1.0
  */
 package xyz.hashdog.rdm.common.pool;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * 守护线程池
  * 不一定会用到,所以使用双重检查实现单例
  * @author th
+ * @version 1.0.0
  */
 public class ThreadPool {
     /**

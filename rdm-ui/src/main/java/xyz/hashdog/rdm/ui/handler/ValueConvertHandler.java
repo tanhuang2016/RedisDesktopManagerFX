@@ -5,8 +5,9 @@ import javafx.scene.Parent;
 import java.nio.charset.Charset;
 
 /**
- * @Author th
- * @Date 2023/8/8 21:48
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/8 21:48
  */
 public interface ValueConvertHandler {
 

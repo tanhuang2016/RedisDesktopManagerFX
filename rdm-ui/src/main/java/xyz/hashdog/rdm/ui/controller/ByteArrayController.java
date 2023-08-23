@@ -24,8 +24,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 /**
- * @Author th
- * @Date 2023/8/1 14:46
+ * @author th
+ * @version 1.0.0
+ * @since 2023/8/1 14:46
  */
 public class ByteArrayController extends BaseController<BaseController> implements Initializable {
 
