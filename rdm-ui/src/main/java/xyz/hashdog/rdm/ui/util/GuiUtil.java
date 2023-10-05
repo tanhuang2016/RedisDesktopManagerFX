@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -26,6 +27,7 @@ import xyz.hashdog.rdm.ui.controller.BaseKeyController;
 import xyz.hashdog.rdm.ui.controller.ByteArrayController;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -464,5 +466,51 @@ public class GuiUtil {
                 setText(null);
             }
         }
+    }
+
+
+    /**
+     * 文件选择
+     *
+     * @param ownerWindow
+     * @param last
+     * @return
+     */
+    public static File fileChoose(Window ownerWindow, File last) {
+        FileChooser fileChooser =createFileChooser(last,"文件选择","file(*)","*.*");
+        File chooseFile = fileChooser.showOpenDialog(ownerWindow);
+        return chooseFile;
+    }
+
+    /**
+     * 创建文件选择器
+     * @param last 最后一个文件
+     * @param title 标题
+     * @param description
+     * @param extensions
+     * @return
+     */
+    private static FileChooser createFileChooser(File last, String title, String description, String... extensions) {
+        FileChooser fileChooser = new FileChooser();
+        if (last != null && last.exists() && last.isDirectory()) {
+            fileChooser.setInitialDirectory(last);
+        }
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(description, extensions);
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(extFilter);
+        return fileChooser;
+    }
+
+    /**
+     * 文件选择
+     *
+     * @param ownerWindow
+     * @param last
+     * @return
+     */
+    public static File savaFileChoose(Window ownerWindow, File last) {
+        FileChooser fileChooser =createFileChooser(last,"文件保存","file(*)","*.*");
+        File chooseFile =  fileChooser.showSaveDialog(ownerWindow);
+        return chooseFile;
     }
 }

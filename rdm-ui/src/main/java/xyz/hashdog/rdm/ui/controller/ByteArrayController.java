@@ -18,6 +18,7 @@ import xyz.hashdog.rdm.common.util.FileUtil;
 import xyz.hashdog.rdm.ui.common.ValueTypeEnum;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -60,6 +61,11 @@ public class ByteArrayController extends BaseController<BaseController> implemen
      * 当前type
      */
     private ValueTypeEnum type;
+    /**
+     * 选中的最后的文件的父级目录
+     */
+    private  File lastFile;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -127,7 +133,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
                 characterChoiceBox.setValue(StandardCharsets.US_ASCII.displayName());
             }
             //todo 导入导出先不做
-            boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name)&&false;
+            boolean isBinary = newValue.equals(ValueTypeEnum.BINARY.name);
             into.setVisible(isBinary);
             into.setManaged(isBinary);
             export.setVisible(isBinary);
@@ -221,5 +227,25 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         stage.setScene(scene);
         stage.setTitle(String.format("View Of %s",this.type.name ));
         stage.show();
+    }
+
+    /**
+     * 导入文件
+     * @param actionEvent
+     */
+    public void into(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        byte[] bytes = FileUtil.file2byte(file);
+        setByteArray(bytes);
+    }
+
+    /**
+     * 导出文件
+     * @param actionEvent
+     */
+    public void export(ActionEvent actionEvent) {
+        File file = GuiUtil.savaFileChoose(this.root.getScene().getWindow(), lastFile);
+        FileUtil.byte2file(this.currentValue,file.getAbsolutePath());
     }
 }
