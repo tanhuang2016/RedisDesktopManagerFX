@@ -65,3 +65,8 @@ RedisDesktopManagerFX
 ![create.gif](doc%2Fimage%2Fcreate.gif)
 ![string.gif](doc%2Fimage%2Fstring.gif)
 ![other.gif](doc%2Fimage%2Fother.gif)
+
+## 感谢支持
+
+[Jetbrains](https://www.jetbrains.com/)
+![https://www.jetbrains.com/](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_gl=1*389d01*_ga*MTcyNjk5OTM4MC4xNjg3NzkwNTEy*_ga_9J976DJZ68*MTcwNDk2NjczNi4xMC4xLjE3MDQ5NjY4OTUuMC4wLjA.&_ga=2.205748112.2037968390.1704966739-1726999380.1687790512)
