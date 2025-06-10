@@ -3,10 +3,7 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
@@ -61,8 +58,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     @FXML
     public TextField dataId;
-
-
+    /**
+     * 是否集群模式
+     */
+    @FXML
+    public CheckBox cluster;
 
 
     @FXML
@@ -89,10 +89,12 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         String hostStr = host.getText();
         String portStr = port.getText();
         String authStr = auth.getText();
+        boolean clusterSelected = cluster.isSelected();
         RedisConfig redisConfig = new RedisConfig();
         redisConfig.setHost(hostStr);
         redisConfig.setPort(Integer.parseInt(portStr));
         redisConfig.setAuth(authStr);
+        redisConfig.setCluster(clusterSelected);
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -117,6 +119,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setHost(host.getText());
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
         connectionServerNode.setAuth(auth.getText());
+        connectionServerNode.setCluster(cluster.isSelected());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -157,5 +160,6 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         port.setText(String.valueOf(selectedNode.getPort()));
         auth.setText(selectedNode.getAuth());
         dataId.setText(selectedNode.getDataId());
+        cluster.setSelected(selectedNode.isCluster());
     }
 }

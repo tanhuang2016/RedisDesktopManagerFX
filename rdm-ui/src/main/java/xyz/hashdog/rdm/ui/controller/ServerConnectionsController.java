@@ -313,6 +313,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         this.selectedNode.setHost(connectionServerNode.getHost());
         this.selectedNode.setPort(connectionServerNode.getPort());
         this.selectedNode.setAuth(connectionServerNode.getAuth());
+        this.selectedNode.setCluster(connectionServerNode.isCluster());
         treeView.refresh();
     }
 
@@ -327,6 +328,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setPort(this.selectedNode.getPort());
             redisConfig.setAuth(this.selectedNode.getAuth());
             redisConfig.setName(this.selectedNode.getName());
+            redisConfig.setCluster(this.selectedNode.isCluster());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {

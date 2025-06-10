@@ -41,6 +41,10 @@ public class ConnectionServerNode {
      */
     private String auth;
     /**
+     * 是否集群模式
+     */
+    private boolean cluster;
+    /**
      * 时间戳排序
      */
     private long timestampSort;
@@ -114,6 +118,14 @@ public class ConnectionServerNode {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCluster() {
+        return cluster;
+    }
+
+    public void setCluster(boolean cluster) {
+        this.cluster = cluster;
     }
 
     /**

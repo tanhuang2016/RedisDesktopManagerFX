@@ -14,7 +14,7 @@ public class Constant {
     /**
      * jedis通用连接池配置
      */
-    public static final  GenericObjectPoolConfig<Jedis> POOL_CONFIG ;
+    public static final  GenericObjectPoolConfig POOL_CONFIG ;
     static {
         // 创建Jedis连接池配置对象
         JedisPoolConfig poolConfig = new JedisPoolConfig();

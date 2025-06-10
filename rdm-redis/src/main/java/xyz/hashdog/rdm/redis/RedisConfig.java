@@ -23,6 +23,10 @@ public class RedisConfig {
      * 授权
      */
     private String auth;
+    /**
+     * 是否集群模式
+     */
+    private boolean cluster;
 
     public String getName() {
         return name;
@@ -54,5 +58,13 @@ public class RedisConfig {
 
     public void setAuth(String auth) {
         this.auth = auth;
+    }
+
+    public boolean isCluster() {
+        return cluster;
+    }
+
+    public void setCluster(boolean cluster) {
+        this.cluster = cluster;
     }
 }
