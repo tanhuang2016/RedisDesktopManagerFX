@@ -78,8 +78,8 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
 //        DEFAULT_LOCALE= new Locale("en", "US");
-        DEFAULT_LOCALE=Locale.JAPAN;
-//        DEFAULT_LOCALE=Locale.US;
+//        DEFAULT_LOCALE=Locale.JAPAN;
+        DEFAULT_LOCALE=Locale.US;
         RESOURCE_BUNDLE=ResourceBundle.getBundle(BASE_NAME, DEFAULT_LOCALE);
     }
 
