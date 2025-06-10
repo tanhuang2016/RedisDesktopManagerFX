@@ -32,12 +32,15 @@ public enum ReaderParseEnum {
     }}),
     /**
      * 对于批量字符串（Bulk Strings），回复的第一个字节是“$”
+     * 多行数据，这里用循环获取，后续如果有问题根据$符号返回的字符长度，固定获取数据reader.read(data, 0, length);
      */
     BULK_STRINGS('$', (l, r) -> {
-        final String newl = r.readLine();
-        return new ArrayList<String>() {{
-            add(newl);
-        }};
+        String newl;
+        List<String> res = new ArrayList<>();
+        while (!(newl = r.readLine()).isEmpty()) {
+           res.add(newl);
+        }
+        return res;
     }),
     /**
      * 对于数组（Arrays ），回复的第一个字节是“*”
