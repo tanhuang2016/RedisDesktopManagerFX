@@ -12,6 +12,7 @@
 
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-common</artifactId>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

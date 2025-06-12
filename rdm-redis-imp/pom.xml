@@ -11,7 +11,7 @@
 
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-redis-imp</artifactId>
-
+    <version>1.0.1</version>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
