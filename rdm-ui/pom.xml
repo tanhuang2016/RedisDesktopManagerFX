@@ -6,7 +6,7 @@
     <parent>
         <groupId>xyz.hashdog.rdm</groupId>
         <artifactId>RedisDesktopManagerFX</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <groupId>xyz.hashdog.rdm</groupId>
@@ -83,14 +83,14 @@
                         <configuration>
                             <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                             <bundleJre>true</bundleJre>
-                            <jrePath>C:\Program Files\Java\jdk-1.8\jre</jrePath>
+                            <jrePath>D:\soft\jdk\jdk-8u441-windows-x64\jdk1.8.0_441\jre</jrePath>
                             <generateInstaller>false</generateInstaller>
                             <administratorRequired>false</administratorRequired>
                             <platform>windows</platform>
                             <createZipball>true</createZipball>
-                            <additionalResources>
-                                <additionalResource>${name}.l4j.ini</additionalResource>
-                            </additionalResources>
+<!--                            <additionalResources>-->
+<!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+<!--                            </additionalResources>-->
                             <winConfig>
                                 <icoFile>src/main/resources/icon/redis256.ico</icoFile>
                             </winConfig>
@@ -108,10 +108,10 @@
                             <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                             <bundleJre>true</bundleJre>
                             <createTarball>true</createTarball>
-                            <jrePath>D:\soft\JDK\linux_jdk1.8.0_371\jre</jrePath>
-                            <additionalResources>
-                                <additionalResource>${name}.l4j.ini</additionalResource>
-                            </additionalResources>
+                            <jrePath>D:\soft\jdk\jdk-8u291-linux-x64.tar\jdk-8u291-linux-x64\jdk1.8.0_291\jre</jrePath>
+<!--                            <additionalResources>-->
+<!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+<!--                            </additionalResources>-->
                             <linuxConfig>
                                 <pngFile>src/main/resources/icon/redis256.png</pngFile>
                             </linuxConfig>

@@ -45,6 +45,14 @@ public class ConnectionServerNode {
      */
     private boolean cluster;
     /**
+     * 是否哨兵模式
+     */
+    private boolean sentine;
+    /**
+     * 主节点名称
+     */
+    private String masterName;
+    /**
      * 时间戳排序
      */
     private long timestampSort;
@@ -126,6 +134,22 @@ public class ConnectionServerNode {
 
     public void setCluster(boolean cluster) {
         this.cluster = cluster;
+    }
+
+    public boolean isSentine() {
+        return sentine;
+    }
+
+    public void setSentine(boolean sentine) {
+        this.sentine = sentine;
+    }
+
+    public String getMasterName() {
+        return masterName;
+    }
+
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
     }
 
     /**

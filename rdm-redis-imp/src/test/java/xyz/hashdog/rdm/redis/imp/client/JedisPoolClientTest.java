@@ -30,7 +30,7 @@ public class JedisPoolClientTest {
         RedisConfig redisConfig =new RedisConfig();
         redisConfig.setHost("localhost");
         redisConfig.setPort(6379);
-        redisClient=new JedisPoolClient(new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort()));
+        redisClient=new JedisPoolClient(new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort()).getResource());
     }
 
     @Test

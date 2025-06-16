@@ -6,14 +6,14 @@
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>RedisDesktopManagerFX</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <rdm.version>1.0.1</rdm.version>
+        <rdm.version>1.0.2</rdm.version>
 <!--        <slf4j.version>1.7.32</slf4j.version>-->
         <junit.version>4.12</junit.version>
 

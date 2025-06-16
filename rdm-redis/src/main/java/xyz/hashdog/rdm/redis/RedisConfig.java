@@ -27,6 +27,14 @@ public class RedisConfig {
      * 是否集群模式
      */
     private boolean cluster;
+    /**
+     * 是否哨兵模式
+     */
+    private boolean sentine;
+    /**
+     * 主节点名称
+     */
+    private String masterName;
 
     public String getName() {
         return name;
@@ -66,5 +74,21 @@ public class RedisConfig {
 
     public void setCluster(boolean cluster) {
         this.cluster = cluster;
+    }
+
+    public String getMasterName() {
+        return masterName;
+    }
+
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
+    }
+
+    public boolean isSentine() {
+        return sentine;
+    }
+
+    public void setSentine(boolean sentine) {
+        this.sentine = sentine;
     }
 }

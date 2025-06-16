@@ -31,8 +31,8 @@ public class JedisPoolClient implements RedisClient {
 
     
     private Jedis jedis;
-    public JedisPoolClient(JedisPool pool) {
-        jedis = pool.getResource();
+    public JedisPoolClient(Jedis jedis) {
+        this.jedis = jedis;
     }
 
 

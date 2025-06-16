@@ -7,6 +7,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -53,9 +54,21 @@
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
                                        <children>
-                                          <CheckBox fx:id="cluster" mnemonicParsing="false" prefHeight="16.0" prefWidth="66.0" text="%connect.info.cluster" />
+                                          <CheckBox fx:id="cluster" mnemonicParsing="false" text="%connect.info.cluster" />
+                                          <CheckBox fx:id="sentinel" mnemonicParsing="false" text="%connect.info.sentinel" />
                                        </children>
                                     </HBox>
+                                    <VBox fx:id="sentinelVBox" visible="false" managed="false">
+                                       <children>
+                                          <Separator prefWidth="200.0" />
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+                                             <children>
+                                                <Label text="%connect.info.master" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="masterName" onKeyTyped="#filterIntegerInput" promptText="mymaster" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="%connect.info.testConnect" HBox.hgrow="ALWAYS" />

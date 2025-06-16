@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -63,6 +64,21 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     @FXML
     public CheckBox cluster;
+    /**
+     * 是否哨兵模式
+     */
+    @FXML
+    public CheckBox sentinel;
+    /**
+     * 哨兵模式下的master名称
+     */
+    @FXML
+    public TextField masterName;
+    /**
+     * 哨兵模式下的节点列表
+     */
+    @FXML
+    public VBox sentinelVBox;
 
 
     @FXML
@@ -72,13 +88,46 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
 
     }
 
+
+
     /**
      * 初始化监听
      */
     private void initListener() {
         filterIntegerInputListener(false,this.port);
+        initCheckBoxListener();
     }
 
+    /**
+     * 初始化checkbox监听,只能单选
+     */
+    private void initCheckBoxListener() {
+        // 添加事件监听器来处理 CheckBox 的选中状态变化
+        cluster.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+                sentinel.setSelected(false);
+            }
+        });
+
+        sentinel.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+                cluster.setSelected(false);
+                showSentinelVBox();
+            }else {
+                hideSentinelVBox();
+            }
+        });
+    }
+
+    private void showSentinelVBox() {
+        sentinelVBox.setVisible(true);
+        sentinelVBox.setManaged(true);
+    }
+
+    private void hideSentinelVBox() {
+        sentinelVBox.setVisible(false);
+        sentinelVBox.setManaged(false);
+    }
 
 
     @FXML
@@ -95,6 +144,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setPort(Integer.parseInt(portStr));
         redisConfig.setAuth(authStr);
         redisConfig.setCluster(clusterSelected);
+        redisConfig.setSentine(sentinel.isSelected());
+        redisConfig.setMasterName(masterName.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -120,6 +171,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setPort(Integer.parseInt(port.getText()));
         connectionServerNode.setAuth(auth.getText());
         connectionServerNode.setCluster(cluster.isSelected());
+        connectionServerNode.setSentine(sentinel.isSelected());
+        connectionServerNode.setMasterName(masterName.getText());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -161,5 +214,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         auth.setText(selectedNode.getAuth());
         dataId.setText(selectedNode.getDataId());
         cluster.setSelected(selectedNode.isCluster());
+        sentinel.setSelected(selectedNode.isSentine());
+        masterName.setText(selectedNode.getMasterName());
     }
 }
