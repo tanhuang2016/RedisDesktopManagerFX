@@ -136,6 +136,8 @@ public class Util {
             javax.net.ssl.SSLSocketFactory socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
             dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs无密码\\";
             socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
+            dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs\\";
+            socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
 
             System.out.println(666);
         } catch (Exception e) {
