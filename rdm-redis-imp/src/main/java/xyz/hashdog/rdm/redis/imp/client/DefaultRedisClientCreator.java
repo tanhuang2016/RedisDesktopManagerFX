@@ -8,6 +8,7 @@ import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
+import xyz.hashdog.rdm.redis.imp.Util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,13 +44,12 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
             JedisCluster jedisCluster = new JedisCluster(nodes,10000,3000,3,redisConfig.getAuth(),Constant.POOL_CONFIG);
             return new JedisClusterClient(jedisCluster);
         }
-        if(DataUtil.isNotBlank(redisConfig.getAuth())){
-            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth());
-
-        }else {
-            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
-
+        if(redisConfig.isSsl()){
+            javax.net.ssl.SSLSocketFactory SSLSocketFactory = Util.getSocketFactory(redisConfig.getCaCrt(), redisConfig.getRedisCrt(), redisConfig.getRedisKey(), redisConfig.getRedisKeyPassword());
+            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth(),true,SSLSocketFactory,null,null);
         }
+        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth());
+//        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
         return new JedisPoolClient(pool.getResource());
     }
 

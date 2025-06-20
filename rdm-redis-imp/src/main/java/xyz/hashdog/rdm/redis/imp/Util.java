@@ -13,6 +13,7 @@ import org.bouncycastle.pkcs.jcajce.JcePKCSPBEInputDecryptorProviderBuilder;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
+import java.io.Closeable;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -22,7 +23,14 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 
+
 public class Util {
+
+
+    public static javax.net.ssl.SSLSocketFactory getSocketFactory(final String caCrtFile, final String crtFile, final String keyFile, final String passwordStr)  {
+        char[] password = passwordStr==null?null:passwordStr.toCharArray();
+        return getSocketFactory(caCrtFile, crtFile, keyFile, password);
+    }
     /**
      * 创建 SSLSocketFactory 工厂
      *
@@ -33,7 +41,7 @@ public class Util {
      * @return {@link javax.net.ssl.SSLSocketFactory}
      * @throws Exception 异常
      */
-    public static javax.net.ssl.SSLSocketFactory getSocketFactory(final String caCrtFile, final String crtFile, final String keyFile, final char[] password) throws Exception {
+    public static javax.net.ssl.SSLSocketFactory getSocketFactory(final String caCrtFile, final String crtFile, final String keyFile, final char[] password)  {
         InputStream caInputStream = null;
         InputStream crtInputStream = null;
         InputStream keyInputStream = null;
@@ -102,16 +110,22 @@ public class Util {
 
             return context.getSocketFactory();
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         finally {
-            if (null != caInputStream) {
-                caInputStream.close();
-            }
-            if (null != crtInputStream) {
-                crtInputStream.close();
-            }
-            if (null != keyInputStream) {
-                keyInputStream.close();
+            close(caInputStream,crtInputStream,keyInputStream);
+        }
+    }
+
+    private static void close(Closeable... closeable) {
+        for (Closeable close : closeable) {
+            if (null != close) {
+                try {
+                    close.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
