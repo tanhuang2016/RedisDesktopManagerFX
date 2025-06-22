@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui;
 
+import atlantafx.base.theme.Dracula;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.controller.MainController;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
+import xyz.hashdog.rdm.ui.theme.SamplerTheme;
+import xyz.hashdog.rdm.ui.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.Locale;
@@ -61,6 +64,12 @@ public class Main extends Application {
 //        Application.setUserAgentStylesheet();
             stage.setScene(scene);
             stage.show();
+            ThemeManager TM = ThemeManager.getInstance();
+            TM.setScene(scene);
+            TM.setFontFamily(ThemeManager.DEFAULT_FONT_FAMILY_NAME);
+            TM.setTheme(TM.getDefaultTheme());
+
+            TM.setTheme(new SamplerTheme(new Dracula()));
             //先默认打开
             controller.openServerLinkWindo(null);
         }catch (Exception e){

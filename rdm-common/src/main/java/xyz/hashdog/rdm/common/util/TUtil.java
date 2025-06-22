@@ -44,6 +44,13 @@ public class TUtil {
         }
     }
 
+    public static String ifEmpty(String str, String o) {
+        if(str==null||str.isEmpty()){
+            return o;
+        }
+        return str;
+    }
+
 
     /**
      * 递归策略接口

@@ -1,48 +1,10 @@
-/* no_border.css */
-/* 定义去掉边框的样式 */
-/*
-.no-border-text-area {
-    -fx-background-color: transparent; !* 背景透明 *!
-    -fx-control-inner-background: transparent; !* 设置控件内部背景透明 *!
-    -fx-background-insets: 0; !* 边框的内边距设为0，去掉边框 *!
-    -fx-text-fill: white;
-}
-
-.no-border-text-area {
-    -fx-background-color: rgba(0,0,0,0);
-}
-
-.no-border-text-area .scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.no-border-text-area .scroll-pane .viewport{
-    -fx-background-color: transparent;
-}
-
-
-.no-border-text-area .scroll-pane .content{
-    -fx-background-color: transparent;
-}
-
-.no-border-text-area .scroll-pane .viewport {
-    -fx-background-color: transparent; !* 设置viewport的背景透明 *!
-}
-
-.no-border-text-area .scroll-pane .scroll-bar:vertical,
-.no-border-text-area .scroll-pane .scroll-bar:horizontal {
-    -fx-opacity: 0; !* 设置滚动条透明 *!
-    -fx-pref-width: 0; !* 设置滚动条宽度为0 *!
-    !*-fx-pref-height: 0; !* 设置滚动条高度为0 *!*!
-}
-*/
 
 
 /*输入框取消边框加透明*/
-.no-border-text-field {
-    -fx-background-color: transparent; /* 背景透明 */
-    -fx-background-insets: 0; /* 边框的内边距设为0，去掉边框 */
-    -fx-padding: 0; /* 去掉内部填充 */
-    -fx-border-width: 0; /* 去掉边框宽度 */
+/*.no-border-text-field {*/
+/*    -fx-background-color: transparent; !* 背景透明 *!*/
+/*    -fx-background-insets: 0; !* 边框的内边距设为0，去掉边框 *!*/
+/*    -fx-padding: 0; !* 去掉内部填充 *!*/
+/*    -fx-border-width: 0; !* 去掉边框宽度 *!*/
 
-}
+/*}*/

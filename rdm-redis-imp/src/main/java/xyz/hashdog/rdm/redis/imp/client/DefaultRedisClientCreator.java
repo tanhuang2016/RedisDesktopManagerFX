@@ -5,6 +5,7 @@ import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisSentinelPool;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
@@ -55,7 +56,7 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
             this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth(),true,SSLSocketFactory,null,null);
             return new JedisPoolClient(pool.getResource());
         }
-        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth());
+        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500, TUtil.ifEmpty(redisConfig.getAuth(),null));
 //        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
         return new JedisPoolClient(pool.getResource());
     }
