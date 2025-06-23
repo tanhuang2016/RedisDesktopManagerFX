@@ -221,4 +221,12 @@ public class TUtil {
 //            callback.accept(t);
         }
     }
+
+
+    public static String ifEmpty(String str, String o) {
+        if(str==null||str.isEmpty()){
+            return o;
+        }
+        return str;
+    }
 }
