@@ -52,7 +52,8 @@ public enum ReaderParseEnum {
         for (int i = 0; i < count; i++) {
             String next = r.readLine();
             ReaderParseEnum readerParseEnum = ReaderParseEnum.getByLine(next);
-            List<String> parse = readerParseEnum.readerParser.parse(next, r);
+//            List<String> parse = readerParseEnum.readerParser.parse(next, r);
+            List<String> parse = new ArrayList<String>(){{add(r.readLine());}};
             result.addAll(parse);
         }
         return result;
