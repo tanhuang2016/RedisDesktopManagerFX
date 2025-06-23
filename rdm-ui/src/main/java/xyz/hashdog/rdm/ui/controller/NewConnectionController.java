@@ -79,6 +79,26 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     @FXML
     public VBox sentinelVBox;
+    /**
+     * 是否ssl
+     */
+    public CheckBox ssl;
+    /**
+     * ca证书
+     */
+    public TextField caCrt;
+    /**
+     * redis证书
+     */
+    public TextField redisCrt;
+    /**
+     * redis秘钥
+     */
+    public TextField redisKey;
+    /**
+     * 秘钥密码
+     */
+    public PasswordField redisKeyPassword;
 
 
     @FXML

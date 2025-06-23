@@ -91,6 +91,48 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="%title.ssl">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <VBox prefHeight="376.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+                                              <children>
+                                                  <CheckBox fx:id="ssl" mnemonicParsing="false" text="%connect.info.ssl" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.cacrt" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="caCrt" promptText="Authority" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediscrt" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="redisCrt" promptText="Public Key" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediskey" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="redisKey"  promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediskeypassword" HBox.hgrow="ALWAYS" />
+                                                  <PasswordField fx:id="redisKeyPassword" promptText="Private Key Password" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </Tab>
               </tabs>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
