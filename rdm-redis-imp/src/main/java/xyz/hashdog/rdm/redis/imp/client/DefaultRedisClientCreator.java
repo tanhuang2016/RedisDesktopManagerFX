@@ -32,12 +32,6 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
      */
     @Override
     public RedisClient create(RedisConfig redisConfig) {
-//        redisConfig.setSsl(true);
-        String dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs\\";
-        redisConfig.setCaCrt(dir+"ca.crt");
-        redisConfig.setRedisCrt(dir+"redis.crt");
-        redisConfig.setRedisKey(dir+"redis.key");
-        redisConfig.setRedisKeyPassword("redis123");
         if(redisConfig.isSentine()){
             Set<String> sentinels = new HashSet<>();
             sentinels.add(redisConfig.getHost()+":"+redisConfig.getPort());

@@ -316,6 +316,11 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         this.selectedNode.setCluster(connectionServerNode.isCluster());
         this.selectedNode.setSentine(connectionServerNode.isSentine());
         this.selectedNode.setMasterName(connectionServerNode.getMasterName());
+        this.selectedNode.setSsl(connectionServerNode.isSsl());
+        this.selectedNode.setCaCrt(connectionServerNode.getCaCrt());
+        this.selectedNode.setRedisCrt(connectionServerNode.getRedisCrt());
+        this.selectedNode.setRedisKey(connectionServerNode.getRedisKey());
+        this.selectedNode.setRedisKeyPassword(connectionServerNode.getRedisKeyPassword());
         treeView.refresh();
     }
 
@@ -333,6 +338,11 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setCluster(this.selectedNode.isCluster());
             redisConfig.setSentine(this.selectedNode.isSentine());
             redisConfig.setMasterName(this.selectedNode.getMasterName());
+            redisConfig.setSsl(this.selectedNode.isSsl());
+            redisConfig.setCaCrt(this.selectedNode.getCaCrt());
+            redisConfig.setRedisCrt(this.selectedNode.getRedisCrt());
+            redisConfig.setRedisKey(this.selectedNode.getRedisKey());
+            redisConfig.setRedisKeyPassword(this.selectedNode.getRedisKeyPassword());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {

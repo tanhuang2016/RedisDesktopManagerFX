@@ -477,7 +477,10 @@ public class GuiUtil {
      * @return
      */
     public static File fileChoose(Window ownerWindow, File last) {
-        FileChooser fileChooser =createFileChooser(last,"文件选择","file(*)","*.*");
+        return fileChoose(ownerWindow,last,"file(*)","*.*");
+    }
+    public static File fileChoose(Window ownerWindow, File last, String description, String... extensions) {
+        FileChooser fileChooser =createFileChooser(last,"文件选择",description,extensions);
         File chooseFile = fileChooser.showOpenDialog(ownerWindow);
         return chooseFile;
     }

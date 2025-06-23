@@ -58,7 +58,7 @@
                                           <CheckBox fx:id="sentinel" mnemonicParsing="false" text="%connect.info.sentinel" />
                                        </children>
                                     </HBox>
-                                    <VBox fx:id="sentinelVBox" visible="false" managed="false">
+                                    <VBox fx:id="sentinelVBox" managed="false" visible="false">
                                        <children>
                                           <Separator prefWidth="200.0" />
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
@@ -106,18 +106,21 @@
                                               <children>
                                                   <Label text="%connect.info.cacrt" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="caCrt" promptText="Authority" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" text="..." onAction="#caCrtFile"/>
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label text="%connect.info.rediscrt" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="redisCrt" promptText="Public Key" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" text="..." onAction="#redisCrtFile"/>
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label text="%connect.info.rediskey" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="redisKey"  promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="redisKey" promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" text="..." onAction="#redisKeyFile"/>
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">

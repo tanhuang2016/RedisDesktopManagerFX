@@ -14,6 +14,7 @@ import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -100,6 +101,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     public PasswordField redisKeyPassword;
 
+    /**
+     * 选中的最后的文件的父级目录
+     */
+    private File lastFile;
+
 
     @FXML
     @Override
@@ -166,6 +172,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setCluster(clusterSelected);
         redisConfig.setSentine(sentinel.isSelected());
         redisConfig.setMasterName(masterName.getText());
+        redisConfig.setSsl(ssl.isSelected());
+        redisConfig.setCaCrt(caCrt.getText());
+        redisConfig.setRedisCrt(redisCrt.getText());
+        redisConfig.setRedisKey(redisKey.getText());
+        redisConfig.setRedisKeyPassword(redisKeyPassword.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -193,6 +204,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setCluster(cluster.isSelected());
         connectionServerNode.setSentine(sentinel.isSelected());
         connectionServerNode.setMasterName(masterName.getText());
+        connectionServerNode.setSsl(ssl.isSelected());
+        connectionServerNode.setCaCrt(caCrt.getText());
+        connectionServerNode.setRedisCrt(redisCrt.getText());
+        connectionServerNode.setRedisKey(redisKey.getText());
+        connectionServerNode.setRedisKeyPassword(redisKeyPassword.getText());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -236,5 +252,28 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         cluster.setSelected(selectedNode.isCluster());
         sentinel.setSelected(selectedNode.isSentine());
         masterName.setText(selectedNode.getMasterName());
+        ssl.setSelected(selectedNode.isSsl());
+        caCrt.setText(selectedNode.getCaCrt());
+        redisCrt.setText(selectedNode.getRedisCrt());
+        redisKey.setText(selectedNode.getRedisKey());
+        redisKeyPassword.setText(selectedNode.getRedisKeyPassword());
+    }
+
+    public void caCrtFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.caCrt.setText(file.getPath());
+    }
+
+    public void redisCrtFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.redisCrt.setText(file.getPath());
+    }
+
+    public void redisKeyFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.redisKey.setText(file.getPath());
     }
 }

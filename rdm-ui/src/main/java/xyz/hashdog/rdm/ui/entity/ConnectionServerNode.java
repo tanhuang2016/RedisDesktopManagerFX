@@ -57,6 +57,27 @@ public class ConnectionServerNode {
      */
     private long timestampSort;
 
+    /**
+     * 是否ssl
+     */
+    private boolean ssl;
+    /**
+     * ca证书
+     */
+    private String caCrt;
+    /**
+     * 服务端证书
+     */
+    private String redisCrt;
+    /**
+     * 私钥文件
+     */
+    private String redisKey;
+    /**
+     * 私钥密码
+     */
+    private String redisKeyPassword;
+
     public ConnectionServerNode() {
     }
 
@@ -150,6 +171,46 @@ public class ConnectionServerNode {
 
     public void setMasterName(String masterName) {
         this.masterName = masterName;
+    }
+
+    public boolean isSsl() {
+        return ssl;
+    }
+
+    public void setSsl(boolean ssl) {
+        this.ssl = ssl;
+    }
+
+    public String getCaCrt() {
+        return caCrt;
+    }
+
+    public void setCaCrt(String caCrt) {
+        this.caCrt = caCrt;
+    }
+
+    public String getRedisCrt() {
+        return redisCrt;
+    }
+
+    public void setRedisCrt(String redisCrt) {
+        this.redisCrt = redisCrt;
+    }
+
+    public String getRedisKey() {
+        return redisKey;
+    }
+
+    public void setRedisKey(String redisKey) {
+        this.redisKey = redisKey;
+    }
+
+    public String getRedisKeyPassword() {
+        return redisKeyPassword;
+    }
+
+    public void setRedisKeyPassword(String redisKeyPassword) {
+        this.redisKeyPassword = redisKeyPassword;
     }
 
     /**
