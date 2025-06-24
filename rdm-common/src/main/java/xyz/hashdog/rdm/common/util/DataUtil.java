@@ -61,8 +61,9 @@ public class DataUtil {
 
     /**
      * json字符串格式化
-     * @param value
-     * @param charset
+     *
+     * @param value   待格式化的字符串
+     * @param charset 字符集
      * @return
      */
     public static String formatJson(byte[] value, Charset charset,boolean isFormat) {
