@@ -1,5 +1,8 @@
 package xyz.hashdog.rdm.redis.imp;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMDecryptorProvider;
 import org.bouncycastle.openssl.PEMEncryptedKeyPair;
@@ -128,6 +131,32 @@ public class Util {
                 }
             }
         }
+    }
+
+    public static Session createTunnel(String sshUserName, String sshHost, int sshPort,String sshPassword,String sshPrivateKey, String sshPassphrase)  {
+        try {
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(sshUserName,sshHost,sshPort);
+            session.setPassword(sshPassword);
+            if(sshPrivateKey != null){
+                jsch.addIdentity(sshPrivateKey,sshPassphrase);
+            }
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+            return session;
+            
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int portForwardingL( Session session,String rhost,  int rport){
+        try {
+            return session.setPortForwardingL(0, rhost, rport);
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static void main(String[] args) {

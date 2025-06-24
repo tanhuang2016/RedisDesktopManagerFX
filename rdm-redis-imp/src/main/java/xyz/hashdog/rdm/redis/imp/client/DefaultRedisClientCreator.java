@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
+import com.jcraft.jsch.Session;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
@@ -11,6 +12,7 @@ import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.imp.Constant;
 import xyz.hashdog.rdm.redis.imp.Util;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,14 +47,22 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
             JedisCluster jedisCluster = new JedisCluster(nodes,10000,3000,3,redisConfig.getAuth(),Constant.POOL_CONFIG);
             return new JedisClusterClient(jedisCluster);
         }
-        if(redisConfig.isSsl()){
-            javax.net.ssl.SSLSocketFactory SSLSocketFactory = Util.getSocketFactory(redisConfig.getCaCrt(), redisConfig.getRedisCrt(), redisConfig.getRedisKey(), redisConfig.getRedisKeyPassword());
-            this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500,redisConfig.getAuth(),true,SSLSocketFactory,null,null);
-            return new JedisPoolClient(pool.getResource());
+        int port = redisConfig.getPort();
+        String host = redisConfig.getHost();
+        Session tunnel = null;
+        if(redisConfig.isSsh()){
+            tunnel = Util.createTunnel(redisConfig.getSshUserName(), redisConfig.getSshHost(), redisConfig.getSshPort(), redisConfig.getSshPassword(), redisConfig.getSshPrivateKey(), redisConfig.getSshPassphrase());
+            port = Util.portForwardingL(tunnel, redisConfig.getHost(), redisConfig.getPort());
+            host="127.0.0.1";
         }
-        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort(),500, TUtil.ifEmpty(redisConfig.getAuth(),null));
+        if(redisConfig.isSsl()){
+            SSLSocketFactory SSLSocketFactory = Util.getSocketFactory(redisConfig.getCaCrt(), redisConfig.getRedisCrt(), redisConfig.getRedisKey(), redisConfig.getRedisKeyPassword());
+            this.pool=new JedisPool(Constant.POOL_CONFIG, host, port,500,redisConfig.getAuth(),true,SSLSocketFactory,null,null);
+            return new JedisPoolClient(pool.getResource(),tunnel);
+        }
+        this.pool=new JedisPool(Constant.POOL_CONFIG, host, port,500, TUtil.ifEmpty(redisConfig.getAuth(),null));
 //        this.pool=new JedisPool(Constant.POOL_CONFIG, redisConfig.getHost(), redisConfig.getPort());
-        return new JedisPoolClient(pool.getResource());
+        return new JedisPoolClient(pool.getResource(),tunnel);
     }
 
     @Override

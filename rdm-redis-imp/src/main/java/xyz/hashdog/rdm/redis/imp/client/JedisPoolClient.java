@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
+import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
@@ -31,12 +32,18 @@ public class JedisPoolClient implements RedisClient {
 
     
     private Jedis jedis;
+    private Session tunnel;
     public JedisPoolClient(Jedis jedis) {
         this.jedis = jedis;
     }
 
 
     private int db;
+
+    public JedisPoolClient(Jedis jedis, Session tunnel) {
+        this(jedis);
+        this.tunnel=tunnel;
+    }
 
 //    public JedisPoolClient(JedisPool pool, RedisConfig redisConfig) {
 //        jedis = pool.getResource();
@@ -499,6 +506,9 @@ public class JedisPoolClient implements RedisClient {
     public void close()  {
         if(this.jedis!=null){
             this.jedis.close();
+        }
+        if(this.tunnel!=null){
+            this.tunnel.disconnect();
         }
     }
 }
