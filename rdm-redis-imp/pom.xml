@@ -6,12 +6,12 @@
     <parent>
         <groupId>xyz.hashdog.rdm</groupId>
         <artifactId>RedisDesktopManagerFX</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </parent>
 
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-redis-imp</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
