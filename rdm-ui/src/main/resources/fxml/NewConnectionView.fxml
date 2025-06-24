@@ -69,22 +69,6 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="%connect.info.testConnect" HBox.hgrow="ALWAYS" />
-                                           <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <buttons>
-                                                      <Button mnemonicParsing="false" onAction="#ok" text="%common.ok" />
-                                                      <Button mnemonicParsing="false" onAction="#cancel" text="%common.cancel" />
-                                                  </buttons>
-                                                </ButtonBar>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </HBox>
                                  </children>
                               </VBox>
                            </children>
@@ -106,21 +90,21 @@
                                               <children>
                                                   <Label text="%connect.info.cacrt" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="caCrt" promptText="Authority" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" text="..." onAction="#caCrtFile"/>
+                                          <Button mnemonicParsing="false" onAction="#caCrtFile" text="..." />
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label text="%connect.info.rediscrt" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="redisCrt" promptText="Public Key" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" text="..." onAction="#redisCrtFile"/>
+                                          <Button mnemonicParsing="false" onAction="#redisCrtFile" text="..." />
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label text="%connect.info.rediskey" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="redisKey" promptText="Private Key" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" text="..." onAction="#redisKeyFile"/>
+                                          <Button mnemonicParsing="false" onAction="#redisKeyFile" text="..." />
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
@@ -142,6 +126,27 @@
                </BorderPane.margin>
             </TabPane>
          </center>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="%connect.info.testConnect" HBox.hgrow="ALWAYS" />
+                   <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <buttons>
+                              <Button mnemonicParsing="false" onAction="#ok" text="%common.ok" />
+                              <Button mnemonicParsing="false" onAction="#cancel" text="%common.cancel" />
+                          </buttons>
+                        </ButtonBar>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
     <stylesheets>
