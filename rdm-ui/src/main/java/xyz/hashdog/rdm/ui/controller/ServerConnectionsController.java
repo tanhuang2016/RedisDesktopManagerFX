@@ -328,6 +328,9 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         this.selectedNode.setSshPassword(connectionServerNode.getSshPassword());
         this.selectedNode.setSshPrivateKey(connectionServerNode.getSshPrivateKey());
         this.selectedNode.setSshPassphrase(connectionServerNode.getSshPassphrase());
+        this.selectedNode.setConnectionTimeout(connectionServerNode.getConnectionTimeout());
+        this.selectedNode.setSoTimeout(connectionServerNode.getSoTimeout());
+        this.selectedNode.setKeySeparator(connectionServerNode.getKeySeparator());
         treeView.refresh();
     }
 
@@ -357,6 +360,9 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setSshPassword(this.selectedNode.getSshPassword());
             redisConfig.setSshPrivateKey(this.selectedNode.getSshPrivateKey());
             redisConfig.setSshPassphrase(this.selectedNode.getSshPassphrase());
+            redisConfig.setConnectionTimeout(this.selectedNode.getConnectionTimeout());
+            redisConfig.setSoTimeout(this.selectedNode.getSoTimeout());
+            redisConfig.setKeySeparator(this.selectedNode.getKeySeparator());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {

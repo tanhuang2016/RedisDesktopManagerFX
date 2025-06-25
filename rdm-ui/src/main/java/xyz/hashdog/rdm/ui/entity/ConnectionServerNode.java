@@ -106,6 +106,18 @@ public class ConnectionServerNode {
      * 私钥密码
      */
     private String sshPassphrase;
+    /**
+     * 连接超时
+     */
+    private int connectionTimeout;
+    /**
+     * 读超时
+     */
+    private int soTimeout;
+    /**
+     * key 分隔符
+     */
+    private String keySeparator;
 
     public ConnectionServerNode() {
     }
@@ -296,6 +308,30 @@ public class ConnectionServerNode {
 
     public void setSshPassphrase(String sshPassphrase) {
         this.sshPassphrase = sshPassphrase;
+    }
+
+    public int getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(int connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public int getSoTimeout() {
+        return soTimeout;
+    }
+
+    public void setSoTimeout(int soTimeout) {
+        this.soTimeout = soTimeout;
+    }
+
+    public String getKeySeparator() {
+        return keySeparator;
+    }
+
+    public void setKeySeparator(String keySeparator) {
+        this.keySeparator = keySeparator;
     }
 
     /**

@@ -224,6 +224,9 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setSshPassword(sshPassword.getText());
         redisConfig.setSshPrivateKey(sshPrivateKey.getText());
         redisConfig.setSshPassphrase(sshPassphrase.getText());
+        redisConfig.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
+        redisConfig.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        redisConfig.setKeySeparator(keySeparator.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -263,6 +266,9 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setSshPassword(sshPassword.getText());
         connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
         connectionServerNode.setSshPassphrase(sshPassphrase.getText());
+        connectionServerNode.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
+        connectionServerNode.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        connectionServerNode.setKeySeparator(keySeparator.getText());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -318,6 +324,9 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         sshPassword.setText(selectedNode.getSshPassword());
         sshPrivateKey.setText(selectedNode.getSshPrivateKey());
         sshPassphrase.setText(selectedNode.getSshPassphrase());
+        connectionTimeout.setText(String.valueOf(selectedNode.getConnectionTimeout()));
+        soTimeout.setText(String.valueOf(selectedNode.getSoTimeout()));
+        keySeparator.setText(selectedNode.getKeySeparator());
 
     }
 
