@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -219,7 +220,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setRedisKeyPassword(redisKeyPassword.getText());
         redisConfig.setSsh(ssh.isSelected());
         redisConfig.setSshHost(sshHost.getText());
-        redisConfig.setSshPort(Integer.parseInt(sshPort.getText()));
+        redisConfig.setSshPort(TUtil.isNotEmpty(sshPort.getText()) ? Integer.parseInt(sshPort.getText()) : 0);
         redisConfig.setSshUserName(sshUserName.getText());
         redisConfig.setSshPassword(sshPassword.getText());
         redisConfig.setSshPrivateKey(sshPrivateKey.getText());
@@ -261,7 +262,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setRedisKeyPassword(redisKeyPassword.getText());
         connectionServerNode.setSsh(ssh.isSelected());
         connectionServerNode.setSshHost(sshHost.getText());
-        connectionServerNode.setSshPort(Integer.parseInt(sshPort.getText()));
+        connectionServerNode.setSshPort(TUtil.isNotEmpty(sshPort.getText())?Integer.parseInt(sshPort.getText()):0);
         connectionServerNode.setSshUserName(sshUserName.getText());
         connectionServerNode.setSshPassword(sshPassword.getText());
         connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
