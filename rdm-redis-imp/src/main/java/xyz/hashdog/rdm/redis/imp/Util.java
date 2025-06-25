@@ -12,6 +12,7 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfo;
 import org.bouncycastle.pkcs.jcajce.JcePKCSPBEInputDecryptorProviderBuilder;
+import xyz.hashdog.rdm.common.util.TUtil;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -138,7 +139,7 @@ public class Util {
             JSch jsch = new JSch();
             Session session = jsch.getSession(sshUserName,sshHost,sshPort);
             session.setPassword(sshPassword);
-            if(sshPrivateKey != null){
+            if(TUtil.isNotEmpty(sshPrivateKey)){
                 jsch.addIdentity(sshPrivateKey,sshPassphrase);
             }
             session.setConfig("StrictHostKeyChecking", "no");

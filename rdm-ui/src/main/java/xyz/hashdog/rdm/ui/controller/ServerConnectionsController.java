@@ -321,6 +321,13 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         this.selectedNode.setRedisCrt(connectionServerNode.getRedisCrt());
         this.selectedNode.setRedisKey(connectionServerNode.getRedisKey());
         this.selectedNode.setRedisKeyPassword(connectionServerNode.getRedisKeyPassword());
+        this.selectedNode.setSsh(connectionServerNode.isSsh());
+        this.selectedNode.setSshHost(connectionServerNode.getSshHost());
+        this.selectedNode.setSshPort(connectionServerNode.getSshPort());
+        this.selectedNode.setSshUserName(connectionServerNode.getSshUserName());
+        this.selectedNode.setSshPassword(connectionServerNode.getSshPassword());
+        this.selectedNode.setSshPrivateKey(connectionServerNode.getSshPrivateKey());
+        this.selectedNode.setSshPassphrase(connectionServerNode.getSshPassphrase());
         treeView.refresh();
     }
 
@@ -343,6 +350,13 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setRedisCrt(this.selectedNode.getRedisCrt());
             redisConfig.setRedisKey(this.selectedNode.getRedisKey());
             redisConfig.setRedisKeyPassword(this.selectedNode.getRedisKeyPassword());
+            redisConfig.setSsh(this.selectedNode.isSsh());
+            redisConfig.setSshHost(this.selectedNode.getSshHost());
+            redisConfig.setSshPort(this.selectedNode.getSshPort());
+            redisConfig.setSshUserName(this.selectedNode.getSshUserName());
+            redisConfig.setSshPassword(this.selectedNode.getSshPassword());
+            redisConfig.setSshPrivateKey(this.selectedNode.getSshPrivateKey());
+            redisConfig.setSshPassphrase(this.selectedNode.getSshPassphrase());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {

@@ -78,6 +78,35 @@ public class ConnectionServerNode {
      */
     private String redisKeyPassword;
 
+    /**
+     * 是否ssh
+     */
+    private boolean ssh;
+    /**
+     * ssh主机
+     */
+    private String sshHost;
+    /**
+     * ssh端口
+     */
+    private int sshPort;
+    /**
+     * ssh用户名
+     */
+    private String sshUserName;
+    /**
+     * ssh密码
+     */
+    private String sshPassword;
+    /**
+     * 私钥文件
+     */
+    private String sshPrivateKey;
+    /**
+     * 私钥密码
+     */
+    private String sshPassphrase;
+
     public ConnectionServerNode() {
     }
 
@@ -211,6 +240,62 @@ public class ConnectionServerNode {
 
     public void setRedisKeyPassword(String redisKeyPassword) {
         this.redisKeyPassword = redisKeyPassword;
+    }
+
+    public boolean isSsh() {
+        return ssh;
+    }
+
+    public void setSsh(boolean ssh) {
+        this.ssh = ssh;
+    }
+
+    public String getSshHost() {
+        return sshHost;
+    }
+
+    public void setSshHost(String sshHost) {
+        this.sshHost = sshHost;
+    }
+
+    public int getSshPort() {
+        return sshPort;
+    }
+
+    public void setSshPort(int sshPort) {
+        this.sshPort = sshPort;
+    }
+
+    public String getSshUserName() {
+        return sshUserName;
+    }
+
+    public void setSshUserName(String sshUserName) {
+        this.sshUserName = sshUserName;
+    }
+
+    public String getSshPassword() {
+        return sshPassword;
+    }
+
+    public void setSshPassword(String sshPassword) {
+        this.sshPassword = sshPassword;
+    }
+
+    public String getSshPrivateKey() {
+        return sshPrivateKey;
+    }
+
+    public void setSshPrivateKey(String sshPrivateKey) {
+        this.sshPrivateKey = sshPrivateKey;
+    }
+
+    public String getSshPassphrase() {
+        return sshPassphrase;
+    }
+
+    public void setSshPassphrase(String sshPassphrase) {
+        this.sshPassphrase = sshPassphrase;
     }
 
     /**

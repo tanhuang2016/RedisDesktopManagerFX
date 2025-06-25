@@ -100,6 +100,34 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 秘钥密码
      */
     public PasswordField redisKeyPassword;
+    /**
+     * ssh
+     */
+    public CheckBox ssh;
+    /**
+     * ssh地址
+     */
+    public TextField sshHost;
+    /**
+     * ssh端口
+     */
+    public TextField sshPort;
+    /**
+     * ssh用户名
+     */
+    public TextField sshUserName;
+    /**
+     * ssh密码
+     */
+    public PasswordField sshPassword;
+    /**
+     * ssh私钥
+     */
+    public TextField sshPrivateKey;
+    /**
+     * ssh密钥密码
+     */
+    public PasswordField sshPassphrase;
 
     /**
      * 选中的最后的文件的父级目录
@@ -177,6 +205,13 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setRedisCrt(redisCrt.getText());
         redisConfig.setRedisKey(redisKey.getText());
         redisConfig.setRedisKeyPassword(redisKeyPassword.getText());
+        redisConfig.setSsh(ssh.isSelected());
+        redisConfig.setSshHost(sshHost.getText());
+        redisConfig.setSshPort(Integer.parseInt(sshPort.getText()));
+        redisConfig.setSshUserName(sshUserName.getText());
+        redisConfig.setSshPassword(sshPassword.getText());
+        redisConfig.setSshPrivateKey(sshPrivateKey.getText());
+        redisConfig.setSshPassphrase(sshPassphrase.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -209,6 +244,13 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setRedisCrt(redisCrt.getText());
         connectionServerNode.setRedisKey(redisKey.getText());
         connectionServerNode.setRedisKeyPassword(redisKeyPassword.getText());
+        connectionServerNode.setSsh(ssh.isSelected());
+        connectionServerNode.setSshHost(sshHost.getText());
+        connectionServerNode.setSshPort(Integer.parseInt(sshPort.getText()));
+        connectionServerNode.setSshUserName(sshUserName.getText());
+        connectionServerNode.setSshPassword(sshPassword.getText());
+        connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
+        connectionServerNode.setSshPassphrase(sshPassphrase.getText());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -257,6 +299,14 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisCrt.setText(selectedNode.getRedisCrt());
         redisKey.setText(selectedNode.getRedisKey());
         redisKeyPassword.setText(selectedNode.getRedisKeyPassword());
+        ssh.setSelected(selectedNode.isSsh());
+        sshHost.setText(selectedNode.getSshHost());
+        sshPort.setText(String.valueOf(selectedNode.getSshPort()));
+        sshUserName.setText(selectedNode.getSshUserName());
+        sshPassword.setText(selectedNode.getSshPassword());
+        sshPrivateKey.setText(selectedNode.getSshPrivateKey());
+        sshPassphrase.setText(selectedNode.getSshPassphrase());
+
     }
 
     public void caCrtFile(ActionEvent actionEvent) {
@@ -275,5 +325,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
         lastFile=file.getParentFile();
         this.redisKey.setText(file.getPath());
+    }
+
+    public void sshPrivateKeyFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.sshPrivateKey.setText(file.getPath());
     }
 }
