@@ -128,6 +128,18 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * ssh密钥密码
      */
     public PasswordField sshPassphrase;
+    /**
+     * 连接超时
+     */
+    public TextField connectionTimeout;
+    /**
+     * 读取超时
+     */
+    public TextField soTimeout;
+    /**
+     * key分隔符
+     */
+    public TextField keySeparator;
 
     /**
      * 选中的最后的文件的父级目录

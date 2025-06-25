@@ -122,8 +122,8 @@ public class Util {
         }
     }
 
-    private static void close(Closeable... closeable) {
-        for (Closeable close : closeable) {
+    public static void close(AutoCloseable... closeable) {
+        for (AutoCloseable close : closeable) {
             if (null != close) {
                 try {
                     close.close();

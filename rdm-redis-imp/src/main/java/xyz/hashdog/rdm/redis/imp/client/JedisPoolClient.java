@@ -507,8 +507,6 @@ public class JedisPoolClient implements RedisClient {
         if(this.jedis!=null){
             this.jedis.close();
         }
-        if(this.tunnel!=null){
-            this.tunnel.disconnect();
-        }
+
     }
 }
