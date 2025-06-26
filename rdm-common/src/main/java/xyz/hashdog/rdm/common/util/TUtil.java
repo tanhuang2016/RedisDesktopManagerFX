@@ -44,6 +44,11 @@ public class TUtil {
         }
     }
 
+    /**
+     * 判断字符串是否为空
+     * @param str
+     * @return
+     */
     public static boolean isNotEmpty(String str) {
         if(str==null){
             return false;
