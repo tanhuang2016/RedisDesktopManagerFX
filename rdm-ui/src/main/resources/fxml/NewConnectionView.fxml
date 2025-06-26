@@ -58,7 +58,7 @@
                                           <CheckBox fx:id="sentinel" mnemonicParsing="false" text="%connect.info.sentinel" />
                                        </children>
                                     </HBox>
-                                    <VBox fx:id="sentinelVBox" visible="false" managed="false">
+                                    <VBox fx:id="sentinelVBox" managed="false" visible="false">
                                        <children>
                                           <Separator prefWidth="200.0" />
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
@@ -69,34 +69,171 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="%connect.info.testConnect" HBox.hgrow="ALWAYS" />
-                                           <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <buttons>
-                                                      <Button mnemonicParsing="false" onAction="#ok" text="%common.ok" />
-                                                      <Button mnemonicParsing="false" onAction="#cancel" text="%common.cancel" />
-                                                  </buttons>
-                                                </ButtonBar>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </HBox>
                                  </children>
                               </VBox>
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="%title.ssl">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <VBox prefHeight="376.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+                                              <children>
+                                                  <CheckBox fx:id="ssl" mnemonicParsing="false" text="%connect.info.ssl" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.cacrt" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="caCrt" promptText="Authority" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onAction="#caCrtFile" text="..." />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediscrt" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="redisCrt" promptText="Public Key" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onAction="#redisCrtFile" text="..." />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediskey" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="redisKey" promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onAction="#redisKeyFile" text="..." />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.rediskeypassword" HBox.hgrow="ALWAYS" />
+                                                  <PasswordField fx:id="redisKeyPassword" promptText="Private Key Password" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </Tab>
+                  <Tab text="%title.ssh">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <VBox prefHeight="376.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+                                              <children>
+                                                  <CheckBox fx:id="ssh" mnemonicParsing="false" text="%connect.info.ssh" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshhost" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="sshHost" promptText="Remote Host" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshport" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="sshPort" promptText="Remote Port" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshusername" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="sshUserName" promptText="User Name" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshpassword" HBox.hgrow="ALWAYS" />
+                                                  <PasswordField fx:id="sshPassword" promptText="Password" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshprivatekey" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="sshPrivateKey" promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                                  <Button mnemonicParsing="false" onAction="#sshPrivateKeyFile" text="..." />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sshpassphrase" HBox.hgrow="ALWAYS" />
+                                                  <PasswordField fx:id="sshPassphrase" promptText="Private Key Passphrase" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </Tab>
+                  <Tab text="%title.advanced">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <VBox prefHeight="376.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.connectiontimeout" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="connectionTimeout" promptText="Connection Timeout" text="6000" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.sotimeout" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="soTimeout" promptText="Execution Timeout" text="6000" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label text="%connect.info.keyseparator" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+
+
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </Tab>
               </tabs>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
             </TabPane>
          </center>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="testConnectButton" mnemonicParsing="false" onAction="#testConnect" text="%connect.info.testConnect" HBox.hgrow="ALWAYS" />
+                   <TextField fx:id="dataId" maxWidth="-Infinity" prefWidth="-Infinity" visible="false" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ButtonBar prefHeight="59.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <buttons>
+                              <Button mnemonicParsing="false" onAction="#ok" text="%common.ok" />
+                              <Button mnemonicParsing="false" onAction="#cancel" text="%common.cancel" />
+                          </buttons>
+                        </ButtonBar>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
     <stylesheets>

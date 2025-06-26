@@ -6,12 +6,12 @@
     <parent>
         <groupId>xyz.hashdog.rdm</groupId>
         <artifactId>RedisDesktopManagerFX</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </parent>
 
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-redis-imp</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -47,6 +47,12 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
             <version>1.77</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
         </dependency>
     </dependencies>
 

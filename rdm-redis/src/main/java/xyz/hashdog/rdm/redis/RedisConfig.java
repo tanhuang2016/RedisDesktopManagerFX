@@ -57,6 +57,48 @@ public class RedisConfig {
      */
     private String redisKeyPassword;
 
+    /**
+     * 是否ssh
+     */
+    private boolean ssh;
+    /**
+     * ssh主机
+     */
+    private String sshHost;
+    /**
+     * ssh端口
+     */
+    private int sshPort;
+    /**
+     * ssh用户名
+     */
+    private String sshUserName;
+    /**
+     * ssh密码
+     */
+    private String sshPassword;
+    /**
+     * 私钥文件
+     */
+    private String sshPrivateKey;
+    /**
+     * 私钥密码
+     */
+    private String sshPassphrase;
+    /**
+     * 连接超时
+     */
+    private int connectionTimeout;
+    /**
+     * 读超时
+     */
+    private int soTimeout;
+    /**
+     * key 分隔符
+     */
+    private String keySeparator;
+
+
     public String getName() {
         return name;
     }
@@ -151,5 +193,85 @@ public class RedisConfig {
 
     public void setRedisKeyPassword(String redisKeyPassword) {
         this.redisKeyPassword = redisKeyPassword;
+    }
+
+    public boolean isSsh() {
+        return ssh;
+    }
+
+    public void setSsh(boolean ssh) {
+        this.ssh = ssh;
+    }
+
+    public String getSshHost() {
+        return sshHost;
+    }
+
+    public void setSshHost(String sshHost) {
+        this.sshHost = sshHost;
+    }
+
+    public int getSshPort() {
+        return sshPort;
+    }
+
+    public void setSshPort(int sshPort) {
+        this.sshPort = sshPort;
+    }
+
+    public String getSshUserName() {
+        return sshUserName;
+    }
+
+    public void setSshUserName(String sshUserName) {
+        this.sshUserName = sshUserName;
+    }
+
+    public String getSshPassword() {
+        return sshPassword;
+    }
+
+    public void setSshPassword(String sshPassword) {
+        this.sshPassword = sshPassword;
+    }
+
+    public String getSshPrivateKey() {
+        return sshPrivateKey;
+    }
+
+    public void setSshPrivateKey(String sshPrivateKey) {
+        this.sshPrivateKey = sshPrivateKey;
+    }
+
+    public String getSshPassphrase() {
+        return sshPassphrase;
+    }
+
+    public void setSshPassphrase(String sshPassphrase) {
+        this.sshPassphrase = sshPassphrase;
+    }
+
+    public int getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(int connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public int getSoTimeout() {
+        return soTimeout;
+    }
+
+    public void setSoTimeout(int soTimeout) {
+        this.soTimeout = soTimeout;
+    }
+
+    public String getKeySeparator() {
+        return keySeparator;
+    }
+
+    public void setKeySeparator(String keySeparator) {
+        this.keySeparator = keySeparator;
     }
 }

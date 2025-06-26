@@ -1,5 +1,8 @@
 package xyz.hashdog.rdm.redis.imp;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMDecryptorProvider;
 import org.bouncycastle.openssl.PEMEncryptedKeyPair;
@@ -9,6 +12,7 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfo;
 import org.bouncycastle.pkcs.jcajce.JcePKCSPBEInputDecryptorProviderBuilder;
+import xyz.hashdog.rdm.common.util.TUtil;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -118,8 +122,8 @@ public class Util {
         }
     }
 
-    private static void close(Closeable... closeable) {
-        for (Closeable close : closeable) {
+    public static void close(AutoCloseable... closeable) {
+        for (AutoCloseable close : closeable) {
             if (null != close) {
                 try {
                     close.close();
@@ -130,19 +134,31 @@ public class Util {
         }
     }
 
-    public static void main(String[] args) {
+    public static Session createTunnel(String sshUserName, String sshHost, int sshPort,String sshPassword,String sshPrivateKey, String sshPassphrase)  {
         try {
-            String dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs有密码\\";
-            javax.net.ssl.SSLSocketFactory socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
-            dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs无密码\\";
-            socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
-            dir = "E:\\ha\\BF\\compose\\bitnami_redis_ssl\\certs\\";
-            socketFactory = getSocketFactory(dir+"ca.crt", dir+"redis.crt", dir+"redis.key", "redis123".toCharArray());
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(sshUserName,sshHost,sshPort);
+            session.setPassword(sshPassword);
+            if(TUtil.isNotEmpty(sshPrivateKey)){
+                jsch.addIdentity(sshPrivateKey,sshPassphrase);
+            }
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+            return session;
+            
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
-            System.out.println(666);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static int portForwardingL( Session session,String rhost,  int rport){
+        try {
+            return session.setPortForwardingL(0, rhost, rport);
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
         }
 
     }
+
+  
 }

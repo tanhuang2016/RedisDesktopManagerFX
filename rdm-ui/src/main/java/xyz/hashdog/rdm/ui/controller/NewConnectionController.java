@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -14,6 +15,7 @@ import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -79,6 +81,71 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     @FXML
     public VBox sentinelVBox;
+    /**
+     * 是否ssl
+     */
+    public CheckBox ssl;
+    /**
+     * ca证书
+     */
+    public TextField caCrt;
+    /**
+     * redis证书
+     */
+    public TextField redisCrt;
+    /**
+     * redis秘钥
+     */
+    public TextField redisKey;
+    /**
+     * 秘钥密码
+     */
+    public PasswordField redisKeyPassword;
+    /**
+     * ssh
+     */
+    public CheckBox ssh;
+    /**
+     * ssh地址
+     */
+    public TextField sshHost;
+    /**
+     * ssh端口
+     */
+    public TextField sshPort;
+    /**
+     * ssh用户名
+     */
+    public TextField sshUserName;
+    /**
+     * ssh密码
+     */
+    public PasswordField sshPassword;
+    /**
+     * ssh私钥
+     */
+    public TextField sshPrivateKey;
+    /**
+     * ssh密钥密码
+     */
+    public PasswordField sshPassphrase;
+    /**
+     * 连接超时
+     */
+    public TextField connectionTimeout;
+    /**
+     * 读取超时
+     */
+    public TextField soTimeout;
+    /**
+     * key分隔符
+     */
+    public TextField keySeparator;
+
+    /**
+     * 选中的最后的文件的父级目录
+     */
+    private File lastFile;
 
 
     @FXML
@@ -146,6 +213,21 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setCluster(clusterSelected);
         redisConfig.setSentine(sentinel.isSelected());
         redisConfig.setMasterName(masterName.getText());
+        redisConfig.setSsl(ssl.isSelected());
+        redisConfig.setCaCrt(caCrt.getText());
+        redisConfig.setRedisCrt(redisCrt.getText());
+        redisConfig.setRedisKey(redisKey.getText());
+        redisConfig.setRedisKeyPassword(redisKeyPassword.getText());
+        redisConfig.setSsh(ssh.isSelected());
+        redisConfig.setSshHost(sshHost.getText());
+        redisConfig.setSshPort(TUtil.isNotEmpty(sshPort.getText()) ? Integer.parseInt(sshPort.getText()) : 0);
+        redisConfig.setSshUserName(sshUserName.getText());
+        redisConfig.setSshPassword(sshPassword.getText());
+        redisConfig.setSshPrivateKey(sshPrivateKey.getText());
+        redisConfig.setSshPassphrase(sshPassphrase.getText());
+        redisConfig.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
+        redisConfig.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        redisConfig.setKeySeparator(keySeparator.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         Message message = redisContext.newRedisClient().testConnect();
         if (message.isSuccess()) {
@@ -173,6 +255,21 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setCluster(cluster.isSelected());
         connectionServerNode.setSentine(sentinel.isSelected());
         connectionServerNode.setMasterName(masterName.getText());
+        connectionServerNode.setSsl(ssl.isSelected());
+        connectionServerNode.setCaCrt(caCrt.getText());
+        connectionServerNode.setRedisCrt(redisCrt.getText());
+        connectionServerNode.setRedisKey(redisKey.getText());
+        connectionServerNode.setRedisKeyPassword(redisKeyPassword.getText());
+        connectionServerNode.setSsh(ssh.isSelected());
+        connectionServerNode.setSshHost(sshHost.getText());
+        connectionServerNode.setSshPort(TUtil.isNotEmpty(sshPort.getText())?Integer.parseInt(sshPort.getText()):0);
+        connectionServerNode.setSshUserName(sshUserName.getText());
+        connectionServerNode.setSshPassword(sshPassword.getText());
+        connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
+        connectionServerNode.setSshPassphrase(sshPassphrase.getText());
+        connectionServerNode.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
+        connectionServerNode.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        connectionServerNode.setKeySeparator(keySeparator.getText());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -216,5 +313,45 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         cluster.setSelected(selectedNode.isCluster());
         sentinel.setSelected(selectedNode.isSentine());
         masterName.setText(selectedNode.getMasterName());
+        ssl.setSelected(selectedNode.isSsl());
+        caCrt.setText(selectedNode.getCaCrt());
+        redisCrt.setText(selectedNode.getRedisCrt());
+        redisKey.setText(selectedNode.getRedisKey());
+        redisKeyPassword.setText(selectedNode.getRedisKeyPassword());
+        ssh.setSelected(selectedNode.isSsh());
+        sshHost.setText(selectedNode.getSshHost());
+        sshPort.setText(String.valueOf(selectedNode.getSshPort()));
+        sshUserName.setText(selectedNode.getSshUserName());
+        sshPassword.setText(selectedNode.getSshPassword());
+        sshPrivateKey.setText(selectedNode.getSshPrivateKey());
+        sshPassphrase.setText(selectedNode.getSshPassphrase());
+        connectionTimeout.setText(String.valueOf(selectedNode.getConnectionTimeout()));
+        soTimeout.setText(String.valueOf(selectedNode.getSoTimeout()));
+        keySeparator.setText(selectedNode.getKeySeparator());
+
+    }
+
+    public void caCrtFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.caCrt.setText(file.getPath());
+    }
+
+    public void redisCrtFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.redisCrt.setText(file.getPath());
+    }
+
+    public void redisKeyFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.redisKey.setText(file.getPath());
+    }
+
+    public void sshPrivateKeyFile(ActionEvent actionEvent) {
+        File file = GuiUtil.fileChoose(this.root.getScene().getWindow(), lastFile);
+        lastFile=file.getParentFile();
+        this.sshPrivateKey.setText(file.getPath());
     }
 }

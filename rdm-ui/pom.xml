@@ -6,7 +6,7 @@
     <parent>
         <groupId>xyz.hashdog.rdm</groupId>
         <artifactId>RedisDesktopManagerFX</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </parent>
 
     <groupId>xyz.hashdog.rdm</groupId>
@@ -223,7 +223,7 @@
                         <configuration>
                             <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                             <bundleJre>true</bundleJre>
-                            <jrePath>D:\soft\jdk\jdk-8u441-windows-x64\jdk1.8.0_441\jre</jrePath>
+                            <jrePath>D:\soft\jdk\jre-8u202-windows-i586.tar\jre1.8.0_202</jrePath>
                             <generateInstaller>false</generateInstaller>
                             <administratorRequired>false</administratorRequired>
                             <platform>windows</platform>
@@ -259,21 +259,24 @@
                     </execution>
 
 
-<!--                    <execution>-->
-<!--                        <id>bundling-for-mac</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>package</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <platform>mac</platform>-->
-<!--                            <createTarball>true</createTarball>-->
-<!--                            <jdkPath>X:\\path\to\mac\jdk</jdkPath>-->
-<!--                            <macConfig>-->
-<!--                                <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>-->
-<!--                            </macConfig>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
+                    <execution>
+                        <id>bundling-for-mac</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>mac</platform>
+                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                            <bundleJre>true</bundleJre>
+                            <createTarball>true</createTarball>
+                            <jrePath>D:\soft\jdk\jre-8u202-macosx-x64\jre1.8.0_202.jre\Contents\Home</jrePath>
+                            <macConfig>
+                                <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
+                                <generateDmg>true</generateDmg>
+                            </macConfig>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 

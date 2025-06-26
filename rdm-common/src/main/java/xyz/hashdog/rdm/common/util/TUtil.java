@@ -44,11 +44,16 @@ public class TUtil {
         }
     }
 
-    public static String ifEmpty(String str, String o) {
-        if(str==null||str.isEmpty()){
-            return o;
+
+
+    public static boolean isNotEmpty(String str) {
+        if(str==null){
+            return false;
         }
-        return str;
+        if(str.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
 
@@ -227,5 +232,13 @@ public class TUtil {
         } finally {
 //            callback.accept(t);
         }
+    }
+
+
+    public static String ifEmpty(String str, String o) {
+        if(str==null||str.isEmpty()){
+            return o;
+        }
+        return str;
     }
 }
