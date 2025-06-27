@@ -183,40 +183,19 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <executable>${java.home}/bin/java</executable>
+                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>package</phase>
-                        <goals><goal>shade</goal></goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                                    <manifestEntries>
-                                        <Premain-Class>xyz.hashdog.rdm.ui.Main</Premain-Class>
-                                        <Permissions>all-permissions</Permissions>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
+                        <id>run</id>
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2</version>
@@ -240,9 +219,11 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
-           <!-- <plugin>
+
+
+            <plugin>
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
                 <version>1.7.3</version>
@@ -261,86 +242,24 @@
                             <administratorRequired>false</administratorRequired>
                             <platform>windows</platform>
                             <createZipball>true</createZipball>
-&lt;!&ndash;                            <additionalResources>&ndash;&gt;
-&lt;!&ndash;                                <additionalResource>${name}.l4j.ini</additionalResource>&ndash;&gt;
-&lt;!&ndash;                            </additionalResources>&ndash;&gt;
+<!--                            <additionalResources>-->
+<!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+<!--                            </additionalResources>-->
                             <winConfig>
+                                <headerType>console</headerType>
                                 <icoFile>src/main/resources/icon/redis256.ico</icoFile>
                             </winConfig>
                             <vmArgs>
-                                <arg>&#45;&#45;module-path</arg>
-                                <arg>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7\sdk\openjfx-20_windows-x86_bin-sdk\javafx-sdk-20\lib</arg>
-                                <arg>&#45;&#45;add-modules</arg>
+                                <arg>--module-path</arg>
+                                <arg>libs</arg>
+                                <arg>--add-modules</arg>
                                 <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
                             </vmArgs>
                         </configuration>
                     </execution>
-                    <execution>
-                    <configuration>
-                        <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                        <bundleJre>true</bundleJre>
-                        <jdkPath>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7</jdkPath>
-                        <generateInstaller>false</generateInstaller>
-                        <administratorRequired>false</administratorRequired>
-                        <platform>windows</platform>
-                        <createZipball>true</createZipball>
-                        &lt;!&ndash;                            <additionalResources>&ndash;&gt;
-                        &lt;!&ndash;                                <additionalResource>${name}.l4j.ini</additionalResource>&ndash;&gt;
-                        &lt;!&ndash;                            </additionalResources>&ndash;&gt;
-                        <winConfig>
-                            <icoFile>src/main/resources/icon/redis256.ico</icoFile>
-                        </winConfig>
-                        <vmArgs>
-                            <arg>&#45;&#45;module-path</arg>
-                            <arg>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7\sdk\openjfx-20_windows-x64_bin-sdk\javafx-sdk-20\lib</arg>
-                            <arg>&#45;&#45;add-modules</arg>
-                            <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
-                        </vmArgs>
-                    </configuration>
-                </execution>
 
-                 &lt;!&ndash;   <execution>
-                        <id>bundling-for-linux</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                        <configuration>
-                            <platform>linux</platform>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <createTarball>true</createTarball>
-                            <jrePath>D:\soft\jdk\jdk-8u291-linux-x64.tar\jdk-8u291-linux-x64\jdk1.8.0_291\jre</jrePath>
-&lt;!&ndash;                            <additionalResources>&ndash;&gt;
-&lt;!&ndash;                                <additionalResource>${name}.l4j.ini</additionalResource>&ndash;&gt;
-&lt;!&ndash;                            </additionalResources>&ndash;&gt;
-                            <linuxConfig>
-                                <pngFile>src/main/resources/icon/redis256.png</pngFile>
-                            </linuxConfig>
-                        </configuration>
-                    </execution>
-
-
-                    <execution>
-                        <id>bundling-for-mac</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                        <configuration>
-                            <platform>mac</platform>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <createTarball>true</createTarball>
-                            <jrePath>D:\soft\jdk\jre-8u202-macosx-x64\jre1.8.0_202.jre\Contents\Home</jrePath>
-                            <macConfig>
-                                <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                <generateDmg>true</generateDmg>
-                            </macConfig>
-                        </configuration>
-                    </execution>&ndash;&gt;
                 </executions>
-            </plugin>-->
+            </plugin>
 
         </plugins>
     </build>
