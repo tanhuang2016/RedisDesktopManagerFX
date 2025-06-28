@@ -452,7 +452,7 @@
                                     <generateInstaller>false</generateInstaller>
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
-                                        <iconFile>src/main/resources/icon/redis256.icns</iconFile>
+                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
                                         <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
                                         <shortName>RDM</shortName>
                                         <category>public.app-category.developer-tools</category>
@@ -501,7 +501,7 @@
                                     <generateInstaller>false</generateInstaller>
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
-                                        <iconFile>src/main/resources/icon/redis256.icns</iconFile>
+                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
                                         <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
                                         <shortName>RDM</shortName>
                                         <category>public.app-category.developer-tools</category>
