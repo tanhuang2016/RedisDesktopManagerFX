@@ -8,6 +8,12 @@ package xyz.hashdog.rdm.common.util;
 public class EncodeUtil {
 
 
+    /**
+     * 检查字节数组中是否包含特殊字符
+     *
+     * @param bytes 字节数组
+     * @return 如果字节数组中包含特殊字符，则返回 true；否则返回 false
+     */
     public static boolean containsSpecialCharacters( byte[] bytes) {
         // 检查字节数组中是否包含特殊字符的字节
         for (byte b : bytes) {
