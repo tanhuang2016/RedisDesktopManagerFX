@@ -477,7 +477,7 @@
             <activation>
                 <os>
                     <family>mac</family>
-                    <arch>arm64</arch>
+                    <arch>aarch64</arch>
                 </os>
             </activation>
             <build>
