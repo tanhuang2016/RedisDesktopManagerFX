@@ -339,7 +339,7 @@
             <activation>
                 <os>
                     <family>Linux</family>
-                    <arch>amd64|x86_64</arch>
+                    <arch>amd64</arch>
                 </os>
             </activation>
             <build>
