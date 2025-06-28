@@ -134,6 +134,17 @@ public class Util {
         }
     }
 
+
+    /**
+     * 创建 SSH Session
+     * @param sshUserName
+     * @param sshHost
+     * @param sshPort
+     * @param sshPassword
+     * @param sshPrivateKey
+     * @param sshPassphrase
+     * @return
+     */
     public static Session createTunnel(String sshUserName, String sshHost, int sshPort,String sshPassword,String sshPrivateKey, String sshPassphrase)  {
         try {
             JSch jsch = new JSch();
