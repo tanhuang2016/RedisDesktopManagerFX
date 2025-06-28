@@ -253,7 +253,8 @@
                                 <configuration>
                                     <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                                     <bundleJre>true</bundleJre>
-                                    <jdkPath>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7</jdkPath>
+<!--                                    <jdkPath>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7</jdkPath>-->
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <generateInstaller>false</generateInstaller>
                                     <administratorRequired>false</administratorRequired>
                                     <platform>windows</platform>
@@ -307,7 +308,8 @@
                                 <configuration>
                                     <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                                     <bundleJre>true</bundleJre>
-                                    <jdkPath>D:\soft\jdk\jdk-21_windows-i586\jdk-21.0.7</jdkPath>
+<!--                                    <jdkPath>D:\soft\jdk\jdk-21_windows-i586\jdk-21.0.7</jdkPath>-->
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <generateInstaller>false</generateInstaller>
                                     <administratorRequired>false</administratorRequired>
                                     <platform>windows</platform>
@@ -330,12 +332,14 @@
             </build>
         </profile>
 
+        <!-- Linux 64 位 -->
+
         <profile>
-            <id>linux-x86</id>
+            <id>linux-amd64</id>
             <activation>
                 <os>
                     <family>Linux</family>
-                    <arch>i386|x86</arch>
+                    <arch>amd64|x86_64</arch>
                 </os>
             </activation>
             <build>
@@ -345,7 +349,7 @@
                         <artifactId>javapackager</artifactId>
                         <executions>
                             <execution>
-                                <id>bundling-for-linux-x86</id>
+                                <id>bundling-for-linux-amd64</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>package</goal>
@@ -355,10 +359,7 @@
                                     <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
                                     <bundleJre>true</bundleJre>
                                     <createTarball>true</createTarball>
-                                    <jdkPath>/home/tanhuang/soft/jdk-21.0.7</jdkPath>
-                                    <!--                            <additionalResources>-->
-                                    <!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
-                                    <!--                            </additionalResources>-->
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <linuxConfig>
                                         <pngFile>src/main/resources/icon/redis256.png</pngFile>
                                     </linuxConfig>
@@ -375,5 +376,151 @@
                 </plugins>
             </build>
         </profile>
+
+
+        <!-- Linux ARM 64 位 -->
+        <profile>
+            <id>linux-arm64</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                    <arch>aarch64|arm64|armhf</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-linux-arm</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <platform>linux</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>true</createTarball>
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
+                                    <linuxConfig>
+                                        <pngFile>src/main/resources/icon/redis256.png</pngFile>
+                                    </linuxConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>macos-x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.7.3</version>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-macos-x86_64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <platform>mac</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>false</createTarball>
+                                    <generateInstaller>false</generateInstaller>
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
+                                    <macConfig>
+                                        <iconFile>src/main/resources/icon/redis256.icns</iconFile>
+                                        <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
+                                        <shortName>RDM</shortName>
+                                        <category>public.app-category.developer-tools</category>
+                                    </macConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>macos-arm64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64|arm64</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.7.3</version>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-macos-arm64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <platform>mac</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>false</createTarball>
+                                    <generateInstaller>false</generateInstaller>
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
+                                    <macConfig>
+                                        <iconFile>src/main/resources/icon/redis256.icns</iconFile>
+                                        <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
+                                        <shortName>RDM</shortName>
+                                        <category>public.app-category.developer-tools</category>
+                                    </macConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+
     </profiles>
 </project>
