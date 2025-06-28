@@ -453,9 +453,6 @@
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
                                         <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                        <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
-                                        <shortName>RDM</shortName>
-                                        <category>public.app-category.developer-tools</category>
                                     </macConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
@@ -502,9 +499,6 @@
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
                                         <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                        <bundleIdentifier>xyz.hashdog.rdm.ui</bundleIdentifier>
-                                        <shortName>RDM</shortName>
-                                        <category>public.app-category.developer-tools</category>
                                     </macConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
