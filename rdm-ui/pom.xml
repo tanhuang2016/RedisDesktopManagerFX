@@ -258,6 +258,33 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>bundling-for-linux</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>linux</platform>
+                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                            <bundleJre>true</bundleJre>
+                            <createTarball>true</createTarball>
+                            <jdkPath>/home/tanhuang/soft/jdk-21.0.7</jdkPath>
+                            <!--                            <additionalResources>-->
+                            <!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+                            <!--                            </additionalResources>-->
+                            <linuxConfig>
+                                <pngFile>src/main/resources/icon/redis256.png</pngFile>
+                            </linuxConfig>
+                            <vmArgs>
+                                <arg>--module-path</arg>
+                                <arg>libs</arg>
+                                <arg>--add-modules</arg>
+                                <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                            </vmArgs>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 
