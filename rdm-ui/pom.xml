@@ -15,9 +15,19 @@
 
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <openjfx.version>20</openjfx.version>
+        <sass.version>1.54.4</sass.version>
+        <javafx.version>20</javafx.version> <!-- JavaFX 21 版本 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lib.commons-lang.version>3.12.0</lib.commons-lang.version>
+        <lib.cssfx.version>11.5.1</lib.cssfx.version>
+        <lib.ikonli.version>12.3.1</lib.ikonli.version>
+        <lib.datafaker.version>1.3.0</lib.datafaker.version>
+        <lib.jetbrains-annotations.version>23.0.0</lib.jetbrains-annotations.version>
+        <test.assertj.version>3.21.0</test.assertj.version>
+        <test.junit.version>5.8.1</test.junit.version>
     </properties>
 
     <dependencies>
@@ -37,13 +47,155 @@
             <artifactId>rdm-redis-imp</artifactId>
             <version>${rdm.version}</version>
         </dependency>
+
+
+
+
+
+
+
+
+        <!-- JavaFX 基础模块 -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.palexdev</groupId>
+            <artifactId>materialfx</artifactId>
+            <version>11.17.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>atlantafx-base</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+
+
+
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.mkpaz</groupId>-->
+        <!--            <artifactId>atlantafx-styles</artifactId>-->
+        <!--            <version>2.0.1</version>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>atlantafx-base</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>${lib.ikonli.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-feather-pack</artifactId>
+            <version>${lib.ikonli.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-material2-pack</artifactId>
+            <version>${lib.ikonli.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${lib.jetbrains-annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.brouillard.oss</groupId>
+            <artifactId>cssfx</artifactId>
+            <version>${lib.cssfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${lib.datafaker.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${test.assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+      <!--  <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${test.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${test.junit.version}</version>
+            <scope>test</scope>
+        </dependency>-->
     </dependencies>
 
 
     <build>
         <plugins>
-
             <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <executable>${java.home}/bin/java</executable>
+                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run</id>
+                    </execution>
+                </executions>
+            </plugin>
+           <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2</version>
@@ -67,80 +219,161 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>io.github.fvarrui</groupId>
-                <artifactId>javapackager</artifactId>
-                <version>1.7.3</version>
-                <executions>
-                    <execution>
-                        <id>bundling-for-windows</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <jrePath>D:\soft\jdk\jre-8u202-windows-i586.tar\jre1.8.0_202</jrePath>
-                            <generateInstaller>false</generateInstaller>
-                            <administratorRequired>false</administratorRequired>
-                            <platform>windows</platform>
-                            <createZipball>true</createZipball>
-<!--                            <additionalResources>-->
-<!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
-<!--                            </additionalResources>-->
-                            <winConfig>
-                                <icoFile>src/main/resources/icon/redis256.ico</icoFile>
-                            </winConfig>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>bundling-for-linux</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                        <configuration>
-                            <platform>linux</platform>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <createTarball>true</createTarball>
-                            <jrePath>D:\soft\jdk\jdk-8u291-linux-x64.tar\jdk-8u291-linux-x64\jdk1.8.0_291\jre</jrePath>
-<!--                            <additionalResources>-->
-<!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
-<!--                            </additionalResources>-->
-                            <linuxConfig>
-                                <pngFile>src/main/resources/icon/redis256.png</pngFile>
-                            </linuxConfig>
-                        </configuration>
-                    </execution>
+            </plugin>-->
 
 
-                    <execution>
-                        <id>bundling-for-mac</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                        <configuration>
-                            <platform>mac</platform>
-                            <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                            <bundleJre>true</bundleJre>
-                            <createTarball>true</createTarball>
-                            <jrePath>D:\soft\jdk\jre-8u202-macosx-x64\jre1.8.0_202.jre\Contents\Home</jrePath>
-                            <macConfig>
-                                <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                <generateDmg>true</generateDmg>
-                            </macConfig>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
 
         </plugins>
     </build>
 
+
+    <profiles>
+        <profile>
+            <id>windows-amd64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.7.3</version>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-windows-amd64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <jdkPath>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7</jdkPath>
+                                    <generateInstaller>false</generateInstaller>
+                                    <administratorRequired>false</administratorRequired>
+                                    <platform>windows</platform>
+                                    <createZipball>true</createZipball>
+                                    <!--                            <additionalResources>-->
+                                    <!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+                                    <!--                            </additionalResources>-->
+                                    <winConfig>
+                                        <headerType>console</headerType>
+                                        <icoFile>src/main/resources/icon/redis256.ico</icoFile>
+                                    </winConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+
+
+
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Windows 32 位 -->
+        <profile>
+            <id>windows-x86</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>x86|i386</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-windows-x86</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <jdkPath>D:\soft\jdk\jdk-21_windows-i586\jdk-21.0.7</jdkPath>
+                                    <generateInstaller>false</generateInstaller>
+                                    <administratorRequired>false</administratorRequired>
+                                    <platform>windows</platform>
+                                    <createZipball>true</createZipball>
+                                    <winConfig>
+                                        <headerType>console</headerType>
+                                        <icoFile>src/main/resources/icon/redis256.ico</icoFile>
+                                    </winConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>linux-x86</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                    <arch>i386|x86</arch>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-linux-x86</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <platform>linux</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>true</createTarball>
+                                    <jdkPath>/home/tanhuang/soft/jdk-21.0.7</jdkPath>
+                                    <!--                            <additionalResources>-->
+                                    <!--                                <additionalResource>${name}.l4j.ini</additionalResource>-->
+                                    <!--                            </additionalResources>-->
+                                    <linuxConfig>
+                                        <pngFile>src/main/resources/icon/redis256.png</pngFile>
+                                    </linuxConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

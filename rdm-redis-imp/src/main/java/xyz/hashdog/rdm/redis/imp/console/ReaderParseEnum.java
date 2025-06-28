@@ -53,7 +53,7 @@ public enum ReaderParseEnum {
             String next = r.readLine();
             ReaderParseEnum readerParseEnum = ReaderParseEnum.getByLine(next);
 //            List<String> parse = readerParseEnum.readerParser.parse(next, r);
-            List<String> parse = new ArrayList<String>(){{add(r.readLine());}};
+            List<String> parse = List.of(r.readLine());
             result.addAll(parse);
         }
         return result;

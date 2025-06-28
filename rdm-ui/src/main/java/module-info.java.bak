@@ -1,0 +1,61 @@
+module rdm.ui {
+
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.base;
+    requires javafx.graphics;
+    requires MaterialFX;
+    requires atlantafx.base;
+    opens xyz.hashdog.rdm.ui to javafx.graphics, javafx.controls;
+    // 新增导出语句
+    exports xyz.hashdog.rdm.ui.controller to javafx.fxml;
+    // 新增开放语句
+    opens xyz.hashdog.rdm.ui.controller to javafx.fxml;
+    opens xyz.hashdog.rdm.ui.entity to com.google.gson, javafx.base;
+
+//    requires base;
+
+    requires java.prefs;
+    requires javafx.swing;
+    requires javafx.media;
+    requires javafx.web;
+//    requires javafx.fxml;
+    requires jdk.zipfs;
+
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.feather;
+    requires org.kordamp.ikonli.material2;
+    requires org.jetbrains.annotations;
+
+    requires fr.brouillard.oss.cssfx;
+    requires datafaker;
+    requires org.slf4j;
+    requires rdm.redis;
+    requires rdm.common;
+    requires com.google.gson;
+
+//    exports sampler;
+//    exports sampler.fake.domain;
+//    exports sampler.event;
+//    exports sampler.layout;
+//    exports sampler.page;
+//    exports sampler.page.general;
+//    exports sampler.page.components;
+//    exports sampler.page.showcase;
+//    exports sampler.theme;
+//    exports sampler.util;
+
+//    opens sampler.fake.domain;
+
+    // resources
+//    opens sampler;
+//    opens sampler.assets.highlightjs;
+//    opens sampler.assets.styles;
+//    opens sampler.images;
+//    opens sampler.images.modena;
+//    opens sampler.media;
+//    opens sampler.page.general;
+//    opens sampler.page.showcase;
+}
+
