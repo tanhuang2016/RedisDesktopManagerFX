@@ -19,9 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-#        os: [ windows-latest,ubuntu-latest,ubuntu-22.04-arm ]
+        os: [ ubuntu-latest,ubuntu-22.04-arm, windows-latest, macos-latest,macos-13 ]
 #        os: [ macos-13 ]
-        os: [ubuntu-latest,ubuntu-22.04-arm, windows-latest, windows-11-arm,macos-latest,macos-13]
+#        os: [ubuntu-latest,ubuntu-22.04-arm, windows-latest, windows-11-arm,macos-latest,macos-13]
     name: build  ${{ matrix.os }}
 
 
