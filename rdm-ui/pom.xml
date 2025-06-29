@@ -317,8 +317,12 @@
                                     <platform>windows</platform>
                                     <createZipball>true</createZipball>
                                     <winConfig>
-                                        <headerType>console</headerType>
+<!--                                        <headerType>console</headerType>-->
                                         <icoFile>src/main/resources/icon/redis256.ico</icoFile>
+                                        <generateSetup>true</generateSetup>
+                                        <generateMsi>true</generateMsi>
+                                        <generateMsm>true</generateMsm>
+
                                     </winConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
