@@ -271,7 +271,7 @@
                                         <icoFile>src/main/resources/icon/redis256.ico</icoFile>
                                         <generateSetup>true</generateSetup>
                                         <generateMsi>true</generateMsi>
-                                        <generateMsm>true</generateMsm>
+<!--                                        <generateMsm>true</generateMsm>-->
                                     </winConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
@@ -301,9 +301,6 @@
                                     <target>
                                         <move file="${project.build.directory}/${project.name}-${version}-windows.zip"
                                               tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.zip"
-                                              overwrite="true"/>
-                                        <move file="${project.build.directory}/${project.name}-${version}.msm"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msm"
                                               overwrite="true"/>
                                         <move file="${project.build.directory}/${project.name}-${version}.msi"
                                               tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"
