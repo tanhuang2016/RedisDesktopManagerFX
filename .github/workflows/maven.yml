@@ -19,8 +19,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-11-arm ]
-#        os: [ubuntu-latest,ubuntu-22.04-arm, windows-latest, macos-latest]
+        os: [ windows-latest ]
+#        os: [ubuntu-latest,ubuntu-22.04-arm, windows-latest, windows-11-arm,macos-latest]
     name: build  ${{ matrix.os }}
 
 
@@ -32,6 +32,11 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Install WiX Toolset via Chocolatey
+      if: startsWith(matrix.os, 'windows')
+      shell: cmd
+      run: choco install wixtoolset -y
+
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
 
