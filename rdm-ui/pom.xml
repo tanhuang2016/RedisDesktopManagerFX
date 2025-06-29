@@ -12,7 +12,7 @@
     <groupId>xyz.hashdog.rdm</groupId>
     <artifactId>rdm-ui</artifactId>
     <version>${rdm.version}</version>
-    <name>RdmFX</name>
+    <name>rdm-ui</name>
 
 
     <properties>
