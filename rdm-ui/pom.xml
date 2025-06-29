@@ -259,7 +259,7 @@
                                     <bundleJre>true</bundleJre>
 <!--                                    <jdkPath>D:\soft\jdk\jdk-21_windows-x64_bin\jdk-21.0.7</jdkPath>-->
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
-                                    <generateInstaller>false</generateInstaller>
+                                    <generateInstaller>true</generateInstaller>
                                     <administratorRequired>false</administratorRequired>
                                     <platform>windows</platform>
                                     <createZipball>true</createZipball>
@@ -302,15 +302,15 @@
                                         <move file="${project.build.directory}/${project.name}-${version}-windows.zip"
                                               tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.zip"
                                               overwrite="true"/>
-<!--                                        <move file="${project.build.directory}/${project.name}-${version}.msm"-->
-<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msm"-->
-<!--                                              overwrite="true"/>-->
-<!--                                        <move file="${project.build.directory}/${project.name}-${version}.msi"-->
-<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"-->
-<!--                                              overwrite="true"/>-->
-<!--                                        <move file="${project.build.directory}/${project.name}-${version}.exe"-->
-<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"-->
-<!--                                              overwrite="true"/>-->
+                                        <move file="${project.build.directory}/${project.name}-${version}.exe"
+                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"
+                                              overwrite="true"/>
+                                        <move file="${project.build.directory}/${project.name}-${version}.msi"
+                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"
+                                              overwrite="true"/>
+                                        <move file="${project.build.directory}/${project.name}-${version}.msm"
+                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msm"
+                                              overwrite="true"/>
                                     </target>
                                 </configuration>
                             </execution>
