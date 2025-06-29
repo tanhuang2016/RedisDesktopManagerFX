@@ -385,7 +385,7 @@
                 <os>
                     <family>Linux</family>
 <!--                    <arch>aarch64|arm64|</arch>-->
-                    <arch>aarch64</arch>
+                    <arch>arm64</arch>
                 </os>
             </activation>
             <build>
