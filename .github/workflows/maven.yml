@@ -19,7 +19,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-latest,ubuntu-latest,ubuntu-22.04-arm ]
+#        os: [ windows-latest,ubuntu-latest,ubuntu-22.04-arm ]
+        os: [ macos-latest ]
 #        os: [ubuntu-latest,ubuntu-22.04-arm, windows-latest, windows-11-arm,macos-latest,macos-13]
     name: build  ${{ matrix.os }}
 
@@ -78,7 +79,7 @@ jobs:
           **/target/*.msi
           **/target/*.msm
           **/target/*.exe
-#          **/target/*.*
+          **/target/*.*
         if-no-files-found: error
 
 

@@ -496,7 +496,7 @@
                     <plugin>
                         <groupId>io.github.fvarrui</groupId>
                         <artifactId>javapackager</artifactId>
-                        <version>1.7.3</version>
+                        <version>1.7.6</version>
                         <executions>
                             <execution>
                                 <id>bundling-for-macos-arm64</id>
