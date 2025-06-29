@@ -37,6 +37,30 @@ jobs:
       shell: cmd
       run: choco install -y innosetup wixtoolset
 
+    - name: Check PATH and WiX/Inno Setup installation
+      if: startsWith(matrix.os, 'windows')
+      shell: powershell
+      run: |
+        Write-Host "Checking PATH..."
+        echo $env:PATH
+
+        Write-Host "Testing candle (WiX)..."
+        try {
+          Get-Command candle -ErrorAction Stop
+          Write-Host "WiX Toolset is available."
+        } catch {
+          Write-Host "WiX Toolset NOT found in PATH!"
+        }
+
+        Write-Host "Testing iscc (Inno Setup)..."
+        try {
+          Get-Command iscc -ErrorAction Stop
+          Write-Host "Inno Setup is available."
+        } catch {
+          Write-Host "Inno Setup NOT found in PATH!"
+        }
+
+
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
 
