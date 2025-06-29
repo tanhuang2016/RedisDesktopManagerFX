@@ -35,7 +35,7 @@ jobs:
     - name: Install WiX Toolset via Chocolatey
       if: startsWith(matrix.os, 'windows')
       shell: cmd
-      run: choco install wixtoolset -y
+      run: choco install -y innosetup wixtoolset
 
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
