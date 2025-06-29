@@ -42,9 +42,10 @@ jobs:
       with:
         name: build-artifacts
         path: |
-          **/target/*.jar
-          **/target/*.war
           **/target/*.zip
+          **/target/*.rpm
+          **/target/*.dep
+          **/target/*.gz
           **/target/*.*
         if-no-files-found: error
 
