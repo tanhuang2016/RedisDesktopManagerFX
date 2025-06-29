@@ -287,35 +287,35 @@
                         </executions>
                     </plugin>
 
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <move file="${project.build.directory}/${project.name}-${version}-windows.zip"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.zip"
-                                              overwrite="true"/>
-                                        <move file="${project.build.directory}/${project.name}-${version}.exe"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"
-                                              overwrite="true"/>
-                                        <move file="${project.build.directory}/${project.name}-${version}.msi"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"
-                                              overwrite="true"/>
-                                        <move file="${project.build.directory}/${project.name}-${version}.msm"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msm"
-                                              overwrite="true"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                        <version>3.0.0</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <phase>package</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>run</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <target>-->
+<!--                                        <move file="${project.build.directory}/${project.name}-${version}-windows.zip"-->
+<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.zip"-->
+<!--                                              overwrite="true"/>-->
+<!--                                        <move file="${project.build.directory}/${project.name}-${version}.exe"-->
+<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"-->
+<!--                                              overwrite="true"/>-->
+<!--                                        <move file="${project.build.directory}/${project.name}-${version}.msi"-->
+<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"-->
+<!--                                              overwrite="true"/>-->
+<!--                                        <move file="${project.build.directory}/${project.name}-${version}.msm"-->
+<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msm"-->
+<!--                                              overwrite="true"/>-->
+<!--                                    </target>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
 
                 </plugins>
             </build>
