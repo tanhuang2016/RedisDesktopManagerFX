@@ -523,7 +523,7 @@
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
                                         <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                        <entitlements>src/main/resources/entitlements.plist</entitlements>
+                                        <entitlements>src/main/resources/assets/entitlements.plist</entitlements>
                                     </macConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
