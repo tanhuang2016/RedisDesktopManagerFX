@@ -479,62 +479,40 @@
             </activation>
             <build>
                 <plugins>
+
+
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.7.3</version>
                         <executions>
                             <execution>
-                                <id>jpackage</id>
-                                <goals><goal>exec</goal></goals>
+                                <id>bundling-for-macos-arm64</id>
                                 <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
                                 <configuration>
-                                    <executable>jpackage</executable>
-                                    <arguments>
-                                        <argument>--type</argument><argument>app-image</argument>
-                                        <argument>--name</argument><argument>RDM</argument>
-                                        <argument>--input</argument><argument>target/lib</argument>
-                                        <argument>--main-jar</argument><argument>your-main-jar.jar</argument>
-                                        <argument>--main-class</argument><argument>xyz.hashdog.rdm.ui.Main</argument>
-                                        <argument>--icon</argument><argument>src/main/resources/icon/redis256.icns</argument>
-                                        <argument>--mac-sign</argument><argument>false</argument> <!-- 关键点 -->
-                                    </arguments>
+                                    <platform>mac</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>false</createTarball>
+                                    <generateInstaller>false</generateInstaller>
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
+                                    <macConfig>
+                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
+                                        <entitlements>src/main/resources/assets/entitlements.plist</entitlements>
+                                    </macConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
-
-<!--                    <plugin>-->
-<!--                        <groupId>io.github.fvarrui</groupId>-->
-<!--                        <artifactId>javapackager</artifactId>-->
-<!--                        <version>1.7.3</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>bundling-for-macos-arm64</id>-->
-<!--                                <phase>package</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>package</goal>-->
-<!--                                </goals>-->
-<!--                                <configuration>-->
-<!--                                    <platform>mac</platform>-->
-<!--                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>-->
-<!--                                    <bundleJre>true</bundleJre>-->
-<!--                                    <createTarball>false</createTarball>-->
-<!--                                    <generateInstaller>false</generateInstaller>-->
-<!--                                    <jdkPath>${env.JAVA_HOME}</jdkPath>-->
-<!--                                    <macConfig>-->
-<!--                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>-->
-<!--                                        <entitlements>src/main/resources/assets/entitlements.plist</entitlements>-->
-<!--                                    </macConfig>-->
-<!--                                    <vmArgs>-->
-<!--                                        <arg>&#45;&#45;module-path</arg>-->
-<!--                                        <arg>libs</arg>-->
-<!--                                        <arg>&#45;&#45;add-modules</arg>-->
-<!--                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>-->
-<!--                                    </vmArgs>-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
