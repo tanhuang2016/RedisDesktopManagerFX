@@ -308,9 +308,9 @@
 <!--                                        <move file="${project.build.directory}/${project.name}-${version}.msi"-->
 <!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.msi"-->
 <!--                                              overwrite="true"/>-->
-                                        <move file="${project.build.directory}/${project.name}-${version}.exe"
-                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"
-                                              overwrite="true"/>
+<!--                                        <move file="${project.build.directory}/${project.name}-${version}.exe"-->
+<!--                                              tofile="${project.build.directory}/${project.name}-${version}-windows-x86_64.exe"-->
+<!--                                              overwrite="true"/>-->
                                     </target>
                                 </configuration>
                             </execution>
