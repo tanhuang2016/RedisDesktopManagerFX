@@ -479,6 +479,30 @@
             </activation>
             <build>
                 <plugins>
+<!--                    <plugin>-->
+<!--                        <groupId>org.codehaus.mojo</groupId>-->
+<!--                        <artifactId>exec-maven-plugin</artifactId>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>jpackage</id>-->
+<!--                                <goals><goal>exec</goal></goals>-->
+<!--                                <phase>package</phase>-->
+<!--                                <configuration>-->
+<!--                                    <executable>jpackage</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>&#45;&#45;type</argument><argument>app-image</argument>-->
+<!--                                        <argument>&#45;&#45;name</argument><argument>RDM</argument>-->
+<!--                                        <argument>&#45;&#45;input</argument><argument>target/lib</argument>-->
+<!--                                        <argument>&#45;&#45;main-jar</argument><argument>your-main-jar.jar</argument>-->
+<!--                                        <argument>&#45;&#45;main-class</argument><argument>xyz.hashdog.rdm.ui.Main</argument>-->
+<!--                                        <argument>&#45;&#45;icon</argument><argument>src/main/resources/icon/redis256.icns</argument>-->
+<!--                                        <argument>&#45;&#45;mac-sign</argument><argument>false</argument> &lt;!&ndash; 关键点 &ndash;&gt;-->
+<!--                                    </arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
+
                     <plugin>
                         <groupId>io.github.fvarrui</groupId>
                         <artifactId>javapackager</artifactId>
@@ -499,6 +523,7 @@
                                     <jdkPath>${env.JAVA_HOME}</jdkPath>
                                     <macConfig>
                                         <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
+                                        <entitlements>src/main/resources/entitlements.plist</entitlements>
                                     </macConfig>
                                     <vmArgs>
                                         <arg>--module-path</arg>
