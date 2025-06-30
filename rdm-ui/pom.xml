@@ -477,6 +477,47 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals><goal>run</goal></goals>
+                                <configuration>
+                                    <target>
+                                        <delete dir="${project.build.directory}/custom-jre" failonerror="false"/>
+                                        <exec executable="jlink">
+                                            <arg value="--output" />
+                                            <arg value="${project.build.directory}/custom-jre" />
+                                            <arg value="--add-modules" />
+                                            <arg value="ALL-MODULE-PATH" />
+                                            <arg value="--compress=2" />
+                                            <arg value="--no-header-files" />
+                                            <arg value="--no-man-pages" />
+                                        </exec>
+                                        <exec executable="jpackage">
+                                            <arg value="--type" />
+                                            <arg value="dmg" />
+                                            <arg value="--input"/>
+                                            <arg value="${project.build.directory}"/>
+                                            <arg value="--main-jar" />
+                                            <arg value="rdm-ui-${rdm.version}-jar-with-dependencies.jar" />
+                                            <arg value="--runtime-image" />
+                                            <arg value="${project.build.directory}/custom-jre" />
+                                            <arg value="--main-class" />
+                                            <arg value="xyz.hashdog.rdm.ui.App" />
+                                            <arg value="--name" />
+                                            <arg value="RedisDesktopManagerFX" />
+                                            <arg value="--dest" />
+                                            <arg value="${project.build.directory}" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -494,7 +535,38 @@
                 <plugins>
 
 
-
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.7.6</version>
+                        <executions>
+                            <execution>
+                                <id>bundling-for-macos-arm64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <platform>mac</platform>
+                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
+                                    <bundleJre>true</bundleJre>
+                                    <createTarball>false</createTarball>
+                                    <generateInstaller>false</generateInstaller>
+                                    <jdkPath>${env.JAVA_HOME}</jdkPath>
+                                    <macConfig>
+                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
+                                        <entitlements>src/main/resources/assets/entitlements.plist</entitlements>
+                                    </macConfig>
+                                    <vmArgs>
+                                        <arg>--module-path</arg>
+                                        <arg>libs</arg>
+                                        <arg>--add-modules</arg>
+                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -516,58 +588,23 @@
                                             <arg value="--no-header-files" />
                                             <arg value="--no-man-pages" />
                                         </exec>
-<!--                                        <exec executable="jpackage">-->
-<!--                                            <arg value="&#45;&#45;type" />-->
-<!--                                            <arg value="dmg" />-->
-<!--                                            <arg value="&#45;&#45;input"/>-->
-<!--                                            <arg value="${project.build.directory}"/>-->
-<!--                                            <arg value="&#45;&#45;main-jar" />-->
-<!--                                            <arg value="rdm-ui-${rdm.version}-jar-with-dependencies.jar" />-->
-<!--                                            <arg value="&#45;&#45;runtime-image" />-->
-<!--                                            <arg value="${project.build.directory}/custom-jre" />-->
-<!--                                            <arg value="&#45;&#45;main-class" />-->
-<!--                                            <arg value="xyz.hashdog.rdm.ui.App" />-->
-<!--                                            <arg value="&#45;&#45;name" />-->
-<!--                                            <arg value="RedisDesktopManagerFX" />-->
-<!--                                            <arg value="&#45;&#45;dest" />-->
-<!--                                            <arg value="${project.build.directory}" />-->
-<!--                                        </exec>-->
+                                        <exec executable="jpackage">
+                                            <arg value="--type" />
+                                            <arg value="dmg" />
+                                            <arg value="--input"/>
+                                            <arg value="${project.build.directory}"/>
+                                            <arg value="--main-jar" />
+                                            <arg value="rdm-ui-${rdm.version}-jar-with-dependencies.jar" />
+                                            <arg value="--runtime-image" />
+                                            <arg value="${project.build.directory}/custom-jre" />
+                                            <arg value="--main-class" />
+                                            <arg value="xyz.hashdog.rdm.ui.App" />
+                                            <arg value="--name" />
+                                            <arg value="RedisDesktopManagerFX" />
+                                            <arg value="--dest" />
+                                            <arg value="${project.build.directory}" />
+                                        </exec>
                                     </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>io.github.fvarrui</groupId>
-                        <artifactId>javapackager</artifactId>
-                        <version>1.7.6</version>
-                        <executions>
-                            <execution>
-                                <id>bundling-for-macos-arm64</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>package</goal>
-                                </goals>
-                                <configuration>
-                                    <platform>mac</platform>
-                                    <mainClass>xyz.hashdog.rdm.ui.Main</mainClass>
-                                    <bundleJre>true</bundleJre>
-                                    <createTarball>false</createTarball>
-                                    <generateInstaller>false</generateInstaller>
-                                    <customizedJre>false</customizedJre>
-<!--                                    <jdkPath>${env.JAVA_HOME}</jdkPath>-->
-                                    <jrePath>${project.build.directory}/custom-jre</jrePath>
-                                    <macConfig>
-                                        <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
-                                        <entitlements>src/main/resources/assets/entitlements.plist</entitlements>
-                                    </macConfig>
-                                    <vmArgs>
-                                        <arg>--module-path</arg>
-                                        <arg>libs</arg>
-                                        <arg>--add-modules</arg>
-                                        <arg>javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.base</arg>
-                                    </vmArgs>
                                 </configuration>
                             </execution>
                         </executions>
