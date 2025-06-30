@@ -553,7 +553,7 @@
                                             <arg value="--input"/>
                                             <arg value="${project.build.directory}"/>
                                             <arg value="--main-jar" />
-                                            <arg value="rdm-ui-${rdm.version}-jar-with-dependencies" />
+                                            <arg value="rdm-ui-${rdm.version}-jar-with-dependencies.jar" />
                                             <arg value="--runtime-image" />
                                             <arg value="${project.build.directory}/custom-jre" />
                                             <arg value="--main-class" />
