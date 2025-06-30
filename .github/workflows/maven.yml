@@ -79,7 +79,8 @@ jobs:
           **/target/*.msi
           **/target/*.msm
           **/target/*.exe
-          **/target/*.*
+          **/target/rdm-ui*.jar
+#          **/target/*.*
         if-no-files-found: error
 
 
