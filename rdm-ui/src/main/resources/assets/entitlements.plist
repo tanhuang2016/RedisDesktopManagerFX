@@ -1,57 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <!-- 允许 JIT 执行
-    <key>com.apple.security.cs.allow-jit-execution</key>
-    <true/>
-
-    <!-- 允许加载不带签名的插件或库 -->
-    <key>com.apple.security.cs.disable-library-validation</key>
-    <true/>
-
-    <!-- 允许使用 DYLD 环境变量 -->
-    <key>com.apple.security.cs.allow-dyld-environment</key>
-    <true/>
-
-    <!-- 允许访问用户选择的文件进行读写 -->
-    <key>com.apple.security.files.user-selected.read-write</key>
-    <true/>
-
-    <!-- 如果你需要网络访问 -->
-    <key>com.apple.security.network.client</key>
-    <true/> -->
-
-
-     <!--
-                Allow Execution of JIT-compiled Code Entitlement
-                https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_allow-jit
-            -->
-            <key>com.apple.security.cs.allow-jit</key>
-            <true/>
-            <!--
-                Allow Unsigned Executable Memory Entitlement
-                https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_allow-unsigned-executable-memory
-            -->
-            <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
-            <true/>
-            <!--
-                Disable Executable Memory Protection Entitlement
-                https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_disable-executable-page-protection
-            -->
-            <key>com.apple.security.cs.disable-executable-page-protection</key>
-            <true/>
-            <!--
-                Allow DYLD Environment Variables Entitlement
-                https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_allow-dyld-environment-variables
-            -->
-            <key>com.apple.security.cs.allow-dyld-environment-variables</key>
-            <true/>
-            <!--
-                Disable Library Validation Entitlement
-                https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_disable-library-validation
-            -->
-            <key>com.apple.security.cs.disable-library-validation</key>
-            <true/>
-</dict>
-</plist>
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict>    <!-- 允许 JIT 执行 -->    <key>com.apple.security.cs.allow-jit-execution</key>    <true/>    <!-- 允许加载不带签名的插件或库 -->    <key>com.apple.security.cs.disable-library-validation</key>    <true/>    <!-- 允许使用 DYLD 环境变量 -->    <key>com.apple.security.cs.allow-dyld-environment</key>    <true/>    <!-- 允许访问用户选择的文件进行读写 -->    <key>com.apple.security.files.user-selected.read-write</key>    <true/>    <!-- 如果你需要网络访问 -->    <key>com.apple.security.network.client</key>    <true/>    <key>com.apple.security.cs.allow-jit</key>    <true/>    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>    <true/>    <key>com.apple.security.cs.disable-executable-page-protection</key>    <true/>    <key>com.apple.security.cs.allow-dyld-environment-variables</key>    <true/>    <key>com.apple.security.cs.disable-library-validation</key>    <true/></dict></plist>
