@@ -2,25 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- 允许 JIT 执行 -->
-    <key>com.apple.security.cs.allow-jit-execution</key>
-    <true/>
-
-    <!-- 允许加载不带签名的插件或库 -->
-    <key>com.apple.security.cs.disable-library-validation</key>
-    <true/>
-
-    <!-- 允许使用 DYLD 环境变量 -->
-    <key>com.apple.security.cs.allow-dyld-environment</key>
-    <true/>
-
-    <!-- 允许访问用户选择的文件进行读写 -->
-    <key>com.apple.security.files.user-selected.read-write</key>
-    <true/>
-
-    <!-- 如果你需要网络访问 -->
-    <key>com.apple.security.network.client</key>
-    <true/>
     <key>com.apple.security.cs.allow-jit</key>
     <true/>
     <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
