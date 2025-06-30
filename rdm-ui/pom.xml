@@ -537,6 +537,7 @@
                                 <goals><goal>run</goal></goals>
                                 <configuration>
                                     <target>
+                                        <delete dir="${project.build.directory}/custom-jre" failonerror="false"/>
                                         <exec executable="jlink">
                                             <arg value="--output" />
                                             <arg value="${project.build.directory}/custom-jre" />
@@ -549,6 +550,8 @@
                                         <exec executable="jpackage">
                                             <arg value="--type" />
                                             <arg value="dmg" />
+                                            <arg value="--input"/>
+                                            <arg value="${project.build.directory}"/>
                                             <arg value="--main-jar" />
                                             <arg value="rdm-ui-${rdm.version}-jar-with-dependencies" />
                                             <arg value="--runtime-image" />
