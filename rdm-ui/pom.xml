@@ -557,7 +557,7 @@
                                     <generateInstaller>false</generateInstaller>
                                     <customizedJre>false</customizedJre>
 <!--                                    <jdkPath>${env.JAVA_HOME}</jdkPath>-->
-                                    <jdkPath>${project.build.directory}/custom-jre</jdkPath>
+                                    <jrePath>${project.build.directory}/custom-jre</jrePath>
                                     <macConfig>
                                         <icnsFile>src/main/resources/icon/redis256.icns</icnsFile>
                                         <entitlements>src/main/resources/assets/entitlements.plist</entitlements>
