@@ -539,7 +539,7 @@
                                     <target>
                                         <exec executable="jlink">
                                             <arg value="--output" />
-                                            <arg value="${project.build.directory}/target/custom-jre" />
+                                            <arg value="${project.build.directory}/custom-jre" />
                                             <arg value="--add-modules" />
                                             <arg value="ALL-MODULE-PATH" />
                                             <arg value="--compress=2" />
@@ -552,13 +552,13 @@
                                             <arg value="--main-jar" />
                                             <arg value="rdm-ui-${rdm.version}-jar-with-dependencies" />
                                             <arg value="--runtime-image" />
-                                            <arg value="${project.build.directory}/target/custom-jre" />
+                                            <arg value="${project.build.directory}/custom-jre" />
                                             <arg value="--main-class" />
                                             <arg value="xyz.hashdog.rdm.ui.App" />
                                             <arg value="--name" />
                                             <arg value="RedisDesktopManagerFX" />
                                             <arg value="--dest" />
-                                            <arg value="${project.build.directory}/target" />
+                                            <arg value="${project.build.directory}" />
                                         </exec>
                                     </target>
                                 </configuration>

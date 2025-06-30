@@ -80,7 +80,7 @@ jobs:
           **/target/*.msm
           **/target/*.exe
           **/target/*dependencies.jar
-#          **/target/*.*
+          **/target/*.*
         if-no-files-found: error
 
 
