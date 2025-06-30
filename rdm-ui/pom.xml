@@ -555,6 +555,7 @@
                                     <bundleJre>true</bundleJre>
                                     <createTarball>false</createTarball>
                                     <generateInstaller>false</generateInstaller>
+                                    <customizedJre>false</customizedJre>
 <!--                                    <jdkPath>${env.JAVA_HOME}</jdkPath>-->
                                     <jdkPath>${project.build.directory}/custom-jre</jdkPath>
                                     <macConfig>
