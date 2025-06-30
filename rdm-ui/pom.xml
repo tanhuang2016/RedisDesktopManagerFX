@@ -202,6 +202,7 @@
                 <version>2.2</version>
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>rdm-ui-${rdm.version}-jar-with-dependencies</finalName>
                     <archive>
                         <manifest>
                             <mainClass>xyz.hashdog.rdm.ui.App</mainClass>
