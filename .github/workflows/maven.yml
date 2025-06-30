@@ -33,6 +33,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Print JAVA_HOME
+      run: echo "JAVA_HOME=$JAVA_HOME"
+
     - name: Install WiX Toolset via Chocolatey
       if: startsWith(matrix.os, 'windows')
       shell: cmd
