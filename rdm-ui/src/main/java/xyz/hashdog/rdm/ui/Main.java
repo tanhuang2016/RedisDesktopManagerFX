@@ -69,7 +69,7 @@ public class Main extends Application {
             TM.setFontFamily(ThemeManager.DEFAULT_FONT_FAMILY_NAME);
             TM.setTheme(TM.getDefaultTheme());
 
-            TM.setTheme(new SamplerTheme(new Dracula()));
+//            TM.setTheme(new SamplerTheme(new Dracula()));
             //先默认打开
             controller.openServerLinkWindo(null);
         }catch (Exception e){
