@@ -41,9 +41,9 @@
                 <MenuBar BorderPane.alignment="CENTER">
                     <menus>
                         <Menu mnemonicParsing="false" text="%main.file">
-                            <MenuItem mnemonicParsing="false" text="%main.file.connect"
+                            <MenuItem fx:id="fileConnect" mnemonicParsing="false" text="%main.file.connect"
                                       onAction="#openServerLinkWindo"/>
-                            <MenuItem mnemonicParsing="false" text="快速连接"/>
+                            <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="快速连接"/>
                             <items>
                                 <Menu mnemonicParsing="false" text="新建">
                                     <items>
@@ -65,7 +65,8 @@
                                         <MenuItem mnemonicParsing="false" text="test2"/>
                                     </items>
                                 </Menu>
-                                <MenuItem mnemonicParsing="false" text="设置"/>
+                                <MenuItem fx:id="fileSettings" mnemonicParsing="false" text="设置"/>
+                                <MenuItem  mnemonicParsing="false" text="退出"/>
 
                             </items>
                         </Menu>

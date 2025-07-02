@@ -24,6 +24,7 @@ import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 
+import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 /**
@@ -38,6 +39,8 @@ public class MainController extends BaseWindowController {
     @FXML
     public TabPane serverTabPane;
     public MenuItem fileOpen;
+    public MenuItem fileConnect;
+    public MenuItem fileSettings;
     /**
      * 服务连接的Stage
      */
@@ -53,6 +56,8 @@ public class MainController extends BaseWindowController {
      */
     private void initMenuIconAndKey() {
         GuiUtil.setIconAndKey(fileOpen,new FontIcon(Feather.FOLDER),new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(fileConnect,new FontIcon(Feather.LINK),new KeyCodeCombination(KeyCode.C, ALT_DOWN));
+        GuiUtil.setIconAndKey(fileSettings,new FontIcon(Feather.SETTINGS),new KeyCodeCombination(KeyCode.Q, ALT_DOWN));
     }
 
     @FXML

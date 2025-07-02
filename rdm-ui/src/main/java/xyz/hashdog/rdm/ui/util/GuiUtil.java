@@ -458,8 +458,8 @@ public class GuiUtil {
      * @param keyCodeCombination
      */
     public static void setIconAndKey(MenuItem item, FontIcon fontIcon, KeyCodeCombination keyCodeCombination) {
-        item.setGraphic(new FontIcon(Feather.FOLDER));
-        item.setAccelerator(new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
+        item.setGraphic(fontIcon);
+        item.setAccelerator(keyCodeCombination);
     }
 
 
