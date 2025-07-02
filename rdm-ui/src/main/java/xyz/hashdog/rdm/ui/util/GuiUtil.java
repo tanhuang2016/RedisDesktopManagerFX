@@ -12,12 +12,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
@@ -31,6 +35,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 /**
  * 针对视图的操作工具
@@ -442,6 +448,18 @@ public class GuiUtil {
         tuple2.getT2().setParentController(baseController);
         tuple2.getT2().setByteArray(bytes);
         return tuple2;
+    }
+
+
+    /**
+     * 设置图标和快捷键
+     * @param item
+     * @param fontIcon
+     * @param keyCodeCombination
+     */
+    public static void setIconAndKey(MenuItem item, FontIcon fontIcon, KeyCodeCombination keyCodeCombination) {
+        item.setGraphic(new FontIcon(Feather.FOLDER));
+        item.setAccelerator(new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
     }
 
 

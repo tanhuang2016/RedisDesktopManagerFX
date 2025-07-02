@@ -45,8 +45,14 @@ public class MainController extends BaseWindowController {
 
     @FXML
     public void initialize() {
-        fileOpen.setGraphic(new FontIcon(Feather.FOLDER));
-        fileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
+        initMenuIconAndKey();
+    }
+
+    /**
+     * 初始化菜单图标和快捷键
+     */
+    private void initMenuIconAndKey() {
+        GuiUtil.setIconAndKey(fileOpen,new FontIcon(Feather.FOLDER),new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
     }
 
     @FXML
