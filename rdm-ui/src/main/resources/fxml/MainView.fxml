@@ -51,7 +51,7 @@
                                         <MenuItem mnemonicParsing="false" text="连接"/>
                                     </items>
                                 </Menu>
-                                <MenuItem mnemonicParsing="false" text="打开"/>
+                                <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="打开"/>
                                 <Menu mnemonicParsing="false" text="最近连接">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>

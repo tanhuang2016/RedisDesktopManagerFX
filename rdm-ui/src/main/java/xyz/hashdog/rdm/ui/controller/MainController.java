@@ -4,11 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -18,6 +23,8 @@ import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
+
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 /**
  * 主控制层
@@ -30,6 +37,7 @@ public class MainController extends BaseWindowController {
      */
     @FXML
     public TabPane serverTabPane;
+    public MenuItem fileOpen;
     /**
      * 服务连接的Stage
      */
@@ -37,6 +45,8 @@ public class MainController extends BaseWindowController {
 
     @FXML
     public void initialize() {
+        fileOpen.setGraphic(new FontIcon(Feather.FOLDER));
+        fileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
     }
 
     @FXML

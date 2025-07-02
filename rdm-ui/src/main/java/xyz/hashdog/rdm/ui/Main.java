@@ -66,6 +66,7 @@ public class Main extends Application {
             stage.show();
             ThemeManager TM = ThemeManager.getInstance();
             TM.setScene(scene);
+//            TM.setFontSize(12);
             TM.setFontFamily(ThemeManager.DEFAULT_FONT_FAMILY_NAME);
             TM.setTheme(TM.getDefaultTheme());
 
