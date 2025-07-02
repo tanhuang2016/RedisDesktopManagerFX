@@ -51,7 +51,7 @@
                                         <MenuItem mnemonicParsing="false" text="连接"/>
                                     </items>
                                 </Menu>
-                                <MenuItem mnemonicParsing="false" text="打开"/>0
+                                <MenuItem mnemonicParsing="false" text="打开"/>
                                 <Menu mnemonicParsing="false" text="最近连接">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
@@ -82,9 +82,20 @@
                                 <MenuItem mnemonicParsing="false" text="替换" />
                             </items>
                         </Menu>
+                        <Menu mnemonicParsing="false" text="View">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="全屏显示" />
+                                <MenuItem mnemonicParsing="false" text="重置大小" />
+                                <MenuItem mnemonicParsing="false" text="最大化" />
+                                <MenuItem mnemonicParsing="false" text="最小化" />
+                            </items>
+                        </Menu>
                         <Menu mnemonicParsing="false" text="%main.help">
                             <items>
-                                <!--                    <MenuItem mnemonicParsing="false" text="About" />-->
+                                <MenuItem mnemonicParsing="false" text="使用指南" />
+                                <MenuItem mnemonicParsing="false" text="改进建议和问题反馈" />
+                                <MenuItem mnemonicParsing="false" text="检查更新" />
+                                <MenuItem mnemonicParsing="false" text="关于" />
                             </items>
                         </Menu>
                     </menus>
