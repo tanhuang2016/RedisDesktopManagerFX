@@ -1,10 +1,10 @@
 
 
 /*输入框取消边框加透明*/
-/*.no-border-text-field {*/
-/*    -fx-background-color: transparent; !* 背景透明 *!*/
-/*    -fx-background-insets: 0; !* 边框的内边距设为0，去掉边框 *!*/
-/*    -fx-padding: 0; !* 去掉内部填充 *!*/
-/*    -fx-border-width: 0; !* 去掉边框宽度 *!*/
+.no-border-text-field {
+    -fx-background-color: transparent; /* 背景透明 */
+    -fx-background-insets: 0; /* 边框的内边距设为0，去掉边框 */
+    -fx-padding: 0; /* 去掉内部填充 */
+    -fx-border-width: 0; /* 去掉边框宽度 */
 
-/*}*/
+}
