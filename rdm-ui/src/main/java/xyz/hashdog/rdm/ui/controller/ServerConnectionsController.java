@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
@@ -44,6 +48,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
 
     @FXML
     public TreeView<ConnectionServerNode> treeView;
+    public Button connect;
     @FXML
     public Button newGroup;
     @FXML
@@ -52,6 +57,8 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
     public Button edit;
     @FXML
     public Button rename;
+    public Button delete;
+
 
     /**
      * 被选中节点
@@ -61,8 +68,36 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
 
     @FXML
     public void initialize() {
+        initButton();
         initListener();
         initTreeView();
+    }
+
+    private void initButton() {
+        initButtonIcon();
+        initButtonStyles();
+
+    }
+
+    private void initButtonStyles() {
+        addButtonStyles(connect,newGroup,newConnection,edit,rename,delete);
+
+    }
+
+    private void addButtonStyles(Button... button) {
+        for (Button bu : button) {
+            bu.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.FLAT);
+        }
+
+    }
+
+    private void initButtonIcon() {
+        GuiUtil.setIcon(connect,new FontIcon(Feather.LINK_2));
+        GuiUtil.setIcon(newGroup,new FontIcon(Feather.FOLDER_PLUS));
+        GuiUtil.setIcon(newConnection,new FontIcon(Feather.PLUS));
+        GuiUtil.setIcon(edit,new FontIcon(Material2AL.EDIT));
+        GuiUtil.setIcon(rename,new FontIcon(Feather.EDIT_2));
+        GuiUtil.setIcon(delete,new FontIcon(Material2AL.DELETE));
     }
 
     private void initListener() {

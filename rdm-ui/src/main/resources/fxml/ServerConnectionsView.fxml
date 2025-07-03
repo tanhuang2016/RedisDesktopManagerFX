@@ -24,16 +24,36 @@
                <children>
                   <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="%main.file.connect.connect">
+                        <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" >
                             <tooltip>
                                 <Tooltip text="%main.file.connect.connect" />
                             </tooltip>
                         </Button>
-                        <Button fx:id="newGroup" mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGourp" />
-                        <Button fx:id="newConnection" mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="%main.file.connect.newConnect" />
-                        <Button fx:id="edit" mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot" text="%main.file.connect.edit" />
-                        <Button fx:id="rename" mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="%main.file.connect.rename" />
-                        <Button mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%main.file.connect.delete" />
+                        <Button fx:id="newGroup" mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode"  >
+                                <tooltip>
+                                    <Tooltip text="%main.file.connect.newGourp" />
+                                </tooltip>
+                        </Button>
+                        <Button fx:id="newConnection" mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode"  >
+                                <tooltip>
+                                    <Tooltip text="%main.file.connect.newConnect" />
+                                </tooltip>
+                        </Button>
+                        <Button fx:id="edit" mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot"  >
+                                <tooltip>
+                                    <Tooltip text="%main.file.connect.edit" />
+                                </tooltip>
+                        </Button>
+                        <Button fx:id="rename" mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot"  >
+                                <tooltip>
+                                    <Tooltip text="%main.file.connect.rename" />
+                                </tooltip>
+                        </Button>
+                        <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot"  >
+                                <tooltip>
+                                    <Tooltip text="%main.file.connect.delete" />
+                                </tooltip>
+                        </Button>
                      </children>
                      <padding>
                         <Insets bottom="2.0" left="2.0" />

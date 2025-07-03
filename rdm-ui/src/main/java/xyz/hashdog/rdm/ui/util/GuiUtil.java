@@ -462,6 +462,10 @@ public class GuiUtil {
         item.setAccelerator(keyCodeCombination);
     }
 
+    public static void setIcon(Button button, FontIcon fontIcon) {
+        button.setGraphic(fontIcon);
+    }
+
 
     /**
      * 用于tableView压缩为单行
