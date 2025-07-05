@@ -462,6 +462,11 @@ public class GuiUtil {
         item.setAccelerator(keyCodeCombination);
     }
 
+    /**
+     * 设置图标
+     * @param button
+     * @param fontIcon
+     */
     public static void setIcon(Button button, FontIcon fontIcon) {
         button.setGraphic(fontIcon);
     }
