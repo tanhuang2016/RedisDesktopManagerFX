@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -462,6 +461,11 @@ public class GuiUtil {
         item.setAccelerator(keyCodeCombination);
     }
 
+    /**
+     * 设置图标
+     * @param button
+     * @param fontIcon
+     */
     public static void setIcon(Button button, FontIcon fontIcon) {
         button.setGraphic(fontIcon);
     }
