@@ -4,62 +4,56 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TreeItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Tooltip?>
-<AnchorPane fx:id="root" prefHeight="340.0" prefWidth="464.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerConnectionsController">
+<AnchorPane fx:id="root" prefHeight="340.0" prefWidth="464.0" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerConnectionsController">
    <children>
       <BorderPane layoutX="146.0" layoutY="54.0" prefHeight="340.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox prefHeight="25.0" prefWidth="470.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" spacing="2.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" >
+                  <ToolBar fx:id="buttonsHBox" prefHeight="23.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" disable="true">
                             <tooltip>
                                 <Tooltip text="%main.file.connect.connect" />
                             </tooltip>
                         </Button>
-                        <Button fx:id="newGroup" mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode"  >
+                        <Button fx:id="newGroup" mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode">
                                 <tooltip>
                                     <Tooltip text="%main.file.connect.newGourp" />
                                 </tooltip>
                         </Button>
-                        <Button fx:id="newConnection" mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode"  >
+                        <Button fx:id="newConnection" mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode">
                                 <tooltip>
                                     <Tooltip text="%main.file.connect.newConnect" />
                                 </tooltip>
                         </Button>
-                        <Button fx:id="edit" mnemonicParsing="false" onAction="#edit"   styleClass="isNotRoot"  >
+                        <Button fx:id="edit" mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" disable="true">
                                 <tooltip>
                                     <Tooltip text="%main.file.connect.edit" />
                                 </tooltip>
                         </Button>
-                        <Button fx:id="rename" mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot"  >
+                        <Button fx:id="rename" mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" disable="true">
                                 <tooltip>
                                     <Tooltip text="%main.file.connect.rename" />
                                 </tooltip>
                         </Button>
-                        <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot"  >
+                        <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot">
                                 <tooltip>
                                     <Tooltip text="%main.file.connect.delete" />
                                 </tooltip>
                         </Button>
-                     </children>
                      <padding>
                         <Insets bottom="2.0" left="2.0" />
                      </padding>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
+                  </ToolBar>
                </children>
             </VBox>
          </top>
@@ -68,7 +62,7 @@
                <contextMenu>
                   <ContextMenu fx:id="contextMenu" opacity="0.8">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#connect"  styleClass="isLeafNode" text="%main.file.connect.connect" />
+                        <MenuItem mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="%main.file.connect.connect" />
                         <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGourp" />
                         <MenuItem mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="%main.file.connect.newConnect" />
                         <MenuItem mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" text="%main.file.connect.edit" />
@@ -85,8 +79,8 @@
 <!--                  <CheckBox mnemonicParsing="false" text="启动时显示" />-->
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="bottomConnectButton" disable="true" onAction="#connect" mnemonicParsing="false" styleClass="isLeafNode" text="%main.file.connect.connect" />
-                        <Button  onAction="#cancel" mnemonicParsing="false" text="%common.close" />
+                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="%main.file.connect.connect" />
+                        <Button mnemonicParsing="false" onAction="#cancel" text="%common.close" />
                     </buttons>
                   </ButtonBar>
                </children>

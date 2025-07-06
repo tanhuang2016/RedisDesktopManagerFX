@@ -37,7 +37,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
      * 上边栏的按钮父节点
      */
     @FXML
-    public HBox buttonsHBox;
+    public ToolBar buttonsHBox;
     /**
      * 右键菜单
      */
