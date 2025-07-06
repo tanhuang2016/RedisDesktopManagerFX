@@ -148,6 +148,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public TextField keySeparator;
     public Button caCrtButton;
     public Button redisCrtButton;
+    public Button redisKeyButton;
 
     /**
      * 选中的最后的文件的父级目录
@@ -161,8 +162,10 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         initListener();
         GuiUtil.setIcon(caCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
         GuiUtil.setIcon(redisCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(redisKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
         caCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
         redisCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
+        redisKeyButton.getStyleClass().addAll(Styles.BUTTON_ICON);
 
     }
 

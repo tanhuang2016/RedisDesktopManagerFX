@@ -30,11 +30,11 @@
                   <content>
                     <AnchorPane>
                            <children>
-                              <VBox spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="CENTER_LEFT" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <HBox VBox.vgrow="ALWAYS">
                                        <children>
-                                          <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                          <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <GridPane hgap="6.0">
                                                   <columnConstraints>
@@ -61,7 +61,7 @@
                                     </HBox>
                                     <HBox VBox.vgrow="ALWAYS">
                                        <children>
-                                          <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                          <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <GridPane hgap="6.0">
                                                    <columnConstraints>
@@ -94,10 +94,10 @@
                                     </HBox>
                                     <HBox VBox.vgrow="ALWAYS">
                                        <children>
-                                          <VBox fx:id="sentinelVBox" managed="false" visible="false" HBox.hgrow="ALWAYS">
+                                          <VBox fx:id="sentinelVBox" alignment="CENTER_LEFT" managed="false" visible="false" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <Separator />
-                                                <VBox spacing="2.0" VBox.vgrow="ALWAYS">
+                                                <VBox alignment="CENTER_LEFT" spacing="2.0" VBox.vgrow="ALWAYS">
                                                    <children>
                                                       <GridPane hgap="6.0">
                                                          <columnConstraints>
@@ -111,7 +111,7 @@
                                                             <Label text="%connect.info.master" />
                                                          </children>
                                                       </GridPane>
-                                                      <HBox alignment="CENTER" spacing="6.0">
+                                                      <HBox alignment="CENTER_LEFT" spacing="6.0">
                                                          <children>
                                                             <TextField fx:id="masterName" onKeyTyped="#filterIntegerInput" promptText="mymaster" HBox.hgrow="ALWAYS" />
                                                          </children>
@@ -133,18 +133,18 @@
                 </Tab>
                   <Tab text="%title.ssl">
                       <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane>
                               <children>
-                                  <VBox prefHeight="376.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <children>
                                           <HBox alignment="CENTER_LEFT" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                                  <CheckBox fx:id="ssl" mnemonicParsing="false" text="%connect.info.ssl" />
+                                                  <CheckBox fx:id="ssl" mnemonicParsing="false" text="%connect.info.ssl" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                          <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                          <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <GridPane hgap="6.0">
                                                    <columnConstraints>
@@ -166,18 +166,18 @@
                                                                     <TextField fx:id="caCrt" prefWidth="10000.0" promptText="Authority" />
                                                             <Button fx:id="caCrtButton" mnemonicParsing="false" onAction="#caCrtFile" text="..." />
                                                          </children>
-                                                         <padding>
+                                                         <HBox.margin>
                                                             <Insets right="2.0" />
-                                                         </padding>
+                                                         </HBox.margin>
                                                       </InputGroup>
                                                       <InputGroup HBox.hgrow="ALWAYS">
                                                          <children>
                                                                     <TextField fx:id="redisCrt" prefWidth="10000.0" promptText="Public Key" />
                                                             <Button fx:id="redisCrtButton" mnemonicParsing="false" onAction="#redisCrtFile" text="..." />
                                                          </children>
-                                                         <padding>
+                                                         <HBox.margin>
                                                             <Insets right="2.0" />
-                                                         </padding>
+                                                         </HBox.margin>
                                                       </InputGroup>
                                                    </children>
                                                 </HBox>
@@ -187,7 +187,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                          <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                          <VBox alignment="CENTER_LEFT" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <GridPane hgap="6.0">
                                                    <columnConstraints>
@@ -204,9 +204,19 @@
                                                 </GridPane>
                                                 <HBox alignment="CENTER" spacing="6.0">
                                                    <children>
-                                                              <TextField fx:id="redisKey" promptText="Private Key" HBox.hgrow="ALWAYS" />
-                                                      <Button mnemonicParsing="false" onAction="#redisKeyFile" text="..." />
-                                                              <PasswordField fx:id="redisKeyPassword" promptText="Private Key Password" HBox.hgrow="ALWAYS" />
+                                                      <InputGroup HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                                    <TextField fx:id="redisKey" prefWidth="10000.0" promptText="Private Key" />
+                                                            <Button fx:id="redisKeyButton" mnemonicParsing="false" onAction="#redisKeyFile" text="..." />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets right="2.0" />
+                                                         </HBox.margin>
+                                                      </InputGroup>
+                                                              <PasswordField fx:id="redisKeyPassword" prefWidth="10025.0" promptText="Private Key Password" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="2.0" />
+                                                         </HBox.margin></PasswordField>
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -217,6 +227,9 @@
                                       </children>
                                   </VBox>
                               </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                           </AnchorPane>
                       </content>
                   </Tab>
