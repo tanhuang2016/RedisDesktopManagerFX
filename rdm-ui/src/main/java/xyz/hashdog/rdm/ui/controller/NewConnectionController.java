@@ -262,12 +262,20 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setSoTimeout(Integer.parseInt(soTimeout.getText()));
         redisConfig.setKeySeparator(keySeparator.getText());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-        Message message = redisContext.newRedisClient().testConnect();
-        if (message.isSuccess()) {
-            GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
-        } else {
-            GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+        try {
+            Message message = redisContext.newRedisClient().testConnect();
+            if (message.isSuccess()) {
+                GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
+                testConnectButton.getStyleClass().add(Styles.SUCCESS);
+            } else {
+                testConnectButton.getStyleClass().add(Styles.DANGER);
+                GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+            }
+        }catch (Exception e){
+            testConnectButton.getStyleClass().add(Styles.DANGER);
+            throw e;
         }
+
     }
 
     /**
