@@ -1,11 +1,16 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
+import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
@@ -141,6 +146,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * key分隔符
      */
     public TextField keySeparator;
+    public Button caCrtButton;
+    public Button redisCrtButton;
 
     /**
      * 选中的最后的文件的父级目录
@@ -152,6 +159,10 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initListener();
+        GuiUtil.setIcon(caCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(redisCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        caCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
+        redisCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
 
     }
 
