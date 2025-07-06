@@ -50,8 +50,8 @@
                                                 </GridPane>
                                                 <HBox alignment="CENTER" spacing="6.0">
                                                    <children>
-                                                      <TextField fx:id="host" promptText="127.0.0.1" HBox.hgrow="ALWAYS" />
                                                       <TextField fx:id="name" promptText="Connection Name" HBox.hgrow="ALWAYS" />
+                                                      <TextField fx:id="host" promptText="127.0.0.1" HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                              </children>
