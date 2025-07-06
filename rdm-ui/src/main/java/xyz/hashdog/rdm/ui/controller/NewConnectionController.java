@@ -149,6 +149,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public Button caCrtButton;
     public Button redisCrtButton;
     public Button redisKeyButton;
+    public Button sshPrivateKeyButton;
 
     /**
      * 选中的最后的文件的父级目录
@@ -159,16 +160,34 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initButton();
         initListener();
-        GuiUtil.setIcon(caCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
-        GuiUtil.setIcon(redisCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
-        GuiUtil.setIcon(redisKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
-        caCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
-        redisCrtButton.getStyleClass().addAll(Styles.BUTTON_ICON);
-        redisKeyButton.getStyleClass().addAll(Styles.BUTTON_ICON);
+
+
 
     }
 
+    private void initButton() {
+        initButtonIcon();
+        initButtonStyles();
+    }
+
+    private void initButtonStyles() {
+        addButtonStyles(caCrtButton,redisCrtButton,redisKeyButton,sshPrivateKeyButton);
+    }
+    private void addButtonStyles(Button... button) {
+        for (Button bu : button) {
+            bu.getStyleClass().addAll( Styles.BUTTON_ICON);
+        }
+
+    }
+
+    private void initButtonIcon() {
+        GuiUtil.setIcon(caCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(redisCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(redisKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(sshPrivateKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
+    }
 
 
     /**
