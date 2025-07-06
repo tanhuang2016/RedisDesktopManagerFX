@@ -17,97 +17,106 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
-<children>
-    <SplitPane dividerPositions="0.2" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-            <AnchorPane minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0">
-               <children>
-                  <VBox layoutX="41.0" layoutY="114.0" prefHeight="648.0" prefWidth="237.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
-                           <children>
-                               <ChoiceBox fx:id="choiceBox" minWidth="-Infinity" onMouseClicked="#onChoiceBoxMouseClicked" prefWidth="150.0" HBox.hgrow="ALWAYS">
-<!--                                   <items>-->
-<!--                                       <FXCollections fx:factory="observableArrayList">-->
-<!--                                           <String fx:value="Option 1" />-->
-<!--                                           <String fx:value="Option 2" />-->
-<!--                                           <String fx:value="Option 3" />-->
-<!--                                       </FXCollections>-->
-<!--                                   </items>-->
-                               </ChoiceBox>
-                              <MenuButton fx:id="newKey" mnemonicParsing="false" text="%server.new">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                                </items>
-                                 <graphic>
-                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icon/new_key.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="%server.search" HBox.hgrow="ALWAYS">
-                                 <graphic>
-                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icon/search.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                           </children>
-                        </HBox>
-                         <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                             <contextMenu>
-                                 <ContextMenu fx:id="contextMenu" opacity="0.8">
-                                     <items>
-                                         <MenuItem mnemonicParsing="false" onAction="#open" text="%server.open">
-                                             <styleClass>
-                                                 <!-- 使用空格分隔，添加多个样式类 -->
-                                                 <String fx:value="isLeafNode" />
-                                                 <String fx:value="isNotRoot" />
-                                             </styleClass>
-                                         </MenuItem>
-                                         <MenuItem mnemonicParsing="false" onAction="#refresh" text="%server.refresh" />
-                                         <MenuItem mnemonicParsing="false" onAction="#console" text="%server.console" />
-                                         <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%server.delete" />
-                                         <MenuItem mnemonicParsing="false" onAction="#flush" text="%server.flush" />
-                                     </items>
-                                 </ContextMenu>
-                             </contextMenu>
-                         </TreeView>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0">
-               <children>
-                  <BorderPane layoutX="308.0" layoutY="161.0" prefHeight="648.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <center>
-                        <TabPane fx:id="dbTabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
-                          <tabs>
-                        <!--    <Tab text="控制台">
-                              <content>
-                                  <fx:include source="ConsoleView.fxml" />
-                              </content>
-                            </Tab>
-                            <Tab text="a:10">
-                              <content>
-                                  <fx:include source="StringTabView.fxml" />
-                              </content>
-                            </Tab>-->
-                          </tabs>
-                        </TabPane>
-                     </center>
-                  </BorderPane>
-               </children></AnchorPane>
-        </items>
-    </SplitPane>
-</children>
+<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
+
+   <BorderPane prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+          <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <SplitPane dividerPositions="0.2" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <items>
+                          <AnchorPane minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0">
+                              <children>
+                                  <VBox layoutX="41.0" layoutY="114.0" prefHeight="648.0" prefWidth="237.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <ChoiceBox fx:id="choiceBox" minWidth="-Infinity" onMouseClicked="#onChoiceBoxMouseClicked" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                                                      <!--                                   <items>-->
+                                                      <!--                                       <FXCollections fx:factory="observableArrayList">-->
+                                                      <!--                                           <String fx:value="Option 1" />-->
+                                                      <!--                                           <String fx:value="Option 2" />-->
+                                                      <!--                                           <String fx:value="Option 3" />-->
+                                                      <!--                                       </FXCollections>-->
+                                                      <!--                                   </items>-->
+                                                  </ChoiceBox>
+                                                  <MenuButton fx:id="newKey" mnemonicParsing="false" text="%server.new">
+                                                      <items>
+                                                          <MenuItem mnemonicParsing="false" text="Action 1" />
+                                                          <MenuItem mnemonicParsing="false" text="Action 2" />
+                                                      </items>
+                                                      <graphic>
+                                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                              <image>
+                                                                  <Image url="@../icon/new_key.png" />
+                                                              </image>
+                                                          </ImageView>
+                                                      </graphic>
+                                                  </MenuButton>
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                                                  <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="%server.search" HBox.hgrow="ALWAYS">
+                                                      <graphic>
+                                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                              <image>
+                                                                  <Image url="@../icon/search.png" />
+                                                              </image>
+                                                          </ImageView>
+                                                      </graphic>
+                                                  </Button>
+                                              </children>
+                                          </HBox>
+                                          <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                              <contextMenu>
+                                                  <ContextMenu fx:id="contextMenu" opacity="0.8">
+                                                      <items>
+                                                          <MenuItem mnemonicParsing="false" onAction="#open" text="%server.open">
+                                                              <styleClass>
+                                                                  <!-- 使用空格分隔，添加多个样式类 -->
+                                                                  <String fx:value="isLeafNode" />
+                                                                  <String fx:value="isNotRoot" />
+                                                              </styleClass>
+                                                          </MenuItem>
+                                                          <MenuItem mnemonicParsing="false" onAction="#refresh" text="%server.refresh" />
+                                                          <MenuItem mnemonicParsing="false" onAction="#console" text="%server.console" />
+                                                          <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isNotRoot" text="%server.delete" />
+                                                          <MenuItem mnemonicParsing="false" onAction="#flush" text="%server.flush" />
+                                                      </items>
+                                                  </ContextMenu>
+                                              </contextMenu>
+                                          </TreeView>
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0">
+                              <children>
+                                  <BorderPane layoutX="308.0" layoutY="161.0" prefHeight="648.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <center>
+                                          <TabPane fx:id="dbTabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" >
+                                              <tabs>
+                                                  <!--    <Tab text="控制台">
+                                                        <content>
+                                                            <fx:include source="ConsoleView.fxml" />
+                                                        </content>
+                                                      </Tab>
+                                                      <Tab text="a:10">
+                                                        <content>
+                                                            <fx:include source="StringTabView.fxml" />
+                                                        </content>
+                                                      </Tab>-->
+                                              </tabs>
+                                          </TabPane>
+                                      </center>
+                                  </BorderPane>
+                              </children>
+                          </AnchorPane>
+                      </items>
+                  </SplitPane>
+              </children>
+          </AnchorPane>
+      </center></BorderPane>
 </AnchorPane>
