@@ -339,7 +339,7 @@
                                                          </HBox.margin>
                                                          <children>
                                                                     <TextField fx:id="sshPrivateKey" prefWidth="10000.0" promptText="Private Key" />
-                                                                    <Button fx:id="sshPrivateKeyButton"  mnemonicParsing="false" onAction="#sshPrivateKeyFile" text="..." />
+                                                                    <Button fx:id="sshPrivateKeyButton" mnemonicParsing="false" onAction="#sshPrivateKeyFile" text="..." />
                                                          </children>
                                                       </InputGroup>
                                                               <PasswordField fx:id="sshPassphrase" prefWidth="10025.0" promptText="Private Key Passphrase">
@@ -371,20 +371,66 @@
                                       <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                                  <Label text="%connect.info.connectiontimeout" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="connectionTimeout" promptText="Connection Timeout" text="6000" HBox.hgrow="ALWAYS" />
+                                          <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <GridPane hgap="6.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                              <Label text="%connect.info.connectiontimeout" />
+                                                              <Label text="%connect.info.sotimeout" GridPane.columnIndex="1" />
+                                                   </children>
+                                                </GridPane>
+                                                <HBox alignment="CENTER" spacing="6.0">
+                                                   <children>
+                                                              <TextField fx:id="connectionTimeout" promptText="Connection Timeout" text="6000" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="2.0" />
+                                                         </HBox.margin>
+                                                      </TextField>
+                                                              <TextField fx:id="soTimeout" promptText="Execution Timeout" text="6000" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="2.0" />
+                                                         </HBox.margin>
+                                                      </TextField>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                               </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                                  <Label text="%connect.info.sotimeout" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="soTimeout" promptText="Execution Timeout" text="6000" HBox.hgrow="ALWAYS" />
-                                              </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0" VBox.vgrow="ALWAYS">
-                                              <children>
-                                                  <Label text="%connect.info.keyseparator" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS" />
+                                          <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <GridPane hgap="6.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                              <Label text="%connect.info.keyseparator" />
+                                                   </children>
+                                                </GridPane>
+                                                <HBox alignment="CENTER" spacing="6.0">
+                                                   <children>
+                                                              <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="2.0" />
+                                                         </HBox.margin>
+                                                      </TextField>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                               </children>
                                           </HBox>
 
@@ -392,6 +438,9 @@
                                       </children>
                                   </VBox>
                               </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                           </AnchorPane>
                       </content>
                   </Tab>
