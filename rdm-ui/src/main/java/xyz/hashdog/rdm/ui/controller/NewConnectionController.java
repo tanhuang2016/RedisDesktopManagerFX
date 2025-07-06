@@ -265,8 +265,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         try {
             Message message = redisContext.newRedisClient().testConnect();
             if (message.isSuccess()) {
-                GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
                 testConnectButton.getStyleClass().add(Styles.SUCCESS);
+                GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
             } else {
                 testConnectButton.getStyleClass().add(Styles.DANGER);
                 GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
