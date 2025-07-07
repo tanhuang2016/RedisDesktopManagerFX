@@ -45,6 +45,10 @@ public class MainController extends BaseWindowController {
      * 服务连接的Stage
      */
     private Stage serverConnectionsWindowStage;
+    /**
+     * 设置的stage
+     */
+    private Stage settingsStage;
 
     @FXML
     public void initialize() {
@@ -74,7 +78,7 @@ public class MainController extends BaseWindowController {
         }else{
             this.serverConnectionsWindowStage=new Stage();
             serverConnectionsWindowStage.initModality(Modality.WINDOW_MODAL);
-            this.serverConnectionsWindowStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.TITLE_CONNECTION));
+            this.serverConnectionsWindowStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
 
             Tuple2<AnchorPane,ServerConnectionsController> tuple2 = loadFXML("/fxml/ServerConnectionsView.fxml");
             AnchorPane borderPane =tuple2.getT1();
@@ -119,5 +123,34 @@ public class MainController extends BaseWindowController {
             });
         }
         ContextMenu cm= GuiUtil.newTabContextMenu(tab);
+    }
+
+    /**
+     * 打开设置窗口
+     * @param actionEvent
+     */
+    public void openSettings(ActionEvent actionEvent) {
+        if(this.settingsStage!=null){
+            if(this.settingsStage.isShowing()){
+            }else {
+                settingsStage.show();
+            }
+        }else{
+            this.settingsStage=new Stage();
+            settingsStage.initModality(Modality.WINDOW_MODAL);
+            this.settingsStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
+
+            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/SettingsView.fxml");
+            AnchorPane borderPane =tuple2.getT1();
+            SettingsController controller = tuple2.getT2();
+            Scene scene = new Scene(borderPane);
+            this.settingsStage.initOwner(root.getScene().getWindow());
+            this.settingsStage.setScene(scene);
+            this.settingsStage.show();
+            controller.setParentController(this);
+            controller.setCurrentStage(settingsStage);
+
+
+        }
     }
 }

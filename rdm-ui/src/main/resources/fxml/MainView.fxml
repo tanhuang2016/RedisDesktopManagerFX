@@ -65,7 +65,7 @@
                                         <MenuItem mnemonicParsing="false" text="test2"/>
                                     </items>
                                 </Menu>
-                                <MenuItem fx:id="fileSettings" mnemonicParsing="false" text="设置"/>
+                                <MenuItem fx:id="fileSettings" onAction="#openSettings" mnemonicParsing="false" text="设置"/>
                                 <MenuItem  mnemonicParsing="false" text="退出"/>
 
                             </items>

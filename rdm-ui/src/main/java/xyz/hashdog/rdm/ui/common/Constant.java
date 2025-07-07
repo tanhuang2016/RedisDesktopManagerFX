@@ -20,4 +20,8 @@ public interface Constant {
     String ALERT_MESSAGE_DELALL = "alert.message.delAll";
     String TITLE_CONNECTION = "title.connection";
     String TITLE_NEW_KEY ="title.newKey";
+
+    String MAIN_FILE_CONNECT = "main.file.connect";
+    String MAIN_FILE_SETTINGS = "main.file.settings";
+
 }
