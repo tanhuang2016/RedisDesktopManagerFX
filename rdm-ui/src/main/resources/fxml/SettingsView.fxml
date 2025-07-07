@@ -3,8 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -19,7 +17,7 @@
 <!--                  <CheckBox mnemonicParsing="false" text="启动时显示" />-->
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false"  styleClass="isLeafNode" text="%main.file.connect.connect" />
+                      <Button fx:id="bottomConnectButton" disable="true" mnemonicParsing="false" styleClass="isLeafNode" text="%main.file.connect.connect" />
                         <Button mnemonicParsing="false" onAction="#cancel" text="%common.close" />
                     </buttons>
                   </ButtonBar>
@@ -27,10 +25,23 @@
             </VBox>
          </bottom>
          <left>
-              <TreeView fx:id="treeView" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
+
+
+               <children>
+<!--                   在vbox和anchorpane上有效，得考虑设置透明度-->
+                   <VBox fx:id="sidebar"  prefHeight="180.0">
+                    <TreeView prefHeight="150.0" style="-fx-border-color: red;">
 
               </TreeView>
+                </VBox>
+               </children>
+            </AnchorPane>
          </left>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 

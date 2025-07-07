@@ -20,9 +20,11 @@ import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
+import java.util.Set;
 
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
@@ -144,6 +146,9 @@ public class MainController extends BaseWindowController {
             AnchorPane borderPane =tuple2.getT1();
             SettingsController controller = tuple2.getT2();
             Scene scene = new Scene(borderPane);
+            ThemeManager TM = ThemeManager.getInstance();
+            Set<String> allStylesheets = TM.getDefaultTheme().getAllStylesheets();
+            scene.getStylesheets().addAll(allStylesheets);
             this.settingsStage.initOwner(root.getScene().getWindow());
             this.settingsStage.setScene(scene);
             this.settingsStage.show();
