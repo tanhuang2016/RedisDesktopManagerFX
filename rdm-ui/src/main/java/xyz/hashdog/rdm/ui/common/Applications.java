@@ -40,6 +40,10 @@ public class Applications {
      * 数据节点
      */
     public static final String NODE_APP_DATA = "Data";
+    /**
+     * 设置数据
+     */
+    public static final String NODE_APP_SETTINGS = "Settings";
 
 
 
