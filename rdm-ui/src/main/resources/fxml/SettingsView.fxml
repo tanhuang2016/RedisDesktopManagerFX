@@ -25,18 +25,8 @@
             </VBox>
          </bottom>
          <left>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="sidebarParent" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 
-
-
-               <children>
-<!--                   在vbox和anchorpane上有效，得考虑设置透明度-->
-                   <VBox fx:id="sidebar"  prefHeight="180.0">
-                    <TreeView fx:id="treeView" prefHeight="150.0" style="-fx-border-color: red;">
-
-              </TreeView>
-                </VBox>
-               </children>
             </AnchorPane>
          </left>
          <center>
