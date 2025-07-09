@@ -13,8 +13,8 @@ import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.controller.MainController;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
-import xyz.hashdog.rdm.ui.theme.SamplerTheme;
-import xyz.hashdog.rdm.ui.theme.ThemeManager;
+import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
+import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.Locale;

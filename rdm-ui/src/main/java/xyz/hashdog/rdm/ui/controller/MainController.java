@@ -20,9 +20,7 @@ import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
-import xyz.hashdog.rdm.ui.layout.MainModel;
-import xyz.hashdog.rdm.ui.layout.Sidebar;
-import xyz.hashdog.rdm.ui.theme.ThemeManager;
+import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;

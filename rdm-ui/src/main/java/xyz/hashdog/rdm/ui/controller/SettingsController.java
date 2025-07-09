@@ -3,8 +3,8 @@ package xyz.hashdog.rdm.ui.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import xyz.hashdog.rdm.ui.layout.MainModel;
-import xyz.hashdog.rdm.ui.layout.Sidebar;
+import xyz.hashdog.rdm.ui.sampler.layout.MainModel;
+import xyz.hashdog.rdm.ui.sampler.layout.Sidebar;
 
 public class SettingsController  extends BaseWindowController<MainController>{
     @FXML
