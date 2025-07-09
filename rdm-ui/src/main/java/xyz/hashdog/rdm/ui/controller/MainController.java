@@ -1,8 +1,11 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import javafx.application.ConditionalFeature;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
@@ -20,6 +23,10 @@ import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.sampler.layout.ApplicationWindow;
+import xyz.hashdog.rdm.ui.sampler.layout.MainLayer;
+import xyz.hashdog.rdm.ui.sampler.layout.MainModel;
+import xyz.hashdog.rdm.ui.sampler.layout.Sidebar;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -142,18 +149,21 @@ public class MainController extends BaseWindowController {
             settingsStage.initModality(Modality.WINDOW_MODAL);
             this.settingsStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
 
-            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/SettingsView.fxml");
-            AnchorPane borderPane =tuple2.getT1();
-            SettingsController controller = tuple2.getT2();
-            Scene scene = new Scene(borderPane);
+//            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/SettingsView.fxml");
+//            AnchorPane borderPane =tuple2.getT1();
+            ApplicationWindow applicationWindow = new ApplicationWindow();
+//            SettingsController controller = tuple2.getT2();
+            var antialiasing = Platform.isSupported(ConditionalFeature.SCENE3D)
+                    ? SceneAntialiasing.BALANCED
+                    : SceneAntialiasing.DISABLED;
+            Scene scene = new Scene(applicationWindow,ApplicationWindow.MIN_WIDTH + 80, 768, false, antialiasing);
             ThemeManager TM = ThemeManager.getInstance();
-            Set<String> allStylesheets = TM.getDefaultTheme().getAllStylesheets();
-            scene.getStylesheets().addAll(allStylesheets);
+            TM.setScene(scene);
             this.settingsStage.initOwner(root.getScene().getWindow());
             this.settingsStage.setScene(scene);
             this.settingsStage.show();
-            controller.setParentController(this);
-            controller.setCurrentStage(settingsStage);
+//            controller.setParentController(this);
+//            controller.setCurrentStage(settingsStage);
 
 
         }

@@ -4,6 +4,7 @@ package xyz.hashdog.rdm.ui.sampler.layout;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -21,9 +23,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2MZ;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import xyz.hashdog.rdm.ui.sampler.event.BrowseEvent;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.HotkeyEvent;
+import xyz.hashdog.rdm.ui.sampler.util.Lazy;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URI;
@@ -31,11 +35,11 @@ import java.util.Objects;
 
 import static atlantafx.base.theme.Styles.*;
 
-final public class Sidebar extends VBox {
+public final class Sidebar extends VBox {
 
     private final NavTree navTree;
-//    private final Lazy<SearchDialog> searchDialog;
-//    private final Lazy<ThemeDialog> themeDialog;
+    private final Lazy<SearchDialog> searchDialog;
+    private final Lazy<ThemeDialog> themeDialog;
 
     public Sidebar(MainModel model) {
         super();
@@ -44,17 +48,17 @@ final public class Sidebar extends VBox {
 
         createView();
 
-//        searchDialog = new Lazy<>(() -> {
-//            var dialog = new SearchDialog(model);
-//            dialog.setClearOnClose(true);
-//            return dialog;
-//        });
-//
-//        themeDialog = new Lazy<>(() -> {
-//            var dialog = new ThemeDialog();
-//            dialog.setClearOnClose(true);
-//            return dialog;
-//        });
+        searchDialog = new Lazy<>(() -> {
+            var dialog = new SearchDialog(model);
+            dialog.setClearOnClose(true);
+            return dialog;
+        });
+
+        themeDialog = new Lazy<>(() -> {
+            var dialog = new ThemeDialog();
+            dialog.setClearOnClose(true);
+            return dialog;
+        });
 
         model.selectedPageProperty().addListener((obs, old, val) -> {
             if (val != null) {
@@ -110,15 +114,15 @@ final public class Sidebar extends VBox {
     }
 
     private void openSearchDialog() {
-//        var dialog = searchDialog.get();
-//        dialog.show(getScene());
-//        Platform.runLater(dialog::begForFocus);
+        var dialog = searchDialog.get();
+        dialog.show(getScene());
+        Platform.runLater(dialog::begForFocus);
     }
 
     private void openThemeDialog() {
-//        var dialog = themeDialog.get();
-//        dialog.show(getScene());
-//        Platform.runLater(dialog::requestFocus);
+        var dialog = themeDialog.get();
+        dialog.show(getScene());
+        Platform.runLater(dialog::requestFocus);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -154,9 +158,8 @@ final public class Sidebar extends VBox {
                 image.getFitHeight() + imageBorder.getRight() * 2
             );
 
-            var titleLbl = new Label("RdmFX");
+            var titleLbl = new Label("AtlantaFX");
             titleLbl.getStyleClass().addAll(TITLE_3);
-
 
             var themeSwitchBtn = new Button();
             themeSwitchBtn.getStyleClass().add("palette");

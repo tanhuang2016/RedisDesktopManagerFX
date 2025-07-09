@@ -56,7 +56,7 @@ public final class ThemeManager {
 
     private final ThemeRepository repository = new ThemeRepository();
 
-    private Scene scene;
+    private List<Scene> scene=new ArrayList<>();
 
     private SamplerTheme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
@@ -68,14 +68,14 @@ public final class ThemeManager {
         return repository;
     }
 
-    public Scene getScene() {
+    public List<Scene> getScene() {
         return scene;
     }
 
     // MUST BE SET ON STARTUP
     // (this is supposed to be a constructor arg, but since app don't use DI..., sorry)
     public void setScene(Scene scene) {
-        this.scene = Objects.requireNonNull(scene);
+        this.scene.add(Objects.requireNonNull(scene));
     }
 
     public SamplerTheme getTheme() {
@@ -97,8 +97,8 @@ public final class ThemeManager {
         }
 
         Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
-        getScene().getStylesheets().setAll(theme.getAllStylesheets());
-        getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
+        getScene().forEach(e->e.getStylesheets().setAll(theme.getAllStylesheets()));
+        getScene().forEach(e->e.getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode()));
 
         // remove user CSS customizations and reset accent on theme change
         resetAccentColor();
@@ -183,10 +183,10 @@ public final class ThemeManager {
         animateThemeChange(Duration.millis(350));
 
         if (accentColor != null) {
-            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
+            getScene().forEach(e->e.getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false));
         }
 
-        getScene().getRoot().pseudoClassStateChanged(color.pseudoClass(), true);
+        getScene().forEach(e->e.getRoot().pseudoClassStateChanged(color.pseudoClass(), true));
         this.accentColor = color;
 
         EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.COLOR_CHANGE));
@@ -196,7 +196,7 @@ public final class ThemeManager {
         animateThemeChange(Duration.millis(350));
 
         if (accentColor != null) {
-            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
+            getScene().forEach(e->e.getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false));
             accentColor = null;
         }
 
@@ -270,8 +270,8 @@ public final class ThemeManager {
     }
 
     private void animateThemeChange(Duration duration) {
-        Image snapshot = scene.snapshot(null);
-        Pane root = (Pane) scene.getRoot();
+        Image snapshot = scene.get(0).snapshot(null);
+        Pane root = (Pane) scene.get(0).getRoot();
 
         ImageView imageView = new ImageView(snapshot);
         root.getChildren().add(imageView); // add snapshot on top
@@ -312,17 +312,17 @@ public final class ThemeManager {
             css.append("}\n");
         });
 
-        getScene().getRoot().getStylesheets().removeIf(uri -> uri.startsWith("data:text/css"));
-        getScene().getRoot().getStylesheets().add(
-            "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
-        );
-        getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, true);
+        getScene().forEach(e->e.getRoot().getStylesheets().removeIf(uri -> uri.startsWith("data:text/css")));
+        getScene().forEach(e->e.getRoot().getStylesheets().add(
+                "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
+        ));
+        getScene().forEach(e->e.getRoot().pseudoClassStateChanged(USER_CUSTOM, true));
     }
 
     public void resetCustomCSS() {
         customCSSDeclarations.clear();
         customCSSRules.clear();
-        getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
+        getScene().forEach(e->e.getRoot().pseudoClassStateChanged(USER_CUSTOM, false));
     }
 
     ///////////////////////////////////////////////////////////////////////////
