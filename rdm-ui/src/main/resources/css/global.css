@@ -24,3 +24,9 @@
     !*-fx-min-width: 2px;*!
     !*-fx-max-width: 2px;*!
 }*/
+
+
+/*上边栏菜单设置加粗*/
+/*.menu-bar .menu .label {*/
+/*    -fx-font-weight: bold;*/
+/*}*/

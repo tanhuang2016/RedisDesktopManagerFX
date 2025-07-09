@@ -31,7 +31,8 @@ public final class ThemeManager {
     static final String DUMMY_STYLESHEET = ThemeManager.class.getResource("/css/empty.css").toExternalForm();
     static final String[] APP_STYLESHEETS = new String[] {
 //        Resources.resolve("assets/styles/index.css")
-            ThemeManager.class.getResource("/css/index.css").toExternalForm()
+            ThemeManager.class.getResource("/css/index.css").toExternalForm(),
+            ThemeManager.class.getResource("/css/global.css").toExternalForm(),
     };
     static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
         PrimerLight.class, PrimerDark.class,
