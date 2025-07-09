@@ -24,6 +24,7 @@ import xyz.hashdog.rdm.ui.sampler.event.BrowseEvent;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.NavEvent;
 import xyz.hashdog.rdm.ui.sampler.event.PageEvent;
+import xyz.hashdog.rdm.ui.sampler.layout.ApplicationWindow;
 
 import java.net.URI;
 import java.util.List;
@@ -36,7 +37,7 @@ import static javafx.scene.input.KeyCombination.ALT_DOWN;
 
 public interface Page {
 
-    int MAX_WIDTH = 900;
+    int MAX_WIDTH = ApplicationWindow.MIN_WIDTH - ApplicationWindow.SIDEBAR_WIDTH;
     int HGAP_20 = 20;
     int HGAP_30 = 30;
     int VGAP_10 = 10;
