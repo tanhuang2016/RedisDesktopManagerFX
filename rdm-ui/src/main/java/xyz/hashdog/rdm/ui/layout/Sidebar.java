@@ -157,7 +157,7 @@ final public class Sidebar extends VBox {
                 image.getFitHeight() + imageBorder.getRight() * 2
             );
 
-            var titleLbl = new Label("AtlantaFX");
+            var titleLbl = new Label("RdmFX");
             titleLbl.getStyleClass().addAll(TITLE_3);
 
 
