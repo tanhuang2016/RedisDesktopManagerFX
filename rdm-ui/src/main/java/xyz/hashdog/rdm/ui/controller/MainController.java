@@ -159,6 +159,7 @@ public class MainController extends BaseWindowController {
             Scene scene = new Scene(applicationWindow,ApplicationWindow.MIN_WIDTH + 80, 768, false, antialiasing);
             ThemeManager TM = ThemeManager.getInstance();
             TM.setScene(scene);
+            TM.setTheme(TM.getDefaultTheme());
             this.settingsStage.initOwner(root.getScene().getWindow());
             this.settingsStage.setScene(scene);
             this.settingsStage.show();
