@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package xyz.hashdog.rdm.ui.sampler.layout;
+package xyz.hashdog.rdm.ui.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
@@ -20,6 +20,7 @@ import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
+import xyz.hashdog.rdm.ui.sampler.page.OutlinePage;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;

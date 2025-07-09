@@ -9,6 +9,8 @@ import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.NavEvent;
+import xyz.hashdog.rdm.ui.sampler.page.Page;
+import xyz.hashdog.rdm.ui.sampler.page.general.ThemePage;
 
 import java.util.HashMap;
 import java.util.List;

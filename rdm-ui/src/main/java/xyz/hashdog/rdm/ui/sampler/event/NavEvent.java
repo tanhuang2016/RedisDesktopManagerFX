@@ -3,7 +3,7 @@
 package xyz.hashdog.rdm.ui.sampler.event;
 
 
-import xyz.hashdog.rdm.ui.sampler.layout.Page;
+import xyz.hashdog.rdm.ui.sampler.page.Page;
 
 public final class NavEvent extends Event {
 

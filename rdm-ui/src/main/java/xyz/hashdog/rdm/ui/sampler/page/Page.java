@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package xyz.hashdog.rdm.ui.sampler.layout;
+package xyz.hashdog.rdm.ui.sampler.page;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;

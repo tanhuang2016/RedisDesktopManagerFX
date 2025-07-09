@@ -5,6 +5,7 @@ package xyz.hashdog.rdm.ui.sampler.layout;
 
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
+import xyz.hashdog.rdm.ui.sampler.page.Page;
 
 import java.util.Collections;
 import java.util.List;
