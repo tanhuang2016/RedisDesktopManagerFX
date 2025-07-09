@@ -5,18 +5,24 @@ package xyz.hashdog.rdm.ui.sampler.page.custom;
 import atlantafx.base.controls.CaptionMenuItem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.AnchorPane;
 import net.datafaker.Faker;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
+import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.controller.SettingsController;
 import xyz.hashdog.rdm.ui.sampler.page.AbstractPage;
 
+import java.io.IOException;
 import java.util.stream.IntStream;
 
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
@@ -40,6 +46,15 @@ public final class MenuBarPage extends AbstractPage {
             an application window or screen, and provides a series of drop-down menus that \
             allow users to access various features and functions of the application."""
         );
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SettingsView.fxml"), Main.RESOURCE_BUNDLE);
+
+        try {
+            AnchorPane borderPane = fxmlLoader.load();
+            addNode(borderPane);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         addNode(menuBarSample());
     }
 
