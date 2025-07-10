@@ -10,6 +10,7 @@ import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.NavEvent;
 import xyz.hashdog.rdm.ui.sampler.page.Page;
+import xyz.hashdog.rdm.ui.sampler.page.custom.AdvancedPage;
 import xyz.hashdog.rdm.ui.sampler.page.custom.MenuBarPage;
 import xyz.hashdog.rdm.ui.sampler.page.general.ThemePage;
 
@@ -79,9 +80,9 @@ public class MainModel {
         );
         general.setExpanded(true);
 
-        var containers = NavTree.Item.group("Containers", new FontIcon(Material2OutlinedMZ.TABLE_CHART));
-        containers.getChildren().setAll(
-            NAV_TREE.get(ThemePage.class)
+        var global = NavTree.Item.group("Global", new FontIcon(Material2OutlinedMZ.TABLE_CHART));
+        global.getChildren().setAll(
+            NAV_TREE.get(AdvancedPage.class)
 //            NAV_TREE.get(CardPage.class),
 //            NAV_TREE.get(ContextMenuPage.class),
 //            NAV_TREE.get(DeckPanePage.class),
@@ -159,7 +160,7 @@ public class MainModel {
         var root = NavTree.Item.root();
         root.getChildren().setAll(
             general,
-            containers,
+            global,
             dataDisplay,
             feedback,
             inputs,
@@ -216,6 +217,7 @@ public class MainModel {
 //        map.put(InputGroupPage.class, NavTree.Item.page(InputGroupPage.NAME, InputGroupPage.class));
 //        map.put(ListViewPage.class, NavTree.Item.page(ListViewPage.NAME, ListViewPage.class));
         map.put(MenuBarPage.class, NavTree.Item.page(MenuBarPage.NAME, MenuBarPage.class));
+        map.put(AdvancedPage.class, NavTree.Item.page(AdvancedPage.NAME, MenuBarPage.class));
 //        map.put(MenuButtonPage.class, NavTree.Item.page(
 //            MenuButtonPage.NAME,
 //            MenuButtonPage.class, "SplitMenuButton")
