@@ -8,11 +8,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.TUtil;
@@ -24,6 +31,7 @@ import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -310,51 +318,83 @@ public class ServerTabController extends BaseKeyController<MainController> {
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
         ThreadPool.getInstance().execute(() -> {
-            for (String key : keys) {
-                String type = exeRedis(j -> j.type(key));
-                Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
-                Platform.runLater(() -> {
-                    children.add(new TreeItem<>(key, keyTypeLabel));
-//            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
-                });
-
+            if(1==1){
+                buildListView(children,keys);
+            }else {
+                buildTreeView(treeView,keys);
             }
-
         });
 
 
 
 
-        // todo 是否要树形结构
-//        TUtil.RecursiveList2Tree.recursive(treeView.getRoot(), keys, new TUtil.RecursiveList2Tree<TreeItem<String>, String>() {
-//
-//            @Override
-//            public List<String> findSubs(TreeItem<String> tree, List<String> list) {
-//                ObservableList<TreeItem<String>> children = tree.getChildren();
-//                List<String> subs = new ArrayList<>();
-//                for (String key : list) {
-//                    String[] parts = key.split(":");
-//                }
-//
-//                String dataId = tree.getValue().getDataId();
-//                for (ConnectionServerNode connectionServerNode : list) {
-//                    if (connectionServerNode.getParentDataId().equals(dataId)) {
-//                        subs.add(connectionServerNode);
-//                    }
-//                }
-//                return subs;
-//            }
-//
-//            @Override
-//            public List<TreeItem<String>> toTree(TreeItem<String> tree, List<String> subs) {
-//                return List.of();
-//            }
-//
-//            @Override
-//            public List<String> filterList(List<String> list, List<String> subs) {
-//                return List.of();
-//            }
-//        }
+
+
+    }
+
+    /**
+     * key构建列表
+     * @param children
+     * @param keys
+     */
+    private void buildListView(ObservableList<TreeItem<String>> children, List<String> keys) {
+        for (String key : keys) {
+            String type = exeRedis(j -> j.type(key));
+            Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
+            Platform.runLater(() -> {
+                children.add(new TreeItem<>(key, keyTypeLabel));
+//            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
+            });
+
+        }
+    }
+
+
+    /**
+     * KEY展示构建树形结构
+     * @param treeView
+     * @param keys
+     */
+    private void buildTreeView(TreeView<String> treeView,List<String> keys) {
+        TreeItem<String> root = treeView.getRoot();
+        for (String key : keys) {
+            String type = exeRedis(j -> j.type(key));
+            Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
+            String[] parts = key.split(":");
+            TreeItem<String> current = root;
+            for (int i = 0; i < parts.length; i++) {
+                String part = parts[i];
+                //叶子节点是key类型
+                boolean isLeaf = (i == parts.length - 1);
+
+                TreeItem<String> childNode = findChild(current, part);
+                if (childNode == null) {
+                    childNode = new TreeItem<>(part,new FontIcon(Feather.FOLDER));
+                    if (isLeaf) {
+                        childNode = new TreeItem<>(key);
+                        childNode.setGraphic(keyTypeLabel);
+                    }
+                    TreeItem<String> finalChildNode = childNode;
+                    TreeItem<String> finalCurrent = current;
+                    Platform.runLater(() -> {
+                        finalCurrent.getChildren().add(finalChildNode);
+                    });
+
+                }
+
+                current = childNode;
+            }
+        }
+    }
+
+    // 查找子节点是否存在
+    private TreeItem<String> findChild(TreeItem<String> parent, String part) {
+        for (TreeItem<String> child : parent.getChildren()) {
+            if (part.equals(child.getValue())) {
+                return child;
+            }
+        }
+        return null;
     }
 
 
