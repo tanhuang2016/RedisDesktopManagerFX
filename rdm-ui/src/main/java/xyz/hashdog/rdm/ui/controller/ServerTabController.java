@@ -309,13 +309,19 @@ public class ServerTabController extends BaseKeyController<MainController> {
 
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
-        for (String key : keys) {
-
-            String type = exeRedis(j -> j.type(key));
-            Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
-            children.add(new TreeItem<>(key, keyTypeLabel));
+        ThreadPool.getInstance().execute(() -> {
+            for (String key : keys) {
+                String type = exeRedis(j -> j.type(key));
+                Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
+                Platform.runLater(() -> {
+                    children.add(new TreeItem<>(key, keyTypeLabel));
 //            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
-        }
+                });
+
+            }
+
+        });
+
 
 
 
