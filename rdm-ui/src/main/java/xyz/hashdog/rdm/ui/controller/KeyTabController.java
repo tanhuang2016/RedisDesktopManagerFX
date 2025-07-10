@@ -1,14 +1,17 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import org.kordamp.ikonli.feather.Feather;
@@ -32,7 +35,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
 
     @FXML
-    public TextField key;
+    public CustomTextField key;
     @FXML
     public TextField ttl;
     @FXML
@@ -41,6 +44,8 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     public BorderPane borderPane;
     public Button keyRefresh;
     public Button keyDelete;
+//    public Button keyRename;
+    public Label keyRename;
 
 
     private long currentTtl;
@@ -56,7 +61,20 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     public void initialize(URL location, ResourceBundle resources) {
         initListener();
         initButton();
+        initTextField();
+        initLabel();
 
+    }
+
+    private void initLabel() {
+        keyRename.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.SUCCESS,Styles.FLAT);
+        keyRename.setGraphic(new FontIcon(Feather.CHECK));
+        keyRename.setCursor(Cursor.HAND);
+
+    }
+
+    private void initTextField() {
+        key.setRight(keyRename);
     }
 
 
@@ -73,6 +91,8 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     private void initButtonIcon() {
         GuiUtil.setIcon(keyRefresh,new FontIcon(Feather.REFRESH_CW));
         GuiUtil.setIcon(keyDelete,new FontIcon(Feather.TRASH_2));
+//        GuiUtil.setIcon(keyRename,new FontIcon(Feather.CHECK));
+
     }
 
     /**
@@ -182,13 +202,26 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
     }
 
-    /**
-     * key重命名
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void rename(ActionEvent actionEvent) {
+//    /**
+//     * key重命名
+//     *
+//     * @param actionEvent
+//     */
+//    @FXML
+//    public void rename(ActionEvent actionEvent) {
+//        if (GuiUtil.requiredTextField(this.key)) {
+//            return;
+//        }
+//        asynexec(() -> {
+//            this.exeRedis(j -> j.rename(this.getParameter().getKey(), this.key.getText()));
+//            this.getParameter().setKey(this.key.getText());
+//            Platform.runLater(() -> {
+//                GuiUtil.alert(Alert.AlertType.INFORMATION, "重命名成功");
+//            });
+//        });
+//
+//    }
+    public void rename(MouseEvent mouseEvent) {
         if (GuiUtil.requiredTextField(this.key)) {
             return;
         }
@@ -199,7 +232,6 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "重命名成功");
             });
         });
-
     }
 
 
@@ -259,12 +291,6 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     public void refresh(ActionEvent actionEvent) {
         reloadInfo();
     }
-
-
-
-
-
-
 
 
 

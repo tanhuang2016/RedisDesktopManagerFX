@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Tooltip?>
+<?import atlantafx.base.controls.CustomTextField?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.KeyTabController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -29,8 +31,18 @@
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Label fx:id="keyType" />
-                        <TextField fx:id="key" />
-                        <Button mnemonicParsing="false" onAction="#rename" text="%key.rename" />
+                        <CustomTextField fx:id="key" />
+                        <Label fx:id="keyRename" onMouseClicked="#rename"  >
+                                <tooltip>
+                                    <Tooltip text="%key.rename" />
+                                </tooltip>
+                         </Label>
+
+<!--                        <Button fx:id="keyRename" mnemonicParsing="false" onAction="#rename" text="%key.rename" >-->
+<!--                                <tooltip>-->
+<!--                                    <Tooltip text="%key.rename" />-->
+<!--                                </tooltip>-->
+<!--                        </Button>-->
                         <Label text="TTL:" />
                         <TextField fx:id="ttl"  />
                         <Button mnemonicParsing="false" onAction="#editTTL" text="%key.edit" />
