@@ -5,10 +5,12 @@ import xyz.hashdog.rdm.ui.common.Applications;
 /**
  * key实体类,，目录和key共用1个实体
  * 暂时还是先用treeView，如果以后需要可以使用treeTable来展示更复制的字段
+ * treeView先不使用这个实体类，还是直接用String，因为牵一发而动全身，改动太大，以后再说
  * @author th
  * @version 1.0.0
  * @since 2025/7/09 22:21
  */
+@Deprecated
 public class KeyNode {
     public static final int KEY = 2;
     public static final int DIR = 1;
