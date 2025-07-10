@@ -30,4 +30,5 @@ public interface Constant {
     String COLOR_SET="#9C5C2B";
     String COLOR_STRING="#9C5C2B";
     String COLOR_ZSET="#A00A6B";
+    String COLOR_UNKNOWN ="#000000";
 }

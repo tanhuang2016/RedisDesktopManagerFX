@@ -24,6 +24,7 @@ import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
+import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
 import xyz.hashdog.rdm.ui.controller.BaseController;
 import xyz.hashdog.rdm.ui.controller.BaseKeyController;
 import xyz.hashdog.rdm.ui.controller.ByteArrayController;
@@ -465,6 +466,19 @@ public class GuiUtil {
      */
     public static void setIcon(Button button, FontIcon fontIcon) {
         button.setGraphic(fontIcon);
+    }
+
+    /**
+     * 获取key的标签
+     * @param type
+     * @return
+     */
+    public static Label getKeyTypeLabel(String type) {
+        Label tagLabel = new Label(type);
+        tagLabel.getStyleClass().add("tag");
+        KeyTypeTagEnum byType = KeyTypeTagEnum.getByType(type);
+        tagLabel.setStyle("-fx-background-color:"+byType.color);
+        return tagLabel;
     }
 
 

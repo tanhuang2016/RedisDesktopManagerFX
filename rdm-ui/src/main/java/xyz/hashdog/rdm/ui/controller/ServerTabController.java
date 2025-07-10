@@ -310,12 +310,11 @@ public class ServerTabController extends BaseKeyController<MainController> {
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
         for (String key : keys) {
-            var tagLabel = new Label("new");
-            tagLabel.getStyleClass().add("tag");
-//            String color=GuiUtil.getColor(key);
-            tagLabel.setStyle("-fx-background-color: pink;");
-//            children.add(new TreeItem<>(key, tagLabel));
-            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
+
+            String type = exeRedis(j -> j.type(key));
+            Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
+            children.add(new TreeItem<>(key, keyTypeLabel));
+//            children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
         }
 
 
