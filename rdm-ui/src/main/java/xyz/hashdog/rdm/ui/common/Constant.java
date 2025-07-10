@@ -24,4 +24,10 @@ public interface Constant {
     String MAIN_FILE_CONNECT = "main.file.connect";
     String MAIN_FILE_SETTINGS = "main.file.settings";
 
+    String COLOR_HASH="#364CFF";
+    String COLOR_STREAM="#6A741B";
+    String COLOR_LIST="#008556";
+    String COLOR_SET="#9C5C2B";
+    String COLOR_STRING="#9C5C2B";
+    String COLOR_ZSET="#A00A6B";
 }

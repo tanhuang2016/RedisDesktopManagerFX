@@ -30,3 +30,11 @@
 /*.menu-bar .menu .label {*/
 /*    -fx-font-weight: bold;*/
 /*}*/
+
+
+.tag {
+    -fx-padding: 2px 4px 2px 4px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 0.75em;
+    -fx-background-color: red;
+}

@@ -310,8 +310,15 @@ public class ServerTabController extends BaseKeyController<MainController> {
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
         for (String key : keys) {
+            var tagLabel = new Label("new");
+            tagLabel.getStyleClass().add("tag");
+//            String color=GuiUtil.getColor(key);
+            tagLabel.setStyle("-fx-background-color: pink;");
+//            children.add(new TreeItem<>(key, tagLabel));
             children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
         }
+
+
 
         // todo 是否要树形结构
 //        TUtil.RecursiveList2Tree.recursive(treeView.getRoot(), keys, new TUtil.RecursiveList2Tree<TreeItem<String>, String>() {
