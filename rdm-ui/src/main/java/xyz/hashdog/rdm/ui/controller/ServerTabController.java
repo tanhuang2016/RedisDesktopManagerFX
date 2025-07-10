@@ -15,9 +15,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -309,8 +311,38 @@ public class ServerTabController extends BaseKeyController<MainController> {
         children.clear();
         for (String key : keys) {
             children.add(new TreeItem<>(key, GuiUtil.creatKeyImageView()));
-
         }
+
+        // todo 是否要树形结构
+//        TUtil.RecursiveList2Tree.recursive(treeView.getRoot(), keys, new TUtil.RecursiveList2Tree<TreeItem<String>, String>() {
+//
+//            @Override
+//            public List<String> findSubs(TreeItem<String> tree, List<String> list) {
+//                ObservableList<TreeItem<String>> children = tree.getChildren();
+//                List<String> subs = new ArrayList<>();
+//                for (String key : list) {
+//                    String[] parts = key.split(":");
+//                }
+//
+//                String dataId = tree.getValue().getDataId();
+//                for (ConnectionServerNode connectionServerNode : list) {
+//                    if (connectionServerNode.getParentDataId().equals(dataId)) {
+//                        subs.add(connectionServerNode);
+//                    }
+//                }
+//                return subs;
+//            }
+//
+//            @Override
+//            public List<TreeItem<String>> toTree(TreeItem<String> tree, List<String> subs) {
+//                return List.of();
+//            }
+//
+//            @Override
+//            public List<String> filterList(List<String> list, List<String> subs) {
+//                return List.of();
+//            }
+//        }
     }
 
 
