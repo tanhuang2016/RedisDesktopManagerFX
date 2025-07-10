@@ -4,6 +4,7 @@ import xyz.hashdog.rdm.ui.common.Applications;
 
 /**
  * key实体类,，目录和key共用1个实体
+ * 暂时还是先用treeView，如果以后需要可以使用treeTable来展示更复制的字段
  * @author th
  * @version 1.0.0
  * @since 2025/7/09 22:21
