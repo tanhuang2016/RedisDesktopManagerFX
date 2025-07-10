@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.KeyTabController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -33,8 +34,17 @@
                         <Label text="TTL:" />
                         <TextField fx:id="ttl"  />
                         <Button mnemonicParsing="false" onAction="#editTTL" text="%key.edit" />
-                        <Button mnemonicParsing="false" onAction="#delete" text="%key.delete" />
-                        <Button mnemonicParsing="false" onAction="#refresh" text="%key.refresh" />
+                        <Button fx:id="keyDelete" mnemonicParsing="false" onAction="#delete" text="%key.delete" >
+                                <tooltip>
+                                    <Tooltip text="%key.delete" />
+                                </tooltip>
+                        </Button>
+
+                        <Button fx:id="keyRefresh" mnemonicParsing="false" onAction="#refresh" text="%key.refresh" >
+                            <tooltip>
+                                <Tooltip text="%key.refresh" />
+                            </tooltip>
+                        </Button>
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />

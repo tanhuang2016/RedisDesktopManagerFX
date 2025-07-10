@@ -1,14 +1,19 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
@@ -34,7 +39,8 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     public Label keyType;
     @FXML
     public BorderPane borderPane;
-
+    public Button keyRefresh;
+    public Button keyDelete;
 
 
     private long currentTtl;
@@ -49,9 +55,25 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initListener();
+        initButton();
 
     }
 
+
+    private void initButton() {
+        initButtonIcon();
+        initButtonStyles();
+    }
+
+    private void initButtonStyles() {
+        keyRefresh.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.SUCCESS);
+        keyDelete.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.DANGER);
+    }
+
+    private void initButtonIcon() {
+        GuiUtil.setIcon(keyRefresh,new FontIcon(Feather.REFRESH_CW));
+        GuiUtil.setIcon(keyDelete,new FontIcon(Feather.TRASH_2));
+    }
 
     /**
      * 初始化监听
