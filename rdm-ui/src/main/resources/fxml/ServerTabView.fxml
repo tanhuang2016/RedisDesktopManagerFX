@@ -17,6 +17,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import atlantafx.base.controls.CustomTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane fx:id="root" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
 
    <BorderPane prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -57,16 +62,31 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                                               <children>
-                                                  <TextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                                                  <Button fx:id="search" minWidth="-Infinity" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="%server.search" HBox.hgrow="ALWAYS">
-                                                      <graphic>
-                                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                                              <image>
-                                                                  <Image url="@../icon/search.png" />
-                                                              </image>
-                                                          </ImageView>
-                                                      </graphic>
-                                                  </Button>
+                                                  <CustomTextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                                                  <HBox fx:id="searchHbox" alignment="CENTER_RIGHT"  spacing="3.0" VBox.vgrow="ALWAYS">
+                                                      <Button fx:id="reset"  mnemonicParsing="false" onAction="#search"  text="%server.search" HBox.hgrow="ALWAYS"  opacity="0.3">
+                                                          <tooltip>
+                                                              <Tooltip text="%server.search" />
+                                                          </tooltip>
+                                                      </Button>
+                                                      <Button fx:id="history"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   opacity="0.3">
+                                                          <tooltip>
+                                                              <Tooltip text="%server.search" />
+                                                          </tooltip>
+                                                      </Button>
+                                                      <Button fx:id="search"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   >
+                                                          <tooltip>
+                                                              <Tooltip text="%server.search" />
+                                                          </tooltip>
+                                                          <graphic>
+    <!--                                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">-->
+    <!--                                                              <image>-->
+    <!--                                                                  <Image url="@../icon/search.png" />-->
+    <!--                                                              </image>-->
+    <!--                                                          </ImageView>-->
+                                                          </graphic>
+                                                      </Button>
+                                                  </HBox>
                                               </children>
                                           </HBox>
                                           <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -119,4 +139,7 @@
               </children>
           </AnchorPane>
       </center></BorderPane>
+    <stylesheets>
+      <URL value="@../css/global.css" />
+    </stylesheets>
 </AnchorPane>

@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.controls.CustomTextField;
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -7,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
@@ -47,7 +51,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
      * 搜索的内容
      */
     @FXML
-    public TextField searchText;
+    public CustomTextField searchText;
 
     /**
      * 右键菜单
@@ -58,6 +62,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
     public MenuButton newKey;
     @FXML
     public Button search;
+    public HBox searchHbox;
+    public Button reset;
+    public Button history;
     @FXML
     private TreeView<String> treeView;
     @FXML
@@ -81,6 +88,33 @@ public class ServerTabController extends BaseKeyController<MainController> {
         initNewKey();
         initAutoWah();
         initListener();
+        initButton();
+        initTextField();
+    }
+
+    private void initTextField() {
+        searchText.setRight(searchHbox);
+    }
+
+    private void initButton() {
+        initButtonIcon();
+        initButtonStyles();
+
+    }
+    private void initButtonStyles() {
+        search.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.SMALL);
+        reset.getStyleClass().addAll(Styles.BUTTON_CIRCLE,Styles.FLAT);
+        history.getStyleClass().addAll(Styles.BUTTON_CIRCLE,Styles.SMALL,Styles.FLAT);
+        search.setCursor(Cursor.HAND);
+        reset.setCursor(Cursor.HAND);
+        history.setCursor(Cursor.HAND);
+    }
+
+    private void initButtonIcon() {
+        search.setGraphic(new FontIcon(Feather.SEARCH));
+        reset.setGraphic(new FontIcon(Material2AL.CLEAR));
+        history.setGraphic(new FontIcon(Material2AL.ARROW_DROP_DOWN));
+
     }
 
     /**
@@ -406,7 +440,8 @@ public class ServerTabController extends BaseKeyController<MainController> {
         // 设置ChoiceBox的宽度自适应
         choiceBox.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(choiceBox, javafx.scene.layout.Priority.ALWAYS);
-        search.prefWidthProperty().bind(newKey.widthProperty());
+        //搜索按钮不需要绑定宽度了，现在改为了CustomTextField内嵌按钮
+//        search.prefWidthProperty().bind(newKey.widthProperty());
     }
 
     /**
