@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.feather.Feather;
@@ -45,7 +42,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     @FXML
     public Label name;
     @FXML
-    public ChoiceBox<String> characterChoiceBox;
+    public ComboBox<String> characterChoiceBox;
     @FXML
     public Button into;
     @FXML
