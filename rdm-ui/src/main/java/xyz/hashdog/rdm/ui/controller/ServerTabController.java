@@ -454,7 +454,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
     private void initAutoWah() {
         // 设置ChoiceBox的宽度自适应
         choiceBox.setMaxWidth(Double.MAX_VALUE);
+        newKey.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(choiceBox, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(newKey, javafx.scene.layout.Priority.ALWAYS);
         //搜索按钮不需要绑定宽度了，现在改为了CustomTextField内嵌按钮
 //        search.prefWidthProperty().bind(newKey.widthProperty());
     }

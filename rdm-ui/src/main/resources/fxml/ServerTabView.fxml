@@ -45,7 +45,7 @@
                                                       <!--                                       </FXCollections>-->
                                                       <!--                                   </items>-->
                                                   </ChoiceBox>
-                                                  <MenuButton fx:id="newKey" mnemonicParsing="false" text="%server.new">
+                                                  <MenuButton fx:id="newKey" mnemonicParsing="false" text="%server.new" HBox.hgrow="ALWAYS">
                                                       <items>
                                                           <MenuItem mnemonicParsing="false" text="Action 1" />
                                                           <MenuItem mnemonicParsing="false" text="Action 2" />
