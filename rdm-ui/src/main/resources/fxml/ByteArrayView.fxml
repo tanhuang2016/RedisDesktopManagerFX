@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ByteArrayController">
    <children>
       <VBox prefHeight="200.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,7 +29,11 @@
                      </items>
                   </ChoiceBox>
                   <Label fx:id="size" text="Size:0B" />
-                  <Button mnemonicParsing="false" onAction="#copy" text="%key.string.copy" />
+                  <Button fx:id="copy" mnemonicParsing="false" onAction="#copy" text="%key.string.copy" >
+                     <tooltip>
+                        <Tooltip text="%key.string.copy" />
+                     </tooltip>
+                  </Button>
                   <Button fx:id="into" mnemonicParsing="false" onAction="#into" text="%key.string.import" />
                   <Button fx:id="export" mnemonicParsing="false" onAction="#export" text="%key.string.export" />
                   <Button fx:id="view" mnemonicParsing="false" onAction="#view" text="%key.string.view" />

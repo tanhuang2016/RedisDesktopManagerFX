@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.Constant;
 import xyz.hashdog.rdm.common.util.EncodeUtil;
 import xyz.hashdog.rdm.common.util.FileUtil;
@@ -51,6 +54,7 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     public AnchorPane root;
     @FXML
     public Button view;
+    public Button copy;
     /**
      * 当前value的二进制
      */
@@ -72,6 +76,16 @@ public class ByteArrayController extends BaseController<BaseController> implemen
         initCharacterChoiceBox();
         initTypeChoiceBox();
         initListener();
+        initButton();
+    }
+
+    private void initButton() {
+        initButtonStyles();
+        GuiUtil.setIcon(copy,new FontIcon(Feather.COPY));
+    }
+    private void initButtonStyles() {
+        copy.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.SUCCESS,Styles.FLAT);
+
     }
 
     /**
