@@ -37,15 +37,15 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     @FXML
     public CustomTextField key;
     @FXML
-    public TextField ttl;
+    public CustomTextField ttl;
     @FXML
     public Label keyType;
     @FXML
     public BorderPane borderPane;
     public Button keyRefresh;
     public Button keyDelete;
-//    public Button keyRename;
     public Label keyRename;
+    public Label keyEditTTL;
 
 
     private long currentTtl;
@@ -70,11 +70,15 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
         keyRename.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.SUCCESS,Styles.FLAT);
         keyRename.setGraphic(new FontIcon(Feather.CHECK));
         keyRename.setCursor(Cursor.HAND);
+        keyEditTTL.getStyleClass().addAll( Styles.BUTTON_ICON,Styles.SUCCESS,Styles.FLAT);
+        keyEditTTL.setGraphic(new FontIcon(Feather.CHECK));
+        keyEditTTL.setCursor(Cursor.HAND);
 
     }
 
     private void initTextField() {
         key.setRight(keyRename);
+        ttl.setRight(keyEditTTL);
     }
 
 
@@ -91,8 +95,6 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     private void initButtonIcon() {
         GuiUtil.setIcon(keyRefresh,new FontIcon(Feather.REFRESH_CW));
         GuiUtil.setIcon(keyDelete,new FontIcon(Feather.TRASH_2));
-//        GuiUtil.setIcon(keyRename,new FontIcon(Feather.CHECK));
-
     }
 
     /**
@@ -235,13 +237,15 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     }
 
 
+
+
     /**
      * 设置有效期
      *
-     * @param actionEvent
+     * @param mouseEvent
      */
     @FXML
-    public void editTTL(ActionEvent actionEvent) {
+    public void editTTL(MouseEvent mouseEvent) {
         if (GuiUtil.requiredTextField(this.ttl)) {
             return;
         }

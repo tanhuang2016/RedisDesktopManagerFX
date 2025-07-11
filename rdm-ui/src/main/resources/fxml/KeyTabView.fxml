@@ -37,15 +37,13 @@
                                     <Tooltip text="%key.rename" />
                                 </tooltip>
                          </Label>
-
-<!--                        <Button fx:id="keyRename" mnemonicParsing="false" onAction="#rename" text="%key.rename" >-->
-<!--                                <tooltip>-->
-<!--                                    <Tooltip text="%key.rename" />-->
-<!--                                </tooltip>-->
-<!--                        </Button>-->
                         <Label text="TTL:" />
-                        <TextField fx:id="ttl"  />
-                        <Button mnemonicParsing="false" onAction="#editTTL" text="%key.edit" />
+                        <CustomTextField fx:id="ttl"  />
+                         <Label fx:id="keyEditTTL" onMouseClicked="#editTTL"  >
+                             <tooltip>
+                                 <Tooltip text="%key.edit" />
+                             </tooltip>
+                         </Label>
                         <Button fx:id="keyDelete" mnemonicParsing="false" onAction="#delete" text="%key.delete" >
                                 <tooltip>
                                     <Tooltip text="%key.delete" />
