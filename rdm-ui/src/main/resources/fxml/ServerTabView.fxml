@@ -22,6 +22,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <AnchorPane fx:id="root" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ServerTabController">
 
    <BorderPane prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -63,17 +64,23 @@
                                           <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
                                               <children>
                                                   <CustomTextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                                                  <HBox fx:id="searchHbox" alignment="CENTER_RIGHT"  spacing="3.0" VBox.vgrow="ALWAYS">
+                                                  <HBox fx:id="searchHbox" alignment="CENTER_RIGHT"  spacing="-2.0" VBox.vgrow="ALWAYS">
                                                       <Button fx:id="reset"  mnemonicParsing="false" onAction="#reset"  text="%server.search" HBox.hgrow="ALWAYS" managed="false" visible="false"  opacity="0.3">
                                                           <tooltip>
                                                               <Tooltip text="%server.search" />
                                                           </tooltip>
                                                       </Button>
-                                                      <Button fx:id="history"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   opacity="0.3">
+                                                      <MenuButton fx:id="history"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   prefWidth="2"   opacity="0.3">
+                                                          <items>
+                                                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                                                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                                                              <SeparatorMenuItem />
+                                                              <MenuItem mnemonicParsing="false" text="清除历史搜索记录" />
+                                                          </items>
                                                           <tooltip>
                                                               <Tooltip text="%server.search" />
                                                           </tooltip>
-                                                      </Button>
+                                                      </MenuButton>
                                                       <Button fx:id="search"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   >
                                                           <tooltip>
                                                               <Tooltip text="%server.search" />

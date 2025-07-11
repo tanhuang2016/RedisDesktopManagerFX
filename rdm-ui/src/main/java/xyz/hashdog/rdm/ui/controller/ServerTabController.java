@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.controller;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
+import atlantafx.base.theme.Tweaks;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -64,7 +65,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
     public Button search;
     public HBox searchHbox;
     public Button reset;
-    public Button history;
+    public MenuButton history;
     @FXML
     private TreeView<String> treeView;
     @FXML
@@ -104,7 +105,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
     private void initButtonStyles() {
         search.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.SMALL);
         reset.getStyleClass().addAll(Styles.BUTTON_CIRCLE,Styles.FLAT);
-        history.getStyleClass().addAll(Styles.BUTTON_CIRCLE,Styles.SMALL,Styles.FLAT);
+        history.getStyleClass().addAll(Styles.SMALL,Styles.FLAT, Tweaks.NO_ARROW,Tweaks.EDGE_TO_EDGE);
         search.setCursor(Cursor.HAND);
         reset.setCursor(Cursor.HAND);
         history.setCursor(Cursor.HAND);
