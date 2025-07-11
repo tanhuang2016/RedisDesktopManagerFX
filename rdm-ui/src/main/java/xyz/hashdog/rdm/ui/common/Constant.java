@@ -28,7 +28,7 @@ public interface Constant {
     String COLOR_STREAM="#6A741B";
     String COLOR_LIST="#008556";
     String COLOR_SET="#9C5C2B";
-    String COLOR_STRING="#9C5C2B";
+    String COLOR_STRING="#6A1DC3";
     String COLOR_ZSET="#A00A6B";
     String COLOR_UNKNOWN ="#000000";
 }
