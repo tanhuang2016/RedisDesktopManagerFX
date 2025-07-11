@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -79,7 +80,11 @@ public class SetTypeController extends BaseKeyController<KeyTabController> imple
     public void initialize(URL location, ResourceBundle resources) {
         bindData();
         initListener();
+        initButton();
 
+    }
+    private void initButton() {
+        save.getStyleClass().add(Styles.ACCENT);
     }
 
     /**

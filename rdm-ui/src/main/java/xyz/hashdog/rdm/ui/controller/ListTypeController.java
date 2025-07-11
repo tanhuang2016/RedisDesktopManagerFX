@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -87,7 +88,11 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         bindData();
         initListener();
 //        initPagination();
+        initButton();
 
+    }
+    private void initButton() {
+        save.getStyleClass().add(Styles.ACCENT);
     }
 
 

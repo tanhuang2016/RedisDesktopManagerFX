@@ -1,10 +1,12 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
@@ -24,6 +26,7 @@ public class StringTypeController extends BaseKeyController<KeyTabController> im
 
 
     public BorderPane borderPane;
+    public Button save;
     private ByteArrayController byteArrayController;
     /**
      * 当前value的二进制
@@ -33,6 +36,11 @@ public class StringTypeController extends BaseKeyController<KeyTabController> im
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initListener();
+        initButton();
+    }
+
+    private void initButton() {
+        save.getStyleClass().add(Styles.ACCENT);
     }
 
     /**
