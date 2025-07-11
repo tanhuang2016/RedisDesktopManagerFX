@@ -64,7 +64,7 @@
                                               <children>
                                                   <CustomTextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
                                                   <HBox fx:id="searchHbox" alignment="CENTER_RIGHT"  spacing="3.0" VBox.vgrow="ALWAYS">
-                                                      <Button fx:id="reset"  mnemonicParsing="false" onAction="#search"  text="%server.search" HBox.hgrow="ALWAYS"  opacity="0.3">
+                                                      <Button fx:id="reset"  mnemonicParsing="false" onAction="#reset"  text="%server.search" HBox.hgrow="ALWAYS" managed="false" visible="false"  opacity="0.3">
                                                           <tooltip>
                                                               <Tooltip text="%server.search" />
                                                           </tooltip>

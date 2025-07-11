@@ -137,9 +137,24 @@ public class ServerTabController extends BaseKeyController<MainController> {
         initTreeViewRoot();
         treeViewListener();
         newKeyListener();
+        searchTextListener();
 
 
 
+
+    }
+
+    private void searchTextListener() {
+        searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+            // 判断 TextField 是否为空
+            if (newValue == null || newValue.trim().isEmpty()) {
+                reset.setVisible(false);
+                reset.setManaged(false);
+            } else {
+                reset.setVisible(true);
+                reset.setManaged(true);
+            }
+        });
     }
 
     /**
@@ -675,5 +690,9 @@ public class ServerTabController extends BaseKeyController<MainController> {
     @FXML
     public void refresh(ActionEvent actionEvent) {
         resetDBSelects();
+    }
+
+    public void reset(ActionEvent actionEvent) {
+        searchText.setText("");
     }
 }
