@@ -99,13 +99,14 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
 
     }
 
-    private void initTextField() {
-        findTextField.setRight(findButton);
-    }
+
 
     private void initButton() {
         initButtonStyles();
         initButtonIcon();
+    }
+    private void initTextField() {
+        findTextField.setRight(findButton);
     }
     private void initButtonStyles() {
         save.getStyleClass().add(Styles.ACCENT);

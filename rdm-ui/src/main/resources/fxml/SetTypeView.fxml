@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import atlantafx.base.controls.CustomTextField?>
 <AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.SetTypeController">
     <children>
         <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -44,7 +45,7 @@
                                     <children>
                                         <Label fx:id="total" text="Total:10" />
                                         <Label fx:id="size" text="Size:1024B" />
-                                        <TextField fx:id="findTextField" />
+                                        <CustomTextField fx:id="findTextField" />
                                         <Button fx:id="findButton" mnemonicParsing="false" text="%key.set.find" onAction="#find"/>
                                     </children>
                                 </HBox>

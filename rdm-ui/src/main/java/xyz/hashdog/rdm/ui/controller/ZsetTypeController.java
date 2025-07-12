@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -11,11 +12,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
@@ -51,7 +55,7 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public Button findButton;
     @FXML
-    public TextField findTextField;
+    public CustomTextField findTextField;
     @FXML
     public Button save;
     @FXML
@@ -85,10 +89,23 @@ public class ZsetTypeController extends BaseKeyController<KeyTabController> impl
         bindData();
         initListener();
         initButton();
+        initTextField();
     }
 
     private void initButton() {
+        initButtonStyles();
+        initButtonIcon();
+    }
+    private void initTextField() {
+        findTextField.setRight(findButton);
+    }
+    private void initButtonStyles() {
         save.getStyleClass().add(Styles.ACCENT);
+        findButton.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.FLAT,Styles.ROUNDED,Styles.SMALL);
+        findButton.setCursor(Cursor.HAND);
+    }
+    private void initButtonIcon() {
+        findButton.setGraphic(new FontIcon(Feather.SEARCH));
     }
 
     /**
