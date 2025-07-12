@@ -1,6 +1,8 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
+import atlantafx.base.theme.Tweaks;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -10,11 +12,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
@@ -49,7 +55,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public Button findButton;
     @FXML
-    public TextField findTextField;
+    public CustomTextField findTextField;
     @FXML
     public Button save;
     @FXML
@@ -89,12 +95,26 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         initListener();
 //        initPagination();
         initButton();
+        initTextField();
 
     }
+
+    private void initTextField() {
+        findTextField.setRight(findButton);
+    }
+
     private void initButton() {
-        save.getStyleClass().add(Styles.ACCENT);
+        initButtonStyles();
+        initButtonIcon();
     }
-
+    private void initButtonStyles() {
+        save.getStyleClass().add(Styles.ACCENT);
+        findButton.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.FLAT,Styles.ROUNDED,Styles.SMALL);
+        findButton.setCursor(Cursor.HAND);
+    }
+    private void initButtonIcon() {
+        findButton.setGraphic(new FontIcon(Feather.SEARCH));
+    }
 
     /**
      * 初始化监听
