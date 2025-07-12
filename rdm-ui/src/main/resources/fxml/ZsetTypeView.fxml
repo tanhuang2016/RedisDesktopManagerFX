@@ -75,7 +75,7 @@
                                         </VBox>
                                         <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#add" text="%key.zset.add" VBox.vgrow="ALWAYS" />
+                                                <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="%key.zset.add" VBox.vgrow="ALWAYS" />
                                                 <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.zset.delete" />
                                             </children>
                                         </VBox>
