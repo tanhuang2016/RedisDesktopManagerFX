@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.controller;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2MZ;
@@ -93,9 +96,26 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     }
 
     private void initButtonIcon() {
-        GuiUtil.setIcon(keyRefresh,new FontIcon(Feather.REFRESH_CW));
+        FontIcon fontIcon = new FontIcon(Feather.REFRESH_CW);
+        GuiUtil.setIcon(keyRefresh,fontIcon);
         GuiUtil.setIcon(keyDelete,new FontIcon(Feather.TRASH_2));
+
+
+        //todo 刷新开启自动旋转，这里需要替换为png，否则会有抖动感觉
+//        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(5), fontIcon);
+//        rotateTransition.setByAngle(360); // 一圈
+//        rotateTransition.setCycleCount(Animation.INDEFINITE);
+//        rotateTransition.setAutoReverse(false);
+//        rotateTransition.setInterpolator(Interpolator.LINEAR);
+//        rotateTransition.play();
     }
+    //停止旋转
+//    public void stopRotation() {
+//        if (rotateTransition != null) {
+//            rotateTransition.stop();
+//            rotateTransition.getNode().setRotate(0); // 可选：重置旋转角度
+//        }
+//    }
 
     /**
      * 初始化监听
