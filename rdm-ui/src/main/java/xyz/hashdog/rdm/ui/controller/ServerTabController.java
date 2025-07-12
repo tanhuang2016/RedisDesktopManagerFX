@@ -370,7 +370,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         children.clear();
         ThreadPool.getInstance().execute(() -> {
             //todo 展示方式切换
-            if(1==1){
+            if(1==2){
                 buildListView(children,keys);
             }else {
                 buildTreeView(treeView,keys);
@@ -420,7 +420,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 boolean isLeaf = (i == parts.length - 1);
 
                 TreeItem<String> childNode = findChild(current, part);
-                if (childNode == null) {
+                if (childNode == null|| isLeaf) {
                     childNode = new TreeItem<>(part,new FontIcon(Feather.FOLDER));
                     if (isLeaf) {
                         childNode = new TreeItem<>(key);
