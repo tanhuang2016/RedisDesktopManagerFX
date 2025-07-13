@@ -431,5 +431,8 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     }
 
 
+    public void close(ActionEvent actionEvent) {
+        super.parentController.parentController.removeTabByKeys(Arrays.asList(parameter.get().getKey()));
 
+    }
 }

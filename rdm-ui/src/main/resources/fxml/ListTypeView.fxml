@@ -26,9 +26,10 @@
                                 <fx:include source="ByteArrayView.fxml" />
                             </center>
                             <bottom>
-                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Button fx:id="save" mnemonicParsing="false" onAction="#save"  text="%key.save" />
+                                        <Button  mnemonicParsing="false" onAction="#close"  text="%common.tab.close" />
                                     </children>
                                 </HBox>
                             </bottom>
