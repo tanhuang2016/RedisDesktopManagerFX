@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import atlantafx.base.controls.CustomTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import atlantafx.base.controls.CustomTextField?>
-<?import javafx.scene.control.SplitMenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ListTypeController">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ListTypeController">
     <children>
         <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -29,7 +28,7 @@
                             <bottom>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save" />
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save"  text="%key.save" />
                                     </children>
                                 </HBox>
                             </bottom>
@@ -48,12 +47,19 @@
                                         <Label fx:id="total" text="Total:10" />
                                         <Label fx:id="size" text="Size:1024B" />
                                         <CustomTextField fx:id="findTextField" />
-                                        <Button fx:id="findButton" mnemonicParsing="false" text="%key.list.find" onAction="#find"/>
-                                        <SplitMenuButton fx:id="add" mnemonicParsing="false" text="%key.list.addHead" onAction="#addHead">
+                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find" text="%key.list.find" />
+                                        <SplitMenuButton fx:id="add" mnemonicParsing="false" onAction="#addHead" text="%key.list.addHead">
                                                 <items>
-                                                    <MenuItem text="%key.list.addHead" onAction="#addHead" />
-                                                    <MenuItem text="%key.list.addTail" onAction="#addTail" />
+                                                    <MenuItem fx:id="addHead" onAction="#addHead" text="%key.list.addHead" />
+                                                    <MenuItem fx:id="addTail" onAction="#addTail" text="%key.list.addTail" />
                                                 </items>
+                                        </SplitMenuButton>
+                                        <SplitMenuButton fx:id="del" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow">
+                                            <items>
+                                                <MenuItem fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow" />
+                                                <MenuItem fx:id="delHead" mnemonicParsing="false" onAction="#delHead" text="%key.list.delHead" />
+                                                <MenuItem fx:id="delTail" mnemonicParsing="false" onAction="#delTail" text="%key.list.delTail" />
+                                            </items>
                                         </SplitMenuButton>
 
 
@@ -69,16 +75,10 @@
                                                         <TableColumn prefWidth="240.0" text="Value" />
                                                     </columns>
                                                 </TableView>
-                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
-                                            </children>
-                                        </VBox>
-                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <Button fx:id="addHead" mnemonicParsing="false" onAction="#addHead" text="%key.list.addHead" VBox.vgrow="ALWAYS" />
-                                                <Button fx:id="addTail" mnemonicParsing="false" onAction="#addTail" text="%key.list.addTail" />
-                                                <Button fx:id="delHead" mnemonicParsing="false" onAction="#delHead" text="%key.list.delHead" />
-                                                <Button fx:id="delTail" mnemonicParsing="false" onAction="#delTail" text="%key.list.delTail" />
-                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow" />
+                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="40.0" style="-fx-page-information-alignment: right;" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin></Pagination>
                                             </children>
                                         </VBox>
                                     </children>

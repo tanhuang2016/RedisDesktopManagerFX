@@ -59,18 +59,19 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public Button save;
     @FXML
-    public ButtonBase addHead;
+    public MenuItem addHead;
     @FXML
-    public ButtonBase addTail;
+    public MenuItem addTail;
     @FXML
-    public ButtonBase delHead;
+    public MenuItem delHead;
     @FXML
-    public ButtonBase delTail;
+    public MenuItem delTail;
     @FXML
-    public ButtonBase delRow;
+    public MenuItem delRow;
     @FXML
     public Pagination pagination;
     public SplitMenuButton add;
+    public SplitMenuButton del;
     /**
      * 缓存所有表格数据
      */
@@ -105,9 +106,6 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     private void initButton() {
         initButtonStyles();
         initButtonIcon();
-        add.getStyleClass().addAll(
-                Styles.BUTTON_OUTLINED, Styles.ACCENT
-        );
     }
     private void initTextField() {
         findTextField.setRight(findButton);
@@ -116,6 +114,12 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
         save.getStyleClass().add(Styles.ACCENT);
         findButton.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.FLAT,Styles.ROUNDED,Styles.SMALL);
         findButton.setCursor(Cursor.HAND);
+        add.getStyleClass().addAll(
+                Styles.BUTTON_OUTLINED, Styles.ACCENT
+        );
+        del.getStyleClass().addAll(
+                Styles.BUTTON_OUTLINED, Styles.DANGER
+        );
     }
     private void initButtonIcon() {
         findButton.setGraphic(new FontIcon(Feather.SEARCH));
@@ -373,6 +377,8 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void delHead(ActionEvent actionEvent) {
+        this.del.setOnAction(this::delHead);
+        this.del.setText(this.delHead.getText());
         if (!GuiUtil.alertRemove()) {
             return;
         }
@@ -391,6 +397,8 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void delTail(ActionEvent actionEvent) {
+        this.del.setOnAction(this::delTail);
+        this.del.setText(this.delTail.getText());
         if (!GuiUtil.alertRemove()) {
             return;
         }
@@ -410,6 +418,8 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void delRow(ActionEvent actionEvent) {
+        this.del.setOnAction(this::delRow);
+        this.del.setText(this.delRow.getText());
         if (!GuiUtil.alertRemove()) {
             return;
         }
