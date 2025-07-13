@@ -1,11 +1,13 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import atlantafx.base.controls.CustomTextField;
+import atlantafx.base.controls.Popover;
 import atlantafx.base.theme.Styles;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
@@ -28,6 +30,7 @@ import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -52,6 +55,12 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
 
     private long currentTtl;
+
+
+    /**
+     * 刷新弹框的延迟显示
+     */
+    private PauseTransition showRefreshPopoverDelay;
 
 
     /**
@@ -317,5 +326,26 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     }
 
 
+    public void openRefreshPopover(MouseEvent mouseEvent) {
+        showRefreshPopoverDelay = new PauseTransition(Duration.seconds(1.5));
+        showRefreshPopoverDelay.setOnFinished(event -> {
+            FXMLLoader fxmlLoader = GuiUtil.loadFXML("/fxml/RefreshPopover.fxml");
+            try {
+                AnchorPane root = fxmlLoader.load();
+                var pop = new Popover(root);
+                pop.setHeaderAlwaysVisible(false);
+                pop.setDetachable(false);
+                pop.setArrowLocation(Popover.ArrowLocation.TOP_CENTER);
+                pop.show(keyRefresh);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        showRefreshPopoverDelay.play();
+        System.out.println("开启");
+    }
 
+    public void closeRefreshPopover(MouseEvent mouseEvent) {
+        System.out.println("关闭");
+    }
 }

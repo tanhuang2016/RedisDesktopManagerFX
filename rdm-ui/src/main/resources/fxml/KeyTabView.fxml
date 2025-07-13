@@ -50,7 +50,7 @@
                                 </tooltip>
                         </Button>
 
-                        <Button fx:id="keyRefresh" mnemonicParsing="false" onAction="#refresh" text="%key.refresh" >
+                        <Button fx:id="keyRefresh" mnemonicParsing="false" onAction="#refresh" onMouseEntered="#openRefreshPopover" onMouseExited="#closeRefreshPopover" text="%key.refresh" >
                             <tooltip>
                                 <Tooltip text="%key.refresh" />
                             </tooltip>

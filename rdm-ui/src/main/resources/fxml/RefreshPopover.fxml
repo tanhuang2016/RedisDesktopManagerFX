@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.ToggleSwitch?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<AnchorPane prefHeight="100.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.popover.RefreshPopover">
+   <children>
+      <VBox layoutX="163.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+               <children>
+                  <ToggleSwitch graphicTextGap="0.0" text="Auto Refresh" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="499.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Refresh rate" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField prefHeight="23.0" prefWidth="40.0">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="s" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+   </padding>
+</AnchorPane>

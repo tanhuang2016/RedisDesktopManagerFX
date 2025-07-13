@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -479,6 +480,10 @@ public class GuiUtil {
         KeyTypeTagEnum byType = KeyTypeTagEnum.getByType(type);
         tagLabel.setStyle("-fx-background-color:"+byType.color);
         return tagLabel;
+    }
+
+    public static FXMLLoader loadFXML(String xml) {
+        return new FXMLLoader(Main.class.getResource(xml),Main.RESOURCE_BUNDLE);
     }
 
 
