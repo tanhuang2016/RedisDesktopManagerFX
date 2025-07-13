@@ -15,51 +15,64 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ListTypeController">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.ListTypeController">
     <children>
-        <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <BorderPane fx:id="borderPane" prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane fx:id="borderPane" prefHeight="498.0" prefWidth="473.0"
+                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <center>
-                                <fx:include source="ByteArrayView.fxml" />
+                                <fx:include source="ByteArrayView.fxml"/>
                             </center>
                             <bottom>
-                                <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0"
+                                      spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save"  text="%key.save" />
-                                        <Button  mnemonicParsing="false" onAction="#close"  text="%common.tab.close" />
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save"/>
+                                        <Button mnemonicParsing="false" onAction="#close" text="%common.tab.close"/>
                                     </children>
                                 </HBox>
                             </bottom>
                         </BorderPane>
                     </children>
                     <padding>
-                        <Insets right="5.0" />
+                        <Insets right="5.0"/>
                     </padding>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <VBox prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minWidth="-Infinity"
+                                      prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Label fx:id="total" text="Total:10" />
-                                        <Label fx:id="size" text="Size:1024B" />
-                                        <CustomTextField fx:id="findTextField" />
-                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find" text="%key.list.find" />
-                                        <SplitMenuButton fx:id="add" mnemonicParsing="false" onAction="#addHead" text="%key.list.addHead">
-                                                <items>
-                                                    <MenuItem fx:id="addHead" onAction="#addHead" text="%key.list.addHead" />
-                                                    <MenuItem fx:id="addTail" onAction="#addTail" text="%key.list.addTail" />
-                                                </items>
-                                        </SplitMenuButton>
-                                        <SplitMenuButton fx:id="del" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow">
+                                        <Label fx:id="total" text="Total:10"/>
+                                        <Label fx:id="size" text="Size:1024B"/>
+                                        <CustomTextField fx:id="findTextField"/>
+                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find"
+                                                text="%key.list.find"/>
+                                        <SplitMenuButton fx:id="add" mnemonicParsing="false" onAction="#addHead"
+                                                         text="%key.list.addHead">
                                             <items>
-                                                <MenuItem fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.list.delRow" />
-                                                <MenuItem fx:id="delHead" mnemonicParsing="false" onAction="#delHead" text="%key.list.delHead" />
-                                                <MenuItem fx:id="delTail" mnemonicParsing="false" onAction="#delTail" text="%key.list.delTail" />
+                                                <MenuItem fx:id="addHead" onAction="#addHead" text="%key.list.addHead"/>
+                                                <MenuItem fx:id="addTail" onAction="#addTail" text="%key.list.addTail"/>
+                                            </items>
+                                        </SplitMenuButton>
+                                        <SplitMenuButton fx:id="del" mnemonicParsing="false" onAction="#delRow"
+                                                         text="%key.list.delRow">
+                                            <items>
+                                                <MenuItem fx:id="delRow" mnemonicParsing="false" onAction="#delRow"
+                                                          text="%key.list.delRow"/>
+                                                <MenuItem fx:id="delHead" mnemonicParsing="false" onAction="#delHead"
+                                                          text="%key.list.delHead"/>
+                                                <MenuItem fx:id="delTail" mnemonicParsing="false" onAction="#delTail"
+                                                          text="%key.list.delTail"/>
                                             </items>
                                         </SplitMenuButton>
 
@@ -70,17 +83,26 @@
                                     <children>
                                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TableView fx:id="tableView" layoutY="-3.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+                                                <TableView fx:id="tableView" layoutY="-3.0"
+                                                           tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
                                                     <columns>
-                                                        <TableColumn prefWidth="60.0" text="#" />
-                                                        <TableColumn prefWidth="240.0" text="Value" />
+                                                        <TableColumn prefWidth="60.0" text="#"/>
+                                                        <TableColumn prefWidth="240.0" text="Value"/>
                                                     </columns>
                                                 </TableView>
-                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="40.0" style="-fx-page-information-alignment: right;" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin></Pagination>
+                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867"
+                                                            prefHeight="40.0"
+                                                            style="-fx-page-information-alignment: right;"
+                                                            BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                                                    <VBox.margin>
+                                                        <Insets bottom="10.0"/>
+                                                    </VBox.margin>
+                                                </Pagination>
                                             </children>
+                                        </VBox>
+<!--                                        加一个空容器在左边，不然tableView的有边框可能不显示，不知道为什么，可能是javafx的bug-->
+                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="0.0" spacing="10.0"
+                                              HBox.hgrow="ALWAYS">
                                         </VBox>
                                     </children>
                                 </HBox>
@@ -88,7 +110,7 @@
                         </VBox>
                     </children>
                     <padding>
-                        <Insets left="5.0" />
+                        <Insets left="5.0"/>
                     </padding>
                 </AnchorPane>
             </items>
