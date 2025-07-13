@@ -59,17 +59,18 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     @FXML
     public Button save;
     @FXML
-    public Button addHead;
+    public ButtonBase addHead;
     @FXML
-    public Button addTail;
+    public ButtonBase addTail;
     @FXML
-    public Button delHead;
+    public ButtonBase delHead;
     @FXML
-    public Button delTail;
+    public ButtonBase delTail;
     @FXML
-    public Button delRow;
+    public ButtonBase delRow;
     @FXML
     public Pagination pagination;
+    public SplitMenuButton add;
     /**
      * 缓存所有表格数据
      */
@@ -104,6 +105,9 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
     private void initButton() {
         initButtonStyles();
         initButtonIcon();
+        add.getStyleClass().addAll(
+                Styles.BUTTON_OUTLINED, Styles.ACCENT
+        );
     }
     private void initTextField() {
         findTextField.setRight(findButton);
@@ -306,8 +310,11 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void addHead(ActionEvent actionEvent) {
+        this.add.setOnAction(this::addHead);
+        this.add.setText(this.addHead.getText());
         this.add(actionEvent,0);
     }
+
 
     /**
      * 封装插入方法
@@ -315,10 +322,18 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      * @param index 下标
      */
     private void add(ActionEvent actionEvent, int index) {
-        Button source = (Button)actionEvent.getSource();
+        Object source1 = actionEvent.getSource();
+        String text="";
+        if(source1 instanceof MenuItem){
+            MenuItem source = (MenuItem)actionEvent.getSource();
+            text=source.getText();
+        }else if(source1 instanceof MenuButton){
+            MenuButton source = (MenuButton)actionEvent.getSource();
+            text=source.getText();
+        }
         Tuple2<AnchorPane, ByteArrayController> tuple2 =  GuiUtil.loadByteArrayView("".getBytes(),this);
         Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
-        Stage stage= GuiUtil.createSubStage(source.getText(),appendTuple2.getT1(),root.getScene().getWindow());
+        Stage stage= GuiUtil.createSubStage(text,appendTuple2.getT1(),root.getScene().getWindow());
         appendTuple2.getT2().setCurrentStage(stage);
         appendTuple2.getT2().setSubContent(tuple2.getT1());
         stage.show();
@@ -346,6 +361,8 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
      */
     @FXML
     public void addTail(ActionEvent actionEvent) {
+        this.add.setOnAction(this::addTail);
+        this.add.setText(this.addTail.getText());
         this.add(actionEvent,list.size());
     }
 
@@ -402,6 +419,7 @@ public class ListTypeController extends BaseKeyController<KeyTabController> impl
             GuiUtil.remove2UI(this.list,this.tableView,lastSelect);
         });
     }
+
 
 
 }
