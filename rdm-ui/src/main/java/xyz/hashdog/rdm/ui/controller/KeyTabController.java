@@ -328,6 +328,9 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
 
     public void openRefreshPopover(MouseEvent mouseEvent) {
+        if(refreshPopover!=null&&refreshPopover.isShowing()){
+            return;
+        }
         showRefreshPopoverDelay = new PauseTransition(Duration.seconds(1.5));
         showRefreshPopoverDelay.setOnFinished(event -> {
             if(refreshPopover!=null){
@@ -342,17 +345,6 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
                     pop.setArrowLocation(Popover.ArrowLocation.TOP_CENTER);
                     pop.show(keyRefresh);
                     refreshPopover= pop;
-                    // 设置：当鼠标移出 Popover 时自动关闭，这里延迟隐藏没什么意义了，所以设置1秒，因为延迟隐藏，需要考虑鼠标移出又立马移进的问题
-                    //todo 后续可以优化一下，在鼠标移除又马上移进的时候，又不隐藏
-                    refreshPopover.getScene().addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-                        PauseTransition delayHide = new PauseTransition(Duration.seconds(0.1));
-                        delayHide.setOnFinished(ev -> {
-                            if (refreshPopover.isShowing()) {
-                                refreshPopover.hide();
-                            }
-                        });
-                        delayHide.play();
-                    });
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -364,8 +356,5 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
     @Deprecated
     public void closeRefreshPopover(MouseEvent mouseEvent) {
-//        if(refreshPopover!=null && refreshPopover.isShowing()){
-//            refreshPopover.hide();
-//        }
     }
 }
