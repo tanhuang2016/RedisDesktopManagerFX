@@ -476,9 +476,9 @@ public class GuiUtil {
      * @return
      */
     public static Label getKeyTypeLabel(String type) {
-        Label tagLabel = new Label(type);
-        tagLabel.getStyleClass().add("tag");
         KeyTypeTagEnum byType = RedisDataTypeEnum.getByType(type).tagEnum;
+        Label tagLabel = new Label(byType.tag);
+        tagLabel.getStyleClass().add("tag");
         tagLabel.setStyle("-fx-background-color:"+byType.color);
         return tagLabel;
     }

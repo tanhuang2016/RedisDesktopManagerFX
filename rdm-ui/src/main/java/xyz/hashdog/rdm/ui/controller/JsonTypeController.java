@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.ui.common.ValueTypeEnum;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -69,7 +70,7 @@ public class JsonTypeController extends BaseKeyController<KeyTabController> impl
                         AnchorPane anchorPane = tuple2.getT1();
                         this.byteArrayController  = tuple2.getT2();
                         this.byteArrayController.setParentController(this);
-                        this.byteArrayController.setByteArray(this.currentValue);
+                        this.byteArrayController.setByteArray(this.currentValue, ValueTypeEnum.JSON);
                         borderPane.setCenter(anchorPane);
                     });
         });

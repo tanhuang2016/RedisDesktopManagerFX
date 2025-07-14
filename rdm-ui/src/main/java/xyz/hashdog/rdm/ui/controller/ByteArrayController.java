@@ -215,6 +215,18 @@ public class ByteArrayController extends BaseController<BaseController> implemen
     }
 
     /**
+     * 设置数据，并使用默认类型
+     * @param currentValue
+     * @param type
+     */
+    public void setByteArray(byte[] currentValue,ValueTypeEnum type) {
+        this.currentValue = currentValue;
+        this.currentSize = currentValue.length;
+        this.size.setText(String.format(SIZE, currentSize));
+        this.typeChoiceBox.setValue(type.name);
+    }
+
+    /**
      * 设置名称
      *
      * @param key
