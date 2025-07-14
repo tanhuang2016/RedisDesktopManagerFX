@@ -101,6 +101,12 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
         save.getStyleClass().add(Styles.ACCENT);
         findButton.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.FLAT,Styles.ROUNDED,Styles.SMALL);
         findButton.setCursor(Cursor.HAND);
+        add.getStyleClass().addAll(
+                Styles.BUTTON_OUTLINED, Styles.ACCENT
+        );
+        delRow.getStyleClass().addAll(
+                Styles.BUTTON_OUTLINED, Styles.DANGER
+        );
     }
     private void initButtonIcon() {
         findButton.setGraphic(new FontIcon(Feather.SEARCH));
