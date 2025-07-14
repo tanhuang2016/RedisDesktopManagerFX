@@ -35,11 +35,18 @@ public enum ReaderParseEnum {
      * 多行数据，这里用循环获取，后续如果有问题根据$符号返回的字符长度，固定获取数据reader.read(data, 0, length);
      */
     BULK_STRINGS('$', (l, r) -> {
-        String newl;
+        String newl=null;
         List<String> res = new ArrayList<>();
-        while (!(newl = r.readLine()).isEmpty()) {
-           res.add(newl);
+        int len = Integer.parseInt(l.substring(1, l.length()));
+        if(len==-1){
+            res.add(newl);
+            return res;
         }
+        newl = r.readLine();
+//        while (!(newl = r.readLine()).isEmpty()) {
+//            res.add(newl);
+//        }
+        res.add(newl);
         return res;
     }),
     /**
@@ -51,10 +58,14 @@ public enum ReaderParseEnum {
         int count = Integer.parseInt(l.substring(1, l.length()));
         for (int i = 0; i < count; i++) {
             String next = r.readLine();
-            ReaderParseEnum readerParseEnum = ReaderParseEnum.getByLine(next);
-//            List<String> parse = readerParseEnum.readerParser.parse(next, r);
-            List<String> parse = List.of(r.readLine());
-            result.addAll(parse);
+            ReaderParseEnum readerParseEnum = ReaderParseEnum.byLine(next);
+            if(readerParseEnum!=null){
+                List<String> parse = readerParseEnum.readerParser.parse(next, r);
+                result.addAll(parse);
+            }else {
+                List<String> parse = List.of(r.readLine());
+                result.addAll(parse);
+            }
         }
         return result;
     }),
@@ -67,13 +78,22 @@ public enum ReaderParseEnum {
      * @return
      */
     public static ReaderParseEnum getByLine(String line) {
+        ReaderParseEnum readerParseEnum = byLine(line);
+        if(readerParseEnum==null){
+            char c = line.charAt(0);
+            throw new RuntimeException("no this mark:" + c);
+        }
+        return readerParseEnum;
+    }
+
+    public static ReaderParseEnum byLine(String line) {
         char c = line.charAt(0);
         for (ReaderParseEnum value : ReaderParseEnum.values()) {
             if (value.mark == c) {
                 return value;
             }
         }
-        throw new RuntimeException("no this mark:" + c);
+      return null;
     }
 
     /**
