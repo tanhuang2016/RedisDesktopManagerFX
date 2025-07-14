@@ -1,11 +1,13 @@
 package xyz.hashdog.rdm.redis.imp.console;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * redis返回协议类型及其解析策略
+ * Redis网络协议主要基于‌RESP
  * @author th
  * @version 1.0.0
  * @since 2023/7/18 23:24
@@ -42,11 +44,23 @@ public enum ReaderParseEnum {
             res.add(newl);
             return res;
         }
-        newl = r.readLine();
-//        while (!(newl = r.readLine()).isEmpty()) {
-//            res.add(newl);
-//        }
-        res.add(newl);
+        // 分配缓冲区
+        char[] data = new char[len];
+        // 读取指定长度的字节
+        int read = r.read(data, 0, len);
+        if (read != len) {
+            throw new IOException("Incomplete bulk string data");
+        }
+
+        // 跳过 \r\n
+        int crlf1 = r.read();
+        int crlf2 = r.read();
+        if (crlf1 != '\r' || crlf2 != '\n') {
+            throw new IOException("Expected \\r\\n after bulk string data");
+        }
+
+        // 转换为字符串返回
+        res.add(new String(data));
         return res;
     }),
     /**
@@ -56,6 +70,10 @@ public enum ReaderParseEnum {
         List<String> result = new ArrayList<>();
         //返回的次数
         int count = Integer.parseInt(l.substring(1, l.length()));
+        if (count == -1) {
+            result.add(null);
+            return result;
+        }
         for (int i = 0; i < count; i++) {
             String next = r.readLine();
             ReaderParseEnum readerParseEnum = ReaderParseEnum.byLine(next);
