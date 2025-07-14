@@ -26,6 +26,7 @@ import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
+import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.controller.BaseController;
 import xyz.hashdog.rdm.ui.controller.BaseKeyController;
 import xyz.hashdog.rdm.ui.controller.ByteArrayController;
@@ -477,7 +478,7 @@ public class GuiUtil {
     public static Label getKeyTypeLabel(String type) {
         Label tagLabel = new Label(type);
         tagLabel.getStyleClass().add("tag");
-        KeyTypeTagEnum byType = KeyTypeTagEnum.getByType(type);
+        KeyTypeTagEnum byType = RedisDataTypeEnum.getByType(type).tagEnum;
         tagLabel.setStyle("-fx-background-color:"+byType.color);
         return tagLabel;
     }

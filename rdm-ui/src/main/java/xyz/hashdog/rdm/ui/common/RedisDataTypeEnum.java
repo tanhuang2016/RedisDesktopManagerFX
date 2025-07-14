@@ -17,31 +17,43 @@ public enum RedisDataTypeEnum {
         redisClient.set(key, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
-    })),
+    }),KeyTypeTagEnum.STRING),
+    JSON("ReJSON-RL","/fxml/JsonTypeView.fxml", PassParameter.JSON,((redisClient, db, key, ttl) -> {
+        checkDB(redisClient,db);
+        redisClient.jsonSet(key,Applications.DEFUALT_JSON_VALUE);
+        checkTTL(redisClient,ttl,key);
+        return new Message(true);
+    }),KeyTypeTagEnum.JSON),
+    STREAM("Stream","/fxml/JsonTypeView.fxml", PassParameter.JSON,((redisClient, db, key, ttl) -> {
+        checkDB(redisClient,db);
+        redisClient.jsonSet(key,Applications.DEFUALT_JSON_VALUE);
+        checkTTL(redisClient,ttl,key);
+        return new Message(true);
+    }),KeyTypeTagEnum.STREAM),
     HASH("Hash","/fxml/HashTypeView.fxml", PassParameter.HASH,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
         redisClient.hsetnx(key, Applications.DEFUALT_VALUE,Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
-    })),
+    }),KeyTypeTagEnum.HASH),
     LIST("List","/fxml/ListTypeView.fxml", PassParameter.LIST,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
         redisClient.lpush(key, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
-    })),
+    }),KeyTypeTagEnum.LIST),
     SET("Set","/fxml/SetTypeView.fxml", PassParameter.SET,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
         redisClient.sadd(key, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
-    })),
+    }),KeyTypeTagEnum.SET),
     ZSET("Zset","/fxml/ZsetTypeView.fxml", PassParameter.ZSET,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
         redisClient.zadd(key,0, Applications.DEFUALT_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
-    })),
+    }),KeyTypeTagEnum.ZSET),
     ;
 
     /**
@@ -73,11 +85,13 @@ public enum RedisDataTypeEnum {
     public String fxml;
     public int tabType;
     public NewKeyHandler newKeyHandler;
-    RedisDataTypeEnum(String type,String fxml,int tabType,NewKeyHandler newKeyHandler) {
+    public KeyTypeTagEnum tagEnum;
+    RedisDataTypeEnum(String type,String fxml,int tabType,NewKeyHandler newKeyHandler,KeyTypeTagEnum keyTypeTagEnum) {
         this.type=type;
         this.fxml=fxml;
         this.tabType=tabType;
         this.newKeyHandler=newKeyHandler;
+        this.tagEnum=keyTypeTagEnum;
     }
 
     /**
@@ -86,6 +100,10 @@ public enum RedisDataTypeEnum {
      * @return
      */
     public static RedisDataTypeEnum getByType(String type) {
+        //key不存在，返回的是none
+        if("none".equals(type)){
+            throw new GeneralException("Key with this name does not exist.");
+        }
         for (RedisDataTypeEnum value : values()) {
             if(value.type.equalsIgnoreCase(type)){
                 return value;

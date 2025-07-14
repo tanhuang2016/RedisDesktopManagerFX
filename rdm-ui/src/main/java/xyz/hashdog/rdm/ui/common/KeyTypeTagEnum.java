@@ -7,6 +7,7 @@ public enum KeyTypeTagEnum {
     SET("set",Constant.COLOR_SET),
     ZSET("zset",Constant.COLOR_ZSET),
     STREAM("stream",Constant.COLOR_STREAM),
+    JSON("json",Constant.COLOR_JSON),
     UNKNOWN("unknown",Constant.COLOR_UNKNOWN);
     public String tag;
     public String color;

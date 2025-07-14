@@ -150,6 +150,11 @@ public interface RedisClient extends Closeable {
      */
     String get(String key);
 
+    default String jsonGet(String bytes){
+        return null;
+    }
+
+
     /**
      * String类型的获取
      *
@@ -166,6 +171,16 @@ public interface RedisClient extends Closeable {
      * @return
      */
     String set(String key, String value);
+    /**
+     * json类型的增加
+     * @param key
+     * @param defualtJsonValue
+     * @return
+     */
+    default String jsonSet(String key, String defualtJsonValue){
+return null;
+    }
+
 
     /**
      * String类型的增加
@@ -505,4 +520,5 @@ public interface RedisClient extends Closeable {
      * @return
      */
     Map<Double,byte[]> zrangeWithScores(byte[] key,long start, long stop);
+
 }

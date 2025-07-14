@@ -1,12 +1,16 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
 import com.jcraft.jsch.Session;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.CommandObjects;
+import redis.clients.jedis.Connection;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisException;
+import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
 import redis.clients.jedis.resps.Tuple;
@@ -311,6 +315,19 @@ public class JedisPoolClient implements RedisClient {
     public String get(String key) {
         return execut(jedis->jedis.get(key));
     }
+
+    @Override
+    public String jsonGet(String key) {
+        return execut(jedis -> {
+            Connection connection = jedis.getConnection();
+            CommandObjects commandObjects = new CommandObjects();
+            JSONArray o = (JSONArray) connection.executeCommand(commandObjects.jsonGet(key, Path2.ROOT_PATH));
+            return o.getJSONObject(0)
+                    .toString();
+        });
+    }
+
+
     @Override
     public byte[] get(byte[] key) {
         return execut(jedis->jedis.get(key));
@@ -319,6 +336,16 @@ public class JedisPoolClient implements RedisClient {
     public String set(String key,String value) {
         return execut(jedis->jedis.set(key,value));
     }
+    @Override
+    public String jsonSet(String key, String defualtJsonValue) {
+       return execut(jedis->{
+            Connection connection = jedis.getConnection();
+            CommandObjects commandObjects = new CommandObjects();
+           return connection.executeCommand(commandObjects.jsonSet(key, Path2.ROOT_PATH, defualtJsonValue));
+        });
+
+    }
+
     @Override
     public String set(byte[] key,byte[] value) {
         return execut(jedis->jedis.set(key,value));

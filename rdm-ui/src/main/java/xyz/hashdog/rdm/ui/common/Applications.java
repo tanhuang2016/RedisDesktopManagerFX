@@ -44,7 +44,7 @@ public class Applications {
      * 设置数据
      */
     public static final String NODE_APP_SETTINGS = "Settings";
-
+    public static final String DEFUALT_JSON_VALUE = "{\"520 \": \"520\"}";
 
 
     /**
