@@ -16,12 +16,5 @@ public enum KeyTypeTagEnum {
         this.color = color;
     }
 
-    public static KeyTypeTagEnum getByType(String type) {
-        for (KeyTypeTagEnum value : KeyTypeTagEnum.values()) {
-            if (value.tag.equals(type)) {
-                return value;
-            }
-        }
-        return UNKNOWN;
-    }
+
 }
