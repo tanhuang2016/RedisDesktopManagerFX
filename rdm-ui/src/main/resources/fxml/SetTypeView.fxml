@@ -47,6 +47,8 @@
                                         <Label fx:id="size" text="Size:1024B" />
                                         <CustomTextField fx:id="findTextField" />
                                         <Button fx:id="findButton" mnemonicParsing="false" text="%key.set.find" onAction="#find"/>
+                                        <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="%key.set.add" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.set.delete" />
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
@@ -62,10 +64,8 @@
                                                 <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
                                             </children>
                                         </VBox>
-                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="60.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="0.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="%key.set.add" VBox.vgrow="ALWAYS" />
-                                                <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.set.delete" />
                                             </children>
                                         </VBox>
                                     </children>
