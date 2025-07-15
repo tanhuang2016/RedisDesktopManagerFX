@@ -23,6 +23,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.entity.StreamTypeTable;
 import xyz.hashdog.rdm.ui.entity.ZsetTypeTable;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
 public class StreamTypeController extends BaseKeyController<KeyTabController> implements Initializable {
     private static final int ROWS_PER_PAGE = 32;
     @FXML
-    public TableView<ZsetTypeTable> tableView;
+    public TableView<StreamTypeTable> tableView;
     @FXML
     public BorderPane borderPane;
     @FXML
@@ -69,15 +70,15 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     /**
      * 缓存所有表格数据
      */
-    private ObservableList<ZsetTypeTable> list = FXCollections.observableArrayList();
+    private ObservableList<StreamTypeTable> list = FXCollections.observableArrayList();
     /**
      * 查询后的表格数据
      */
-    private ObservableList<ZsetTypeTable> findList = FXCollections.observableArrayList();
+    private ObservableList<StreamTypeTable> findList = FXCollections.observableArrayList();
     /**
      * 最后选中的行缓存
      */
-    private ZsetTypeTable lastSelect;
+    private StreamTypeTable lastSelect;
     /**
      * 最后一个选中的行对应的最新的value展示
      */
@@ -143,10 +144,10 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
      */
     private void setCurrentPageIndex(int pageIndex) {
         if (pageIndex < pagination.getPageCount() - 1) {
-            List<ZsetTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE + 1);
+            List<StreamTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, (pageIndex + 1) * ROWS_PER_PAGE + 1);
             tableView.setItems(FXCollections.observableArrayList(pageList));
         } else {
-            List<ZsetTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
+            List<StreamTypeTable> pageList = findList.subList(pageIndex * ROWS_PER_PAGE, findList.size());
             tableView.setItems(FXCollections.observableArrayList(pageList));
         }
 
@@ -158,7 +159,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
      * 缓存list数据监听
      */
     private void listListener() {
-        this.list.addListener((ListChangeListener<ZsetTypeTable>) change -> {
+        this.list.addListener((ListChangeListener<StreamTypeTable>) change -> {
             while (change.next()) {
                 //删除到最后一个元素时,key也被删了,需要关闭tab
                 if (change.wasRemoved() && this.list.size() == 0) {
@@ -205,7 +206,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
                     ObservableList<Node> children = vBox.getChildren();
                     children.set(children.size()-1,valueTuple2.getT1());
-                    score.setText(String.valueOf(newValue.getScore()));
+                    score.setText(String.valueOf(newValue.getId()));
 
                 });
             }
@@ -219,11 +220,11 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
      */
     private void initInfo() {
         ThreadPool.getInstance().execute(() -> {
-            Long total = this.exeRedis(j -> j.xlen(this.parameter.get().getKey()));
-            Map<Double, byte[]> map = this.exeRedis(j -> j.zrangeWithScores(this.parameter.get().getKey().getBytes(), 0L, total));
-            map.forEach((k, v) -> this.list.add(new ZsetTypeTable(k, v)));
+            long total = this.exeRedis(j -> j.xlen(this.parameter.get().getKey()));
+            Map<String, String> map = this.exeRedis(j -> j.xrevrange(this.parameter.get().getKey(),"+","-", (int)total));
+            map.forEach((k, v) -> this.list.add(new StreamTypeTable(k, v)));
             Platform.runLater(() -> {
-                ObservableList<TableColumn<ZsetTypeTable, ?>> columns = tableView.getColumns();
+                ObservableList<TableColumn<StreamTypeTable, ?>> columns = tableView.getColumns();
                 TableColumn<ZsetTypeTable, Integer> c0 = (TableColumn) columns.get(0);
                 c0.setCellValueFactory(
                         param -> new ReadOnlyObjectWrapper<>(tableView.getItems().indexOf(param.getValue()) + 1)
@@ -253,11 +254,11 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
      */
     public void find(ActionEvent actionEvent) {
         String text = this.findTextField.getText();
-        List<ZsetTypeTable> newList;
+        List<StreamTypeTable> newList;
         if (DataUtil.isBlank(text)) {
             text = "*";
         }
-        Predicate<ZsetTypeTable> nameFilter = createNameFilter(text);
+        Predicate<StreamTypeTable> nameFilter = createNameFilter(text);
         newList = this.list.stream().filter(nameFilter).collect(Collectors.toList());
         findList.clear();
         findList.addAll(newList);
@@ -269,7 +270,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     }
 
 
-    private Predicate<ZsetTypeTable> createNameFilter(String query) {
+    private Predicate<StreamTypeTable> createNameFilter(String query) {
         String regex = query.replace("?", ".?").replace("*", ".*?");
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         return o -> pattern.matcher(o.getValue()).find();
@@ -284,7 +285,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     public void save(ActionEvent actionEvent) {
         //修改后的value
         byte[] value = byteArrayController.getByteArray();
-        Double score = Double.valueOf(this.score.getText());
+        String score = this.score.getText();
         int i = this.list.indexOf(lastSelect);
         asynexec(() -> {
             //value发生变化的情况,需要先删后增
@@ -292,8 +293,8 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                 exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
                 lastSelect.setBytes(value);
             }
-            exeRedis(j -> j.zadd(this.getParameter().getKey().getBytes(), score, value));
-            lastSelect.setScore(score);
+            exeRedis(j -> j.xadd(this.getParameter().getKey(), score, new String(value)));
+            lastSelect.setId(score);
             Platform.runLater(() -> {
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
@@ -337,12 +338,12 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         stage.show();
         //设置确定事件咯
         appendTuple2.getT2().ok.setOnAction(event -> {
-            double v = Double.parseDouble(score.getText());
+            String v = score.getText();
             byte[] byteArray = tuple2.getT2().getByteArray();
             asynexec(()->{
-                exeRedis(j->j.zadd(this.parameter.get().getKey().getBytes(),v,byteArray));
+                exeRedis(j->j.xadd(this.parameter.get().getKey(),v,new String(byteArray)));
                 Platform.runLater(()->{
-                    list.add(new ZsetTypeTable(v,byteArray));
+                    list.add(new StreamTypeTable(v,new String(byteArray)));
                     find(null);
                     stage.close();
                 });

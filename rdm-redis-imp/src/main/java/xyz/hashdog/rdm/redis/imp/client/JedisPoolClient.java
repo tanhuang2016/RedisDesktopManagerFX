@@ -12,6 +12,7 @@ import redis.clients.jedis.json.JsonObjectMapper;
 import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
+import redis.clients.jedis.resps.StreamEntry;
 import redis.clients.jedis.resps.Tuple;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
@@ -355,6 +356,19 @@ public class JedisPoolClient implements RedisClient {
         return execut(jedis->{
             Map<String, String> map = Util.json2MapString(jsonValue);
           return   jedis.xadd(key, new StreamEntryID(id) , map).toString();
+        });
+    }
+
+    @Override
+    public Map<String, String> xrevrange(String key, String start, String end, int total) {
+        return execut(jedis->{
+            Map<String,String> map = new LinkedHashMap<>();
+            for (StreamEntry streamEntry : jedis.xrevrange(key, start, end, total)) {
+                Map<String, String> fields = streamEntry.getFields();
+                String jsonValue =Util.obj2Json(fields);
+                map.put(streamEntry.getID().toString(),jsonValue);
+            }
+            return map;
         });
     }
 

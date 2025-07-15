@@ -540,4 +540,16 @@ return null;
     default long xlen(String key){
         return 0;
     }
+
+    /**
+     * 获取stream元素
+     * @param key
+     * @param start
+     * @param end
+     * @param total
+     * @return
+     */
+    default Map<String, String> xrevrange(String key, String start, String end, int total){
+        return null;
+    }
 }

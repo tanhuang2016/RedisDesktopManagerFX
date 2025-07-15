@@ -206,4 +206,14 @@ public class Util {
         Map<String, String> stringMap = gson.fromJson(jsonValue, type);
         return stringMap;
     }
+
+    /**
+     * 对象转json
+     * @param obj
+     * @return
+     */
+    public static String obj2Json(Object obj) {
+        Gson gson = new Gson();
+        return gson.toJson(obj);
+    }
 }
