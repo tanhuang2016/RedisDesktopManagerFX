@@ -1,5 +1,7 @@
 package xyz.hashdog.rdm.redis.imp;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -20,12 +22,14 @@ import javax.net.ssl.TrustManagerFactory;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Util {
@@ -171,5 +175,35 @@ public class Util {
 
     }
 
-  
+
+    /**
+     * json 转为 Map<byte[], byte[]>
+     * @param jsonValue
+     * @return
+     */
+    public static Map<byte[], byte[]> json2MapByte(String jsonValue) {
+        Map<String, String> stringMap = json2MapString(jsonValue);
+        // 转换为 Map<byte[], byte[]>
+        Map<byte[], byte[]> byteMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : stringMap.entrySet()) {
+            byte[] keyBytes = entry.getKey().getBytes();
+            byte[] valueBytes = entry.getValue().getBytes();
+            byteMap.put(keyBytes, valueBytes);
+        }
+        return byteMap;
+    }
+
+    /**
+     * json 转为 Map<String, String>
+     * @param jsonValue
+     * @return
+     */
+    public static Map<String, String> json2MapString(String jsonValue) {
+        Gson gson = new Gson();
+        // 先将 JSON 转换为 Map<String, String>
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+        Map<String, String> stringMap = gson.fromJson(jsonValue, type);
+        return stringMap;
+    }
 }

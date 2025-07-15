@@ -521,4 +521,14 @@ return null;
      */
     Map<Double,byte[]> zrangeWithScores(byte[] key,long start, long stop);
 
+    /**
+     * 添加stream元素
+     * @param key
+     * @param id
+     * @param jsonValue
+     * @return
+     */
+    default String xadd(String key, String id, String jsonValue){
+        return null;
+    }
 }

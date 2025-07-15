@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
+import org.json.JSONObject;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
@@ -26,7 +27,7 @@ public enum RedisDataTypeEnum {
     }),KeyTypeTagEnum.JSON),
     STREAM("Stream","/fxml/JsonTypeView.fxml", PassParameter.JSON,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
-        redisClient.jsonSet(key,Applications.DEFUALT_JSON_VALUE);
+        redisClient.xadd(key,"*", Applications.DEFUALT_JSON_VALUE);
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     }),KeyTypeTagEnum.STREAM),

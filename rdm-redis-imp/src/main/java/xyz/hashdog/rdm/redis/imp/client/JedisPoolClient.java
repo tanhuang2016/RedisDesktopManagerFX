@@ -1,15 +1,14 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
+import com.google.gson.Gson;
 import com.jcraft.jsch.Session;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import redis.clients.jedis.CommandObjects;
-import redis.clients.jedis.Connection;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisException;
+import redis.clients.jedis.json.JsonObjectMapper;
 import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
@@ -19,6 +18,7 @@ import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
+import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 
 import java.util.*;
@@ -344,6 +344,15 @@ public class JedisPoolClient implements RedisClient {
            return connection.executeCommand(commandObjects.jsonSet(key, Path2.ROOT_PATH, defualtJsonValue));
         });
 
+    }
+
+    @Override
+    public String xadd(String key, String id, String jsonValue) {
+        return execut(jedis->{
+            Gson gson = new Gson();
+            Map<String, String> map = Util.json2MapString(jsonValue);
+          return   jedis.xadd(key, new StreamEntryID(id) , map).toString();
+        });
     }
 
     @Override
