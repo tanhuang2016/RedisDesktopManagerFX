@@ -22,6 +22,7 @@ public class PassParameter {
     public static final int SET = 7;
     public static final int ZSET = 8;
     public static final int JSON = 9;
+    public static final int STREAM = 10;
 
     private int tabType;
     private int db;

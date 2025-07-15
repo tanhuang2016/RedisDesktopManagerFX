@@ -25,7 +25,7 @@ public enum RedisDataTypeEnum {
         checkTTL(redisClient,ttl,key);
         return new Message(true);
     }),KeyTypeTagEnum.JSON),
-    STREAM("Stream","/fxml/JsonTypeView.fxml", PassParameter.JSON,((redisClient, db, key, ttl) -> {
+    STREAM("Stream","/fxml/StreamTypeView.fxml", PassParameter.STREAM,((redisClient, db, key, ttl) -> {
         checkDB(redisClient,db);
         redisClient.xadd(key,"*", Applications.DEFUALT_JSON_VALUE);
         checkTTL(redisClient,ttl,key);
