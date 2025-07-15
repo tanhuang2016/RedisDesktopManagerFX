@@ -349,7 +349,6 @@ public class JedisPoolClient implements RedisClient {
     @Override
     public String xadd(String key, String id, String jsonValue) {
         return execut(jedis->{
-            Gson gson = new Gson();
             Map<String, String> map = Util.json2MapString(jsonValue);
           return   jedis.xadd(key, new StreamEntryID(id) , map).toString();
         });
