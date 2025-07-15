@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import atlantafx.base.controls.CustomTextField?>
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.StreamTypeController">
+    <children>
+        <SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <BorderPane fx:id="borderPane" prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <bottom>
+                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save" />
+                                    </children>
+                                </HBox>
+                            </bottom>
+                     <center>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" text="Score" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <TextField fx:id="score"/>
+                              <fx:include source="ByteArrayView.fxml" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </center>
+                        </BorderPane>
+                    </children>
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <VBox prefHeight="498.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label fx:id="total" text="Total:10" />
+                                        <Label fx:id="size" text="Size:1024B" />
+                                        <CustomTextField fx:id="findTextField" />
+                                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#find" text="%key.zset.find" />
+                                        <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="%key.zset.add" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.zset.delete" />
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="446.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn prefWidth="60.0" text="#" />
+                                                        <TableColumn prefWidth="60.0" text="Score" />
+                                                        <TableColumn prefWidth="180.0" text="Value" />
+                                                    </columns>
+                                                </TableView>
+                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="0.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+
+
+</AnchorPane>
