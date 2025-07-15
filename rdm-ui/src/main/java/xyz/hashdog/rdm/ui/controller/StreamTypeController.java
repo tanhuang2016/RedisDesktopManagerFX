@@ -23,6 +23,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.common.ValueTypeEnum;
 import xyz.hashdog.rdm.ui.entity.StreamTypeTable;
 import xyz.hashdog.rdm.ui.entity.ZsetTypeTable;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -202,6 +203,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                 Platform.runLater(() -> {
                     Tuple2<AnchorPane, ByteArrayController> valueTuple2 = GuiUtil.loadByteArrayView(newValue.getBytes(),this);
                     byteArrayController = valueTuple2.getT2();
+                    byteArrayController.setByteArray(newValue.getBytes(),ValueTypeEnum.JSON);
                     VBox vBox = (VBox) borderPane.getCenter();
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
                     ObservableList<Node> children = vBox.getChildren();
@@ -299,7 +301,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
                 tableView.refresh();
-                byteArrayController.setByteArray(value);
+                byteArrayController.setByteArray(value, ValueTypeEnum.JSON);
                 GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
             });
         });
