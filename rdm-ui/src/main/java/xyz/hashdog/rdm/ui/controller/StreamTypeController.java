@@ -219,7 +219,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
      */
     private void initInfo() {
         ThreadPool.getInstance().execute(() -> {
-            Long total = this.exeRedis(j -> j.zcard(this.parameter.get().getKey()));
+            Long total = this.exeRedis(j -> j.xlen(this.parameter.get().getKey()));
             Map<Double, byte[]> map = this.exeRedis(j -> j.zrangeWithScores(this.parameter.get().getKey().getBytes(), 0L, total));
             map.forEach((k, v) -> this.list.add(new ZsetTypeTable(k, v)));
             Platform.runLater(() -> {

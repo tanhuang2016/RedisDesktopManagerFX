@@ -347,6 +347,10 @@ public class JedisPoolClient implements RedisClient {
     }
 
     @Override
+    public long xlen(String key) {
+        return execut(jedis -> jedis.xlen(key));
+    }
+    @Override
     public String xadd(String key, String id, String jsonValue) {
         return execut(jedis->{
             Map<String, String> map = Util.json2MapString(jsonValue);

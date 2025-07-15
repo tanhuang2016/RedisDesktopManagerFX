@@ -531,4 +531,13 @@ return null;
     default String xadd(String key, String id, String jsonValue){
         return null;
     }
+
+    /**
+     * 查询stream元素数量
+     * @param key
+     * @return
+     */
+    default long xlen(String key){
+        return 0;
+    }
 }
