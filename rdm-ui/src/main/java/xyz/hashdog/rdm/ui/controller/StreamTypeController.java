@@ -39,8 +39,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author th
- * @version 1.0.0
- * @since 2023/8/3 9:41
+ * @version 2.0.0
+ * @since 2025/7/15 22:41
  */
 public class StreamTypeController extends BaseKeyController<KeyTabController> implements Initializable {
     private static final int ROWS_PER_PAGE = 32;
@@ -58,8 +58,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     public Button findButton;
     @FXML
     public CustomTextField findTextField;
-    @FXML
-    public Button save;
+
     @FXML
     public Button delRow;
     @FXML
@@ -102,7 +101,6 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         findTextField.setRight(findButton);
     }
     private void initButtonStyles() {
-        save.getStyleClass().add(Styles.ACCENT);
         findButton.getStyleClass().addAll(Styles.BUTTON_ICON,Styles.FLAT,Styles.ROUNDED,Styles.SMALL);
         findButton.setCursor(Cursor.HAND);
         add.getStyleClass().addAll(
@@ -194,11 +192,9 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 delRow.setDisable(true);
-                save.setDisable(true);
             }
             if (newValue != null) {
                 delRow.setDisable(false);
-                save.setDisable(false);
                 this.lastSelect = newValue;
                 Platform.runLater(() -> {
                     Tuple2<AnchorPane, ByteArrayController> valueTuple2 = GuiUtil.loadByteArrayView(newValue.getBytes(),this);
@@ -278,34 +274,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         return o -> pattern.matcher(o.getValue()).find();
     }
 
-    /**
-     * 保存值
-     *
-     * @param actionEvent
-     */
-    @FXML
-    public void save(ActionEvent actionEvent) {
-        //修改后的value
-        byte[] value = byteArrayController.getByteArray();
-        String id = this.id.getText();
-        int i = this.list.indexOf(lastSelect);
-        asynexec(() -> {
-            //value发生变化的情况,需要先删后增
-            if (!Arrays.equals(value,lastSelect.getBytes())) {
-                exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
-                lastSelect.setBytes(value);
-            }
-            exeRedis(j -> j.xadd(this.getParameter().getKey(), id, new String(value)));
-            lastSelect.setId(id);
-            Platform.runLater(() -> {
-                //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
-                this.list.set(i,lastSelect);
-                tableView.refresh();
-                byteArrayController.setByteArray(value, ValueTypeEnum.JSON);
-                GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
-            });
-        });
-    }
+
 
     /**
      * 新增

@@ -24,7 +24,7 @@
                             <bottom>
                                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="save" mnemonicParsing="false" onAction="#save" text="%key.save" />
+                                        <Button  mnemonicParsing="false"  text="%key.save" visible="false"/>
                                     </children>
                                 </HBox>
                             </bottom>
@@ -72,7 +72,7 @@
                                                         <TableColumn prefWidth="180.0" text="Value" />
                                                     </columns>
                                                 </TableView>
-                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS" />
+                                                <Pagination fx:id="pagination" maxHeight="-Infinity" pageCount="205867" prefHeight="50.0" VBox.vgrow="ALWAYS"  style="-fx-page-information-alignment: right;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="0.0" spacing="10.0" HBox.hgrow="ALWAYS">
