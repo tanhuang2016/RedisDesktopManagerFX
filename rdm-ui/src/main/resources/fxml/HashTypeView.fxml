@@ -50,7 +50,7 @@
                                     <children>
                                         <Label fx:id="total" text="Total:10" />
                                         <Label fx:id="size" text="Size:1024B" />
-                                        <CustomTextField fx:id="findTextField"/>
+                                        <CustomTextField fx:id="findTextField" promptText="key find"/>
                                         <Button fx:id="findButton"  mnemonicParsing="false" text="%key.hash.find" onAction="#find"/>
                                         <Button fx:id="add" mnemonicParsing="false" onAction="#add" text="%key.hash.add" VBox.vgrow="ALWAYS" />
                                         <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="%key.hash.delete" />
