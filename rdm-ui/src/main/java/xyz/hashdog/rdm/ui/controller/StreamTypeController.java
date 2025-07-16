@@ -67,7 +67,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     @FXML
     public Pagination pagination;
     @FXML
-    public TextField score;
+    public TextField id;
     /**
      * 缓存所有表格数据
      */
@@ -208,7 +208,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                     VBox.setVgrow(valueTuple2.getT1(), Priority.ALWAYS);
                     ObservableList<Node> children = vBox.getChildren();
                     children.set(children.size()-1,valueTuple2.getT1());
-                    score.setText(String.valueOf(newValue.getId()));
+                    id.setText(String.valueOf(newValue.getId()));
 
                 });
             }
@@ -287,7 +287,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     public void save(ActionEvent actionEvent) {
         //修改后的value
         byte[] value = byteArrayController.getByteArray();
-        String score = this.score.getText();
+        String id = this.id.getText();
         int i = this.list.indexOf(lastSelect);
         asynexec(() -> {
             //value发生变化的情况,需要先删后增
@@ -295,8 +295,8 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                 exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
                 lastSelect.setBytes(value);
             }
-            exeRedis(j -> j.xadd(this.getParameter().getKey(), score, new String(value)));
-            lastSelect.setId(score);
+            exeRedis(j -> j.xadd(this.getParameter().getKey(), id, new String(value)));
+            lastSelect.setId(id);
             Platform.runLater(() -> {
                 //实际上list存的引用,lastSelect修改,list中的元素也会修改,重新set进去是为了触发更新事件
                 this.list.set(i,lastSelect);
@@ -319,7 +319,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         VBox vBox = new VBox();
         VBox.setVgrow(tuple2.getT1(), Priority.ALWAYS);
         ObservableList<Node> children = vBox.getChildren();
-        Label label = new Label("Score");
+        Label label = new Label("ID");
         label.setAlignment(Pos.CENTER);
         HBox hBox = new HBox(label);
         HBox.setHgrow(label,Priority.ALWAYS);
@@ -329,8 +329,8 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         hBox.setAlignment(Pos.CENTER_LEFT);
         BorderPane.setAlignment(vBox,Pos.CENTER);
         children.add(hBox);
-        TextField score = new TextField();
-        children.add(score);
+        TextField id = new TextField();
+        children.add(id);
         children.add(tuple2.getT1());
         VBox.setVgrow(hBox,Priority.ALWAYS);
         Tuple2<AnchorPane, AppendController> appendTuple2=loadFXML("/fxml/AppendView.fxml");
@@ -340,7 +340,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         stage.show();
         //设置确定事件咯
         appendTuple2.getT2().ok.setOnAction(event -> {
-            String v = score.getText();
+            String v = id.getText();
             byte[] byteArray = tuple2.getT2().getByteArray();
             asynexec(()->{
                 exeRedis(j->j.xadd(this.parameter.get().getKey(),v,new String(byteArray)));

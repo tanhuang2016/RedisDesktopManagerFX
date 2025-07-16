@@ -33,10 +33,10 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" text="Score" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" text="ID" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <TextField fx:id="score"/>
+                              <TextField fx:id="id"/>
                               <fx:include source="ByteArrayView.fxml" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
