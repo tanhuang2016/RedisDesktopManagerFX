@@ -234,7 +234,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
                 for (int i = 1; i < columns.size(); i++) {
                     TableColumn c1 = (TableColumn) columns.get(i);
                     c1.setCellValueFactory(
-                            new PropertyValueFactory<ZsetTypeTable, String>(ZsetTypeTable.getProperties()[i])
+                            new PropertyValueFactory<StreamTypeTable, String>(StreamTypeTable.getProperties()[i])
                     );
                     c1.setCellFactory(param -> new GuiUtil.OneLineTableCell<>());
                 }

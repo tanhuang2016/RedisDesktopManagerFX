@@ -68,7 +68,7 @@
                                                 <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
                                                     <columns>
                                                         <TableColumn prefWidth="60.0" text="#" />
-                                                        <TableColumn prefWidth="60.0" text="Score" />
+                                                        <TableColumn prefWidth="150.0" text="ID" />
                                                         <TableColumn prefWidth="180.0" text="Value" />
                                                     </columns>
                                                 </TableView>
