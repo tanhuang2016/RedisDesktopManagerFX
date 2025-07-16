@@ -355,7 +355,13 @@ public class JedisPoolClient implements RedisClient {
     public String xadd(String key, String id, String jsonValue) {
         return execut(jedis->{
             Map<String, String> map = Util.json2MapString(jsonValue);
-          return   jedis.xadd(key, new StreamEntryID(id) , map).toString();
+            StreamEntryID streamEntryID;
+            if(StreamEntryID.NEW_ENTRY.toString().equals(id)){
+                streamEntryID = StreamEntryID.NEW_ENTRY;
+            }else {
+                streamEntryID = new StreamEntryID(id);
+            }
+            return   jedis.xadd(key, streamEntryID , map).toString();
         });
     }
 
