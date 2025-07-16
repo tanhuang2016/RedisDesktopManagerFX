@@ -332,7 +332,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
             return;
         }
         asynexec(() -> {
-            exeRedis(j -> j.zrem(this.getParameter().getKey().getBytes(), lastSelect.getBytes()));
+            exeRedis(j -> j.xdel(this.getParameter().getKey(), lastSelect.getId()));
             GuiUtil.remove2UI(this.list,this.tableView,lastSelect);
         });
     }

@@ -552,4 +552,8 @@ return null;
     default Map<String, String> xrevrange(String key, String start, String end, int total){
         return null;
     }
+
+    default long xdel(String key, String id){
+        return 0;
+    }
 }

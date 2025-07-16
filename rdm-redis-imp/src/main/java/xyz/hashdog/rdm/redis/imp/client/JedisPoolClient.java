@@ -351,6 +351,12 @@ public class JedisPoolClient implements RedisClient {
     public long xlen(String key) {
         return execut(jedis -> jedis.xlen(key));
     }
+
+    @Override
+    public long xdel(String key, String id) {
+        return execut(jedis -> jedis.xdel(key,new StreamEntryID(id)));
+    }
+
     @Override
     public String xadd(String key, String id, String jsonValue) {
         return execut(jedis->{
