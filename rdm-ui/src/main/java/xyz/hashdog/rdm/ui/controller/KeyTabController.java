@@ -3,8 +3,12 @@ package xyz.hashdog.rdm.ui.controller;
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.theme.Styles;
+import com.github.weisj.jsvg.SVGDocument;
+import com.github.weisj.jsvg.parser.SVGLoader;
+import com.github.weisj.jsvg.view.ViewBox;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +17,14 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
@@ -30,6 +33,8 @@ import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -111,13 +116,35 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
         GuiUtil.setIcon(keyDelete,new FontIcon(Feather.TRASH_2));
 
 
-        //todo 刷新开启自动旋转，这里需要替换为png，否则会有抖动感觉
-//        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(5), fontIcon);
-//        rotateTransition.setByAngle(360); // 一圈
-//        rotateTransition.setCycleCount(Animation.INDEFINITE);
-//        rotateTransition.setAutoReverse(false);
-//        rotateTransition.setInterpolator(Interpolator.LINEAR);
-//        rotateTransition.play();
+//        rotation();
+
+
+    }
+
+    private void rotation() {
+        SVGLoader loader = new SVGLoader();
+        URL svgUrl = Main.class.getResource("/svg/refresh.svg");
+        SVGDocument svgDocument = loader.load(svgUrl);
+        BufferedImage image = new BufferedImage(20,20,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
+        ((Graphics2D) g).setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        ((Graphics2D) g).setRenderingHint(
+                RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
+        svgDocument.render(null,g,new ViewBox(0, 0, 20, 20));
+        g.dispose();
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+
+        ImageView fontIcon = new ImageView(fxImage);
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(5), fontIcon);
+        rotateTransition.setByAngle(360); // 一圈
+        rotateTransition.setCycleCount(Animation.INDEFINITE);
+        rotateTransition.setAutoReverse(false);
+        rotateTransition.setInterpolator(Interpolator.LINEAR);
+        rotateTransition.play();
+        keyRefresh.setGraphic(fontIcon);
     }
     //停止旋转
 //    public void stopRotation() {
