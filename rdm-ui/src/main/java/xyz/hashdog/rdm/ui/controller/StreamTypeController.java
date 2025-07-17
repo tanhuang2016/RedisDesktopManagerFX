@@ -312,9 +312,9 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
             String v = id.getText();
             byte[] byteArray = tuple2.getT2().getByteArray();
             asynexec(()->{
-                exeRedis(j->j.xadd(this.parameter.get().getKey(),v,new String(byteArray)));
+                String idstr = exeRedis(j -> j.xadd(this.parameter.get().getKey(), v, new String(byteArray)));
                 Platform.runLater(()->{
-                    list.add(new StreamTypeTable(v,new String(byteArray)));
+                    list.add(new StreamTypeTable(idstr,new String(byteArray)));
                     find(null);
                     stage.close();
                 });
