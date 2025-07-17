@@ -300,6 +300,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         BorderPane.setAlignment(vBox,Pos.CENTER);
         children.add(hBox);
         TextField id = new TextField();
+        id.setText("*");
         children.add(id);
         children.add(tuple2.getT1());
         VBox.setVgrow(hBox,Priority.ALWAYS);
