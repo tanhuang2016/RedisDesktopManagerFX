@@ -18,6 +18,9 @@ public class TextJsonConvertHandler implements ValueConvertHandler{
 
     @Override
     public String byte2Text(byte[] bytes, Charset charset) {
+        if(DataUtil.isBlank(new String(bytes))){
+            return "";
+        }
         return DataUtil.formatJson(bytes,charset,true);
     }
 

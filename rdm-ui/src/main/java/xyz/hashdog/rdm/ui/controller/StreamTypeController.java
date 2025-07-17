@@ -285,6 +285,7 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
     public void add(ActionEvent actionEvent) {
         Button source = (Button)actionEvent.getSource();
         Tuple2<AnchorPane, ByteArrayController> tuple2 = GuiUtil.loadByteArrayView( "".getBytes(),this);
+        tuple2.getT2().setByteArray("".getBytes(),ValueTypeEnum.JSON);
         VBox vBox = new VBox();
         VBox.setVgrow(tuple2.getT1(), Priority.ALWAYS);
         ObservableList<Node> children = vBox.getChildren();
