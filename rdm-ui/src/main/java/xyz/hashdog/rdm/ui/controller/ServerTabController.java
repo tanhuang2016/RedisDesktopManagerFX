@@ -412,7 +412,8 @@ public class ServerTabController extends BaseKeyController<MainController> {
         for (String key : keys) {
             String type = exeRedis(j -> j.type(key));
             Label keyTypeLabel = GuiUtil.getKeyTypeLabel(type);
-            String[] parts = key.split(":");
+            String keySeparator = this.redisContext.getRedisConfig().getKeySeparator();
+            String[] parts = key.split(keySeparator);
             TreeItem<String> current = root;
             for (int i = 0; i < parts.length; i++) {
                 String part = parts[i];
