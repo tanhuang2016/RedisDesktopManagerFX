@@ -6,7 +6,7 @@ package xyz.hashdog.rdm.ui.sampler.layout;
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
 import xyz.hashdog.rdm.ui.sampler.page.Page;
-import xyz.hashdog.rdm.ui.sampler.page.custom.MenuBarPage;
+import xyz.hashdog.rdm.ui.sampler.page.custom.AdvancedPage;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ record Nav(String title,
     public static final Nav ROOT = new Nav("ROOT", null, null, null);
 
     private static final Set<Class<? extends Page>> TAGGED_PAGES = Set.of(
-            MenuBarPage.class
+            AdvancedPage.class
 //        BBCodePage.class,
 //        BreadcrumbsPage.class,
 //        CalendarPage.class,

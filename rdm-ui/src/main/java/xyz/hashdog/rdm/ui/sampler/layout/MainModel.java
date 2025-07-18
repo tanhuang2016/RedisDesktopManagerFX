@@ -11,7 +11,6 @@ import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.NavEvent;
 import xyz.hashdog.rdm.ui.sampler.page.Page;
 import xyz.hashdog.rdm.ui.sampler.page.custom.AdvancedPage;
-import xyz.hashdog.rdm.ui.sampler.page.custom.MenuBarPage;
 import xyz.hashdog.rdm.ui.sampler.page.general.ThemePage;
 
 import java.util.HashMap;
@@ -141,9 +140,9 @@ public class MainModel {
 
         var navigation = NavTree.Item.group("Navigation", new FontIcon(Material2OutlinedMZ.MENU_OPEN));
         navigation.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class),
+                NAV_TREE.get(ThemePage.class)
 //            NAV_TREE.get(BreadcrumbsPage.class),
-            NAV_TREE.get(MenuBarPage.class)
+//            NAV_TREE.get(MenuBarPage.class)
 //            NAV_TREE.get(PaginationPage.class),
 //            NAV_TREE.get(TabPanePage.class)
         );
@@ -216,8 +215,8 @@ public class MainModel {
 //        map.put(HtmlEditorPage.class, NavTree.Item.page(HtmlEditorPage.NAME, HtmlEditorPage.class));
 //        map.put(InputGroupPage.class, NavTree.Item.page(InputGroupPage.NAME, InputGroupPage.class));
 //        map.put(ListViewPage.class, NavTree.Item.page(ListViewPage.NAME, ListViewPage.class));
-        map.put(MenuBarPage.class, NavTree.Item.page(MenuBarPage.NAME, MenuBarPage.class));
-        map.put(AdvancedPage.class, NavTree.Item.page(AdvancedPage.NAME, MenuBarPage.class));
+//        map.put(MenuBarPage.class, NavTree.Item.page(MenuBarPage.NAME, MenuBarPage.class));
+        map.put(AdvancedPage.class, NavTree.Item.page(AdvancedPage.NAME, AdvancedPage.class));
 //        map.put(MenuButtonPage.class, NavTree.Item.page(
 //            MenuButtonPage.NAME,
 //            MenuButtonPage.class, "SplitMenuButton")

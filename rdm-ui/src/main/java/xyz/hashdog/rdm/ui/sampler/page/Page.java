@@ -120,7 +120,7 @@ public interface Page {
             var titleLbl = new Label(page.getName());
             titleLbl.getStyleClass().add(Styles.TITLE_2);
 
-            var sourceCodeItem = new MenuItem("Source Code", new FontIcon(Feather.CODE));
+            /*var sourceCodeItem = new MenuItem("Source Code", new FontIcon(Feather.CODE));
             sourceCodeItem.setDisable(!page.canDisplaySourceCode());
             sourceCodeItem.setAccelerator(new KeyCodeCombination(KeyCode.C, ALT_DOWN));
             sourceCodeItem.setOnAction(e ->
@@ -139,11 +139,12 @@ public interface Page {
 
             var menuBtn = new MenuButton(null, new FontIcon(Material2AL.EXPAND_MORE));
             menuBtn.getStyleClass().addAll(Styles.FLAT, Styles.BUTTON_ICON, Tweaks.NO_ARROW);
-            menuBtn.getItems().setAll(sourceCodeItem, javadocItem);
+            menuBtn.getItems().setAll(sourceCodeItem, javadocItem);*/
 
             getStyleClass().add("header");
             setSpacing(20);
-            getChildren().setAll(titleLbl, menuBtn);
+//            getChildren().setAll(titleLbl, menuBtn);
+            getChildren().setAll(titleLbl);
         }
     }
 }
