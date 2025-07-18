@@ -363,7 +363,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
             if(refreshPopover!=null){
                 refreshPopover.show(keyRefresh);
             }else {
-                FXMLLoader fxmlLoader = GuiUtil.loadFXML("/fxml/RefreshPopover.fxml");
+                FXMLLoader fxmlLoader = GuiUtil.loadFXML("/fxml/popover/RefreshPopover.fxml");
                 try {
                     AnchorPane root = fxmlLoader.load();
                     var pop = new Popover(root);
