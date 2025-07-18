@@ -26,7 +26,7 @@ public final class KeyTagPage extends AbstractPage {
             an application window or screen, and provides a series of drop-down menus that \
             allow users to access various features and functions of the application."""
         );
-        Tuple2<AnchorPane, Object> tuple2 = GuiUtil.doLoadFXML("/fxml/setting/AdvancedPage.fxml");
+        Tuple2<AnchorPane, Object> tuple2 = GuiUtil.doLoadFXML("/fxml/setting/KeyTagPage.fxml");
         addNode(tuple2.getT1());
     }
 
