@@ -369,11 +369,10 @@ public class ServerTabController extends BaseKeyController<MainController> {
         ObservableList<TreeItem<String>> children = treeView.getRoot().getChildren();
         children.clear();
         ThreadPool.getInstance().execute(() -> {
-            //todo 展示方式切换
-            if(1==2){
-                buildListView(children,keys);
-            }else {
+            if(this.redisContext.getRedisConfig().isTreeShow()){
                 buildTreeView(treeView,keys);
+            }else {
+                buildListView(children,keys);
             }
         });
 
