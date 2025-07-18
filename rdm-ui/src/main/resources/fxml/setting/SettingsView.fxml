@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.SettingsController">
+<AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.setting.SettingsController">
    <children>
       <BorderPane layoutX="146.0" layoutY="54.0" prefHeight="340.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -36,6 +36,6 @@
    </children>
 
     <stylesheets>
-        <URL value="@../css/global.css" />
+        <URL value="@../../css/global.css" />
     </stylesheets>
 </AnchorPane>

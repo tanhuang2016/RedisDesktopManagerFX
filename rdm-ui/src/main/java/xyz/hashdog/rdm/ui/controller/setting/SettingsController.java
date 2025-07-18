@@ -1,12 +1,14 @@
-package xyz.hashdog.rdm.ui.controller;
+package xyz.hashdog.rdm.ui.controller.setting;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import xyz.hashdog.rdm.ui.controller.BaseWindowController;
+import xyz.hashdog.rdm.ui.controller.MainController;
 import xyz.hashdog.rdm.ui.sampler.layout.MainModel;
 import xyz.hashdog.rdm.ui.sampler.layout.Sidebar;
 
-public class SettingsController  extends BaseWindowController<MainController>{
+public class SettingsController  extends BaseWindowController<MainController> {
     @FXML
     public AnchorPane root;
     public TreeView treeView;

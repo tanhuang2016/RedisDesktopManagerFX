@@ -17,9 +17,7 @@ import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
-import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
-import xyz.hashdog.rdm.ui.controller.SettingsController;
 import xyz.hashdog.rdm.ui.sampler.page.AbstractPage;
 
 import java.io.IOException;
@@ -46,7 +44,7 @@ public final class MenuBarPage extends AbstractPage {
             an application window or screen, and provides a series of drop-down menus that \
             allow users to access various features and functions of the application."""
         );
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SettingsView.fxml"), Main.RESOURCE_BUNDLE);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/setting/SettingsView.fxml"), Main.RESOURCE_BUNDLE);
 
         try {
             AnchorPane borderPane = fxmlLoader.load();
