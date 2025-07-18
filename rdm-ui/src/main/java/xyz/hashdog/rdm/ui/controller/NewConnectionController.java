@@ -173,6 +173,17 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     private void initToggleButton() {
         ToggleGroup toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(treeShow,listShow);
+        // 添加监听，确保至少一个按钮被选中
+        toggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (toggleGroup.getSelectedToggle() == null) {
+                // 如果没有选中任何按钮，恢复上一个或默认选中
+                if (oldToggle != null) {
+                    oldToggle.setSelected(true);
+                } else {
+                    treeShow.setSelected(true);
+                }
+            }
+        });
         treeShow.getStyleClass().addAll(Styles.LEFT_PILL);
         listShow.getStyleClass().addAll(Styles.RIGHT_PILL);
     }
