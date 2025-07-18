@@ -466,7 +466,7 @@ public class GuiUtil {
      * @param button
      * @param fontIcon
      */
-    public static void setIcon(Button button, FontIcon fontIcon) {
+    public static void setIcon(ButtonBase button, FontIcon fontIcon) {
         button.setGraphic(fontIcon);
     }
 

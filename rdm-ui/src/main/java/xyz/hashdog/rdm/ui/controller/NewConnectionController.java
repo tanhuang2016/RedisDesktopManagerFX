@@ -150,6 +150,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public Button redisCrtButton;
     public Button redisKeyButton;
     public Button sshPrivateKeyButton;
+    public ToggleButton treeShow;
+    public ToggleButton listShow;
 
     /**
      * 选中的最后的文件的父级目录
@@ -162,9 +164,17 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public void initialize(URL location, ResourceBundle resources) {
         initButton();
         initListener();
+        initToggleButton();
 
 
 
+    }
+
+    private void initToggleButton() {
+        ToggleGroup toggleGroup = new ToggleGroup();
+        toggleGroup.getToggles().addAll(treeShow,listShow);
+        treeShow.getStyleClass().addAll(Styles.LEFT_PILL);
+        listShow.getStyleClass().addAll(Styles.RIGHT_PILL);
     }
 
     private void initButton() {
@@ -187,6 +197,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         GuiUtil.setIcon(redisCrtButton,new FontIcon(Material2MZ.MORE_HORIZ));
         GuiUtil.setIcon(redisKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
         GuiUtil.setIcon(sshPrivateKeyButton,new FontIcon(Material2MZ.MORE_HORIZ));
+        GuiUtil.setIcon(treeShow,new FontIcon(Material2AL.ACCOUNT_TREE));
+        GuiUtil.setIcon(listShow,new FontIcon(Material2MZ.VIEW_LIST));
     }
 
 

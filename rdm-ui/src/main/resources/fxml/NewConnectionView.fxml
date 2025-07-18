@@ -19,7 +19,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane fx:id="root" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.NewConnectionController">
    <children>
       <BorderPane layoutX="104.0" layoutY="39.0" prefHeight="425.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -418,17 +420,58 @@
                                                    </rowConstraints>
                                                    <children>
                                                               <Label text="%connect.info.keyseparator" />
+                                                       <Label text="展示风格" GridPane.columnIndex="1"/>
                                                    </children>
                                                 </GridPane>
-                                                <HBox alignment="CENTER" spacing="6.0">
-                                                   <children>
-                                                              <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS">
-                                                         <HBox.margin>
-                                                            <Insets right="2.0" />
-                                                         </HBox.margin>
-                                                      </TextField>
-                                                   </children>
-                                                </HBox>
+                                                 <GridPane hgap="6.0">
+                                                     <columnConstraints>
+                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                                     </columnConstraints>
+                                                     <rowConstraints>
+                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                     </rowConstraints>
+                                                     <children>
+                                                         <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS"  >
+                                                             <HBox.margin>
+                                                                 <Insets right="2.0" />
+                                                             </HBox.margin>
+                                                         </TextField>
+                                                         <HBox alignment="CENTER_RIGHT" spacing="0.0"  HBox.hgrow="ALWAYS"  GridPane.columnIndex="1" >
+                                                             <ToggleButton fx:id="treeShow" text="树形显示"  HBox.hgrow="ALWAYS"  prefWidth="0" maxWidth="Infinity" selected="true">
+                                                                 <tooltip>
+                                                                     <Tooltip text="树形显示" />
+                                                                 </tooltip>
+                                                             </ToggleButton>
+                                                             <ToggleButton fx:id="listShow" text="列表显示"  HBox.hgrow="ALWAYS"  prefWidth="0" maxWidth="Infinity">
+                                                                 <tooltip>
+                                                                     <Tooltip text="列表显示" />
+                                                                 </tooltip>
+                                                             </ToggleButton>
+                                                         </HBox>
+                                                     </children>
+                                                 </GridPane>
+<!--                                                <HBox alignment="CENTER" spacing="6.0">-->
+<!--                                                   <children>-->
+<!--                                                              <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS"  maxWidth="Infinity">-->
+<!--                                                         <HBox.margin>-->
+<!--                                                            <Insets right="2.0" />-->
+<!--                                                         </HBox.margin>-->
+<!--                                                      </TextField>-->
+<!--                                                       <HBox alignment="CENTER_RIGHT" spacing="0.0"  HBox.hgrow="ALWAYS"  maxWidth="Infinity">-->
+<!--                                                           <ToggleButton fx:id="treeShow"  HBox.hgrow="ALWAYS"  maxWidth="Infinity">-->
+<!--                                                               <tooltip>-->
+<!--                                                                   <Tooltip text="树形显示" />-->
+<!--                                                               </tooltip>-->
+<!--                                                           </ToggleButton>-->
+<!--                                                           <ToggleButton fx:id="listShow"  HBox.hgrow="ALWAYS"  maxWidth="Infinity">-->
+<!--                                                               <tooltip>-->
+<!--                                                                   <Tooltip text="列表显示" />-->
+<!--                                                               </tooltip>-->
+<!--                                                           </ToggleButton>-->
+<!--                                                       </HBox>-->
+<!--                                                   </children>-->
+<!--                                                </HBox>-->
                                              </children>
                                           </VBox>
                                               </children>
