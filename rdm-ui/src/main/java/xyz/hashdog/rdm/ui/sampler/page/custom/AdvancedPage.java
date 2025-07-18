@@ -44,7 +44,7 @@ public final class AdvancedPage extends AbstractPage {
             an application window or screen, and provides a series of drop-down menus that \
             allow users to access various features and functions of the application."""
         );
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/setting/SettingsView.fxml"), Main.RESOURCE_BUNDLE);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/setting/AdvancedPage.fxml"), Main.RESOURCE_BUNDLE);
 
         try {
             AnchorPane borderPane = fxmlLoader.load();

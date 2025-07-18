@@ -149,7 +149,7 @@ public class MainController extends BaseWindowController {
             settingsStage.initModality(Modality.WINDOW_MODAL);
             this.settingsStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
 
-//            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/SettingsView.fxml");
+//            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/AdvancedPage.fxml");
 //            AnchorPane borderPane =tuple2.getT1();
             ApplicationWindow applicationWindow = new ApplicationWindow();
 //            SettingsController controller = tuple2.getT2();
