@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.setting.KeyTagPageController">
+   <children>
+      <VBox spacing="60.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="6.0">
+               <children>
+                     <Label text="%connect.info.connectiontimeout" />
+                     <TextField fx:id="connectionTimeout" promptText="Connection Timeout" text="6000" HBox.hgrow="ALWAYS">
+                         <HBox.margin>
+                             <Insets right="2.0" />
+                         </HBox.margin>
+                     </TextField>
+               </children>
+            </HBox>
+             <HBox alignment="CENTER_LEFT" spacing="6.0">
+                 <children>
+                     <Label text="%connect.info.sotimeout" />
+                     <TextField fx:id="soTimeout" promptText="Execution Timeout" text="6000" HBox.hgrow="ALWAYS">
+                         <HBox.margin>
+                             <Insets right="2.0" />
+                         </HBox.margin>
+                     </TextField>
+                 </children>
+             </HBox>
+                   <HBox alignment="CENTER_LEFT" spacing="0.0" VBox.vgrow="ALWAYS">
+                      <Label text="展示风格">
+                  <padding>
+                     <Insets right="6.0" />
+                  </padding></Label>
+                       <ToggleButton fx:id="treeShow" selected="true" text="树形显示" HBox.hgrow="ALWAYS">
+                           <tooltip>
+                               <Tooltip text="树形显示" />
+                           </tooltip>
+                       </ToggleButton>
+                       <ToggleButton fx:id="listShow" text="列表显示" HBox.hgrow="ALWAYS">
+                           <tooltip>
+                               <Tooltip text="列表显示" />
+                           </tooltip>
+                       </ToggleButton>
+                   </HBox>
+             <HBox alignment="CENTER_LEFT" spacing="6.0" VBox.vgrow="ALWAYS">
+                 <children>
+                         <Label text="%connect.info.keyseparator" />
+                         <TextField fx:id="keySeparator" promptText="Key Separator" text=":" HBox.hgrow="ALWAYS">
+                             <HBox.margin>
+                                 <Insets right="2.0" />
+                             </HBox.margin>
+                         </TextField>
+                 </children>
+             </HBox>
+         </children>
+      </VBox>
+   </children>
+
+    <stylesheets>
+        <URL value="@../../css/global.css" />
+    </stylesheets>
+</AnchorPane>
