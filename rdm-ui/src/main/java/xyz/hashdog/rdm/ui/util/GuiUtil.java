@@ -33,6 +33,7 @@ import xyz.hashdog.rdm.ui.controller.ByteArrayController;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -485,6 +486,18 @@ public class GuiUtil {
 
     public static FXMLLoader loadFXML(String xml) {
         return new FXMLLoader(Main.class.getResource(xml),Main.RESOURCE_BUNDLE);
+    }
+    public static  <T1,T2>Tuple2<T1,T2> doLoadFXML(String fxml) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml), Main.RESOURCE_BUNDLE);
+            T1 t1 = fxmlLoader.load();
+            T2 t2 = fxmlLoader.getController();
+            Tuple2<T1,T2> tuple2 =new Tuple2<>(t1,t2);
+            return tuple2;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

@@ -55,16 +55,7 @@ public abstract class BaseController<T> {
     }
 
     public <T1,T2>Tuple2<T1,T2> loadFXML(String fxml) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml), Main.RESOURCE_BUNDLE);
-            T1 t1 = fxmlLoader.load();
-            T2 t2 = fxmlLoader.getController();
-            Tuple2<T1,T2> tuple2 =new Tuple2<>(t1,t2);
-            return tuple2;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        return GuiUtil.doLoadFXML(fxml);
     }
 
 
