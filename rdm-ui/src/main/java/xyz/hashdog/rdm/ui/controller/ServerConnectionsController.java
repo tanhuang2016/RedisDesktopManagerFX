@@ -366,6 +366,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
         this.selectedNode.setConnectionTimeout(connectionServerNode.getConnectionTimeout());
         this.selectedNode.setSoTimeout(connectionServerNode.getSoTimeout());
         this.selectedNode.setKeySeparator(connectionServerNode.getKeySeparator());
+        this.selectedNode.setTreeShow(connectionServerNode.isTreeShow());
         treeView.refresh();
     }
 
@@ -398,6 +399,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setConnectionTimeout(this.selectedNode.getConnectionTimeout());
             redisConfig.setSoTimeout(this.selectedNode.getSoTimeout());
             redisConfig.setKeySeparator(this.selectedNode.getKeySeparator());
+            redisConfig.setTreeShow(this.selectedNode.isTreeShow());
             RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
             Message message = redisContext.newRedisClient().testConnect();
             if (!message.isSuccess()) {

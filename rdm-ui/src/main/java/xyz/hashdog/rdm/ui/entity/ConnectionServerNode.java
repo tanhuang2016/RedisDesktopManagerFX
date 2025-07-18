@@ -118,6 +118,11 @@ public class ConnectionServerNode {
      * key 分隔符
      */
     private String keySeparator;
+    /**
+     * 是否树形显示
+     */
+    private boolean treeShow;
+
 
     public ConnectionServerNode() {
     }
@@ -332,6 +337,14 @@ public class ConnectionServerNode {
 
     public void setKeySeparator(String keySeparator) {
         this.keySeparator = keySeparator;
+    }
+
+    public boolean isTreeShow() {
+        return treeShow;
+    }
+
+    public void setTreeShow(boolean treeShow) {
+        this.treeShow = treeShow;
     }
 
     /**

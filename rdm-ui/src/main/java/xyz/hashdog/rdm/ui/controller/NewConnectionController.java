@@ -284,6 +284,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
         redisConfig.setSoTimeout(Integer.parseInt(soTimeout.getText()));
         redisConfig.setKeySeparator(keySeparator.getText());
+        redisConfig.setTreeShow(treeShow.isSelected());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
         try {
             Message message = redisContext.newRedisClient().testConnect();
@@ -334,6 +335,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
         connectionServerNode.setSoTimeout(Integer.parseInt(soTimeout.getText()));
         connectionServerNode.setKeySeparator(keySeparator.getText());
+        connectionServerNode.setTreeShow(treeShow.isSelected());
         Message message=null;
         switch (this.model){
             case ADD:
@@ -392,6 +394,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionTimeout.setText(String.valueOf(selectedNode.getConnectionTimeout()));
         soTimeout.setText(String.valueOf(selectedNode.getSoTimeout()));
         keySeparator.setText(selectedNode.getKeySeparator());
+        treeShow.setSelected(selectedNode.isTreeShow());
+        listShow.setSelected(!selectedNode.isTreeShow());
 
     }
 

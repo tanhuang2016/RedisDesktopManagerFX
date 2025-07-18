@@ -97,6 +97,10 @@ public class RedisConfig {
      * key 分隔符
      */
     private String keySeparator;
+    /**
+     * 树结构显示
+     */
+    private boolean treeShow;
 
 
     public String getName() {
@@ -273,5 +277,13 @@ public class RedisConfig {
 
     public void setKeySeparator(String keySeparator) {
         this.keySeparator = keySeparator;
+    }
+
+    public boolean isTreeShow() {
+        return treeShow;
+    }
+
+    public void setTreeShow(boolean treeShow) {
+        this.treeShow = treeShow;
     }
 }
