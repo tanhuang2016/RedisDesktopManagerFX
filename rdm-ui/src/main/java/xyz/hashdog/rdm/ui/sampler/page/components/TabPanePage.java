@@ -15,11 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.sampler.page.ExampleBox;
 import xyz.hashdog.rdm.ui.sampler.page.OutlinePage;
 import xyz.hashdog.rdm.ui.sampler.page.Snippet;
 
 import java.util.List;
+import java.util.UUID;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy;
 
@@ -42,7 +44,7 @@ public final class TabPanePage extends OutlinePage {
             selected tab gets hidden."""
         );
         addSection("Server Playground", playground());
-        addSection("Key Playground", playground());
+        addSection("Key Playground", playgroundKey());
     }
 
 
@@ -61,6 +63,32 @@ public final class TabPanePage extends OutlinePage {
         tabsLayer.setTop(tabs);
         tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
             updateTabsWidth(tabsLayer, tabs, fullWidth)
+        );
+
+        var controller = createController(tabsLayer, tabs);
+
+        var controllerLayer = new BorderPane(controller);
+        controllerLayer.setMinSize(500, 300);
+        controllerLayer.setMaxSize(500, 300);
+
+        var description = BBCodeParser.createFormattedText("""
+            The playground demonstrates the most important [i]TabPane[/i] features \
+            and also serves as an object for monkey testing."""
+        );
+
+        var stack = new StackPane(tabsLayer, controllerLayer);
+        stack.getStyleClass().add(Styles.BORDERED);
+        stack.setMinSize(600, 500);
+
+        return new VBox(VGAP_10, description, stack);
+    }
+    private Pane playgroundKey() {
+        var tabs = createTabPaneKey();
+
+        var tabsLayer = new BorderPane();
+        tabsLayer.setTop(tabs);
+        tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
+                updateTabsWidth(tabsLayer, tabs, fullWidth)
         );
 
         var controller = createController(tabsLayer, tabs);
@@ -170,11 +198,11 @@ public final class TabPanePage extends OutlinePage {
         var togglesGrid = new GridPane();
         togglesGrid.setHgap(10);
         togglesGrid.setVgap(10);
-        togglesGrid.addRow(0, createGridLabel("Closeable"), closeableToggle);
+//        togglesGrid.addRow(0, createGridLabel("Closeable"), closeableToggle);
         togglesGrid.addRow(1, createGridLabel("Animated"), animatedToggle);
         togglesGrid.addRow(2, createGridLabel("Full width"), fullWidthToggle);
         togglesGrid.addRow(3, createGridLabel("Dense"), denseToggle);
-        togglesGrid.addRow(4, createGridLabel("Disable"), disableToggle);
+//        togglesGrid.addRow(4, createGridLabel("Disable"), disableToggle);
 
         // == TAB STYLE ==
 
@@ -273,6 +301,22 @@ public final class TabPanePage extends OutlinePage {
 
         return tabs;
     }
+    private TabPane createTabPaneKey() {
+        var tabs = new TabPane();
+        tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        tabs.setMinHeight(60);
+
+        // NOTE: Individually disabled tab is still closeable even while it looks
+        //       like disabled. To prevent it from closing one can use "black hole"
+        //       event handler. #javafx-bug
+        tabs.getTabs().addAll(
+                createRandomTabKey(),
+                createRandomTabKey(),
+                createRandomTabKey()
+        );
+
+        return tabs;
+    }
 
     private void rotateTabs(BorderPane borderPane, TabPane tabs, Side side) {
         if (tabSide == side) {
@@ -297,6 +341,13 @@ public final class TabPanePage extends OutlinePage {
     private Tab createRandomTab() {
         var tab = new Tab(FAKER.cat().name());
         tab.setGraphic(new FontIcon(randomIcon()));
+        return tab;
+    }
+    private Tab createRandomTabKey() {
+        int i = RANDOM.nextInt(RedisDataTypeEnum.values().length);
+        RedisDataTypeEnum value = RedisDataTypeEnum.values()[i];
+        var tab = new Tab(String.format("%s|%s|%s", 0,value.type, UUID.randomUUID().toString().split("-")[0]));
+        tab.setGraphic(new FontIcon(Feather.KEY));
         return tab;
     }
 
