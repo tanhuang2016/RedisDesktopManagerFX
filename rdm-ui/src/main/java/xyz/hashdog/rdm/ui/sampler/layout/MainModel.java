@@ -10,6 +10,7 @@ import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.NavEvent;
 import xyz.hashdog.rdm.ui.sampler.page.Page;
+import xyz.hashdog.rdm.ui.sampler.page.components.TabPanePage;
 import xyz.hashdog.rdm.ui.sampler.page.custom.AdvancedPage;
 import xyz.hashdog.rdm.ui.sampler.page.custom.KeyTagPage;
 import xyz.hashdog.rdm.ui.sampler.page.general.ThemePage;
@@ -98,9 +99,9 @@ public class MainModel {
 //            NAV_TREE.get(ToolBarPage.class)
         );
 
-        var dataDisplay = NavTree.Item.group("Data Display", new FontIcon(Material2OutlinedAL.LIST_ALT));
+        var dataDisplay = NavTree.Item.group("Windows", new FontIcon(Material2OutlinedAL.LIST_ALT));
         dataDisplay.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class)
+                NAV_TREE.get(TabPanePage.class)
 //            NAV_TREE.get(ChartPage.class),
 //            NAV_TREE.get(ListViewPage.class),
 //            NAV_TREE.get(TableViewPage.class),
@@ -220,6 +221,7 @@ public class MainModel {
 //        map.put(MenuBarPage.class, NavTree.Item.page(MenuBarPage.NAME, MenuBarPage.class));
         map.put(AdvancedPage.class, NavTree.Item.page(AdvancedPage.NAME, AdvancedPage.class));
         map.put(KeyTagPage.class, NavTree.Item.page(KeyTagPage.NAME, KeyTagPage.class));
+        map.put(TabPanePage.class, NavTree.Item.page(TabPanePage.NAME, TabPanePage.class));
 //        map.put(MenuButtonPage.class, NavTree.Item.page(
 //            MenuButtonPage.NAME,
 //            MenuButtonPage.class, "SplitMenuButton")
