@@ -91,7 +91,7 @@ public final class TabPanePage extends OutlinePage {
                 updateTabsWidth(tabsLayer, tabs, fullWidth)
         );
 
-        var controller = createController(tabsLayer, tabs);
+        var controller = createControllerKey(tabsLayer, tabs);
 
         var controllerLayer = new BorderPane(controller);
         controllerLayer.setMinSize(500, 300);
@@ -243,6 +243,163 @@ public final class TabPanePage extends OutlinePage {
 
         var controls = new HBox(
             40, new Spacer(), buttonsPane, togglesGrid, new Spacer()
+        );
+        controls.setAlignment(Pos.CENTER);
+
+        var root = new TitledPane("Controller", new VBox(30, controls, styleBox));
+        root.setCollapsible(false);
+
+        return root;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private TitledPane createControllerKey(BorderPane borderPane, TabPane tabs) {
+        // == BUTTONS ==
+
+        var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
+        toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
+        toTopBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.TOP));
+
+        var toRightBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
+        toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
+        toRightBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.RIGHT));
+
+        var toBottomBtn = new Button(null, new FontIcon(Feather.ARROW_DOWN));
+        toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
+        toBottomBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.BOTTOM));
+        toBottomBtn.fire();
+
+        var toLeftBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
+        toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
+        toLeftBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.LEFT));
+
+        var appendBtn = new Button(null, new FontIcon(Feather.PLUS));
+        appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
+        appendBtn.setOnAction(e -> tabs.getTabs().add(createRandomTabKey()));
+
+        var buttonsPane = new BorderPane();
+        buttonsPane.setMinSize(120, 120);
+        buttonsPane.setMaxSize(120, 120);
+
+        buttonsPane.setCenter(appendBtn);
+
+        buttonsPane.setTop(toTopBtn);
+        BorderPane.setAlignment(toTopBtn, Pos.CENTER);
+
+        buttonsPane.setRight(toRightBtn);
+        BorderPane.setAlignment(toRightBtn, Pos.CENTER);
+
+        buttonsPane.setBottom(toBottomBtn);
+        BorderPane.setAlignment(toBottomBtn, Pos.CENTER);
+
+        buttonsPane.setLeft(toLeftBtn);
+        BorderPane.setAlignment(toLeftBtn, Pos.CENTER);
+
+        // == TOGGLES ==
+
+        var closeableToggle = new ToggleSwitch();
+        closeableToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val) {
+                tabs.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
+            } else {
+                tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+            }
+        });
+
+        var animatedToggle = new ToggleSwitch();
+        animatedToggle.setSelected(true);
+        animatedToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null && val) {
+                tabs.setStyle("");
+            } else {
+                tabs.setStyle("""
+                    -fx-open-tab-animation:none;\
+                    -fx-close-tab-animation:none;"""
+                );
+            }
+        });
+        var tagToggle = new ToggleSwitch();
+        tagToggle.setSelected(false);
+        tagToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null && val) {
+                tabs.setStyle("");
+            } else {
+                tabs.setStyle("""
+                    -fx-open-tab-animation:none;\
+                    -fx-close-tab-animation:none;"""
+                );
+            }
+        });
+
+        var fullWidthToggle = new ToggleSwitch();
+        fullWidthToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                updateTabsWidth(borderPane, tabs, val);
+                fullWidth = val;
+            }
+        });
+
+        var denseToggle = new ToggleSwitch();
+        denseToggle.selectedProperty().addListener(
+                (obs, old, val) -> Styles.toggleStyleClass(tabs, Styles.DENSE)
+        );
+
+        var disableToggle = new ToggleSwitch();
+        disableToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                tabs.setDisable(val);
+            }
+        });
+
+        var togglesGrid = new GridPane();
+        togglesGrid.setHgap(10);
+        togglesGrid.setVgap(10);
+        togglesGrid.addRow(0, createGridLabel("Tag"), tagToggle);
+        togglesGrid.addRow(1, createGridLabel("Animated"), animatedToggle);
+        togglesGrid.addRow(2, createGridLabel("Full width"), fullWidthToggle);
+        togglesGrid.addRow(3, createGridLabel("Dense"), denseToggle);
+//        togglesGrid.addRow(4, createGridLabel("Disable"), disableToggle);
+
+        // == TAB STYLE ==
+
+        var styleToggleGroup = new ToggleGroup();
+
+        var defaultStyleToggle = new ToggleButton("Default");
+        defaultStyleToggle.setToggleGroup(styleToggleGroup);
+        defaultStyleToggle.setUserData(
+                List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC)
+        );
+        defaultStyleToggle.setSelected(true);
+
+        var floatingStyleToggle = new ToggleButton("Floating");
+        floatingStyleToggle.setToggleGroup(styleToggleGroup);
+        floatingStyleToggle.setUserData(
+                List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC)
+        );
+
+        var classicStyleToggle = new ToggleButton("Classic");
+        classicStyleToggle.setToggleGroup(styleToggleGroup);
+        classicStyleToggle.setUserData(
+                List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING)
+        );
+
+        styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                List<String> classes = (List<String>) val.getUserData();
+                Styles.addStyleClass(tabs, classes.get(0), classes.get(1), classes.get(2));
+            }
+        });
+
+        var styleBox = new InputGroup(
+                defaultStyleToggle, floatingStyleToggle, classicStyleToggle
+        );
+        styleBox.setAlignment(Pos.CENTER);
+
+        // == LAYOUT ==
+
+        var controls = new HBox(
+                40, new Spacer(), buttonsPane, togglesGrid, new Spacer()
         );
         controls.setAlignment(Pos.CENTER);
 
