@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
@@ -80,9 +81,13 @@ public class GuiUtil {
     }
     /**
      * 创建新的key图标
+     * 只有png是可以在下拉选中显示图标，但是要想办法把tag也做出图片来，后续优化吧 todo
      * @return
      */
-    public static ImageView creatKeyImageView() {
+    public static FontIcon creatKeyImageView() {
+        return new FontIcon(Feather.KEY);
+    }
+    public static ImageView creatKeyImageView2() {
         return GuiUtil.creatImageView(ICON_KEY,16,16);
     }
     /**
