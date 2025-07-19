@@ -12,15 +12,50 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="600.0" spacing="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="6.0">
+            <HBox alignment="CENTER" spacing="6.0">
                <children>
-                     <Label text="string" />
-                     <Label text="json" />
-                     <Label text="stream" />
-                     <Label text="list" />
-                     <Label text="hash" />
-                     <Label text="set" />
-                     <Label text="zset" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="String" />
+                        <Label styleClass="tag" text="string" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="ReJSON-RL" />
+                        <Label styleClass="tag" text="json" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="Stream" />
+                        <Label styleClass="tag" text="stream" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="List" />
+                        <Label styleClass="tag" text="list" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="Hash" />
+                        <Label styleClass="tag" text="hash" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="Set" />
+                        <Label styleClass="tag" text="set" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
+                     <children>
+                           <Label text="Zset" />
+                        <Label styleClass="tag" text="zset" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
              <HBox alignment="CENTER_LEFT" spacing="6.0">
