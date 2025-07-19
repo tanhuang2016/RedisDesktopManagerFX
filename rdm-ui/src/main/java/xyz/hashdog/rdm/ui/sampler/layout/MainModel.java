@@ -99,8 +99,8 @@ public class MainModel {
 //            NAV_TREE.get(ToolBarPage.class)
         );
 
-        var dataDisplay = NavTree.Item.group("Windows", new FontIcon(Material2OutlinedAL.LIST_ALT));
-        dataDisplay.getChildren().setAll(
+        var windows = NavTree.Item.group("Windows", new FontIcon(Material2OutlinedAL.LAPTOP_WINDOWS));
+        windows.getChildren().setAll(
                 NAV_TREE.get(TabPanePage.class)
 //            NAV_TREE.get(ChartPage.class),
 //            NAV_TREE.get(ListViewPage.class),
@@ -109,19 +109,19 @@ public class MainModel {
 //            NAV_TREE.get(TreeViewPage.class)
         );
 
-        var feedback = NavTree.Item.group("Feedback", new FontIcon(Material2OutlinedAL.CHAT_BUBBLE_OUTLINE));
-        feedback.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class)
+//        var feedback = NavTree.Item.group("Feedback", new FontIcon(Material2OutlinedAL.CHAT_BUBBLE_OUTLINE));
+//        feedback.getChildren().setAll(
+//                NAV_TREE.get(ThemePage.class)
 //            NAV_TREE.get(DialogPage.class),
 //            NAV_TREE.get(MessagePage.class),
 //            NAV_TREE.get(NotificationPage.class),
 //            NAV_TREE.get(ProgressIndicatorPage.class),
 //            NAV_TREE.get(TooltipPage.class)
-        );
+//        );
 
-        var inputs = NavTree.Item.group("Inputs & Controls", new FontIcon(Material2OutlinedAL.EDIT));
-        inputs.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class)
+//        var inputs = NavTree.Item.group("Inputs & Controls", new FontIcon(Material2OutlinedAL.EDIT));
+//        inputs.getChildren().setAll(
+//                NAV_TREE.get(ThemePage.class)
 //            NAV_TREE.get(ButtonPage.class),
 //            NAV_TREE.get(CalendarPage.class),
 //            NAV_TREE.get(CheckBoxPage.class),
@@ -139,35 +139,35 @@ public class MainModel {
 //            NAV_TREE.get(TextFieldPage.class),
 //            NAV_TREE.get(ToggleButtonPage.class),
 //            NAV_TREE.get(ToggleSwitchPage.class)
-        );
+//        );
 
-        var navigation = NavTree.Item.group("Navigation", new FontIcon(Material2OutlinedMZ.MENU_OPEN));
-        navigation.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class)
+//        var navigation = NavTree.Item.group("Navigation", new FontIcon(Material2OutlinedMZ.MENU_OPEN));
+//        navigation.getChildren().setAll(
+//                NAV_TREE.get(ThemePage.class)
 //            NAV_TREE.get(BreadcrumbsPage.class),
 //            NAV_TREE.get(MenuBarPage.class)
 //            NAV_TREE.get(PaginationPage.class),
 //            NAV_TREE.get(TabPanePage.class)
-        );
+//        );
 
-        var showcases = NavTree.Item.group("Showcase", new FontIcon(Material2OutlinedMZ.VISIBILITY));
-        showcases.getChildren().setAll(
-                NAV_TREE.get(ThemePage.class)
+//        var showcases = NavTree.Item.group("Showcase", new FontIcon(Material2OutlinedMZ.VISIBILITY));
+//        showcases.getChildren().setAll(
+//                NAV_TREE.get(ThemePage.class)
 //            NAV_TREE.get(BlueprintsPage.class),
 //            NAV_TREE.get(FileManagerPage.class),
 //            NAV_TREE.get(MusicPlayerPage.class),
 //            NAV_TREE.get(OverviewPage.class)
-        );
+//        );
 
         var root = NavTree.Item.root();
         root.getChildren().setAll(
             general,
             global,
-            dataDisplay,
-            feedback,
-            inputs,
-            navigation,
-            showcases
+                windows
+//            feedback,
+//            inputs,
+//            navigation,
+//            showcases
         );
 
         return root;
