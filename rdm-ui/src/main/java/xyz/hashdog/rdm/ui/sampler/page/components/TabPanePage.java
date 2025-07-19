@@ -321,6 +321,7 @@ public final class TabPanePage extends OutlinePage {
         });
         var tagToggle = new ToggleSwitch();
         tagToggle.setSelected(false);
+        tagToggle.setDisable(true);
         tagToggle.selectedProperty().addListener((obs, old, val) -> {
             if (val != null && val) {
                 tabs.setStyle("");
@@ -355,7 +356,7 @@ public final class TabPanePage extends OutlinePage {
         var togglesGrid = new GridPane();
         togglesGrid.setHgap(10);
         togglesGrid.setVgap(10);
-        togglesGrid.addRow(0, createGridLabel("Tag"), tagToggle);
+        togglesGrid.addRow(0, createGridLabel("Key Tag Color"), tagToggle);
         togglesGrid.addRow(1, createGridLabel("Animated"), animatedToggle);
         togglesGrid.addRow(2, createGridLabel("Full width"), fullWidthToggle);
         togglesGrid.addRow(3, createGridLabel("Dense"), denseToggle);
