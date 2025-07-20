@@ -337,4 +337,8 @@ public class MainController extends BaseWindowController {
         openServerLinkWindo(actionEvent);
         serverConnectionsController.quickConnection();
     }
+
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 }
