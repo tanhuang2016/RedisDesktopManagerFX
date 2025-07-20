@@ -12,6 +12,7 @@ import xyz.hashdog.rdm.ui.common.Applications;
 public class ConnectionServerNode {
     public static final int SERVER = 2;
     public static final int GROUP = 1;
+    private String id;
     /**
      * 类型,分组为1,连接为2
      */
@@ -345,6 +346,14 @@ public class ConnectionServerNode {
 
     public void setTreeShow(boolean treeShow) {
         this.treeShow = treeShow;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

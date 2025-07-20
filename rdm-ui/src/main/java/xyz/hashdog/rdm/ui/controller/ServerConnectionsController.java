@@ -16,6 +16,7 @@ import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
+import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.Constant;
@@ -400,6 +401,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setSoTimeout(this.selectedNode.getSoTimeout());
             redisConfig.setKeySeparator(this.selectedNode.getKeySeparator());
             redisConfig.setTreeShow(this.selectedNode.isTreeShow());
+            redisConfig.setId(this.selectedNode.getId());
             doConnect(redisConfig);
         }catch (Exception e){
             e.printStackTrace();

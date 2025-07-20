@@ -1,11 +1,15 @@
 package xyz.hashdog.rdm.redis;
 
+import java.util.Objects;
+
 /**
  * @author th
  * @version 1.0.0
  * @since 2023/7/18 10:49
  */
 public class RedisConfig {
+
+    private String id;
 
     /**
      * 地址
@@ -102,6 +106,8 @@ public class RedisConfig {
      */
     private boolean treeShow;
 
+    public RedisConfig() {
+    }
 
     public String getName() {
         return name;
@@ -285,5 +291,25 @@ public class RedisConfig {
 
     public void setTreeShow(boolean treeShow) {
         this.treeShow = treeShow;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        RedisConfig that = (RedisConfig) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

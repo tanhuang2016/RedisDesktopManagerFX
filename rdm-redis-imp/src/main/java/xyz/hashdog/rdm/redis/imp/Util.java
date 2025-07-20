@@ -30,6 +30,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class Util {
@@ -215,5 +216,9 @@ public class Util {
     public static String obj2Json(Object obj) {
         Gson gson = new Gson();
         return gson.toJson(obj);
+    }
+
+    public static String getUUID() {
+        return UUID.randomUUID().toString();
     }
 }

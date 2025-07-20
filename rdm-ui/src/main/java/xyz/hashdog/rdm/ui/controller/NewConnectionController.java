@@ -16,6 +16,7 @@ import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
+import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -152,6 +153,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public Button sshPrivateKeyButton;
     public ToggleButton treeShow;
     public ToggleButton listShow;
+    public String id=Util.getUUID();
 
     /**
      * 选中的最后的文件的父级目录
@@ -344,6 +346,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setSoTimeout(soTimeout.getValue());
         connectionServerNode.setKeySeparator(keySeparator.getText());
         connectionServerNode.setTreeShow(treeShow.isSelected());
+        connectionServerNode.setId(this.id);
         Message message=null;
         switch (this.model){
             case ADD:
@@ -404,6 +407,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         keySeparator.setText(selectedNode.getKeySeparator());
         treeShow.setSelected(selectedNode.isTreeShow());
         listShow.setSelected(!selectedNode.isTreeShow());
+        this.id=selectedNode.getId();
 
     }
 
