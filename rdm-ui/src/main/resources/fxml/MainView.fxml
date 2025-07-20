@@ -88,12 +88,18 @@
                                 <MenuItem mnemonicParsing="false" text="替换" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="View">
+                        <Menu mnemonicParsing="false" text="视图">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="全屏显示" />
                                 <MenuItem mnemonicParsing="false" text="重置大小" />
                                 <MenuItem mnemonicParsing="false" text="最大化" />
                                 <MenuItem mnemonicParsing="false" text="最小化" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="窗口">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="ServerTabPane" />
+                                <MenuItem mnemonicParsing="false" text="KeyTabPane" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.help">
