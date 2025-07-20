@@ -259,4 +259,13 @@ public class MainController extends BaseWindowController {
             GuiUtil.closeTab(this.serverTabPane,selectedItem);
         }
     }
+
+    /**
+     * 关闭所有服务
+     * @param actionEvent
+     */
+    public void closeServerAll(ActionEvent actionEvent) {
+        ObservableList<Tab> tabs = this.serverTabPane.getTabs();
+        GuiUtil.closeTab(this.serverTabPane,new ArrayList<>(tabs));
+    }
 }

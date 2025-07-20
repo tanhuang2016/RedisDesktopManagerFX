@@ -372,7 +372,7 @@ public class GuiUtil {
      * @param tabPane
      * @param dels
      */
-    private static void closeTab(TabPane tabPane, List<Tab> dels) {
+    public static void closeTab(TabPane tabPane, List<Tab> dels) {
         for (Tab del : dels) {
             closeTab(tabPane,del);
         }

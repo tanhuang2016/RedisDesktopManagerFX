@@ -66,6 +66,8 @@
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
                                         <MenuItem mnemonicParsing="false" text="test2"/>
+                                        <SeparatorMenuItem />
+                                        <MenuItem mnemonicParsing="false" text="全部关闭" onAction="#closeServerAll"/>
                                     </items>
                                 </Menu>
                                 <MenuItem fx:id="fileSettings" onAction="#openSettings" mnemonicParsing="false" text="设置"/>
