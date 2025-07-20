@@ -47,6 +47,11 @@ public class RecentHistory<T> {
         }
         return list;
     }
+
+    public int size() {
+        return size;
+    }
+
     public static interface Noticer<T>{
         void notice(List<T> list);
 

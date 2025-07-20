@@ -42,6 +42,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -102,14 +103,36 @@ public class ServerTabController extends BaseKeyController<MainController> {
      * 最近使用搜索记录初始化
      */
     private void initRecentHistory() {
-        List<String> strings = List.of("1", "2", "3");
+        //搜索记录 未做持久化 todo
+        List<String> strings = new ArrayList<>();
         recentHistory = new RecentHistory<String>(5,strings,new RecentHistory.Noticer<String>() {
 
             @Override
             public void notice(List<String> list) {
-                System.out.println(list);
+                doRecentHistory(list);
             }
         });
+        ObservableList<MenuItem> items = history.getItems();
+        for (String string : strings) {
+            items.addFirst(new MenuItem(string));
+        }
+    }
+
+    /**
+     * 搜索记录变更，需要更新menuButton的显示内容
+     * @param list
+     */
+    private void doRecentHistory(List<String> list) {
+        ObservableList<MenuItem> items = history.getItems();
+        //如果是空，代表清除
+        if(list.isEmpty()){
+            items.remove(0,items.size() - 2);
+            return;
+        }
+        if(items.size() >=recentHistory.size()+2){
+            items.remove(items.size() - 3);
+        }
+        items.addFirst(new MenuItem(list.getFirst()));
     }
 
     private void initTextField() {
@@ -721,5 +744,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
 
     public void reset(ActionEvent actionEvent) {
         searchText.setText("");
+    }
+
+    /**
+     * 清空搜索记录
+     * @param actionEvent
+     */
+    public void clearHistory(ActionEvent actionEvent) {
+        this.recentHistory.clear();
     }
 }
