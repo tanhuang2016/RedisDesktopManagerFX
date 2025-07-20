@@ -62,6 +62,7 @@ public class MainController extends BaseWindowController {
      * 服务连接的Stage
      */
     private Stage serverConnectionsWindowStage;
+    private ServerConnectionsController serverConnectionsController;
     /**
      * 设置的stage
      */
@@ -179,13 +180,13 @@ public class MainController extends BaseWindowController {
 
             Tuple2<AnchorPane,ServerConnectionsController> tuple2 = loadFXML("/fxml/ServerConnectionsView.fxml");
             AnchorPane borderPane =tuple2.getT1();
-            ServerConnectionsController controller = tuple2.getT2();
+            serverConnectionsController = tuple2.getT2();
             Scene scene = new Scene(borderPane);
             this.serverConnectionsWindowStage.initOwner(root.getScene().getWindow());
             this.serverConnectionsWindowStage.setScene(scene);
             this.serverConnectionsWindowStage.show();
-            controller.setParentController(this);
-            controller.setCurrentStage(serverConnectionsWindowStage);
+            serverConnectionsController.setParentController(this);
+            serverConnectionsController.setCurrentStage(serverConnectionsWindowStage);
 
 
         }
@@ -306,5 +307,14 @@ public class MainController extends BaseWindowController {
     public void closeServerAll(ActionEvent actionEvent) {
         ObservableList<Tab> tabs = this.serverTabPane.getTabs();
         GuiUtil.closeTab(this.serverTabPane,new ArrayList<>(tabs));
+    }
+
+    /**
+     * 快速新建连接
+     * @param actionEvent
+     */
+    public void newConnection(ActionEvent actionEvent) throws IOException {
+        openServerLinkWindo(actionEvent);
+        serverConnectionsController.newConnection(actionEvent);
     }
 }

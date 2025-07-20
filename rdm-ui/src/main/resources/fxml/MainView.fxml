@@ -49,7 +49,7 @@
                                 <Menu mnemonicParsing="false" text="新建">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="文件夹"/>
-                                        <MenuItem mnemonicParsing="false" text="连接"/>
+                                        <MenuItem mnemonicParsing="false" text="连接" onAction="#newConnection"/>
                                     </items>
                                 </Menu>
                                 <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="打开"/>
