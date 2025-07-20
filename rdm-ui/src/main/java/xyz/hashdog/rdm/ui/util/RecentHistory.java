@@ -22,12 +22,13 @@ public class RecentHistory<T> {
         historySet.addAll(data);
     }
 
-    public void add(T query) {
-        historySet.remove(query);
+    public void add(T add) {
+        historySet.remove(add);
+        T remove = null;
         if (historySet.size() >= size) {
-            historySet.removeLast();
+            remove = historySet.removeLast();
         }
-        historySet.addFirst(query);
+        historySet.addFirst(add);
         notice();
     }
 

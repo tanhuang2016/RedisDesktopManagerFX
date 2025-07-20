@@ -70,7 +70,7 @@
                                                               <Tooltip text="%server.search" />
                                                           </tooltip>
                                                       </Button>
-                                                      <MenuButton fx:id="history"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   prefWidth="2"   opacity="0.3">
+                                                      <MenuButton fx:id="history"  mnemonicParsing="false"    HBox.hgrow="ALWAYS"   prefWidth="2"   opacity="0.3">
                                                           <items>
 <!--                                                              <MenuItem mnemonicParsing="false" text="Action 1" />-->
 <!--                                                              <MenuItem mnemonicParsing="false" text="Action 2" />-->

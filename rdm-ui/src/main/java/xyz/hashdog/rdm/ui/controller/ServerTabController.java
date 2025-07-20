@@ -105,6 +105,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
     private void initRecentHistory() {
         //搜索记录 未做持久化 todo
         List<String> strings = new ArrayList<>();
+//        List<String> strings = List.of("1","2","3","4","5");
         recentHistory = new RecentHistory<String>(5,strings,new RecentHistory.Noticer<String>() {
 
             @Override
@@ -112,10 +113,20 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 doRecentHistory(list);
             }
         });
-        ObservableList<MenuItem> items = history.getItems();
-        for (String string : strings) {
-            items.addFirst(new MenuItem(string));
-        }
+        doRecentHistory(recentHistory.get());
+    }
+
+    /**
+     * 创建搜索记录的菜单项
+     * @param str
+     * @return
+     */
+    private MenuItem createSearchHistoryMenuItem(String str) {
+        MenuItem menuItem = new MenuItem(str);
+        menuItem.setOnAction(event -> {
+            searchText.setText(menuItem.getText());
+        });
+        return menuItem;
     }
 
     /**
@@ -124,15 +135,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
      */
     private void doRecentHistory(List<String> list) {
         ObservableList<MenuItem> items = history.getItems();
-        //如果是空，代表清除
-        if(list.isEmpty()){
-            items.remove(0,items.size() - 2);
-            return;
+        //为了一致性，直接清空在重新赋值，虽然单个元素增加会减少消耗，但是复杂度增加，暂时不考虑
+        items.remove(0,items.size() - 2);
+        List<String> reversed = list.reversed();
+        for (String s : reversed) {
+            items.addFirst(createSearchHistoryMenuItem(s));
+
         }
-        if(items.size() >=recentHistory.size()+2){
-            items.remove(items.size() - 3);
-        }
-        items.addFirst(new MenuItem(list.getFirst()));
     }
 
     private void initTextField() {
