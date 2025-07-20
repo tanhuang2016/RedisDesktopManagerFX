@@ -55,7 +55,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 端口
      */
     @FXML
-    public TextField port;
+    public Spinner<Integer> port;
     /**
      * 密码
      */
@@ -162,12 +162,17 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initSpinner();
         initButton();
         initListener();
         initToggleButton();
 
 
 
+    }
+
+    private void initSpinner() {
+        port.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 6379));
     }
 
     private void initToggleButton() {
@@ -217,7 +222,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 初始化监听
      */
     private void initListener() {
-        filterIntegerInputListener(false,this.port);
+        filterIntegerInputListener(false,this.port.getEditor());
         initCheckBoxListener();
     }
 
@@ -255,11 +260,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
 
     @FXML
     public void testConnect(ActionEvent actionEvent) {
-        if(GuiUtil.requiredTextField(host, port)){
+        if(GuiUtil.requiredTextField(host, port.getEditor())){
             return;
         }
         String hostStr = host.getText();
-        String portStr = port.getText();
+        String portStr = port.getEditor().getText();
         String authStr = auth.getText();
         boolean clusterSelected = cluster.isSelected();
         RedisConfig redisConfig = new RedisConfig();
@@ -309,13 +314,13 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      */
     @FXML
     public void ok(ActionEvent actionEvent) {
-        if(GuiUtil.requiredTextField(name,host, port)){
+        if(GuiUtil.requiredTextField(name,host, port.getEditor())){
             return;
         }
         ConnectionServerNode connectionServerNode =new ConnectionServerNode(ConnectionServerNode.SERVER);
         connectionServerNode.setName(name.getText());
         connectionServerNode.setHost(host.getText());
-        connectionServerNode.setPort(Integer.parseInt(port.getText()));
+        connectionServerNode.setPort(Integer.parseInt(port.getEditor().getText()));
         connectionServerNode.setAuth(auth.getText());
         connectionServerNode.setCluster(cluster.isSelected());
         connectionServerNode.setSentine(sentinel.isSelected());
@@ -373,7 +378,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     public void editInfo(ConnectionServerNode selectedNode) {
         name.setText(selectedNode.getName());
         host.setText(selectedNode.getHost());
-        port.setText(String.valueOf(selectedNode.getPort()));
+        port.getEditor().setText(String.valueOf(selectedNode.getPort()));
         auth.setText(selectedNode.getAuth());
         dataId.setText(selectedNode.getDataId());
         cluster.setSelected(selectedNode.isCluster());
