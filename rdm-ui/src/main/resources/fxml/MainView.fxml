@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.control.SeparatorMenuItem?>
 <AnchorPane prefHeight="1000.0" prefWidth="1600.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.MainController"
             fx:id="root">
@@ -56,6 +57,8 @@
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
                                         <MenuItem mnemonicParsing="false" text="test2"/>
+                                        <SeparatorMenuItem />
+                                        <MenuItem mnemonicParsing="false" text="清除所有最近连接" onAction="#clearHistory"/>
                                     </items>
                                 </Menu>
                                 <MenuItem mnemonicParsing="false" text="关闭当前连接"/>

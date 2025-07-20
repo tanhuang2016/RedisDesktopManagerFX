@@ -169,4 +169,11 @@ public class MainController extends BaseWindowController {
 
         }
     }
+
+    /**
+     * 清除所有最近连接记录
+     * @param actionEvent
+     */
+    public void clearHistory(ActionEvent actionEvent) {
+    }
 }
