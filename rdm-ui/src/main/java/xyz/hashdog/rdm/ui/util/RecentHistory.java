@@ -28,9 +28,18 @@ public class RecentHistory<T> {
         }
         boolean add = historySet.add(query);
         if(add){
-            //通知
+            notice();
         }
 
+    }
+
+    private void notice() {
+        noticer.notice(get());
+    }
+
+    public void clear(){
+        historySet.clear();
+        notice();
     }
 
     public List<T> get() {
