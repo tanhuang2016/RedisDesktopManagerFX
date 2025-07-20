@@ -317,4 +317,9 @@ public class MainController extends BaseWindowController {
         openServerLinkWindo(actionEvent);
         serverConnectionsController.newConnection(actionEvent);
     }
+
+    public void newGroup(ActionEvent actionEvent) throws IOException {
+        openServerLinkWindo(actionEvent);
+        serverConnectionsController.newGroup(actionEvent);
+    }
 }
