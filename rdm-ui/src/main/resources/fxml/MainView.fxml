@@ -61,8 +61,8 @@
                                         <MenuItem mnemonicParsing="false" text="清除所有最近连接" onAction="#clearHistory"/>
                                     </items>
                                 </Menu>
-                                <MenuItem mnemonicParsing="false" text="关闭当前连接"/>
-                                <Menu mnemonicParsing="false" text="关闭连接">
+                                <MenuItem mnemonicParsing="false" text="关闭当前服务" onAction="#closeCurrentServer"/>
+                                <Menu mnemonicParsing="false" text="关闭服务">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
                                         <MenuItem mnemonicParsing="false" text="test2"/>

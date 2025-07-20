@@ -383,7 +383,7 @@ public class GuiUtil {
      * @param tabPane
      * @param selectedTab
      */
-    private static void closeTab(TabPane tabPane,Tab selectedTab) {
+    public static void closeTab(TabPane tabPane,Tab selectedTab) {
         BaseKeyController userData = (BaseKeyController)selectedTab.getContent().getUserData();
         //CONSOLE类型需要关闭redis连接
         if(userData.getParameter().getTabType()== PassParameter.CONSOLE){

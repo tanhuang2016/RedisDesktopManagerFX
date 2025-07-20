@@ -248,4 +248,15 @@ public class MainController extends BaseWindowController {
     public void clearHistory(ActionEvent actionEvent) {
         this.recentHistory.clear();
     }
+
+    /**
+     * 关闭tabPan当前服务
+     * @param actionEvent
+     */
+    public void closeCurrentServer(ActionEvent actionEvent) {
+        Tab selectedItem = this.serverTabPane.getSelectionModel().getSelectedItem();
+        if(selectedItem!=null){
+            GuiUtil.closeTab(this.serverTabPane,selectedItem);
+        }
+    }
 }
