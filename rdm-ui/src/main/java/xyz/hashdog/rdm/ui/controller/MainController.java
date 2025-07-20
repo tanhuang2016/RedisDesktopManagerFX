@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ public class MainController extends BaseWindowController {
     public MenuItem fileConnect;
     public MenuItem fileSettings;
     public Menu history;
+    public Menu servers;
     /**
      * 服务连接的Stage
      */
@@ -68,9 +70,46 @@ public class MainController extends BaseWindowController {
 
     @FXML
     public void initialize() {
+        initListener();
         initMenuIconAndKey();
         initRecentHistory();
     }
+
+    private void initListener() {
+        serverTabPaneListener();
+    }
+
+    /**
+     * tab页监听器，主要用于更新菜单栏的服务器列表和关闭tab页时更新菜单项
+     */
+    private void serverTabPaneListener() {
+        serverTabPane.getTabs().addListener((ListChangeListener<Tab>) change -> {
+            ObservableList<MenuItem> items = servers.getItems();
+            while (change.next()) {
+                // 添加时，在菜单项前面插入一个新元素
+                if (change.wasAdded()) {
+                    Tab tab = change.getList().get(change.getTo() - 1);
+                    MenuItem menuItem = new MenuItem(tab.getText());
+                    menuItem.setUserData(tab);
+                    menuItem.setOnAction(event -> {
+                        Object userData = menuItem.getUserData();
+                        GuiUtil.closeTab(serverTabPane, (Tab) userData);
+                    });
+                    items.addFirst(menuItem);
+                    // 删除时，删除对应的菜单项
+                } else if (change.wasRemoved()) {
+                    for (int i = 0; i < items.size()-2; i++) {
+                        MenuItem item= items.get(i);
+                        if (item.getUserData() == change.getRemoved().get(0)) {
+                            items.remove(item);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     private void initRecentHistory() {
         //搜索记录 未做持久化 todo
         List<RedisConfig> rc = new ArrayList<>();

@@ -62,10 +62,10 @@
                                     </items>
                                 </Menu>
                                 <MenuItem mnemonicParsing="false" text="关闭当前服务" onAction="#closeCurrentServer"/>
-                                <Menu mnemonicParsing="false" text="关闭服务">
+                                <Menu fx:id="servers" mnemonicParsing="false" text="关闭服务">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="test1"/>
-                                        <MenuItem mnemonicParsing="false" text="test2"/>
+<!--                                        <MenuItem mnemonicParsing="false" text="test1"/>-->
+<!--                                        <MenuItem mnemonicParsing="false" text="test2"/>-->
                                         <SeparatorMenuItem />
                                         <MenuItem mnemonicParsing="false" text="全部关闭" onAction="#closeServerAll"/>
                                     </items>
