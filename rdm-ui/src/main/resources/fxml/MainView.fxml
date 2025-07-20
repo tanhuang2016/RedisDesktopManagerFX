@@ -53,7 +53,7 @@
                                     </items>
                                 </Menu>
                                 <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="打开"/>
-                                <Menu mnemonicParsing="false" text="最近连接">
+                                <Menu fx:id="history" mnemonicParsing="false" text="最近连接">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
                                         <MenuItem mnemonicParsing="false" text="test2"/>

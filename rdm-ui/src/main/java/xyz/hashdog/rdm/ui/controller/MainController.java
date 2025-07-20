@@ -2,14 +2,12 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.AnchorPane;
@@ -19,7 +17,11 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.redis.Message;
+import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
+import xyz.hashdog.rdm.redis.RedisFactorySingleton;
+import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
@@ -29,8 +31,11 @@ import xyz.hashdog.rdm.ui.sampler.layout.MainModel;
 import xyz.hashdog.rdm.ui.sampler.layout.Sidebar;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
+import xyz.hashdog.rdm.ui.util.RecentHistory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
@@ -50,6 +55,7 @@ public class MainController extends BaseWindowController {
     public MenuItem fileOpen;
     public MenuItem fileConnect;
     public MenuItem fileSettings;
+    public Menu history;
     /**
      * 服务连接的Stage
      */
@@ -58,10 +64,53 @@ public class MainController extends BaseWindowController {
      * 设置的stage
      */
     private Stage settingsStage;
+    private RecentHistory<RedisConfig> recentHistory ;
 
     @FXML
     public void initialize() {
         initMenuIconAndKey();
+        initRecentHistory();
+    }
+    private void initRecentHistory() {
+        //搜索记录 未做持久化 todo
+        List<RedisConfig> rc = new ArrayList<>();
+        recentHistory = new RecentHistory<RedisConfig>(5,rc,new RecentHistory.Noticer<RedisConfig>() {
+
+            @Override
+            public void notice(List<RedisConfig> list) {
+                doRecentHistory(list);
+            }
+        });
+        doRecentHistory(recentHistory.get());
+    }
+
+    /**
+     * 刷新历史记录
+     * @param list
+     */
+    private void doRecentHistory(List<RedisConfig> list) {
+        ObservableList<MenuItem> items = history.getItems();
+        //为了一致性，直接清空在重新赋值，虽然单个元素增加会减少消耗，但是复杂度增加，暂时不考虑
+        items.remove(0,items.size() - 2);
+        List<RedisConfig> reversed = list.reversed();
+        for (RedisConfig rc : reversed) {
+            items.addFirst(createHistoryMenuItem(rc));
+
+        }
+    }
+
+    /**
+     * 创建历史菜单项
+     * @param str
+     * @return
+     */
+    private MenuItem createHistoryMenuItem(RedisConfig str) {
+        MenuItem menuItem = new MenuItem(str.getName());
+        menuItem.setUserData(str);
+        menuItem.setOnAction(event -> {
+            newRedisTab((RedisConfig)menuItem.getUserData());
+        });
+        return menuItem;
     }
 
     /**
@@ -132,6 +181,28 @@ public class MainController extends BaseWindowController {
             });
         }
         ContextMenu cm= GuiUtil.newTabContextMenu(tab);
+        //写入最近连接记录
+        recentHistory.add(redisContext.getRedisConfig());
+    }
+
+    /**
+     * 新建redis连接tab页
+     * @param redisConfig
+     * @throws IOException
+     */
+    public void newRedisTab(RedisConfig redisConfig)  {
+        RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
+        Message message = redisContext.newRedisClient().testConnect();
+        if (!message.isSuccess()) {
+            GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+            return;
+        }
+        try {
+            this.newRedisTab(redisContext,redisConfig.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RedisException(e.getMessage());
+        }
     }
 
     /**

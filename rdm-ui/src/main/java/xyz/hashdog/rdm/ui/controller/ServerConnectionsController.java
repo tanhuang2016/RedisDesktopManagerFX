@@ -400,18 +400,22 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
             redisConfig.setSoTimeout(this.selectedNode.getSoTimeout());
             redisConfig.setKeySeparator(this.selectedNode.getKeySeparator());
             redisConfig.setTreeShow(this.selectedNode.isTreeShow());
-            RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
-            Message message = redisContext.newRedisClient().testConnect();
-            if (!message.isSuccess()) {
-                GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
-                return;
-            }
-            super.currentStage.close();
-            super.parentController.newRedisTab(redisContext,this.selectedNode.getName());
+            doConnect(redisConfig);
         }catch (Exception e){
             e.printStackTrace();
             throw new RedisException(e.getMessage());
         }
 
+    }
+
+    private void doConnect(RedisConfig redisConfig) throws IOException {
+        RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
+        Message message = redisContext.newRedisClient().testConnect();
+        if (!message.isSuccess()) {
+            GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());
+            return;
+        }
+        super.currentStage.close();
+        super.parentController.newRedisTab(redisContext,this.selectedNode.getName());
     }
 }
