@@ -318,6 +318,11 @@ public class MainController extends BaseWindowController {
         serverConnectionsController.newConnection(actionEvent);
     }
 
+    /**
+     * 快速新建分组
+     * @param actionEvent
+     * @throws IOException
+     */
     public void newGroup(ActionEvent actionEvent) throws IOException {
         openServerLinkWindo(actionEvent);
         serverConnectionsController.newGroup(actionEvent);
