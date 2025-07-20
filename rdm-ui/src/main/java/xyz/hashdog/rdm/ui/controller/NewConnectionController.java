@@ -137,11 +137,11 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     /**
      * 连接超时
      */
-    public TextField connectionTimeout;
+    public Spinner<Integer> connectionTimeout;
     /**
      * 读取超时
      */
-    public TextField soTimeout;
+    public Spinner<Integer> soTimeout;
     /**
      * key分隔符
      */
@@ -174,6 +174,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     private void initSpinner() {
         port.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 6379));
         sshPort.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 22));
+        connectionTimeout.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60_000, 6000));
+        soTimeout.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60_000, 6000));
     }
 
     private void initToggleButton() {
@@ -287,8 +289,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setSshPassword(sshPassword.getText());
         redisConfig.setSshPrivateKey(sshPrivateKey.getText());
         redisConfig.setSshPassphrase(sshPassphrase.getText());
-        redisConfig.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
-        redisConfig.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        redisConfig.setConnectionTimeout(connectionTimeout.getValue());
+        redisConfig.setSoTimeout(soTimeout.getValue());
         redisConfig.setKeySeparator(keySeparator.getText());
         redisConfig.setTreeShow(treeShow.isSelected());
         RedisContext redisContext = RedisFactorySingleton.getInstance().createRedisContext(redisConfig);
@@ -338,8 +340,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setSshPassword(sshPassword.getText());
         connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
         connectionServerNode.setSshPassphrase(sshPassphrase.getText());
-        connectionServerNode.setConnectionTimeout(Integer.parseInt(connectionTimeout.getText()));
-        connectionServerNode.setSoTimeout(Integer.parseInt(soTimeout.getText()));
+        connectionServerNode.setConnectionTimeout(connectionTimeout.getValue());
+        connectionServerNode.setSoTimeout(soTimeout.getValue());
         connectionServerNode.setKeySeparator(keySeparator.getText());
         connectionServerNode.setTreeShow(treeShow.isSelected());
         Message message=null;
@@ -397,8 +399,8 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         sshPassword.setText(selectedNode.getSshPassword());
         sshPrivateKey.setText(selectedNode.getSshPrivateKey());
         sshPassphrase.setText(selectedNode.getSshPassphrase());
-        connectionTimeout.setText(String.valueOf(selectedNode.getConnectionTimeout()));
-        soTimeout.setText(String.valueOf(selectedNode.getSoTimeout()));
+        connectionTimeout.getEditor().setText(String.valueOf(selectedNode.getConnectionTimeout()));
+        soTimeout.getEditor().setText(String.valueOf(selectedNode.getSoTimeout()));
         keySeparator.setText(selectedNode.getKeySeparator());
         treeShow.setSelected(selectedNode.isTreeShow());
         listShow.setSelected(!selectedNode.isTreeShow());
