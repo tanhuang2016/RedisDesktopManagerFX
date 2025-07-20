@@ -349,6 +349,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setId(this.id);
         Message message=null;
         switch (this.model){
+            case QUICK:
             case ADD:
                 //父窗口树节点新增,切选中新增节点
                 connectionServerNode.setParentDataId(super.parentController.getSelectedDataId());
@@ -364,12 +365,17 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
                 //更新
                 parentController.updateNodeInfo(connectionServerNode);
                 break;
+
             default:
                 break;
 
         }
         if(message.isSuccess()){
             currentStage.close();
+        }
+        //如果是快速连接的话，确认之后，直接打开连接
+        if(this.model==QUICK){
+            parentController.connect(actionEvent);
         }
 
     }

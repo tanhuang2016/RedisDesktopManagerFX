@@ -323,8 +323,18 @@ public class MainController extends BaseWindowController {
      * @param actionEvent
      * @throws IOException
      */
+    @FXML
     public void newGroup(ActionEvent actionEvent) throws IOException {
         openServerLinkWindo(actionEvent);
         serverConnectionsController.newGroup(actionEvent);
+    }
+
+    /**
+     * 快速连接
+     * @param actionEvent
+     */
+    public void quickConnection(ActionEvent actionEvent) throws IOException {
+        openServerLinkWindo(actionEvent);
+        serverConnectionsController.quickConnection();
     }
 }

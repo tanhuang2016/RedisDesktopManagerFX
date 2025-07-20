@@ -31,6 +31,7 @@ public abstract class BaseWindowController<T> extends BaseController<T> {
     protected static final int ADD = 2;
     protected static final int UPDATE = 3;
     protected static final int RENAME = 4;
+    protected static final int QUICK = 5;
     /**
      * 当前Stage
      */

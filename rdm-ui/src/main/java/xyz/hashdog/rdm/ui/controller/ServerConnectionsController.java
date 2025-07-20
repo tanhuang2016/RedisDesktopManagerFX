@@ -236,6 +236,9 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
     public void newConnection(ActionEvent actionEvent) throws IOException {
         super.loadSubWindow(newConnection.getText(), "/fxml/NewConnectionView.fxml", root.getScene().getWindow(), ADD);
     }
+    public void quickConnection() throws IOException {
+        NewConnectionController newConnectionController = super.loadSubWindow(newConnection.getText(), "/fxml/NewConnectionView.fxml", root.getScene().getWindow(), QUICK);
+    }
 
     /**
      * 新增树节点,并选中

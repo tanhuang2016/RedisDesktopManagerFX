@@ -44,7 +44,7 @@
                         <Menu mnemonicParsing="false" text="%main.file">
                             <MenuItem fx:id="fileConnect" mnemonicParsing="false" text="%main.file.connect"
                                       onAction="#openServerLinkWindo"/>
-                            <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="快速连接"/>
+                            <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="快速连接" onAction="#quickConnection"/>
                             <items>
                                 <Menu mnemonicParsing="false" text="新建">
                                     <items>
