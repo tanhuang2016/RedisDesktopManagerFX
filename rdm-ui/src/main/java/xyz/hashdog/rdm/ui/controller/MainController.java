@@ -246,5 +246,6 @@ public class MainController extends BaseWindowController {
      * @param actionEvent
      */
     public void clearHistory(ActionEvent actionEvent) {
+        this.recentHistory.clear();
     }
 }
