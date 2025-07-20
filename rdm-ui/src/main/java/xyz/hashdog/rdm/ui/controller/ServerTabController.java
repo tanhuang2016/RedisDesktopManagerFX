@@ -28,6 +28,7 @@ import org.kordamp.ikonli.material2.Material2MZ;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.common.util.TUtil;
+import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
@@ -35,6 +36,7 @@ import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.entity.DBNode;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
+import xyz.hashdog.rdm.ui.util.RecentHistory;
 
 import java.awt.*;
 import java.io.IOException;
@@ -76,6 +78,8 @@ public class ServerTabController extends BaseKeyController<MainController> {
     @FXML
     public TabPane dbTabPane;
 
+    private RecentHistory<String> recentHistory ;
+
 
 
     /**
@@ -86,11 +90,26 @@ public class ServerTabController extends BaseKeyController<MainController> {
 
     @FXML
     public void initialize() {
+        initRecentHistory();
         initNewKey();
         initAutoWah();
         initListener();
         initButton();
         initTextField();
+    }
+
+    /**
+     * 最近使用搜索记录初始化
+     */
+    private void initRecentHistory() {
+        List<String> strings = List.of("1", "2", "3");
+        recentHistory = new RecentHistory<String>(5,strings,new RecentHistory.Noticer<String>() {
+
+            @Override
+            public void notice(List<String> list) {
+                System.out.println(list);
+            }
+        });
     }
 
     private void initTextField() {
@@ -502,6 +521,10 @@ public class ServerTabController extends BaseKeyController<MainController> {
                 //key已经查出来,只管展示
                 initTreeView(keys);
             });
+            //搜索不是空，就加入历史记录
+            if(TUtil.isNotEmpty(searchText.getText())){
+                recentHistory.add(searchText.getText());
+            }
         });
     }
 
