@@ -266,16 +266,16 @@
                                                 </GridPane>
                                                 <HBox alignment="CENTER" spacing="6.0">
                                                    <children>
-                                                              <TextField fx:id="sshHost" promptText="Remote Host" HBox.hgrow="ALWAYS">
+                                                              <TextField fx:id="sshHost" promptText="Remote Host" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefWidth="0.0">
                                                          <HBox.margin>
                                                             <Insets right="2.0" />
                                                          </HBox.margin>
                                                       </TextField>
-                                                              <TextField fx:id="sshPort" promptText="Remote Port" HBox.hgrow="ALWAYS">
+                                                                  <Spinner fx:id="sshPort"  editable="true" promptText="Remote Port"  maxWidth="Infinity" onKeyTyped="#filterIntegerInput" prefWidth="0.0"  HBox.hgrow="ALWAYS" >
                                                          <HBox.margin>
                                                             <Insets right="2.0" />
                                                          </HBox.margin>
-                                                      </TextField>
+                                                      </Spinner>
                                                    </children>
                                                 </HBox>
                                              </children>

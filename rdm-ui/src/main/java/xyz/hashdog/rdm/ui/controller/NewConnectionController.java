@@ -117,7 +117,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
     /**
      * ssh端口
      */
-    public TextField sshPort;
+    public Spinner<Integer> sshPort;
     /**
      * ssh用户名
      */
@@ -173,6 +173,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
 
     private void initSpinner() {
         port.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 6379));
+        sshPort.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 22));
     }
 
     private void initToggleButton() {
@@ -222,7 +223,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
      * 初始化监听
      */
     private void initListener() {
-        filterIntegerInputListener(false,this.port.getEditor());
+        filterIntegerInputListener(false,this.port.getEditor(),this.sshPort.getEditor());
         initCheckBoxListener();
     }
 
@@ -281,7 +282,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisConfig.setRedisKeyPassword(redisKeyPassword.getText());
         redisConfig.setSsh(ssh.isSelected());
         redisConfig.setSshHost(sshHost.getText());
-        redisConfig.setSshPort(TUtil.isNotEmpty(sshPort.getText()) ? Integer.parseInt(sshPort.getText()) : 0);
+        redisConfig.setSshPort(TUtil.isNotEmpty(sshPort.getEditor().getText()) ? Integer.parseInt(sshPort.getEditor().getText()) : 22);
         redisConfig.setSshUserName(sshUserName.getText());
         redisConfig.setSshPassword(sshPassword.getText());
         redisConfig.setSshPrivateKey(sshPrivateKey.getText());
@@ -332,7 +333,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         connectionServerNode.setRedisKeyPassword(redisKeyPassword.getText());
         connectionServerNode.setSsh(ssh.isSelected());
         connectionServerNode.setSshHost(sshHost.getText());
-        connectionServerNode.setSshPort(TUtil.isNotEmpty(sshPort.getText())?Integer.parseInt(sshPort.getText()):0);
+        connectionServerNode.setSshPort(TUtil.isNotEmpty(sshPort.getEditor().getText())?Integer.parseInt(sshPort.getEditor().getText()):0);
         connectionServerNode.setSshUserName(sshUserName.getText());
         connectionServerNode.setSshPassword(sshPassword.getText());
         connectionServerNode.setSshPrivateKey(sshPrivateKey.getText());
@@ -391,7 +392,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         redisKeyPassword.setText(selectedNode.getRedisKeyPassword());
         ssh.setSelected(selectedNode.isSsh());
         sshHost.setText(selectedNode.getSshHost());
-        sshPort.setText(String.valueOf(selectedNode.getSshPort()));
+        sshPort.getEditor().setText(String.valueOf(selectedNode.getSshPort()));
         sshUserName.setText(selectedNode.getSshUserName());
         sshPassword.setText(selectedNode.getSshPassword());
         sshPrivateKey.setText(selectedNode.getSshPrivateKey());
