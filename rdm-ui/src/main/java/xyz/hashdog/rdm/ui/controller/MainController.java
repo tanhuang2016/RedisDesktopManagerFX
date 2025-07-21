@@ -67,6 +67,9 @@ public class MainController extends BaseWindowController {
     public MenuItem deselect;
     public Menu serverTabPaneMenu;
     public Menu KeyTabPaneMenu;
+    public MenuItem fullScreen;
+    public MenuItem maximized;
+    public MenuItem minimized;
     /**
      * 服务连接的Stage
      */
@@ -226,6 +229,11 @@ public class MainController extends BaseWindowController {
         GuiUtil.setIconAndKey(del,new FontIcon(Feather.DELETE),new KeyCodeCombination(KeyCode.D, CONTROL_DOWN));
         GuiUtil.setIconAndKey(selectAll,new FontIcon(Feather.CHECK_SQUARE),new KeyCodeCombination(KeyCode.A, CONTROL_DOWN));
         GuiUtil.setIconAndKey(deselect,new FontIcon(Feather.SQUARE),new KeyCodeCombination(KeyCode.A, CONTROL_DOWN,SHIFT_DOWN));
+        //视图菜单按钮
+        fullScreen.setAccelerator(new KeyCodeCombination(KeyCode.F11));
+        maximized.setAccelerator(new KeyCodeCombination(KeyCode.M,CONTROL_DOWN,SHIFT_DOWN));
+        minimized.setAccelerator(new KeyCodeCombination(KeyCode.M,CONTROL_DOWN));
+
     }
 
     @FXML
