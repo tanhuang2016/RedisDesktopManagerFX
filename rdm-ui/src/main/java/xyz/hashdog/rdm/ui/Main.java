@@ -63,15 +63,16 @@ public class Main extends Application {
             stage.setScene(scene);
             controller.setCurrentStage(stage);
 
-
-            stage.show();
             ThemeManager TM = ThemeManager.getInstance();
             TM.setScene(scene);
-//            TM.setFontSize(12);
+            //            TM.setFontSize(12);
 //            TM.setFontFamily(ThemeManager.DEFAULT_FONT_FAMILY_NAME);
             TM.setTheme(TM.getDefaultTheme());
 //
 //            TM.setTheme(new SamplerTheme(new Dracula()));
+            stage.show();
+
+
             //先默认打开
             controller.openServerLinkWindo(null);
         }catch (Exception e){
