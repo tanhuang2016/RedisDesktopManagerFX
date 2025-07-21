@@ -39,8 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static javafx.scene.input.KeyCombination.ALT_DOWN;
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+import static javafx.scene.input.KeyCombination.*;
 
 /**
  * 主控制层
@@ -218,6 +217,15 @@ public class MainController extends BaseWindowController {
         GuiUtil.setIconAndKey(fileOpen,new FontIcon(Feather.FOLDER),new KeyCodeCombination(KeyCode.O, CONTROL_DOWN));
         GuiUtil.setIconAndKey(fileConnect,new FontIcon(Feather.LINK),new KeyCodeCombination(KeyCode.C, ALT_DOWN));
         GuiUtil.setIconAndKey(fileSettings,new FontIcon(Feather.SETTINGS),new KeyCodeCombination(KeyCode.Q, ALT_DOWN));
+        //编辑按钮些
+        GuiUtil.setIconAndKey(undo,new FontIcon(Feather.CORNER_DOWN_LEFT),new KeyCodeCombination(KeyCode.Z, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(redo,new FontIcon(Feather.CORNER_DOWN_RIGHT),new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(cut,new FontIcon(Feather.SCISSORS),new KeyCodeCombination(KeyCode.X, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(copy,new FontIcon(Feather.COPY),new KeyCodeCombination(KeyCode.C, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(paste,new FontIcon(Feather.CLIPBOARD),new KeyCodeCombination(KeyCode.V, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(del,new FontIcon(Feather.DELETE),new KeyCodeCombination(KeyCode.D, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(selectAll,new FontIcon(Feather.CHECK_SQUARE),new KeyCodeCombination(KeyCode.A, CONTROL_DOWN));
+        GuiUtil.setIconAndKey(deselect,new FontIcon(Feather.SQUARE),new KeyCodeCombination(KeyCode.A, CONTROL_DOWN,SHIFT_DOWN));
     }
 
     @FXML
