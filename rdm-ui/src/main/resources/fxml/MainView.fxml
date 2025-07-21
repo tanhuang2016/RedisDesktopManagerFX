@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <AnchorPane prefHeight="1000.0" prefWidth="1600.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.MainController"
             fx:id="root">
@@ -99,8 +100,23 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="窗口">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="ServerTabPane" />
-                                <MenuItem mnemonicParsing="false" text="KeyTabPane" />
+                                <Menu  fx:id="serverTabPaneMenu" mnemonicParsing="false" text="ServerTabPane" >
+                                        <items>
+                                            <RadioMenuItem mnemonicParsing="false" text="靠上" onAction="#serverTabTop"/>
+                                            <RadioMenuItem mnemonicParsing="false" text="靠下" onAction="#serverTabTop"/>
+                                            <RadioMenuItem mnemonicParsing="false" text="靠左" onAction="#serverTabTop"/>
+                                            <RadioMenuItem mnemonicParsing="false" text="靠右" onAction="#serverTabTop"/>
+                                        </items>
+                                </Menu>
+                                <Menu fx:id="KeyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
+                                    <items>
+                                        <RadioMenuItem mnemonicParsing="false" text="靠上" onAction="#serverTabTop"/>
+                                        <RadioMenuItem mnemonicParsing="false" text="靠下" onAction="#serverTabTop"/>
+                                        <RadioMenuItem mnemonicParsing="false" text="靠左" onAction="#serverTabTop"/>
+                                        <RadioMenuItem mnemonicParsing="false" text="靠右" onAction="#serverTabTop"/>
+                                    </items>
+
+                                </Menu>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.help">

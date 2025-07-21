@@ -66,6 +66,8 @@ public class MainController extends BaseWindowController {
     public MenuItem del;
     public MenuItem selectAll;
     public MenuItem deselect;
+    public Menu serverTabPaneMenu;
+    public Menu KeyTabPaneMenu;
     /**
      * 服务连接的Stage
      */
@@ -82,6 +84,24 @@ public class MainController extends BaseWindowController {
         initListener();
         initMenuIconAndKey();
         initRecentHistory();
+        initMenuGroup();
+    }
+
+    private void initMenuGroup() {
+        setMenuGroup(serverTabPaneMenu,KeyTabPaneMenu);
+
+    }
+
+    private void setMenuGroup(Menu... menus) {
+        for (Menu menu : menus) {
+            ToggleGroup toggleGroup = new ToggleGroup();
+            for (MenuItem item : menu.getItems()) {
+                if(item instanceof RadioMenuItem i){
+                    i.setToggleGroup(toggleGroup);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -389,15 +409,9 @@ public class MainController extends BaseWindowController {
     }
 
     public void resetWindow(ActionEvent actionEvent) {
-        double contentWidth = root.getPrefWidth();
-        double contentHeight = root.getPrefHeight();
 
-        // 获取窗口装饰区域的宽度和高度
-        double windowWidth = contentWidth + (currentStage.getWidth() - currentStage.getScene().getWidth());
-        double windowHeight = contentHeight + (currentStage.getHeight() - currentStage.getScene().getHeight());
+    }
 
-        currentStage.setWidth(windowWidth);
-        currentStage.setHeight(windowHeight);
-        currentStage.centerOnScreen();
+    public void serverTabTop(ActionEvent actionEvent) {
     }
 }
