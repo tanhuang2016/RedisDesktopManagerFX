@@ -342,12 +342,16 @@ public class MainController extends BaseWindowController {
         System.exit(0);
     }
 
-    public void Maximized(ActionEvent actionEvent) {
+    public void maximized(ActionEvent actionEvent) {
         currentStage.setMaximized(true);
     }
 
-    public void Minimized(ActionEvent actionEvent) {
+    public void minimized(ActionEvent actionEvent) {
         currentStage.setIconified(true);
 
+    }
+
+    public void fullScreen(ActionEvent actionEvent) {
+        currentStage.setFullScreen(true);
     }
 }
