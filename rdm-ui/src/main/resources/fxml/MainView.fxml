@@ -72,7 +72,7 @@
                                     </items>
                                 </Menu>
                                 <MenuItem fx:id="fileSettings" onAction="#openSettings" mnemonicParsing="false" text="设置"/>
-                                <MenuItem  mnemonicParsing="false" text="退出" onAction="#exit"/>
+                                <MenuItem  mnemonicParsing="true" text="退出(_X)" onAction="#exit"/>
 
                             </items>
                         </Menu>
