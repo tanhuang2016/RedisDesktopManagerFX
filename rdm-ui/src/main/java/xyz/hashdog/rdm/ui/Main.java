@@ -57,12 +57,13 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
             AnchorPane root = fxmlLoader.load();
             MainController controller = fxmlLoader.getController();
-            controller.setCurrentStage(stage);
-
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
 //        Application.setUserAgentStylesheet();
             stage.setScene(scene);
+            controller.setCurrentStage(stage);
+
+
             stage.show();
             ThemeManager TM = ThemeManager.getInstance();
             TM.setScene(scene);

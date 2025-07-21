@@ -58,6 +58,14 @@ public class MainController extends BaseWindowController {
     public MenuItem fileSettings;
     public Menu history;
     public Menu servers;
+    public MenuItem undo;
+    public MenuItem redo;
+    public MenuItem cut;
+    public MenuItem copy;
+    public MenuItem paste;
+    public MenuItem del;
+    public MenuItem selectAll;
+    public MenuItem deselect;
     /**
      * 服务连接的Stage
      */
@@ -74,6 +82,31 @@ public class MainController extends BaseWindowController {
         initListener();
         initMenuIconAndKey();
         initRecentHistory();
+    }
+
+    @Override
+    public void setCurrentStage(Stage currentStage) {
+        super.setCurrentStage(currentStage);
+        currentStage.getScene().focusOwnerProperty().addListener((obs, oldNode, newNode) -> {
+            if (newNode instanceof TextInputControl tic) {
+                cut.setOnAction(e -> tic.cut());
+                copy.setOnAction(e -> tic.copy());
+                paste.setOnAction(e -> tic.paste());
+                selectAll.setOnAction(e -> tic.selectAll());
+                undo.setOnAction(e -> tic.undo());
+                redo.setOnAction(e -> tic.redo());
+                deselect.setOnAction(e -> tic.deselect());
+                del.setOnAction(e -> {
+                    int start = tic.getSelection().getStart();
+                    int end = tic.getSelection().getEnd();
+                    if (start != end) {
+                        tic.deleteText(start, end);
+                    }
+                });
+            } else {
+                // 清除按钮事件或禁用按钮
+            }
+        });
     }
 
     private void initListener() {

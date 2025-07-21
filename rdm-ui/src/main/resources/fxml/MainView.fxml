@@ -77,13 +77,14 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.edit">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="撤销" />
-                                <MenuItem mnemonicParsing="false" text="重做" />
-                                <MenuItem mnemonicParsing="false" text="剪切" />
-                                <MenuItem mnemonicParsing="false" text="复制" />
-                                <MenuItem mnemonicParsing="false" text="黏贴" />
-                                <MenuItem mnemonicParsing="false" text="删除" />
-                                <MenuItem mnemonicParsing="false" text="全选" />
+                                <MenuItem fx:id="undo" mnemonicParsing="false" text="撤销" />
+                                <MenuItem fx:id="redo" mnemonicParsing="false" text="重做" />
+                                <MenuItem fx:id="cut" mnemonicParsing="false" text="剪切" />
+                                <MenuItem fx:id="copy" mnemonicParsing="false" text="复制" />
+                                <MenuItem fx:id="paste" mnemonicParsing="false" text="黏贴" />
+                                <MenuItem fx:id="del" mnemonicParsing="false" text="删除" />
+                                <MenuItem fx:id="selectAll" mnemonicParsing="false" text="全选" />
+                                <MenuItem fx:id="deselect" mnemonicParsing="false" text="反选" />
                                 <MenuItem mnemonicParsing="false" text="查找" />
                                 <MenuItem mnemonicParsing="false" text="替换" />
                             </items>
