@@ -341,4 +341,13 @@ public class MainController extends BaseWindowController {
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
     }
+
+    public void Maximized(ActionEvent actionEvent) {
+        currentStage.setMaximized(true);
+    }
+
+    public void Minimized(ActionEvent actionEvent) {
+        currentStage.setIconified(true);
+
+    }
 }
