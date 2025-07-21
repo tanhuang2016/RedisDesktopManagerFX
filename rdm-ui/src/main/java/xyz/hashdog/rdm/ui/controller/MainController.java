@@ -354,4 +354,10 @@ public class MainController extends BaseWindowController {
     public void fullScreen(ActionEvent actionEvent) {
         currentStage.setFullScreen(true);
     }
+
+    public void resetWindow(ActionEvent actionEvent) {
+        currentStage.setHeight(root.getPrefHeight());
+        currentStage.setWidth(root.getPrefWidth());
+        currentStage.centerOnScreen();
+    }
 }
