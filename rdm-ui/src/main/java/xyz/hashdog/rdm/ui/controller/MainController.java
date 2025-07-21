@@ -92,6 +92,11 @@ public class MainController extends BaseWindowController {
 
     }
 
+
+    /**
+     * RadioMenuItem 设置分组
+     * @param menus
+     */
     private void setMenuGroup(Menu... menus) {
         for (Menu menu : menus) {
             ToggleGroup toggleGroup = new ToggleGroup();
