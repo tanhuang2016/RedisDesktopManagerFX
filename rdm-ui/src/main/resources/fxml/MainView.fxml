@@ -85,8 +85,8 @@
                                 <MenuItem fx:id="del" mnemonicParsing="false" text="删除" />
                                 <MenuItem fx:id="selectAll" mnemonicParsing="false" text="全选" />
                                 <MenuItem fx:id="deselect" mnemonicParsing="false" text="反选" />
-                                <MenuItem mnemonicParsing="false" text="查找" />
-                                <MenuItem mnemonicParsing="false" text="替换" />
+                                <MenuItem mnemonicParsing="false" text="查找" disable="true"/>
+                                <MenuItem mnemonicParsing="false" text="替换" disable="true"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="视图">
