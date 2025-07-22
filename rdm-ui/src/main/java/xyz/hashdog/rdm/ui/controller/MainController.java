@@ -237,6 +237,10 @@ public class MainController extends BaseWindowController {
         fullScreen.setAccelerator(new KeyCodeCombination(KeyCode.F11));
         maximized.setAccelerator(new KeyCodeCombination(KeyCode.M,CONTROL_DOWN,SHIFT_DOWN));
         minimized.setAccelerator(new KeyCodeCombination(KeyCode.M,CONTROL_DOWN));
+        serverTabTop.setGraphic(new FontIcon(Feather.ARROW_UP));
+        serverTabBottom.setGraphic(new FontIcon(Feather.ARROW_DOWN));
+        serverTabLeft.setGraphic(new FontIcon(Feather.ARROW_LEFT));
+        serverTabRight.setGraphic(new FontIcon(Feather.ARROW_RIGHT));
 
     }
 
