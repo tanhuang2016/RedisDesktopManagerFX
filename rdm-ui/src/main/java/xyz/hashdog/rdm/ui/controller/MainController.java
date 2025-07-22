@@ -6,6 +6,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.*;
@@ -450,15 +451,19 @@ public class MainController extends BaseWindowController {
     }
 
     public void serverTabTop(ActionEvent actionEvent) {
+        GuiUtil.setTabPaneSide(serverTabPane,Side.TOP);
     }
 
     public void serverTabBottom(ActionEvent actionEvent) {
+        GuiUtil.setTabPaneSide(serverTabPane,Side.BOTTOM);
     }
 
     public void serverTabLeft(ActionEvent actionEvent) {
+        GuiUtil.setTabPaneSide(serverTabPane,Side.LEFT);
     }
 
     public void serverTabRight(ActionEvent actionEvent) {
+        GuiUtil.setTabPaneSide(serverTabPane,Side.RIGHT);
     }
 
     public void keyTabTop(ActionEvent actionEvent) {

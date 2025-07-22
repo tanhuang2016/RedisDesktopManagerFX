@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -502,6 +503,16 @@ public class GuiUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    /**
+     * 设置TabPane的side
+     * @param tabPane
+     * @param side
+     */
+    public static void setTabPaneSide(TabPane tabPane, Side side) {
+        tabPane.setSide(side);
 
     }
 
