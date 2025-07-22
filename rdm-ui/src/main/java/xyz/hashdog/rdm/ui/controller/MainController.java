@@ -70,6 +70,10 @@ public class MainController extends BaseWindowController {
     public MenuItem fullScreen;
     public MenuItem maximized;
     public MenuItem minimized;
+    public RadioMenuItem serverTabTop;
+    public RadioMenuItem serverTabBottom;
+    public RadioMenuItem serverTabLeft;
+    public RadioMenuItem serverTabRight;
     /**
      * 服务连接的Stage
      */
@@ -434,5 +438,14 @@ public class MainController extends BaseWindowController {
     }
 
     public void serverTabTop(ActionEvent actionEvent) {
+    }
+
+    public void serverTabBottom(ActionEvent actionEvent) {
+    }
+
+    public void serverTabLeft(ActionEvent actionEvent) {
+    }
+
+    public void serverTabRight(ActionEvent actionEvent) {
     }
 }

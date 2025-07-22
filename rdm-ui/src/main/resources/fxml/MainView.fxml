@@ -102,10 +102,10 @@
                             <items>
                                 <Menu  fx:id="serverTabPaneMenu" mnemonicParsing="false" text="ServerTabPane" >
                                         <items>
-                                            <RadioMenuItem mnemonicParsing="false" text="靠上" onAction="#serverTabTop"/>
-                                            <RadioMenuItem mnemonicParsing="false" text="靠下" onAction="#serverTabTop"/>
-                                            <RadioMenuItem mnemonicParsing="false" text="靠左" onAction="#serverTabTop"/>
-                                            <RadioMenuItem mnemonicParsing="false" text="靠右" onAction="#serverTabTop"/>
+                                            <RadioMenuItem fx:id="serverTabTop" mnemonicParsing="false" text="靠上" onAction="#serverTabTop"/>
+                                            <RadioMenuItem fx:id="serverTabBottom" mnemonicParsing="false" text="靠下" onAction="#serverTabBottom"/>
+                                            <RadioMenuItem fx:id="serverTabLeft" mnemonicParsing="false" text="靠左" onAction="#serverTabLeft"/>
+                                            <RadioMenuItem fx:id="serverTabRight" mnemonicParsing="false" text="靠右" onAction="#serverTabRight"/>
                                         </items>
                                 </Menu>
                                 <Menu fx:id="KeyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
