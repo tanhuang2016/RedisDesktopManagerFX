@@ -13,6 +13,7 @@ import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.controller.MainController;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
+import xyz.hashdog.rdm.ui.sampler.event.Save;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
@@ -37,6 +38,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage)  {
         try {
+            Save.init();
             // 设置默认的未捕获异常处理器
             Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
                 throwable.printStackTrace();
