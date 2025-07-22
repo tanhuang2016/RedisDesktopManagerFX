@@ -74,6 +74,10 @@ public class MainController extends BaseWindowController {
     public RadioMenuItem serverTabBottom;
     public RadioMenuItem serverTabLeft;
     public RadioMenuItem serverTabRight;
+    public RadioMenuItem keyTabTop;
+    public RadioMenuItem keyTabBottom;
+    public RadioMenuItem keyTabLeft;
+    public RadioMenuItem keyTabRight;
     /**
      * 服务连接的Stage
      */
@@ -241,6 +245,10 @@ public class MainController extends BaseWindowController {
         serverTabBottom.setGraphic(new FontIcon(Feather.ARROW_DOWN));
         serverTabLeft.setGraphic(new FontIcon(Feather.ARROW_LEFT));
         serverTabRight.setGraphic(new FontIcon(Feather.ARROW_RIGHT));
+        keyTabTop.setGraphic(new FontIcon(Feather.ARROW_UP));
+        keyTabBottom.setGraphic(new FontIcon(Feather.ARROW_DOWN));
+        keyTabLeft.setGraphic(new FontIcon(Feather.ARROW_LEFT));
+        keyTabRight.setGraphic(new FontIcon(Feather.ARROW_RIGHT));
 
     }
 
@@ -451,5 +459,17 @@ public class MainController extends BaseWindowController {
     }
 
     public void serverTabRight(ActionEvent actionEvent) {
+    }
+
+    public void keyTabTop(ActionEvent actionEvent) {
+    }
+
+    public void keyTabBottom(ActionEvent actionEvent) {
+    }
+
+    public void keyTabLeft(ActionEvent actionEvent) {
+    }
+
+    public void keyTabRight(ActionEvent actionEvent) {
     }
 }

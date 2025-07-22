@@ -110,10 +110,10 @@
                                 </Menu>
                                 <Menu fx:id="KeyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
                                     <items>
-                                        <RadioMenuItem mnemonicParsing="false" text="靠上" onAction="#serverTabTop"/>
-                                        <RadioMenuItem mnemonicParsing="false" text="靠下" onAction="#serverTabTop"/>
-                                        <RadioMenuItem mnemonicParsing="false" text="靠左" onAction="#serverTabTop"/>
-                                        <RadioMenuItem mnemonicParsing="false" text="靠右" onAction="#serverTabTop"/>
+                                        <RadioMenuItem fx:id="keyTabTop" mnemonicParsing="false" text="靠上" onAction="#keyTabTop"/>
+                                        <RadioMenuItem fx:id="keyTabBottom" mnemonicParsing="false" text="靠下" onAction="#keyTabBottom"/>
+                                        <RadioMenuItem fx:id="keyTabLeft" mnemonicParsing="false" text="靠左" onAction="#keyTabLeft"/>
+                                        <RadioMenuItem fx:id="keyTabRight" mnemonicParsing="false" text="靠右" onAction="#keyTabRight"/>
                                     </items>
 
                                 </Menu>
