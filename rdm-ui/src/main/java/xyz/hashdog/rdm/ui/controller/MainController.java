@@ -477,7 +477,6 @@ public class MainController extends BaseWindowController {
             Object userData = tab.getUserData();
             if(userData instanceof ServerTabController stc){
                 GuiUtil.setTabPaneSide( stc.dbTabPane,side);
-
             }
         }
     }
