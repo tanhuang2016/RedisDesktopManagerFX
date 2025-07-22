@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.*;
@@ -301,6 +302,7 @@ public class MainController extends BaseWindowController {
         controller.setParameter(passParameter);
         Tab tab = new Tab(name);
         tab.setContent(borderPane);
+        tab.setUserData(controller);
         this.serverTabPane.getTabs().add(tab);
         this.serverTabPane.getSelectionModel().select(tab);
         tab.setGraphic(GuiUtil.creatConnctionImageView());
@@ -467,14 +469,28 @@ public class MainController extends BaseWindowController {
     }
 
     public void keyTabTop(ActionEvent actionEvent) {
+        setKeyTabSide(serverTabPane,Side.TOP);
+    }
+
+    private void setKeyTabSide(TabPane serverTabPane, Side side) {
+        for (Tab tab : this.serverTabPane.getTabs()) {
+            Object userData = tab.getUserData();
+            if(userData instanceof ServerTabController stc){
+                GuiUtil.setTabPaneSide( stc.dbTabPane,side);
+
+            }
+        }
     }
 
     public void keyTabBottom(ActionEvent actionEvent) {
+        setKeyTabSide(serverTabPane,Side.BOTTOM);
     }
 
     public void keyTabLeft(ActionEvent actionEvent) {
+        setKeyTabSide(serverTabPane,Side.LEFT);
     }
 
     public void keyTabRight(ActionEvent actionEvent) {
+        setKeyTabSide(serverTabPane,Side.RIGHT);
     }
 }
