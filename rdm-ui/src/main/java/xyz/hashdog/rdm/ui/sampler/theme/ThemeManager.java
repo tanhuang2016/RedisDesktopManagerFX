@@ -82,6 +82,15 @@ public final class ThemeManager {
     public SamplerTheme getTheme() {
         return currentTheme;
     }
+    public SamplerTheme getTheme(String name) {
+        for (SamplerTheme samplerTheme : getRepository().getAll()) {
+            if (Objects.equals(samplerTheme.getName(), name)) {
+                return samplerTheme;
+            }
+        }
+        return null;
+
+    }
 
     public SamplerTheme getDefaultTheme() {
         return getRepository().getAll().get(0);

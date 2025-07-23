@@ -185,6 +185,9 @@ public class Applications {
 
 
     public static void putConfigSettings(String key, ConfigSettings settings) {
+        ConfigSettings old = CacheConfigSingleton.CONFIG.getConfigSettingsMap().get(key);
+        TUtil.copyProperties(old, settings);
+        //map在put的时候需要引用地址变更才会触发监听,所以这里进行了域的复制
         CacheConfigSingleton.CONFIG.getConfigSettingsMap().put(key, settings);
     }
 

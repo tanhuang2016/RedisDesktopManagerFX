@@ -11,7 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.controller.MainController;
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
 import xyz.hashdog.rdm.ui.sampler.event.Save;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
@@ -64,14 +67,8 @@ public class Main extends Application {
 //        Application.setUserAgentStylesheet();
             stage.setScene(scene);
             controller.setCurrentStage(stage);
+            initTm(scene);
 
-            ThemeManager TM = ThemeManager.getInstance();
-            TM.setScene(scene);
-            //            TM.setFontSize(12);
-//            TM.setFontFamily(ThemeManager.DEFAULT_FONT_FAMILY_NAME);
-            TM.setTheme(TM.getDefaultTheme());
-//
-//            TM.setTheme(new SamplerTheme(new Dracula()));
             stage.show();
 
 
@@ -82,6 +79,19 @@ public class Main extends Application {
         }
 
     }
+
+    private void initTm(Scene scene) {
+        ThemeSetting themeSetting = Applications.getConfigSettings(ConfigSettingsEnum.THEME.name);
+        ThemeManager TM = ThemeManager.getInstance();
+        TM.setScene(scene);
+        TM.setFontSize(themeSetting.getFontSize());
+        TM.setFontFamily(themeSetting.getFont());
+        SamplerTheme theme = TM.getTheme(themeSetting.getColorTheme());
+        TM.setTheme(theme);
+//
+//            TM.setTheme(new SamplerTheme(new Dracula()));
+    }
+
     public Throwable getRootCause(Throwable throwable) {
         Throwable cause = throwable.getCause();
         if (cause == null) {

@@ -63,6 +63,7 @@ public class CacheConfigSingleton {
             if (DataUtil.isBlank(configStr)) {
                 try {
                     obj =value.clazz.getDeclaredConstructor().newInstance();
+                    obj.init();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
