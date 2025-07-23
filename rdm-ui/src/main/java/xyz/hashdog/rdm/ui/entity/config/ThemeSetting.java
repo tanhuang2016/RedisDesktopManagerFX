@@ -2,7 +2,7 @@ package xyz.hashdog.rdm.ui.entity.config;
 
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 
-public abstract class ThemeSetting implements ConfigSettings{
+public  class ThemeSetting implements ConfigSettings{
     private String colorTheme;
     private String accentColor;
     private String font;

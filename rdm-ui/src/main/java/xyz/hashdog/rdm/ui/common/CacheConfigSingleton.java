@@ -11,6 +11,7 @@ import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
 import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,16 +55,22 @@ public class CacheConfigSingleton {
     /**
      * 首选项配置数据
      */
-    private static void initDataConfigSettings() {
+    private static void initDataConfigSettings()  {
         Preferences node = PREFERENCES.node(Applications.NODE_APP_CONE);
         for (ConfigSettingsEnum value : ConfigSettingsEnum.values()) {
             String configStr = node.get(value.name, null);
+            ConfigSettings obj = null;
             if (DataUtil.isBlank(configStr)) {
-                return;
+                try {
+                    obj =value.clazz.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }else {
+                // 使用 Gson 将 JSON 字符串转换为 List<ConnectionServerNode>
+                Gson gson = new Gson();
+                obj = (ThemeSetting) gson.fromJson(configStr, value.clazz);
             }
-            // 使用 Gson 将 JSON 字符串转换为 List<ConnectionServerNode>
-            Gson gson = new Gson();
-            ThemeSetting obj = (ThemeSetting) gson.fromJson(configStr, value.clazz);
             CONFIG.getConfigSettingsMap().put(value.name,obj);
         }
 

@@ -5,7 +5,9 @@ import javafx.scene.text.Font;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
 import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.ArrayList;
@@ -182,4 +184,11 @@ public class Applications {
     }
 
 
+    public static void putConfigSettings(String key, ConfigSettings settings) {
+        CacheConfigSingleton.CONFIG.getConfigSettingsMap().put(key, settings);
+    }
+
+    public static <T extends ConfigSettings>T getConfigSettings(String name) {
+       return (T) CacheConfigSingleton.CONFIG.getConfigSettingsMap().get(name);
+    }
 }
