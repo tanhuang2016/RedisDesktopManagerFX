@@ -25,14 +25,14 @@ import java.util.prefs.Preferences;
 public class CacheConfigSingleton {
 
 
-    protected final static Config CONFIG;
+    protected final static ConfigPreferences CONFIG;
     private final static Preferences PREFERENCES = Preferences.userRoot().node(Applications.NODE_APP_NAME);
 
     private CacheConfigSingleton() {
     }
 
     static {
-        CONFIG = new Config();
+        CONFIG = new ConfigPreferences();
         //看源码实际上用的ObservableMapWrapper,进行保证,看起来应该对map的增删应该是线程安全的,无所谓客户端能有多大并发量
         CONFIG.setConnectionNodeMap(FXCollections.observableMap(new ConcurrentHashMap<>()));
         CacheConfigSingleton.initData();

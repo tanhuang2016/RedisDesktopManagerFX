@@ -9,7 +9,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 2023/7/20 16:46
  */
-public class Config {
+public class ConfigPreferences {
 
     private Map<String, ConnectionServerNode> connectionNodeMap;
 
