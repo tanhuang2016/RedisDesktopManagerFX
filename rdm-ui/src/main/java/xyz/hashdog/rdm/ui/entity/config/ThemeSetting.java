@@ -1,6 +1,8 @@
 package xyz.hashdog.rdm.ui.entity.config;
 
-public class ThemeSetting {
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+
+public abstract class ThemeSetting implements ConfigSettings{
     private String colorTheme;
     private String accentColor;
     private String font;
@@ -36,5 +38,10 @@ public class ThemeSetting {
 
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
+    }
+
+    @Override
+    public String getName() {
+        return ConfigSettingsEnum.THEME.name();
     }
 }

@@ -7,7 +7,9 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
 import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -35,6 +37,7 @@ public class CacheConfigSingleton {
         CONFIG = new ConfigPreferences();
         //看源码实际上用的ObservableMapWrapper,进行保证,看起来应该对map的增删应该是线程安全的,无所谓客户端能有多大并发量
         CONFIG.setConnectionNodeMap(FXCollections.observableMap(new ConcurrentHashMap<>()));
+        CONFIG.setConfigSettingsMap(FXCollections.observableMap(new ConcurrentHashMap<>()));
         CacheConfigSingleton.initData();
         CacheConfigSingleton.addListener();
     }
@@ -43,6 +46,33 @@ public class CacheConfigSingleton {
      * 初始化数据
      */
     private static void initData() {
+        initDataConnectionNode();
+        initDataConfigSettings();
+
+    }
+
+    /**
+     * 首选项配置数据
+     */
+    private static void initDataConfigSettings() {
+        Preferences node = PREFERENCES.node(Applications.NODE_APP_CONE);
+        for (ConfigSettingsEnum value : ConfigSettingsEnum.values()) {
+            String configStr = node.get(value.name, null);
+            if (DataUtil.isBlank(configStr)) {
+                return;
+            }
+            // 使用 Gson 将 JSON 字符串转换为 List<ConnectionServerNode>
+            Gson gson = new Gson();
+            ThemeSetting obj = (ThemeSetting) gson.fromJson(configStr, value.clazz);
+            CONFIG.getConfigSettingsMap().put(value.name,obj);
+        }
+
+    }
+
+    /**
+     * 连接服务的数据初始化
+     */
+    private static void initDataConnectionNode() {
         Preferences node = PREFERENCES.node(Applications.NODE_APP_DATA);
         String connectionJsonStr = node.get(Applications.KEY_CONNECTIONS, null);
         if (DataUtil.isBlank(connectionJsonStr)) {
@@ -62,6 +92,27 @@ public class CacheConfigSingleton {
      * 监听数据的变动,进行异步保存
      */
     private static void addListener() {
+        addListenerConnectionNode();
+        addListenerConfigSettings();
+    }
+
+    private static void addListenerConfigSettings() {
+        ((ObservableMap) CONFIG.getConfigSettingsMap()).addListener((MapChangeListener<String, ConfigSettings>) change -> {
+            if (change.wasAdded() || change.wasRemoved()) {
+                ThreadPool.getInstance().execute(()->{
+                    Preferences node = PREFERENCES.node(Applications.NODE_APP_CONE);
+                    String key = change.getKey();
+                    node.put(key,new Gson().toJson(CONFIG.getConfigSettingsMap().get(key)));
+                    System.out.println("触发保存");
+                });
+            }
+        });
+    }
+
+    /**
+     * 监听连接的数据变动，进行异步保存持久化
+     */
+    private static void addListenerConnectionNode() {
         ((ObservableMap) CONFIG.getConnectionNodeMap()).addListener((MapChangeListener<String, ConnectionServerNode>) change -> {
             if (change.wasAdded() || change.wasRemoved()) {
                 ThreadPool.getInstance().execute(()->{

@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
 import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class ConfigPreferences {
 
     private Map<String, ConnectionServerNode> connectionNodeMap;
+    private Map<String, ConfigSettings> configSettingsMap;
 
     public Map<String, ConnectionServerNode> getConnectionNodeMap() {
         return connectionNodeMap;
@@ -19,5 +21,13 @@ public class ConfigPreferences {
 
     public void setConnectionNodeMap(Map<String, ConnectionServerNode> connectionNodeMap) {
         this.connectionNodeMap = connectionNodeMap;
+    }
+
+    public Map<String, ConfigSettings> getConfigSettingsMap() {
+        return configSettingsMap;
+    }
+
+    public void setConfigSettingsMap(Map<String, ConfigSettings> configSettingsMap) {
+        this.configSettingsMap = configSettingsMap;
     }
 }

@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.entity.config;
 
-public class ConfigSettings {
-    private ThemeSetting themeSetting;
+public interface ConfigSettings {
+
+    String getName();
 }
