@@ -7,7 +7,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.util.DataUtil;
-import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 
 import java.lang.reflect.Type;
 import java.util.List;

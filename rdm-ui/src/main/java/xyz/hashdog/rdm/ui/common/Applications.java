@@ -5,7 +5,7 @@ import javafx.scene.text.Font;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
-import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.util.ArrayList;

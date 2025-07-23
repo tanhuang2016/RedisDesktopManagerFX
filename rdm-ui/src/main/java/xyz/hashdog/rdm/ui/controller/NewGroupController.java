@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.ui.common.Applications;
-import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 /**

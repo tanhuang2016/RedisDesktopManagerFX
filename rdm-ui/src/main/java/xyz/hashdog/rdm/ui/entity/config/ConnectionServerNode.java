@@ -1,4 +1,4 @@
-package xyz.hashdog.rdm.ui.entity;
+package xyz.hashdog.rdm.ui.entity.config;
 
 import xyz.hashdog.rdm.ui.common.Applications;
 

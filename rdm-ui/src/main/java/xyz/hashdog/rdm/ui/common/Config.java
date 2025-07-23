@@ -1,6 +1,6 @@
 package xyz.hashdog.rdm.ui.common;
 
-import xyz.hashdog.rdm.ui.entity.ConnectionServerNode;
+import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 
 import java.util.Map;
 
