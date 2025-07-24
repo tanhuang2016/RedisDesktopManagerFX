@@ -3,9 +3,12 @@ package xyz.hashdog.rdm.ui.controller.setting;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
 
 import java.net.URL;
@@ -28,6 +31,22 @@ public  class KeyTagPageController implements Initializable {
         List<String> tags = KeyTypeTagEnum.tags();
         List<String> colors = KeyTypeTagEnum.colors();
         setTagLabels(tags,colors);
+        setTagTexts(tags);
+        setTagColors(colors);
+    }
+
+    private void setTagColors(List<String> colors) {
+        for (int i = 0; i < tagColors.getChildren().size(); i++) {
+            ColorPicker c= (ColorPicker) tagColors.getChildren().get(i);
+            c.setValue(Color.web(colors.get(i)));
+        }
+    }
+
+    private void setTagTexts(List<String> tags) {
+        for (int i = 0; i < tagTexts.getChildren().size(); i++) {
+            TextField node = (TextField) tagTexts.getChildren().get(i);
+            node.setText(tags.get(i));
+        }
     }
 
     private void setTagLabels(List<String> tags,List<String> colors) {
