@@ -361,9 +361,7 @@ public class MainController extends BaseWindowController {
                     ? SceneAntialiasing.BALANCED
                     : SceneAntialiasing.DISABLED;
             Scene scene = new Scene(applicationWindow,ApplicationWindow.MIN_WIDTH + 80, 768, false, antialiasing);
-            ThemeManager TM = ThemeManager.getInstance();
-            TM.setScene(scene);
-            TM.setTheme(TM.getTheme());
+            Main.initTm(scene);
             this.settingsStage.initOwner(root.getScene().getWindow());
             this.settingsStage.setScene(scene);
             this.settingsStage.show();

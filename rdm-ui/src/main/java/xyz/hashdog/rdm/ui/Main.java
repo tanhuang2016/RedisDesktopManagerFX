@@ -80,7 +80,7 @@ public class Main extends Application {
 
     }
 
-    private void initTm(Scene scene) {
+    public static void initTm(Scene scene) {
         ThemeSetting themeSetting = Applications.getConfigSettings(ConfigSettingsEnum.THEME.name);
         ThemeManager TM = ThemeManager.getInstance();
         TM.setScene(scene);

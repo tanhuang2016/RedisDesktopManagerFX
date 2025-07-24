@@ -7,7 +7,7 @@ public  class ThemeSetting implements ConfigSettings{
     private String colorTheme;
 //    private String accentColor=ThemeManager.getInstance().getAccentColor().primaryColor().toString() ;
     private String font ;
-    private int fontSize;
+    private Integer fontSize;
 
     public String getColorTheme() {
         return colorTheme;
@@ -33,11 +33,11 @@ public  class ThemeSetting implements ConfigSettings{
         this.font = font;
     }
 
-    public int getFontSize() {
+    public Integer getFontSize() {
         return fontSize;
     }
 
-    public void setFontSize(int fontSize) {
+    public void setFontSize(Integer fontSize) {
         this.fontSize = fontSize;
     }
 
