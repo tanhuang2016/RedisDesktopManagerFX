@@ -9,7 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -25,6 +28,32 @@ public  class KeyTagPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        reset();
+        addListener();
+
+    }
+
+    private void addListener() {
+        addTagTextsListener();
+    }
+
+    private void addTagTextsListener() {
+        for (int i = 0; i < tagTexts.getChildren().size(); i++) {
+            TextField node = (TextField) tagTexts.getChildren().get(i);
+            int finalI = i;
+            node.textProperty().addListener((observable, oldValue, newValue) -> {
+                Label tag = getTagLabel(finalI);
+                if(DataUtil.isBlank(newValue)){
+                    node.setText(oldValue);
+                }else {
+                    tag.setText(newValue);
+                }
+            });
+        }
+    }
+
+    private Label getTagLabel(int i) {
+        VBox vBox = (VBox) tagLabels.getChildren().get(i);
+        return (Label) vBox.getChildren().get(1);
     }
 
     private void reset() {
