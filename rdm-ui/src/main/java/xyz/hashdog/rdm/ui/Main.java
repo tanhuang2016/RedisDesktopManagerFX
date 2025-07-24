@@ -84,10 +84,11 @@ public class Main extends Application {
         ThemeSetting themeSetting = Applications.getConfigSettings(ConfigSettingsEnum.THEME.name);
         ThemeManager TM = ThemeManager.getInstance();
         TM.setScene(scene);
-        TM.setFontSize(themeSetting.getFontSize(),false);
-        TM.setFontFamily(themeSetting.getFont(),false);
         SamplerTheme theme = TM.getTheme(themeSetting.getColorTheme());
         TM.setTheme(theme,false);
+        TM.setFontSize(themeSetting.getFontSize(),false);
+        TM.setFontFamily(themeSetting.getFont(),false);
+
 //
 //            TM.setTheme(new SamplerTheme(new Dracula()));
     }

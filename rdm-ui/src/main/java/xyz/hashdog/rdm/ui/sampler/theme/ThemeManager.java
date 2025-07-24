@@ -111,7 +111,7 @@ public final class ThemeManager {
         getScene().forEach(e->e.getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode()));
 
         // remove user CSS customizations and reset accent on theme change
-        resetAccentColor();
+        resetAccentColor(eve);
         resetCustomCSS();
 
         currentTheme = theme;
@@ -209,15 +209,16 @@ public final class ThemeManager {
         EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.COLOR_CHANGE));
     }
 
-    public void resetAccentColor() {
+    public void resetAccentColor(boolean eve) {
         animateThemeChange(Duration.millis(350));
 
         if (accentColor != null) {
             getScene().forEach(e->e.getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false));
             accentColor = null;
         }
-
-        EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.COLOR_CHANGE));
+        if(eve){
+            EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.COLOR_CHANGE));
+        }
     }
 
     public void setNamedColors(Map<String, Color> colors) {

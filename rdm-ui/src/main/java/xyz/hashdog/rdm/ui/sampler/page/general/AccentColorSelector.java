@@ -25,7 +25,7 @@ final class AccentColorSelector extends HBox {
     private void createView() {
         var resetBtn = new Button(null, new FontIcon(Material2AL.CLEAR));
         resetBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
-        resetBtn.setOnAction(e -> ThemeManager.getInstance().resetAccentColor());
+        resetBtn.setOnAction(e -> ThemeManager.getInstance().resetAccentColor(true));
 
         setAlignment(Pos.CENTER_LEFT);
         getChildren().setAll(
