@@ -34,6 +34,18 @@ public  class KeyTagPageController implements Initializable {
 
     private void addListener() {
         addTagTextsListener();
+        addTagColorsListener();
+    }
+
+    private void addTagColorsListener() {
+        for (int i = 0; i < tagColors.getChildren().size(); i++) {
+            ColorPicker colorPicker= (ColorPicker) tagColors.getChildren().get(i);
+            int finalI = i;
+            colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+                Label tag = getTagLabel(finalI);
+                tag.setStyle("-fx-background-color:"+GuiUtil.color2hex(newValue));
+            });
+        }
     }
 
     private void addTagTextsListener() {
@@ -91,6 +103,5 @@ public  class KeyTagPageController implements Initializable {
         }
     }
 
-    private void initTagColor() {
-    }
+
 }

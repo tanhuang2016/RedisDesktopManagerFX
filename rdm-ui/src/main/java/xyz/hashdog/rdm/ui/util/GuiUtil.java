@@ -16,6 +16,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -514,6 +515,13 @@ public class GuiUtil {
     public static void setTabPaneSide(TabPane tabPane, Side side) {
         tabPane.setSide(side);
 
+    }
+
+    public static String color2hex(Color newValue) {
+        return String.format("#%02X%02X%02X",
+                (int)(newValue.getRed() * 255),
+                (int)(newValue.getGreen() * 255),
+                (int)(newValue.getBlue() * 255));
     }
 
 
