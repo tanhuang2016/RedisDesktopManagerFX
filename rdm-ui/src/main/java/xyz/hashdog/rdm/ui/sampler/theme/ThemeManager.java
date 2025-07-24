@@ -99,7 +99,7 @@ public final class ThemeManager {
     /**
      * See {@link SamplerTheme}.
      */
-    public void setTheme(SamplerTheme theme) {
+    public void setTheme(SamplerTheme theme,boolean eve) {
         Objects.requireNonNull(theme);
 
         if (currentTheme != null) {
@@ -115,21 +115,25 @@ public final class ThemeManager {
         resetCustomCSS();
 
         currentTheme = theme;
-        EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.THEME_CHANGE));
+        if(eve){
+            EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.THEME_CHANGE));
+        }
     }
 
     public String getFontFamily() {
         return fontFamily;
     }
 
-    public void setFontFamily(String fontFamily) {
+    public void setFontFamily(String fontFamily,boolean eve) {
         Objects.requireNonNull(fontFamily);
         setCustomDeclaration("-fx-font-family", "\"" + fontFamily + "\"");
 
         this.fontFamily = fontFamily;
 
         reloadCustomCSS();
-        EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.FONT_CHANGE));
+        if(eve){
+            EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.FONT_CHANGE));
+        }
     }
 
     public boolean isDefaultFontFamily() {
@@ -140,7 +144,7 @@ public final class ThemeManager {
         return fontSize;
     }
 
-    public void setFontSize(int size) {
+    public void setFontSize(int size,boolean eve) {
         if (!SUPPORTED_FONT_SIZE.contains(size)) {
             throw new IllegalArgumentException(
                 String.format("Font size must in the range %d-%dpx. Actual value is %d.",
@@ -161,7 +165,10 @@ public final class ThemeManager {
             .orElseThrow(NoSuchElementException::new);
 
         reloadCustomCSS();
-        EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.FONT_CHANGE));
+        if (eve) {
+            EVENT_BUS.publish(new ThemeEvent(ThemeEvent.EventType.FONT_CHANGE));
+
+        }
     }
 
     public boolean isDefaultSize() {
@@ -179,7 +186,7 @@ public final class ThemeManager {
             );
         }
 
-        setFontSize((int) Math.ceil(zoom != 100 ? (DEFAULT_FONT_SIZE * zoom) / 100.0f : DEFAULT_FONT_SIZE));
+        setFontSize((int) Math.ceil(zoom != 100 ? (DEFAULT_FONT_SIZE * zoom) / 100.0f : DEFAULT_FONT_SIZE),true);
         this.zoom = zoom;
     }
 

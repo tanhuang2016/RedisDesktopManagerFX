@@ -29,7 +29,7 @@ final class ThemeDialog extends ModalDialog {
 
         thumbnailsGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof SamplerTheme theme) {
-                ThemeManager.getInstance().setTheme(theme);
+                ThemeManager.getInstance().setTheme(theme,true);
             }
         });
     }

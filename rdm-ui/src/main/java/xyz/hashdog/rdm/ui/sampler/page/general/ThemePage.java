@@ -229,7 +229,7 @@ public final class ThemePage extends OutlinePage {
         // must be after setting the initial value
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val != null && getScene() != null) {
-                TM.setTheme(val);
+                TM.setTheme(val,true);
             }
         });
         choiceBox.setPrefWidth(310);
@@ -264,7 +264,7 @@ public final class ThemePage extends OutlinePage {
         comboBox.getSelectionModel().select(TM.getFontFamily());
         comboBox.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
-                TM.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val);
+                TM.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val,true);
             }
         });
 
@@ -288,7 +288,7 @@ public final class ThemePage extends OutlinePage {
 
         spinner.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
-                TM.setFontSize(val);
+                TM.setFontSize(val,true);
             }
         });
 
