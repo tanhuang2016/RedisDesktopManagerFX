@@ -1,6 +1,7 @@
 package xyz.hashdog.rdm.ui.controller.setting;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
@@ -82,6 +83,7 @@ public  class KeyTagPageController implements Initializable {
         return (Label) vBox.getChildren().get(1);
     }
 
+    @FXML
     private void reset() {
         List<String> tags = KeyTypeTagEnum.tags();
         List<String> colors = KeyTypeTagEnum.colors();
