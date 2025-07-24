@@ -11,7 +11,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
+import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -27,9 +31,19 @@ public  class KeyTagPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       reset();
+//       reset();
+        initData();
         addListener();
 
+    }
+
+    private void initData() {
+        KeyTagSetting setting = Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAG.name);
+        List<String> tags =setting.getTags();
+        List<String> colors = setting.getColors();
+        setTagLabels(tags,colors);
+        setTagTexts(tags);
+        setTagColors(colors);
     }
 
     private void addListener() {
