@@ -19,7 +19,7 @@ public class ConfigPreferences {
         return connectionNodeMap;
     }
 
-    public void setConnectionNodeMap(Map<String, ConnectionServerNode> connectionNodeMap) {
+    protected void setConnectionNodeMap(Map<String, ConnectionServerNode> connectionNodeMap) {
         this.connectionNodeMap = connectionNodeMap;
     }
 
@@ -27,7 +27,7 @@ public class ConfigPreferences {
         return configSettingsMap;
     }
 
-    public void setConfigSettingsMap(Map<String, ConfigSettings> configSettingsMap) {
+    protected void setConfigSettingsMap(Map<String, ConfigSettings> configSettingsMap) {
         this.configSettingsMap = configSettingsMap;
     }
 }
