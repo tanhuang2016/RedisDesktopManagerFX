@@ -14,24 +14,12 @@
    <children>
       <VBox alignment="CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="tagLabels" alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
                      <children>
                            <Label text="String" />
                         <Label styleClass="tag" text="string" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
-                     <children>
-                           <Label text="ReJSON-RL" />
-                        <Label styleClass="tag" text="json" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
-                     <children>
-                           <Label text="Stream" />
-                        <Label styleClass="tag" text="stream" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
@@ -58,26 +46,34 @@
                         <Label styleClass="tag" text="zset" />
                      </children>
                   </VBox>
+                   <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
+                       <children>
+                           <Label text="ReJSON-RL" />
+                           <Label styleClass="tag" text="json" />
+                       </children>
+                   </VBox>
+                   <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
+                       <children>
+                           <Label text="Stream" />
+                           <Label styleClass="tag" text="stream" />
+                       </children>
+                   </VBox>
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
-             <HBox alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
+             <HBox fx:id="tagTexts" alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                  <children>
-                     <TextField fx:id="soTimeout" alignment="CENTER" promptText="Execution Timeout" text="string" HBox.hgrow="ALWAYS">
-                         <HBox.margin>
-                             <Insets right="2.0" />
-                         </HBox.margin>
-                     </TextField>
-                  <TextField fx:id="soTimeout1" alignment="CENTER" promptText="Execution Timeout" text="json" />
-                  <TextField fx:id="soTimeout2" alignment="CENTER" promptText="Execution Timeout" text="stream" />
-                  <TextField fx:id="soTimeout3" alignment="CENTER" promptText="Execution Timeout" text="list" />
-                  <TextField fx:id="soTimeout4" alignment="CENTER" promptText="Execution Timeout" text="hash" />
-                  <TextField fx:id="soTimeout5" alignment="CENTER" promptText="Execution Timeout" text="set" />
-                  <TextField fx:id="soTimeout6" alignment="CENTER" promptText="Execution Timeout" text="zset" />
+                 <TextField   alignment="CENTER"  text="string" HBox.hgrow="ALWAYS" />
+                  <TextField  alignment="CENTER"  text="list" />
+                  <TextField  alignment="CENTER"  text="hash" />
+                  <TextField  alignment="CENTER"  text="set" />
+                  <TextField  alignment="CENTER"  text="zset" />
+                 <TextField  alignment="CENTER"  text="json" />
+                 <TextField  alignment="CENTER"  text="stream" />
                  </children>
              </HBox>
             <Separator prefWidth="200.0" />
-            <HBox alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="tagColors" alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                <children>
                   <ColorPicker />
                   <ColorPicker />

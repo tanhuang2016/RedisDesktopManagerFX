@@ -1,13 +1,18 @@
 package xyz.hashdog.rdm.ui.common;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum KeyTypeTagEnum {
     STRING("string",Constant.COLOR_STRING),
-    HASH("hash",Constant.COLOR_HASH),
     LIST("list",Constant.COLOR_LIST),
+    HASH("hash",Constant.COLOR_HASH),
     SET("set",Constant.COLOR_SET),
     ZSET("zset",Constant.COLOR_ZSET),
-    STREAM("stream",Constant.COLOR_STREAM),
     JSON("json",Constant.COLOR_JSON),
+    STREAM("stream",Constant.COLOR_STREAM),
+
     UNKNOWN("unknown",Constant.COLOR_UNKNOWN);
     public String tag;
     public String color;
@@ -16,5 +21,23 @@ public enum KeyTypeTagEnum {
         this.color = color;
     }
 
+    public String getTag() {
+        return tag;
+    }
 
+    public String getColor() {
+        return color;
+    }
+
+    public static List<String> tags() {
+        return Arrays.stream(KeyTypeTagEnum.values())
+                .map(KeyTypeTagEnum::getTag)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> colors() {
+        return Arrays.stream(KeyTypeTagEnum.values())
+                .map(KeyTypeTagEnum::getColor)
+                .collect(Collectors.toList());
+    }
 }
