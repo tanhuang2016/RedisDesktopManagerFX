@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -63,13 +63,13 @@
             <Separator prefWidth="200.0" />
              <HBox fx:id="tagTexts" alignment="CENTER" spacing="6.0" VBox.vgrow="ALWAYS">
                  <children>
-                 <TextField   alignment="CENTER"  text="string" HBox.hgrow="ALWAYS" />
-                  <TextField  alignment="CENTER"  text="list" />
-                  <TextField  alignment="CENTER"  text="hash" />
-                  <TextField  alignment="CENTER"  text="set" />
-                  <TextField  alignment="CENTER"  text="zset" />
-                 <TextField  alignment="CENTER"  text="json" />
-                 <TextField  alignment="CENTER"  text="stream" />
+                 <TextField alignment="CENTER" text="string" HBox.hgrow="ALWAYS" />
+                  <TextField alignment="CENTER" text="list" />
+                  <TextField alignment="CENTER" text="hash" />
+                  <TextField alignment="CENTER" text="set" />
+                  <TextField alignment="CENTER" text="zset" />
+                 <TextField alignment="CENTER" text="json" />
+                 <TextField alignment="CENTER" text="stream" />
                  </children>
              </HBox>
             <Separator prefWidth="200.0" />
@@ -82,6 +82,12 @@
                   <ColorPicker />
                   <ColorPicker />
                   <ColorPicker />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+               <children>
+                  <Button mnemonicParsing="false" text="确定" />
+                  <Button mnemonicParsing="false" text="重置" />
                </children>
             </HBox>
          </children>
