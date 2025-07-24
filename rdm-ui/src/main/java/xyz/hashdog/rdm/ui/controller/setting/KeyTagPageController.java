@@ -1,8 +1,10 @@
 package xyz.hashdog.rdm.ui.controller.setting;
 
+import atlantafx.base.theme.Styles;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -11,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.ui.common.Applications;
@@ -37,8 +41,15 @@ public  class KeyTagPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //       reset();
         initData();
+        initButton();
         addListener();
 
+    }
+    private void initButton() {
+        initButtonStyles();
+    }
+    private void initButtonStyles() {
+        ok.getStyleClass().add(Styles.ACCENT);
     }
 
     private void initData() {
@@ -62,6 +73,7 @@ public  class KeyTagPageController implements Initializable {
             colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
                 Label tag = getTagLabel(finalI);
                 tag.setStyle("-fx-background-color:"+GuiUtil.color2hex(newValue));
+                ok.setDisable(false);
             });
         }
     }
@@ -76,6 +88,7 @@ public  class KeyTagPageController implements Initializable {
                     node.setText(oldValue);
                 }else {
                     tag.setText(newValue);
+                    ok.setDisable(false);
                 }
             });
         }
