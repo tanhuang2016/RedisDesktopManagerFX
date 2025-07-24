@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,6 +29,8 @@ public  class KeyTagPageController implements Initializable {
     public HBox tagLabels;
     public HBox tagTexts;
     public HBox tagColors;
+    public Button ok;
+    public Button reset;
 
 
     @Override

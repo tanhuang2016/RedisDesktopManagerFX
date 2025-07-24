@@ -86,8 +86,8 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
                <children>
-                  <Button mnemonicParsing="false" text="确定" />
-                  <Button mnemonicParsing="false" text="重置" onAction="#reset"/>
+                  <Button fx:id="ok" mnemonicParsing="false" text="确定" />
+                  <Button fx:id="reset" mnemonicParsing="false" text="重置" onAction="#reset"/>
                </children>
             </HBox>
          </children>
