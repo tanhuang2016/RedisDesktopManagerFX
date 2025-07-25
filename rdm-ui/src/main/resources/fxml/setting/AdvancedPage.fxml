@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Spinner?>
 <AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.setting.AdvancedPageController">
    <children>
       <VBox prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -20,21 +21,21 @@
                   <HBox alignment="CENTER_LEFT" spacing="6.0">
                      <children>
                            <Label text="%connect.info.connectiontimeout" />
-                           <TextField fx:id="connectionTimeout" promptText="Connection Timeout" text="6000" HBox.hgrow="ALWAYS">
-                               <HBox.margin>
-                                   <Insets right="2.0" />
-                               </HBox.margin>
-                           </TextField>
+                         <Spinner fx:id="connectionTimeout" editable="true" promptText="Connection Timeout" maxWidth="Infinity" onKeyTyped="#filterIntegerInput" prefWidth="0.0" HBox.hgrow="ALWAYS" >
+                             <HBox.margin>
+                                 <Insets right="2.0" />
+                             </HBox.margin>
+                         </Spinner>
                      </children>
                   </HBox>
                    <HBox alignment="CENTER_LEFT" spacing="6.0">
                        <children>
                            <Label text="%connect.info.sotimeout" />
-                           <TextField fx:id="soTimeout" promptText="Execution Timeout" text="6000" HBox.hgrow="ALWAYS">
+                           <Spinner fx:id="soTimeout" editable="true" promptText="Execution Timeout" maxWidth="Infinity" onKeyTyped="#filterIntegerInput" prefWidth="0.0" HBox.hgrow="ALWAYS" >
                                <HBox.margin>
                                    <Insets right="2.0" />
                                </HBox.margin>
-                           </TextField>
+                           </Spinner>
                        </children>
                    </HBox>
                          <HBox alignment="CENTER_LEFT" spacing="0.0" VBox.vgrow="ALWAYS">
