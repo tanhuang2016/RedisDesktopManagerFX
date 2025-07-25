@@ -30,7 +30,7 @@ public class AdvancedSetting implements ConfigSettings{
     }
 
     @Override
-    public ConfigSettings init() {
+    public AdvancedSetting init() {
         this.connectionTimeout= 6000;
         this.soTimeout= 6000;
         this.keySeparator= ":";

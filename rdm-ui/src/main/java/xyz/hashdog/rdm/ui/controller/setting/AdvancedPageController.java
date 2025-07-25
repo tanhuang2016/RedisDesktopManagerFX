@@ -38,8 +38,13 @@ public class AdvancedPageController  {
         initSpinner();
         initData();
         initButton();
-//        addListener();
+        initListener();
     }
+
+    private void initListener() {
+        GuiUtil.filterIntegerInput(false,this.connectionTimeout.getEditor(),this.soTimeout.getEditor());
+    }
+
     private void initSpinner() {
         connectionTimeout.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60_000, 6000));
         soTimeout.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60_000, 6000));
@@ -47,12 +52,17 @@ public class AdvancedPageController  {
 
     private void initData() {
         AdvancedSetting setting = Applications.getConfigSettings(ConfigSettingsEnum.ADVANCED.name);
+        setData(setting);
+    }
+
+    private void setData(AdvancedSetting setting) {
         connectionTimeout.getEditor().setText(String.valueOf(setting.getConnectionTimeout()));
         soTimeout.getEditor().setText(String.valueOf(setting.getConnectionTimeout()));
         treeShow.setSelected(setting.isTreeShow());
         listShow.setSelected(!setting.isTreeShow());
-
+        keySeparator.setText(setting.getKeySeparator());
     }
+
     private void initButton() {
         initButtonStyles();
     }
@@ -84,7 +94,7 @@ public class AdvancedPageController  {
     }
 
     public void reset(ActionEvent actionEvent) {
-
+        setData(new AdvancedSetting().init());
     }
 
     @FXML
