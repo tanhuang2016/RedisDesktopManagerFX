@@ -2,6 +2,7 @@
 
 package xyz.hashdog.rdm.ui.sampler.page.custom;
 
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.sampler.page.AbstractPage;
@@ -27,6 +28,8 @@ public final class KeyTagPage extends AbstractPage {
             allow users to access various features and functions of the application."""
         );
         Tuple2<AnchorPane, Object> tuple2 = GuiUtil.doLoadFXML("/fxml/setting/KeyTagPage.fxml");
+//        AnchorPane t1 = tuple2.getT1();
+//        Node node = t1.getChildren().get(0);
         addNode(tuple2.getT1());
     }
 
