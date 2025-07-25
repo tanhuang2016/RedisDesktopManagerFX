@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.entity.config;
 
 import javafx.geometry.Side;
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+import xyz.hashdog.rdm.ui.common.TabPaneStyleEnum;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 
 public abstract class TabPaneSetting implements ConfigSettings{
@@ -25,7 +26,7 @@ public abstract class TabPaneSetting implements ConfigSettings{
     @Override
     public TabPaneSetting init(){
         side= Side.TOP.name();
-        style = "def";
+        style = TabPaneStyleEnum.DEFAULT.name;
         animated = true;
         fullWidth = false;
         dense = false;
