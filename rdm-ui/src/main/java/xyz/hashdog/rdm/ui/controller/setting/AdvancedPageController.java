@@ -109,6 +109,12 @@ public class AdvancedPageController  {
 
     public void ok(ActionEvent actionEvent) {
         ok.setDisable(true);
+        AdvancedSetting setting=new AdvancedSetting();
+        setting.setConnectionTimeout(connectionTimeout.getValue());
+        setting.setSoTimeout(soTimeout.getValue());
+        setting.setKeySeparator(keySeparator.getText());
+        setting.setTreeShow(treeShow.isSelected());
+        Applications.putConfigSettings(setting.getName(),setting);
     }
 
     public void reset(ActionEvent actionEvent) {
