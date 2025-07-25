@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.ui.controller.setting;
 
 import atlantafx.base.theme.Styles;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -136,4 +137,11 @@ public  class KeyTagPageController implements Initializable {
     }
 
 
+    /**
+     * 保存配置，确认按钮隐藏
+     * @param actionEvent
+     */
+    public void ok(ActionEvent actionEvent) {
+        this.ok.setDisable(true);
+    }
 }
