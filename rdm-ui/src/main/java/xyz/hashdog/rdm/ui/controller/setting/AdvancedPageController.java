@@ -43,6 +43,21 @@ public class AdvancedPageController  {
 
     private void initListener() {
         GuiUtil.filterIntegerInput(false,this.connectionTimeout.getEditor(),this.soTimeout.getEditor());
+        changeListener();
+    }
+
+    private void changeListener() {
+        textFieldChangeListener(connectionTimeout.getEditor(),soTimeout.getEditor(),keySeparator);
+    }
+
+    private void textFieldChangeListener(TextField... textFields) {
+        for (TextField textField : textFields) {
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!oldValue.equals(newValue)){
+                    ok.setDisable( false);
+                }
+            });
+        }
     }
 
     private void initSpinner() {
@@ -82,6 +97,8 @@ public class AdvancedPageController  {
                 } else {
                     treeShow.setSelected(true);
                 }
+            }else {
+                ok.setDisable(false);
             }
         });
         GuiUtil.setIcon(treeShow,new FontIcon(Material2AL.ACCOUNT_TREE));
@@ -91,6 +108,7 @@ public class AdvancedPageController  {
     }
 
     public void ok(ActionEvent actionEvent) {
+        ok.setDisable(true);
     }
 
     public void reset(ActionEvent actionEvent) {
