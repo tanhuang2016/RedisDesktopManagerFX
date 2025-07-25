@@ -17,6 +17,8 @@ import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+import xyz.hashdog.rdm.ui.entity.config.AdvancedSetting;
 import xyz.hashdog.rdm.ui.entity.config.ConnectionServerNode;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -167,9 +169,26 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
         initButton();
         initListener();
         initToggleButton();
+        initDefaultData();
 
 
 
+    }
+
+    private void initDefaultData() {
+        initAdvancedSettingData();
+    }
+    private void initAdvancedSettingData() {
+        AdvancedSetting setting = Applications.getConfigSettings(ConfigSettingsEnum.ADVANCED.name);
+        setData(setting);
+    }
+
+    private void setData(AdvancedSetting setting) {
+        connectionTimeout.getEditor().setText(String.valueOf(setting.getConnectionTimeout()));
+        soTimeout.getEditor().setText(String.valueOf(setting.getConnectionTimeout()));
+        treeShow.setSelected(setting.isTreeShow());
+        listShow.setSelected(!setting.isTreeShow());
+        keySeparator.setText(setting.getKeySeparator());
     }
 
     private void initSpinner() {
