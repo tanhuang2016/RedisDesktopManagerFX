@@ -84,7 +84,7 @@
                   <ColorPicker />
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Button fx:id="ok" mnemonicParsing="false" text="确定" disable="true"/>
                   <Button fx:id="reset" mnemonicParsing="false" text="重置" onAction="#reset"/>
