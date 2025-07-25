@@ -1,15 +1,13 @@
 package xyz.hashdog.rdm.ui.common;
 
 
-import xyz.hashdog.rdm.ui.entity.config.AdvancedSetting;
-import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
-import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
-import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
+import xyz.hashdog.rdm.ui.entity.config.*;
 
 public enum ConfigSettingsEnum {
     THEME("theme", ThemeSetting.class),
     KEY_TAG("keyTag", KeyTagSetting.class ),
     ADVANCED("advanced", AdvancedSetting.class ),
+    SERVER_TAB_PAN("serverTabPan", ServerTabPanSetting.class ),
     ;
 
     public final String name;
