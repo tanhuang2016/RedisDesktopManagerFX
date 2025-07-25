@@ -26,7 +26,7 @@ public class AdvancedSetting implements ConfigSettings{
 
     @Override
     public String getName() {
-        return ConfigSettingsEnum.KEY_TAG.name;
+        return ConfigSettingsEnum.ADVANCED.name;
     }
 
     @Override
