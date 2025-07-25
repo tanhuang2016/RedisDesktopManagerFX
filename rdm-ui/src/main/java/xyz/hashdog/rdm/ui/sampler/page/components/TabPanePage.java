@@ -85,7 +85,7 @@ public final class TabPanePage extends OutlinePage {
     }
     private Pane playgroundKey() {
         var tabs = createTabPaneKey();
-
+        tabs.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
         var tabsLayer = new BorderPane();
         tabsLayer.setTop(tabs);
         tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
