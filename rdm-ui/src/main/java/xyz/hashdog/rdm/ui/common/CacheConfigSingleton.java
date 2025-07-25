@@ -70,7 +70,7 @@ public class CacheConfigSingleton {
             }else {
                 // 使用 Gson 将 JSON 字符串转换为 List<ConnectionServerNode>
                 Gson gson = new Gson();
-                obj = (ThemeSetting) gson.fromJson(configStr, value.clazz);
+                obj =  gson.fromJson(configStr, value.clazz);
             }
             CONFIG.getConfigSettingsMap().put(value.name,obj);
         }

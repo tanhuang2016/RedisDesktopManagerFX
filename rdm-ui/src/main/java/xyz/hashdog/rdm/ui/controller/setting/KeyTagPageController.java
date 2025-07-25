@@ -23,6 +23,7 @@ import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
 import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
+import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
@@ -95,6 +96,11 @@ public  class KeyTagPageController implements Initializable {
         }
     }
 
+    /**
+     * 根据下标获取Label
+     * @param i
+     * @return
+     */
     private Label getTagLabel(int i) {
         VBox vBox = (VBox) tagLabels.getChildren().get(i);
         return (Label) vBox.getChildren().get(1);
@@ -143,5 +149,24 @@ public  class KeyTagPageController implements Initializable {
      */
     public void ok(ActionEvent actionEvent) {
         this.ok.setDisable(true);
+        KeyTagSetting setting=new KeyTagSetting();
+        setting.setTags(getTagTexts());
+        setting.setColors(getTagColors());
+        Applications.putConfigSettings(setting.getName(),setting);
+    }
+
+    private List<String> getTagColors() {
+        return Arrays.stream(tagColors.getChildren().toArray())
+                .map(node -> ((ColorPicker) node))
+                .map(ColorPicker::getValue)
+                .map(GuiUtil::color2hex)
+                .toList();
+    }
+
+    private List<String> getTagTexts() {
+        return Arrays.stream(tagTexts.getChildren().toArray())
+                .map(node -> ((TextField) node))
+                .map(TextField::getText)
+                .toList();
     }
 }
