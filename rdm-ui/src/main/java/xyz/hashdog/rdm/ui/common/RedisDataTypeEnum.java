@@ -57,6 +57,21 @@ public enum RedisDataTypeEnum {
     }),KeyTypeTagEnum.STREAM),
     ;
 
+
+    /**
+     * 根据类型获取下标
+     * @param type
+     * @return
+     */
+    public static int getIndex(String type) {
+        for (int i = 0; i < RedisDataTypeEnum.values().length; i++) {
+            if (RedisDataTypeEnum.values()[i].type.equalsIgnoreCase(type)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * 检查设置有效期
      * @param redisClient

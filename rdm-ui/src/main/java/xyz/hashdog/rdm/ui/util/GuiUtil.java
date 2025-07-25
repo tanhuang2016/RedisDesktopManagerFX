@@ -27,13 +27,13 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
-import xyz.hashdog.rdm.ui.common.Constant;
-import xyz.hashdog.rdm.ui.common.KeyTypeTagEnum;
-import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.ui.common.*;
 import xyz.hashdog.rdm.ui.controller.BaseController;
 import xyz.hashdog.rdm.ui.controller.BaseKeyController;
 import xyz.hashdog.rdm.ui.controller.ByteArrayController;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 
 import java.io.File;
 import java.io.IOException;
@@ -484,10 +484,11 @@ public class GuiUtil {
      * @return
      */
     public static Label getKeyTypeLabel(String type) {
-        KeyTypeTagEnum byType = RedisDataTypeEnum.getByType(type).tagEnum;
-        Label tagLabel = new Label(byType.tag);
+        KeyTagSetting setting = Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAG.name);
+        int i  =RedisDataTypeEnum.getIndex(type);
+        Label tagLabel = new Label(setting.getTags().get(i));
         tagLabel.getStyleClass().add("tag");
-        tagLabel.setStyle("-fx-background-color:"+byType.color);
+        tagLabel.setStyle("-fx-background-color:"+setting.getColors().get(i));
         return tagLabel;
     }
 
