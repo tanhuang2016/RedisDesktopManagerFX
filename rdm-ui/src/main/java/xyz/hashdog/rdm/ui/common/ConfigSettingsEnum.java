@@ -7,7 +7,7 @@ public enum ConfigSettingsEnum {
     THEME("theme", ThemeSetting.class),
     KEY_TAG("keyTag", KeyTagSetting.class ),
     ADVANCED("advanced", AdvancedSetting.class ),
-    SERVER_TAB_PAN("serverTabPan", ServerTabPanSetting.class ),
+    SERVER_TAB_PANE("serverTabPane", ServerTabPaneSetting.class ),
     ;
 
     public final String name;
