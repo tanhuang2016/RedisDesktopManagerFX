@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.ui.common.TabPaneStyleEnum;
 import xyz.hashdog.rdm.ui.sampler.page.ExampleBox;
 import xyz.hashdog.rdm.ui.sampler.page.OutlinePage;
 import xyz.hashdog.rdm.ui.sampler.page.Snippet;
@@ -212,20 +213,20 @@ public final class TabPanePage extends OutlinePage {
         var defaultStyleToggle = new ToggleButton("Default");
         defaultStyleToggle.setToggleGroup(styleToggleGroup);
         defaultStyleToggle.setUserData(
-            List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC)
+                TabPaneStyleEnum.DEFAULT.classes
         );
         defaultStyleToggle.setSelected(true);
 
         var floatingStyleToggle = new ToggleButton("Floating");
         floatingStyleToggle.setToggleGroup(styleToggleGroup);
         floatingStyleToggle.setUserData(
-            List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC)
+                TabPaneStyleEnum.FLOATING.classes
         );
 
         var classicStyleToggle = new ToggleButton("Classic");
         classicStyleToggle.setToggleGroup(styleToggleGroup);
         classicStyleToggle.setUserData(
-            List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING)
+                TabPaneStyleEnum.CLASSIC.classes
         );
 
         styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
