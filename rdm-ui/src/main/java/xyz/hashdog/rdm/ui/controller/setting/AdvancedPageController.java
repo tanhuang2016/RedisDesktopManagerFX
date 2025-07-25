@@ -1,11 +1,9 @@
 package xyz.hashdog.rdm.ui.controller.setting;
 
 import atlantafx.base.theme.Styles;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
@@ -24,6 +22,8 @@ public class AdvancedPageController  {
     public ToggleButton treeShow;
     public ToggleButton listShow;
     public TextField keySeparator;
+    public Button ok;
+    public Button reset;
 
     @FXML
     public void initialize() {
@@ -48,5 +48,11 @@ public class AdvancedPageController  {
         GuiUtil.setIcon(listShow,new FontIcon(Material2MZ.VIEW_LIST));
         treeShow.getStyleClass().addAll(Styles.LEFT_PILL);
         listShow.getStyleClass().addAll(Styles.RIGHT_PILL);
+    }
+
+    public void ok(ActionEvent actionEvent) {
+    }
+
+    public void reset(ActionEvent actionEvent) {
     }
 }
