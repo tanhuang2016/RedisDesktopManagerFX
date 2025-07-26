@@ -369,38 +369,7 @@ public final class TabPanePage extends OutlinePage {
     }
 
 
-    private Pane playgroundKey() {
-        var tabs = createTabPaneKey();
-        tabs.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
-        var tabsLayer = new BorderPane();
-        tabsLayer.setTop(tabs);
-        tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
-                updateTabsWidth(tabsLayer, tabs, fullWidth)
-        );
 
-        var controller = createControllerKey(tabsLayer, tabs);
-
-        var controllerLayer = new BorderPane(controller);
-        controllerLayer.setMinSize(500, 300);
-        controllerLayer.setMaxSize(500, 300);
-
-        var description = BBCodeParser.createFormattedText("""
-            The playground demonstrates the most important [i]TabPane[/i] features \
-            and also serves as an object for monkey testing."""
-        );
-
-        var stack = new StackPane(tabsLayer, controllerLayer);
-        stack.getStyleClass().add(Styles.BORDERED);
-        stack.setMinSize(600, 500);
-
-        return new VBox(VGAP_10, description, stack);
-    }
-
-    @SuppressWarnings("unchecked")
-
-
-
-    @SuppressWarnings("unchecked")
     private TitledPane createControllerKey(BorderPane borderPane, TabPane tabs) {
         // == BUTTONS ==
 
