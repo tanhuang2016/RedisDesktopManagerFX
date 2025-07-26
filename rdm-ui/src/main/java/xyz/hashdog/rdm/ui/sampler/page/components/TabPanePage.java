@@ -370,7 +370,7 @@ public final class TabPanePage extends OutlinePage {
 
 
 
-    private TitledPane createControllerKey(BorderPane borderPane, TabPane tabs) {
+   /* private TitledPane createControllerKey(BorderPane borderPane, TabPane tabs) {
         // == BUTTONS ==
 
         var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
@@ -525,7 +525,7 @@ public final class TabPanePage extends OutlinePage {
 
         return root;
     }
-
+*/
 
 
 
