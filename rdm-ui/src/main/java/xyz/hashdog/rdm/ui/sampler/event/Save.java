@@ -41,10 +41,21 @@ public class Save {
             var eventType = e.getEventType();
             if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
                 ServerTabPaneSetting setting=new ServerTabPaneSetting();
-                setting.setSide(TabPanePage.server.getSide());
+                setting.setSide(TabPanePage.server.getTabSide().name());
+                setting.setAnimated(TabPanePage.server.isAnimated());
+                setting.setFullWidth(TabPanePage.server.isFullWidth());
+                setting.setDense(TabPanePage.server.isDense());
+                setting.setStyle(TabPanePage.server.getStyle());
+                Applications.putConfigSettings(setting.getName(),setting);
             }
             if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
                 KeyTabPaneSetting setting=new KeyTabPaneSetting();
+                setting.setSide(TabPanePage.key.getTabSide().name());
+                setting.setAnimated(TabPanePage.key.isAnimated());
+                setting.setFullWidth(TabPanePage.key.isFullWidth());
+                setting.setDense(TabPanePage.key.isDense());
+                setting.setStyle(TabPanePage.key.getStyle());
+                Applications.putConfigSettings(setting.getName(),setting);
             }
 
 

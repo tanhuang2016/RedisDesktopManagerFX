@@ -71,7 +71,7 @@ public final class TabPanePage extends OutlinePage {
     ///////////////////////////////////////////////////////////////////////////
 
 
-    class Sub{
+    public class Sub{
         private final int type;
         private Side tabSide = Side.TOP;
         private boolean fullWidth = false;
