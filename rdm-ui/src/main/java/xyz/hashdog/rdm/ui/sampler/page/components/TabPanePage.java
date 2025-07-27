@@ -30,6 +30,8 @@ import static javafx.scene.control.TabPane.TabClosingPolicy;
 public final class TabPanePage extends OutlinePage {
 
     public static final String NAME = "TabPane";
+    public static Sub server;
+    public static Sub key;
 
     @Override
     public String getName() {
@@ -45,13 +47,17 @@ public final class TabPanePage extends OutlinePage {
             on a tab, the content of that tab becomes visible, while the content of the previously \
             selected tab gets hidden."""
         );
-        addSection("Server Playground", playground(1));
-        addSection("Key Playground", playground(2));
+        server = getSub(1);
+        key = getSub(2);
+        addSection("Server Playground", server.pane);
+        addSection("Key Playground", key.pane);
     }
 
-    private Node playground(int type) {
+    private Sub getSub(int type) {
         Sub sub = new Sub(type);
-        return sub.playground();
+        Pane playground = sub.playground();
+        sub.pane = playground;
+        return sub;
     }
 
 
@@ -64,6 +70,7 @@ public final class TabPanePage extends OutlinePage {
         private final int type;
         private Side tabSide = Side.TOP;
         private boolean fullWidth = false;
+        private Pane pane;
 
         public Sub(int type) {
             this.type=type;
