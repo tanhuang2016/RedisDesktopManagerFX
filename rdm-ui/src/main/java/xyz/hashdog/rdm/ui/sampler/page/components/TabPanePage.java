@@ -18,6 +18,10 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.common.TabPaneStyleEnum;
+import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
+import xyz.hashdog.rdm.ui.sampler.event.EventBus;
+import xyz.hashdog.rdm.ui.sampler.event.TabPaneEvent;
+import xyz.hashdog.rdm.ui.sampler.event.ThemeEvent;
 import xyz.hashdog.rdm.ui.sampler.page.ExampleBox;
 import xyz.hashdog.rdm.ui.sampler.page.OutlinePage;
 import xyz.hashdog.rdm.ui.sampler.page.Snippet;
@@ -32,6 +36,7 @@ public final class TabPanePage extends OutlinePage {
     public static final String NAME = "TabPane";
     public static Sub server;
     public static Sub key;
+    private static final EventBus EVENT_BUS = DefaultEventBus.getInstance();
 
     @Override
     public String getName() {
@@ -71,11 +76,15 @@ public final class TabPanePage extends OutlinePage {
         private Side tabSide = Side.TOP;
         private boolean fullWidth = false;
         private Pane pane;
+        private TabPaneEvent.EventType eventType;
 
         public Sub(int type) {
             this.type=type;
             if(type==2){
                 tabSide=Side.BOTTOM;
+                eventType=TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE;
+            }else {
+                eventType=TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE;
             }
         }
 
@@ -190,6 +199,7 @@ public final class TabPanePage extends OutlinePage {
                     -fx-close-tab-animation:none;"""
                     );
                 }
+                EVENT_BUS.publish(new TabPaneEvent(eventType));
             });
 
             var fullWidthToggle = new ToggleSwitch();
@@ -197,12 +207,17 @@ public final class TabPanePage extends OutlinePage {
                 if (val != null) {
                     updateTabsWidth(borderPane, tabs, val);
                     fullWidth = val;
+                    EVENT_BUS.publish(new TabPaneEvent(eventType));
                 }
             });
 
             var denseToggle = new ToggleSwitch();
             denseToggle.selectedProperty().addListener(
-                    (obs, old, val) -> Styles.toggleStyleClass(tabs, Styles.DENSE)
+                    (obs, old, val) ->{
+                        Styles.toggleStyleClass(tabs, Styles.DENSE);
+                        EVENT_BUS.publish(new TabPaneEvent(eventType));
+                    }
+
             );
 
             var disableToggle = new ToggleSwitch();
@@ -251,6 +266,7 @@ public final class TabPanePage extends OutlinePage {
                 if (val != null) {
                     List<String> classes = (List<String>) val.getUserData();
                     Styles.addStyleClass(tabs, classes.get(0), classes.get(1), classes.get(2));
+                    EVENT_BUS.publish(new TabPaneEvent(eventType));
                 }
             });
 
@@ -351,6 +367,7 @@ public final class TabPanePage extends OutlinePage {
                 }
                 updateTabsWidth(borderPane, tabs, fullWidth);
             });
+            EVENT_BUS.publish(new TabPaneEvent(eventType));
         }
 
         private Tab createRandomTab() {
