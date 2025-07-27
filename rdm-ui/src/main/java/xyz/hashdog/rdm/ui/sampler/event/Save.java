@@ -3,6 +3,8 @@ package xyz.hashdog.rdm.ui.sampler.event;
 import javafx.util.Duration;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+import xyz.hashdog.rdm.ui.entity.config.ServerTabPaneSetting;
+import xyz.hashdog.rdm.ui.entity.config.TabPaneSetting;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
@@ -36,10 +38,10 @@ public class Save {
         DefaultEventBus.getInstance().subscribe(TabPaneEvent.class, e -> {
             var eventType = e.getEventType();
             if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
-                System.out.println(1);
+                ServerTabPaneSetting setting=new ServerTabPaneSetting();
             }
             if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
-                System.out.println(2);
+                ServerTabPaneSetting setting=new ServerTabPaneSetting();
             }
 
 

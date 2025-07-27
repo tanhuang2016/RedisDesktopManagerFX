@@ -8,6 +8,7 @@ public enum ConfigSettingsEnum {
     KEY_TAG("keyTag", KeyTagSetting.class ),
     ADVANCED("advanced", AdvancedSetting.class ),
     SERVER_TAB_PANE("serverTabPane", ServerTabPaneSetting.class ),
+    KEY_TAB_PANE("keyTabPane", ServerTabPaneSetting.class ),
     ;
 
     public final String name;

@@ -6,20 +6,20 @@ import xyz.hashdog.rdm.ui.common.TabPaneStyleEnum;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 
 public abstract class TabPaneSetting implements ConfigSettings{
-    private String side;
-    private String style ;
+    protected String side;
+    protected String style ;
     /**
      * 动画效果
      */
-    private boolean animated;
+    protected boolean animated;
     /**
      * 满宽
      */
-    private boolean fullWidth;
+    protected boolean fullWidth;
     /**
      * 紧凑
      */
-    private boolean dense;
+    protected boolean dense;
 
 
 
