@@ -108,7 +108,7 @@
                                             <RadioMenuItem fx:id="serverTabRight" mnemonicParsing="false" text="靠右" onAction="#serverTabRight"/>
                                         </items>
                                 </Menu>
-                                <Menu fx:id="KeyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
+                                <Menu fx:id="keyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
                                     <items>
                                         <RadioMenuItem fx:id="keyTabTop" mnemonicParsing="false" text="靠上" onAction="#keyTabTop"/>
                                         <RadioMenuItem fx:id="keyTabBottom" mnemonicParsing="false" text="靠下" onAction="#keyTabBottom" selected="true"/>

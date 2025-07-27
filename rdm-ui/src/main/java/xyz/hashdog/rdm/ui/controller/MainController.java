@@ -20,14 +20,19 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.common.tuple.Tuple2;
+import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.RedisContext;
 import xyz.hashdog.rdm.redis.RedisFactorySingleton;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.Main;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.entity.config.KeyTabPaneSetting;
+import xyz.hashdog.rdm.ui.entity.config.ServerTabPaneSetting;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.TabPaneEvent;
 import xyz.hashdog.rdm.ui.sampler.layout.ApplicationWindow;
@@ -70,7 +75,7 @@ public class MainController extends BaseWindowController {
     public MenuItem selectAll;
     public MenuItem deselect;
     public Menu serverTabPaneMenu;
-    public Menu KeyTabPaneMenu;
+    public Menu keyTabPaneMenu;
     public MenuItem fullScreen;
     public MenuItem maximized;
     public MenuItem minimized;
@@ -102,7 +107,7 @@ public class MainController extends BaseWindowController {
     }
 
     private void initMenuGroup() {
-        setMenuGroup(serverTabPaneMenu,KeyTabPaneMenu);
+        setMenuGroup(serverTabPaneMenu,keyTabPaneMenu);
 
     }
 
@@ -157,12 +162,15 @@ public class MainController extends BaseWindowController {
         DefaultEventBus.getInstance().subscribe(TabPaneEvent.class, e -> {
             var eventType = e.getEventType();
             if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
-                System.out.println(11);
+                ServerTabPaneSetting setting =Applications.getConfigSettings(ConfigSettingsEnum.SERVER_TAB_PANE.name);
+                Side side = Side.valueOf(setting.getSide());
+                serverTabPaneMenu.getItems().get(side.ordinal()).fire();
             }
             if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
-                System.out.println(22);
+                KeyTabPaneSetting setting =Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAB_PANE.name);
+                Side side = Side.valueOf(setting.getSide());
+                keyTabPaneMenu.getItems().get(side.ordinal()).fire();
             }
-
 
         });
     }
