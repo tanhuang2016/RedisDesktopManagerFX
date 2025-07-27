@@ -33,6 +33,7 @@ import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.entity.config.KeyTabPaneSetting;
 import xyz.hashdog.rdm.ui.entity.config.ServerTabPaneSetting;
+import xyz.hashdog.rdm.ui.entity.config.TabPaneSetting;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.TabPaneEvent;
 import xyz.hashdog.rdm.ui.sampler.layout.ApplicationWindow;
@@ -108,6 +109,11 @@ public class MainController extends BaseWindowController {
 
     private void initMenuGroup() {
         setMenuGroup(serverTabPaneMenu,keyTabPaneMenu);
+        ServerTabPaneSetting ssetting =Applications.getConfigSettings(ConfigSettingsEnum.SERVER_TAB_PANE.name);
+        setRadioMenuItemSelected(ssetting,serverTabPaneMenu,false);
+        KeyTabPaneSetting ksetting =Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAB_PANE.name);
+        setRadioMenuItemSelected(ksetting,keyTabPaneMenu,false);
+
 
     }
 
@@ -163,16 +169,27 @@ public class MainController extends BaseWindowController {
             var eventType = e.getEventType();
             if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
                 ServerTabPaneSetting setting =Applications.getConfigSettings(ConfigSettingsEnum.SERVER_TAB_PANE.name);
-                Side side = Side.valueOf(setting.getSide());
-                serverTabPaneMenu.getItems().get(side.ordinal()).fire();
+                setRadioMenuItemSelected(setting,serverTabPaneMenu,true);
             }
             if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
                 KeyTabPaneSetting setting =Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAB_PANE.name);
-                Side side = Side.valueOf(setting.getSide());
-                keyTabPaneMenu.getItems().get(side.ordinal()).fire();
+                setRadioMenuItemSelected(setting,keyTabPaneMenu,true);
             }
 
         });
+    }
+
+    /**
+     * 选择并点击
+     * @param setting
+     * @param menu
+     * @param b
+     */
+    private void setRadioMenuItemSelected(TabPaneSetting setting, Menu menu, boolean b) {
+        Side side = Side.valueOf(setting.getSide());
+        RadioMenuItem menuItem = (RadioMenuItem) menu.getItems().get(side.ordinal());
+        menuItem.setSelected(true);
+        if(b)menuItem.fire();
     }
 
     /**
