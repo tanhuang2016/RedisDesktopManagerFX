@@ -105,6 +105,12 @@ public class MainController extends BaseWindowController {
         initMenuIconAndKey();
         initRecentHistory();
         initMenuGroup();
+        initTabPane();
+    }
+
+    private void initTabPane() {
+        ServerTabPaneSetting ssetting =Applications.getConfigSettings(ConfigSettingsEnum.SERVER_TAB_PANE.name);
+        this.serverTabPane.setSide(Side.valueOf(ssetting.getSide()));
     }
 
     private void initMenuGroup() {
