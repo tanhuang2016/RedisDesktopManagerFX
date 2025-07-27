@@ -32,5 +32,17 @@ public class Save {
             }
 
         });
+
+        DefaultEventBus.getInstance().subscribe(TabPaneEvent.class, e -> {
+            var eventType = e.getEventType();
+            if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
+                System.out.println(1);
+            }
+            if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
+                System.out.println(2);
+            }
+
+
+        });
     }
 }
