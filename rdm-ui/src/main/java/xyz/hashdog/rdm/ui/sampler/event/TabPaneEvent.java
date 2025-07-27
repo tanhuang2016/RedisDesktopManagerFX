@@ -6,14 +6,9 @@ public final class TabPaneEvent extends Event {
 
     public enum EventType {
         // theme can change both, base font size and colors
-        THEME_CHANGE,
+        SERVER_TAB_PANE_CHANGE,
         // font size or family only change
-        FONT_CHANGE,
-        // colors only change
-        COLOR_CHANGE,
-        // new theme added or removed
-        THEME_ADD,
-        THEME_REMOVE
+        KEY_TAB_PANE_CHANGE,
     }
 
     private final EventType eventType;
@@ -28,7 +23,7 @@ public final class TabPaneEvent extends Event {
 
     @Override
     public String toString() {
-        return "ThemeEvent{"
+        return "TabPaneEvent{"
             + "eventType=" + eventType
             + "} " + super.toString();
     }
