@@ -28,6 +28,8 @@ import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
+import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
+import xyz.hashdog.rdm.ui.sampler.event.TabPaneEvent;
 import xyz.hashdog.rdm.ui.sampler.layout.ApplicationWindow;
 import xyz.hashdog.rdm.ui.sampler.layout.MainLayer;
 import xyz.hashdog.rdm.ui.sampler.layout.MainModel;
@@ -148,6 +150,21 @@ public class MainController extends BaseWindowController {
 
     private void initListener() {
         serverTabPaneListener();
+        tabPaneChangeListener();
+    }
+
+    private void tabPaneChangeListener() {
+        DefaultEventBus.getInstance().subscribe(TabPaneEvent.class, e -> {
+            var eventType = e.getEventType();
+            if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
+                System.out.println(11);
+            }
+            if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
+                System.out.println(22);
+            }
+
+
+        });
     }
 
     /**
