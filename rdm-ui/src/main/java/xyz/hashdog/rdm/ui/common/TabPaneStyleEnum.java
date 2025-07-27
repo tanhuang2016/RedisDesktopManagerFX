@@ -17,4 +17,14 @@ public enum TabPaneStyleEnum {
         this.name = name;
         this.classes = classes;
     }
+
+    public static TabPaneStyleEnum getByName(String name) {
+        for (TabPaneStyleEnum style : values()) {
+            if (style.name.equals(name)) {
+                return style;
+            }
+        }
+        return null;
+
+    }
 }

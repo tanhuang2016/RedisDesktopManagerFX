@@ -280,13 +280,16 @@ public final class TabPanePage extends OutlinePage {
             floatingStyleToggle.setUserData(
                     TabPaneStyleEnum.FLOATING
             );
-            defaultStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.FLOATING.name));
+            floatingStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.FLOATING.name));
             var classicStyleToggle = new ToggleButton("Classic");
             classicStyleToggle.setToggleGroup(styleToggleGroup);
             classicStyleToggle.setUserData(
                     TabPaneStyleEnum.CLASSIC
             );
-            defaultStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.CLASSIC.name));
+            classicStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.CLASSIC.name));
+            List<String> styles = TabPaneStyleEnum.getByName(this.style).classes;
+            Styles.addStyleClass(tabs, styles.get(0), styles.get(1), styles.get(2));
+
             styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
                 if (val != null) {
                     TabPaneStyleEnum styleEnum = (TabPaneStyleEnum) val.getUserData();
