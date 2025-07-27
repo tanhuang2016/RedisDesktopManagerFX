@@ -16,8 +16,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
 import xyz.hashdog.rdm.ui.common.TabPaneStyleEnum;
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
+import xyz.hashdog.rdm.ui.entity.config.KeyTabPaneSetting;
+import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
+import xyz.hashdog.rdm.ui.entity.config.ServerTabPaneSetting;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.EventBus;
 import xyz.hashdog.rdm.ui.sampler.event.TabPaneEvent;
@@ -84,10 +90,21 @@ public final class TabPanePage extends OutlinePage {
         public Sub(int type) {
             this.type=type;
             if(type==2){
-                tabSide=Side.BOTTOM;
                 eventType=TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE;
+                KeyTabPaneSetting settings = Applications.getConfigSettings(ConfigSettingsEnum.KEY_TAB_PANE.name);
+                tabSide=Side.valueOf(settings.getSide());
+                fullWidth=settings.isFullWidth();
+                style=settings.getStyle();
+                animated=settings.isAnimated();
+                dense=settings.isDense();
             }else {
                 eventType=TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE;
+                ServerTabPaneSetting settings = Applications.getConfigSettings(ConfigSettingsEnum.SERVER_TAB_PANE.name);
+                tabSide=Side.valueOf(settings.getSide());
+                fullWidth=settings.isFullWidth();
+                style=settings.getStyle();
+                animated=settings.isAnimated();
+                dense=settings.isDense();
             }
         }
 
@@ -102,6 +119,7 @@ public final class TabPanePage extends OutlinePage {
             );
 
             var controller = createController(tabsLayer, tabs);
+            doRotateTabs(tabsLayer,tabs,this.tabSide);
 
             var controllerLayer = new BorderPane(controller);
             controllerLayer.setMinSize(500, 300);
@@ -192,7 +210,7 @@ public final class TabPanePage extends OutlinePage {
             });
 
             var animatedToggle = new ToggleSwitch();
-            animatedToggle.setSelected(true);
+            animatedToggle.setSelected(this.animated);
             animatedToggle.selectedProperty().addListener((obs, old, val) -> {
                 if (val != null && val) {
                     tabs.setStyle("");
@@ -207,6 +225,7 @@ public final class TabPanePage extends OutlinePage {
             });
 
             var fullWidthToggle = new ToggleSwitch();
+            fullWidthToggle.setSelected(this.fullWidth);
             fullWidthToggle.selectedProperty().addListener((obs, old, val) -> {
                 if (val != null) {
                     updateTabsWidth(borderPane, tabs, val);
@@ -216,6 +235,7 @@ public final class TabPanePage extends OutlinePage {
             });
 
             var denseToggle = new ToggleSwitch();
+            denseToggle.setSelected(this.dense);
             denseToggle.selectedProperty().addListener(
                     (obs, old, val) ->{
                         Styles.toggleStyleClass(tabs, Styles.DENSE);
@@ -253,20 +273,20 @@ public final class TabPanePage extends OutlinePage {
             defaultStyleToggle.setUserData(
                     TabPaneStyleEnum.DEFAULT
             );
-            defaultStyleToggle.setSelected(true);
+            defaultStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.DEFAULT.name));
 
             var floatingStyleToggle = new ToggleButton("Floating");
             floatingStyleToggle.setToggleGroup(styleToggleGroup);
             floatingStyleToggle.setUserData(
                     TabPaneStyleEnum.FLOATING
             );
-
+            defaultStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.FLOATING.name));
             var classicStyleToggle = new ToggleButton("Classic");
             classicStyleToggle.setToggleGroup(styleToggleGroup);
             classicStyleToggle.setUserData(
                     TabPaneStyleEnum.CLASSIC
             );
-
+            defaultStyleToggle.setSelected(this.style.equals(TabPaneStyleEnum.CLASSIC.name));
             styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
                 if (val != null) {
                     TabPaneStyleEnum styleEnum = (TabPaneStyleEnum) val.getUserData();
@@ -360,6 +380,12 @@ public final class TabPanePage extends OutlinePage {
             if (tabSide == side) {
                 return;
             }
+            doRotateTabs(borderPane,tabs, side);
+            EVENT_BUS.publish(new TabPaneEvent(eventType));
+        }
+
+        private void doRotateTabs(BorderPane borderPane, TabPane tabs, Side side) {
+
 
             borderPane.getChildren().removeAll(tabs);
             tabSide = side;
@@ -374,7 +400,6 @@ public final class TabPanePage extends OutlinePage {
                 }
                 updateTabsWidth(borderPane, tabs, fullWidth);
             });
-            EVENT_BUS.publish(new TabPaneEvent(eventType));
         }
 
         private Tab createRandomTab() {
