@@ -75,6 +75,9 @@ public final class TabPanePage extends OutlinePage {
         private final int type;
         private Side tabSide = Side.TOP;
         private boolean fullWidth = false;
+        protected String style ;
+        protected boolean animated;
+        protected boolean dense;
         private Pane pane;
         private TabPaneEvent.EventType eventType;
 
@@ -199,6 +202,7 @@ public final class TabPanePage extends OutlinePage {
                     -fx-close-tab-animation:none;"""
                     );
                 }
+                animated=val;
                 EVENT_BUS.publish(new TabPaneEvent(eventType));
             });
 
@@ -215,6 +219,7 @@ public final class TabPanePage extends OutlinePage {
             denseToggle.selectedProperty().addListener(
                     (obs, old, val) ->{
                         Styles.toggleStyleClass(tabs, Styles.DENSE);
+                        dense = val;
                         EVENT_BUS.publish(new TabPaneEvent(eventType));
                     }
 
@@ -246,25 +251,27 @@ public final class TabPanePage extends OutlinePage {
             var defaultStyleToggle = new ToggleButton("Default");
             defaultStyleToggle.setToggleGroup(styleToggleGroup);
             defaultStyleToggle.setUserData(
-                    TabPaneStyleEnum.DEFAULT.classes
+                    TabPaneStyleEnum.DEFAULT
             );
             defaultStyleToggle.setSelected(true);
 
             var floatingStyleToggle = new ToggleButton("Floating");
             floatingStyleToggle.setToggleGroup(styleToggleGroup);
             floatingStyleToggle.setUserData(
-                    TabPaneStyleEnum.FLOATING.classes
+                    TabPaneStyleEnum.FLOATING
             );
 
             var classicStyleToggle = new ToggleButton("Classic");
             classicStyleToggle.setToggleGroup(styleToggleGroup);
             classicStyleToggle.setUserData(
-                    TabPaneStyleEnum.CLASSIC.classes
+                    TabPaneStyleEnum.CLASSIC
             );
 
             styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
                 if (val != null) {
-                    List<String> classes = (List<String>) val.getUserData();
+                    TabPaneStyleEnum styleEnum = (TabPaneStyleEnum) val.getUserData();
+                    style = styleEnum.name;
+                    List<String> classes =styleEnum.classes;
                     Styles.addStyleClass(tabs, classes.get(0), classes.get(1), classes.get(2));
                     EVENT_BUS.publish(new TabPaneEvent(eventType));
                 }
@@ -390,6 +397,30 @@ public final class TabPanePage extends OutlinePage {
             return tab;
         }
 
+
+        public int getType() {
+            return type;
+        }
+
+        public Side getTabSide() {
+            return tabSide;
+        }
+
+        public boolean isFullWidth() {
+            return fullWidth;
+        }
+
+        public String getStyle() {
+            return style;
+        }
+
+        public boolean isAnimated() {
+            return animated;
+        }
+
+        public boolean isDense() {
+            return dense;
+        }
     }
 
 

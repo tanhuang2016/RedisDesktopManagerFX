@@ -3,9 +3,11 @@ package xyz.hashdog.rdm.ui.sampler.event;
 import javafx.util.Duration;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+import xyz.hashdog.rdm.ui.entity.config.KeyTabPaneSetting;
 import xyz.hashdog.rdm.ui.entity.config.ServerTabPaneSetting;
 import xyz.hashdog.rdm.ui.entity.config.TabPaneSetting;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
+import xyz.hashdog.rdm.ui.sampler.page.components.TabPanePage;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 
@@ -39,9 +41,10 @@ public class Save {
             var eventType = e.getEventType();
             if (eventType == TabPaneEvent.EventType.SERVER_TAB_PANE_CHANGE ) {
                 ServerTabPaneSetting setting=new ServerTabPaneSetting();
+                setting.setSide(TabPanePage.server.getSide());
             }
             if (eventType == TabPaneEvent.EventType.KEY_TAB_PANE_CHANGE ) {
-                ServerTabPaneSetting setting=new ServerTabPaneSetting();
+                KeyTabPaneSetting setting=new KeyTabPaneSetting();
             }
 
 
