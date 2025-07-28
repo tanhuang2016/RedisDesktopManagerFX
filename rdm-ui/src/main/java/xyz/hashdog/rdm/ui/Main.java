@@ -20,6 +20,7 @@ import xyz.hashdog.rdm.ui.sampler.event.Save;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
+import xyz.hashdog.rdm.ui.util.LanguageManager;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -27,10 +28,8 @@ import java.util.ResourceBundle;
 public class Main extends Application {
     protected static Logger log = LoggerFactory.getLogger(Main.class);
 
-    public static final String BASE_NAME = "i18n.messages";
 
-    public static Locale DEFAULT_LOCALE = Locale.getDefault();
-    public static ResourceBundle RESOURCE_BUNDLE=ResourceBundle.getBundle(BASE_NAME, DEFAULT_LOCALE);
+    public static ResourceBundle RESOURCE_BUNDLE=ResourceBundle.getBundle(LanguageManager.BASE_NAME, LanguageManager.DEFAULT_LOCALE);
 
 
 
@@ -105,7 +104,7 @@ public class Main extends Application {
 //        DEFAULT_LOCALE= new Locale("en", "US");
 //        DEFAULT_LOCALE=Locale.JAPAN;
 //        DEFAULT_LOCALE=Locale.US;
-        RESOURCE_BUNDLE=ResourceBundle.getBundle(BASE_NAME, DEFAULT_LOCALE);
+        RESOURCE_BUNDLE=ResourceBundle.getBundle(LanguageManager.BASE_NAME, LanguageManager.DEFAULT_LOCALE);
     }
 
 
