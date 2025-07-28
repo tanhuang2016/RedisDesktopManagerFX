@@ -45,34 +45,34 @@
                         <Menu mnemonicParsing="false" text="%main.file">
                             <MenuItem fx:id="fileConnect" mnemonicParsing="false" text="%main.file.connect"
                                       onAction="#openServerLinkWindo"/>
-                            <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="快速连接" onAction="#quickConnection"/>
+                            <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="%main.file.fast" onAction="#quickConnection"/>
                             <items>
                                 <Menu mnemonicParsing="false" text="新建">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="文件夹" onAction="#newGroup"/>
-                                        <MenuItem mnemonicParsing="false" text="连接" onAction="#newConnection"/>
+                                        <MenuItem mnemonicParsing="false" text="%main.file.new.group" onAction="#newGroup"/>
+                                        <MenuItem mnemonicParsing="false" text="%main.file.new.connect" onAction="#newConnection"/>
                                     </items>
                                 </Menu>
-                                <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="打开"/>
-                                <Menu fx:id="history" mnemonicParsing="false" text="最近连接">
+                                <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="%main.file.open"/>
+                                <Menu fx:id="history" mnemonicParsing="false" text="%main.file.history">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
                                         <MenuItem mnemonicParsing="false" text="test2"/>
                                         <SeparatorMenuItem />
-                                        <MenuItem mnemonicParsing="false" text="清除所有最近连接" onAction="#clearHistory"/>
+                                        <MenuItem mnemonicParsing="false" text="%main.file.clear" onAction="#clearHistory"/>
                                     </items>
                                 </Menu>
-                                <MenuItem mnemonicParsing="false" text="关闭当前服务" onAction="#closeCurrentServer"/>
-                                <Menu fx:id="servers" mnemonicParsing="false" text="关闭服务">
+                                <MenuItem mnemonicParsing="false" text="%main.file.close.current" onAction="#closeCurrentServer"/>
+                                <Menu fx:id="servers" mnemonicParsing="false" text="%main.file.close">
                                     <items>
 <!--                                        <MenuItem mnemonicParsing="false" text="test1"/>-->
 <!--                                        <MenuItem mnemonicParsing="false" text="test2"/>-->
                                         <SeparatorMenuItem />
-                                        <MenuItem mnemonicParsing="false" text="全部关闭" onAction="#closeServerAll"/>
+                                        <MenuItem mnemonicParsing="false" text="%main.file.close.all" onAction="#closeServerAll"/>
                                     </items>
                                 </Menu>
-                                <MenuItem fx:id="fileSettings" onAction="#openSettings" mnemonicParsing="false" text="设置"/>
-                                <MenuItem  mnemonicParsing="true" text="退出(_X)" onAction="#exit"/>
+                                <MenuItem fx:id="fileSettings" onAction="#openSettings" mnemonicParsing="false" text="%main.file.setting"/>
+                                <MenuItem  mnemonicParsing="true" text="%main.file.exit" onAction="#exit"/>
 
                             </items>
                         </Menu>
