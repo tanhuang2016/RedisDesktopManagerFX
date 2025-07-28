@@ -184,21 +184,21 @@ public final class ThemePage extends OutlinePage {
 //    }
 
     private Node createColorPaletteSection() {
-        var description = createFormattedText("""
-            AtlantaFX follows [url=https://primer.style/design/foundations/color]GitHub \
-            Primer interface guidelines[/url] and color system.
+        var description = createFormattedText(String.format("""
+            %s
                         
-            Color contrast between text and its background must meet \
-            [url=https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html]required WCAG standards[/url]:
-                        
+           %s
+                      
             [ul]
-            [li]4.5:1 for normal text[/li]
-            [li]3:1 for large text (>24px)[/li]
-            [li]3:1 for UI elements and graphics[/li]
-            [li]no contrast requirement for decorative and disabled elements[/li][/ul]
-                        
-            Click on any color block to observe and modify color combination via built-in contrast checker.
-            """, true
+            [li]4.5:1 %s[/li]
+            [li]3:1 %s (>24px)[/li]
+            [li]3:1 %s[/li]
+            [/ul]
+            """,language("main.setting.general.theme.palette.describe1")
+                ,language("main.setting.general.theme.palette.describe2")
+                ,language("main.setting.general.theme.palette.describe3")
+                ,language("main.setting.general.theme.palette.describe4")
+                ,language("main.setting.general.theme.palette.describe5")), true
         );
 
         return new VBox(VGAP_10, description, colorPalette);
