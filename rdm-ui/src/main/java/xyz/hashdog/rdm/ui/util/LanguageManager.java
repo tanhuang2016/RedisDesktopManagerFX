@@ -11,7 +11,6 @@ public class LanguageManager {
     public static Locale DEFAULT_LOCALE = Locale.getDefault();
     public static List<Locale> getSupportedLocales() {
         List<Locale> availableLocales = new ArrayList<>();
-
         // 获取系统支持的所有语言环境
         Locale[] locales = Locale.getAvailableLocales();
         for (Locale locale : locales) {
