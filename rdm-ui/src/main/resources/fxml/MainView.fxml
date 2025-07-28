@@ -47,7 +47,7 @@
                                       onAction="#openServerLinkWindo"/>
                             <MenuItem fx:id="fileFastConnect" mnemonicParsing="false" text="%main.file.fast" onAction="#quickConnection"/>
                             <items>
-                                <Menu mnemonicParsing="false" text="新建">
+                                <Menu mnemonicParsing="false" text="%main.file.new">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="%main.file.new.group" onAction="#newGroup"/>
                                         <MenuItem mnemonicParsing="false" text="%main.file.new.connect" onAction="#newConnection"/>
