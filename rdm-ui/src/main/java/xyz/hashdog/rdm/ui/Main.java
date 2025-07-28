@@ -53,8 +53,6 @@ public class Main extends Application {
             // 错误处理
             GuiUtil.alert(Alert.AlertType.ERROR,"Failed to restart application: " + e.getMessage());
         }
-        Stage primaryStage = new Stage();
-        new Main().start(primaryStage);
     }
 
     @Override
