@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller.setting;
 
+import atlantafx.base.theme.Styles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +29,14 @@ public class LanguagePageController {
     public void initialize() {
         initLangComboBox();
         initListener();
+        initButton();
 
+    }
+    private void initButton() {
+        initButtonStyles();
+    }
+    private void initButtonStyles() {
+        ok.getStyleClass().add(Styles.ACCENT);
     }
 
     private void initListener() {
