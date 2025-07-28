@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.setting.AdvancedPageController">
+<AnchorPane fx:id="root" prefHeight="600" prefWidth="600" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.setting.LanguagePageController">
    <children>
       <VBox prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,7 +25,7 @@
              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="591.0" spacing="10.0">
                  <children>
                      <Button fx:id="ok" disable="true" mnemonicParsing="false" onAction="#ok" text="确定" />
-                     <Button fx:id="reset" mnemonicParsing="false" onAction="#reset" text="系统" />
+                     <Button fx:id="system" mnemonicParsing="false" onAction="#system" text="系统" />
                  </children>
              </HBox>
          </children>

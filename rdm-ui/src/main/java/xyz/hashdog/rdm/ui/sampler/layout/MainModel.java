@@ -13,6 +13,7 @@ import xyz.hashdog.rdm.ui.sampler.page.Page;
 import xyz.hashdog.rdm.ui.sampler.page.components.TabPanePage;
 import xyz.hashdog.rdm.ui.sampler.page.custom.AdvancedPage;
 import xyz.hashdog.rdm.ui.sampler.page.custom.KeyTagPage;
+import xyz.hashdog.rdm.ui.sampler.page.custom.LanguagePage;
 import xyz.hashdog.rdm.ui.sampler.page.general.ThemePage;
 
 import java.util.HashMap;
@@ -73,8 +74,8 @@ public class MainModel {
     private NavTree.Item createTree() {
         var general = NavTree.Item.group("General", new FontIcon(Material2OutlinedMZ.SPEED));
         general.getChildren().setAll(
-            NAV_TREE.get(ThemePage.class)
-//            NAV_TREE.get(TypographyPage.class),
+            NAV_TREE.get(ThemePage.class),
+            NAV_TREE.get(LanguagePage.class)
 //            NAV_TREE.get(BBCodePage.class),
 //            NAV_TREE.get(AnimationsPage.class),
 //            NAV_TREE.get(IconsPage.class)
@@ -222,6 +223,7 @@ public class MainModel {
         map.put(AdvancedPage.class, NavTree.Item.page(AdvancedPage.NAME, AdvancedPage.class));
         map.put(KeyTagPage.class, NavTree.Item.page(KeyTagPage.NAME, KeyTagPage.class));
         map.put(TabPanePage.class, NavTree.Item.page(TabPanePage.NAME, TabPanePage.class));
+        map.put(LanguagePage.class, NavTree.Item.page(LanguagePage.NAME, LanguagePage.class));
 //        map.put(MenuButtonPage.class, NavTree.Item.page(
 //            MenuButtonPage.NAME,
 //            MenuButtonPage.class, "SplitMenuButton")
