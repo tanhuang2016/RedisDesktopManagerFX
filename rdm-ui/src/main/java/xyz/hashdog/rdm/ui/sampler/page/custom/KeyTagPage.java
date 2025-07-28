@@ -24,11 +24,7 @@ public final class KeyTagPage extends AbstractPage {
         super();
 
         addPageHeader();
-        addFormattedText("""
-            A menu bar is a user interface component that typically appears at the top of \
-            an application window or screen, and provides a series of drop-down menus that \
-            allow users to access various features and functions of the application."""
-        );
+        addFormattedText(language("main.setting.global.key.describe"));
         Tuple2<AnchorPane, Object> tuple2 = GuiUtil.doLoadFXML("/fxml/setting/KeyTagPage.fxml");
 //        AnchorPane t1 = tuple2.getT1();
 //        Node node = t1.getChildren().get(0);
