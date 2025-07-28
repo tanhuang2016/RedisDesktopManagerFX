@@ -31,6 +31,7 @@ public class AdvancedPageController  {
     public TextField keySeparator;
     public Button ok;
     public Button reset;
+    public ToggleGroup toggleGroup;
 
     @FXML
     public void initialize() {
@@ -46,8 +47,24 @@ public class AdvancedPageController  {
         changeListener();
     }
 
+    private boolean toggleGroupChange = false;
     private void changeListener() {
         textFieldChangeListener(connectionTimeout.getEditor(),soTimeout.getEditor(),keySeparator);
+        // 添加监听，确保至少一个按钮被选中
+        toggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (toggleGroup.getSelectedToggle() == null) {
+                toggleGroupChange=false;
+                // 如果没有选中任何按钮，恢复上一个或默认选中
+                if (oldToggle != null) {
+                    oldToggle.setSelected(true);
+                } else {
+                    treeShow.setSelected(true);
+                }
+            }else {
+                if(oldToggle!=newToggle && toggleGroupChange)ok.setDisable(false);
+                toggleGroupChange=true;
+            }
+        });
     }
 
     private void textFieldChangeListener(TextField... textFields) {
@@ -86,21 +103,8 @@ public class AdvancedPageController  {
     }
 
     private void initToggleButton() {
-        ToggleGroup toggleGroup = new ToggleGroup();
+        this.toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(treeShow,listShow);
-        // 添加监听，确保至少一个按钮被选中
-        toggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
-            if (toggleGroup.getSelectedToggle() == null) {
-                // 如果没有选中任何按钮，恢复上一个或默认选中
-                if (oldToggle != null) {
-                    oldToggle.setSelected(true);
-                } else {
-                    treeShow.setSelected(true);
-                }
-            }else {
-                ok.setDisable(false);
-            }
-        });
         GuiUtil.setIcon(treeShow,new FontIcon(Material2AL.ACCOUNT_TREE));
         GuiUtil.setIcon(listShow,new FontIcon(Material2MZ.VIEW_LIST));
         treeShow.getStyleClass().addAll(Styles.LEFT_PILL);
