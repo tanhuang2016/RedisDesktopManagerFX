@@ -92,10 +92,10 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.view">
                             <items>
-                                <MenuItem fx:id="fullScreen" mnemonicParsing="false" text="%main.viw.full" onAction="#fullScreen"/>
-                                <MenuItem mnemonicParsing="false" text="%main.viw.reset" onAction="#resetWindow"/>
-                                <MenuItem fx:id="maximized" mnemonicParsing="false" text="%main.viw.maximized" onAction="#maximized"/>
-                                <MenuItem fx:id="minimized" mnemonicParsing="false" text="%main.viw.minimized" onAction="#minimized"/>
+                                <MenuItem fx:id="fullScreen" mnemonicParsing="false" text="%main.view.full" onAction="#fullScreen"/>
+                                <MenuItem mnemonicParsing="false" text="%main.view.reset" onAction="#resetWindow"/>
+                                <MenuItem fx:id="maximized" mnemonicParsing="false" text="%main.view.maximized" onAction="#maximized"/>
+                                <MenuItem fx:id="minimized" mnemonicParsing="false" text="%main.view.minimized" onAction="#minimized"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.window">
