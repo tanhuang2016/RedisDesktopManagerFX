@@ -17,7 +17,7 @@
                    <HBox alignment="CENTER_LEFT" spacing="6.0" VBox.vgrow="ALWAYS">
                        <children>
                                <Label text="语言" />
-                        <ComboBox HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="langComboBox" HBox.hgrow="ALWAYS" />
                        </children>
                    </HBox>
                </children>
