@@ -278,11 +278,14 @@ public class GuiUtil {
      * @return
      */
     public static ContextMenu newTabContextMenu(Tab tab) {
-        MenuItem close = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE));
-        MenuItem closeOther = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_OTHER));
+        MenuItem close = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE)+"(_C)");
+        close.setMnemonicParsing(true);
+        MenuItem closeOther = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_OTHER)+"(_O)");
+        closeOther.setMnemonicParsing(true);
         MenuItem closeLeft = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_LEFT));
         MenuItem closeRight = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_RIGHT));
-        MenuItem closeAll = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_ALL));
+        MenuItem closeAll = new MenuItem(Main.RESOURCE_BUNDLE.getString(Constant.CLOSE_ALL)+"(_A)");
+        closeAll.setMnemonicParsing(true);
         ContextMenu cm = new ContextMenu(close,closeOther,closeLeft,closeRight,closeAll);
 //        cm.setOpacity(0.8d);
         tab.setContextMenu(cm);
