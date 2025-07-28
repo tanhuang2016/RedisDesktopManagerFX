@@ -121,10 +121,10 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="使用指南" />
-                                <MenuItem mnemonicParsing="false" text="改进建议和问题反馈" />
-                                <MenuItem mnemonicParsing="false" text="检查更新" />
-                                <MenuItem mnemonicParsing="false" text="关于" />
+                                <MenuItem mnemonicParsing="false" text="%main.help.guide"  disable="true"/>
+                                <MenuItem mnemonicParsing="false" text="%main.help.suggest" disable="true"/>
+                                <MenuItem mnemonicParsing="false" text="%main.help.update" disable="true"/>
+                                <MenuItem mnemonicParsing="false" text="%main.help.about" disable="true"/>
                             </items>
                         </Menu>
                     </menus>
