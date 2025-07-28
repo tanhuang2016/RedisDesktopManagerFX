@@ -23,11 +23,7 @@ public final class LanguagePage extends AbstractPage {
         super();
 
         addPageHeader();
-        addFormattedText("""
-            A menu bar is a user interface component that typically appears at the top of \
-            an application window or screen, and provides a series of drop-down menus that \
-            allow users to access various features and functions of the application."""
-        );
+        addFormattedText(language("main.setting.general.language.describe"));
         Tuple2<AnchorPane, Object> tuple2 = GuiUtil.doLoadFXML("/fxml/setting/LanguagePage.fxml");
         addNode(tuple2.getT1());
     }

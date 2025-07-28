@@ -16,7 +16,7 @@
                <children>
                    <HBox alignment="CENTER_LEFT" spacing="6.0" VBox.vgrow="ALWAYS">
                        <children>
-                               <Label text="语言" />
+                               <Label text="%main.setting.general.language" />
                         <ComboBox fx:id="langComboBox" HBox.hgrow="ALWAYS" />
                        </children>
                    </HBox>
@@ -24,8 +24,8 @@
             </VBox>
              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="591.0" spacing="10.0">
                  <children>
-                     <Button fx:id="ok" disable="true" mnemonicParsing="false" onAction="#ok" text="确定" />
-                     <Button fx:id="system" mnemonicParsing="false" onAction="#system" text="系统默认" />
+                     <Button fx:id="ok" disable="true" mnemonicParsing="false" onAction="#ok" text="%common.ok" />
+                     <Button fx:id="system" mnemonicParsing="false" onAction="#system" text="%common.default" />
                  </children>
              </HBox>
          </children>
