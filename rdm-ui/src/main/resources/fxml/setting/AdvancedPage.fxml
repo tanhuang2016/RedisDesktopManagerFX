@@ -39,19 +39,19 @@
                        </children>
                    </HBox>
                          <HBox alignment="CENTER_LEFT" spacing="0.0" VBox.vgrow="ALWAYS">
-                            <Label text="展示风格">
+                            <Label text="%connect.info.style">
                         <padding>
                            <Insets right="6.0" />
                         </padding>
                      </Label>
-                             <ToggleButton fx:id="treeShow" selected="true" text="树形显示" HBox.hgrow="ALWAYS">
+                             <ToggleButton fx:id="treeShow" selected="true" text="%connect.info.style.tree" HBox.hgrow="ALWAYS">
                                  <tooltip>
-                                     <Tooltip text="树形显示" />
+                                     <Tooltip text="%connect.info.style.tree" />
                                  </tooltip>
                              </ToggleButton>
-                             <ToggleButton fx:id="listShow" text="列表显示" HBox.hgrow="ALWAYS">
+                             <ToggleButton fx:id="listShow" text="%connect.info.style.list" HBox.hgrow="ALWAYS">
                                  <tooltip>
-                                     <Tooltip text="列表显示" />
+                                     <Tooltip text="%connect.info.style.list" />
                                  </tooltip>
                              </ToggleButton>
                          </HBox>
