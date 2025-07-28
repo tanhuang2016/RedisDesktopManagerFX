@@ -100,20 +100,20 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="%main.window">
                             <items>
-                                <Menu  fx:id="serverTabPaneMenu" mnemonicParsing="false" text="ServerTabPane" >
+                                <Menu  fx:id="serverTabPaneMenu" mnemonicParsing="false" text="%main.window.server" >
                                         <items>
-                                            <RadioMenuItem fx:id="serverTabTop" mnemonicParsing="false" text="靠上" onAction="#serverTabTop" selected="true"/>
-                                            <RadioMenuItem fx:id="serverTabBottom" mnemonicParsing="false" text="靠下" onAction="#serverTabBottom"/>
-                                            <RadioMenuItem fx:id="serverTabLeft" mnemonicParsing="false" text="靠左" onAction="#serverTabLeft"/>
-                                            <RadioMenuItem fx:id="serverTabRight" mnemonicParsing="false" text="靠右" onAction="#serverTabRight"/>
+                                            <RadioMenuItem fx:id="serverTabTop" mnemonicParsing="false" text="%main.window.top" onAction="#serverTabTop" selected="true"/>
+                                            <RadioMenuItem fx:id="serverTabBottom" mnemonicParsing="false" text="%main.window.bottom" onAction="#serverTabBottom"/>
+                                            <RadioMenuItem fx:id="serverTabLeft" mnemonicParsing="false" text="%main.window.left" onAction="#serverTabLeft"/>
+                                            <RadioMenuItem fx:id="serverTabRight" mnemonicParsing="false" text="%main.window.right" onAction="#serverTabRight"/>
                                         </items>
                                 </Menu>
-                                <Menu fx:id="keyTabPaneMenu" mnemonicParsing="false" text="KeyTabPane" >
+                                <Menu fx:id="keyTabPaneMenu" mnemonicParsing="false" text="%main.window.key" >
                                     <items>
-                                        <RadioMenuItem fx:id="keyTabTop" mnemonicParsing="false" text="靠上" onAction="#keyTabTop"/>
-                                        <RadioMenuItem fx:id="keyTabBottom" mnemonicParsing="false" text="靠下" onAction="#keyTabBottom" selected="true"/>
-                                        <RadioMenuItem fx:id="keyTabLeft" mnemonicParsing="false" text="靠左" onAction="#keyTabLeft"/>
-                                        <RadioMenuItem fx:id="keyTabRight" mnemonicParsing="false" text="靠右" onAction="#keyTabRight"/>
+                                        <RadioMenuItem fx:id="keyTabTop" mnemonicParsing="false" text="%main.window.top" onAction="#keyTabTop"/>
+                                        <RadioMenuItem fx:id="keyTabBottom" mnemonicParsing="false" text="%main.window.bottom" onAction="#keyTabBottom" selected="true"/>
+                                        <RadioMenuItem fx:id="keyTabLeft" mnemonicParsing="false" text="%main.window.left" onAction="#keyTabLeft"/>
+                                        <RadioMenuItem fx:id="keyTabRight" mnemonicParsing="false" text="%main.window.right" onAction="#keyTabRight"/>
                                     </items>
 
                                 </Menu>
