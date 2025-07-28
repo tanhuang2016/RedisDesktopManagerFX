@@ -5,19 +5,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
 import xyz.hashdog.rdm.ui.entity.config.LanguageSetting;
+import xyz.hashdog.rdm.ui.util.GuiUtil;
 import xyz.hashdog.rdm.ui.util.LanguageManager;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LanguagePageController {
     public Button ok;
@@ -83,6 +87,11 @@ public class LanguagePageController {
         configSettings.setLocalCountry(langComboBox.getValue().getCountry());
         configSettings.setLocalLanguage(langComboBox.getValue().getLanguage());
         Applications.putConfigSettings(configSettings.getName(), configSettings);
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "重启界面以使更改生效？")) {
+            Main.RESOURCE_BUNDLE= ResourceBundle.getBundle(LanguageManager.BASE_NAME,Locale.of(configSettings.getLocalLanguage(),configSettings.getLocalCountry()));
+            Main.restart();
+        }
+
 
     }
 

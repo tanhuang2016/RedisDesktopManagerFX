@@ -2,11 +2,13 @@ package xyz.hashdog.rdm.ui;
 
 import atlantafx.base.theme.Dracula;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
@@ -14,6 +16,7 @@ import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
 import xyz.hashdog.rdm.ui.controller.MainController;
 import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
+import xyz.hashdog.rdm.ui.entity.config.LanguageSetting;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.exceptions.GeneralException;
 import xyz.hashdog.rdm.ui.sampler.event.Save;
@@ -35,6 +38,23 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Application.launch(args);
+    }
+
+    public static void restart() {
+        try {
+            // 关闭所有窗口
+            ObservableList<Window> windows = Window.getWindows();
+            windows.getFirst().hide();
+            // 重新启动主应用
+            Stage primaryStage = new Stage();
+            new Main().start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 错误处理
+            GuiUtil.alert(Alert.AlertType.ERROR,"Failed to restart application: " + e.getMessage());
+        }
+        Stage primaryStage = new Stage();
+        new Main().start(primaryStage);
     }
 
     @Override
@@ -104,7 +124,9 @@ public class Main extends Application {
 //        DEFAULT_LOCALE= new Locale("en", "US");
 //        DEFAULT_LOCALE=Locale.JAPAN;
 //        DEFAULT_LOCALE=Locale.US;
-        RESOURCE_BUNDLE=ResourceBundle.getBundle(LanguageManager.BASE_NAME, LanguageManager.DEFAULT_LOCALE);
+//        RESOURCE_BUNDLE=ResourceBundle.getBundle(LanguageManager.BASE_NAME, LanguageManager.DEFAULT_LOCALE);
+        LanguageSetting configSettings = Applications.getConfigSettings(ConfigSettingsEnum.LANGUAGE.name);
+        Main.RESOURCE_BUNDLE= ResourceBundle.getBundle(LanguageManager.BASE_NAME,Locale.of(configSettings.getLocalLanguage(),configSettings.getLocalCountry()));
     }
 
 
