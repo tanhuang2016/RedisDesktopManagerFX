@@ -90,7 +90,7 @@
                                 <MenuItem mnemonicParsing="false" text="%main.edit.replace" disable="true"/>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="视图">
+                        <Menu mnemonicParsing="false" text="%main.view">
                             <items>
                                 <MenuItem fx:id="fullScreen" mnemonicParsing="false" text="全屏显示" onAction="#fullScreen"/>
                                 <MenuItem mnemonicParsing="false" text="重置大小" onAction="#resetWindow"/>
@@ -98,7 +98,7 @@
                                 <MenuItem fx:id="minimized" mnemonicParsing="false" text="最小化" onAction="#minimized"/>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="窗口">
+                        <Menu mnemonicParsing="false" text="%main.window">
                             <items>
                                 <Menu  fx:id="serverTabPaneMenu" mnemonicParsing="false" text="ServerTabPane" >
                                         <items>
