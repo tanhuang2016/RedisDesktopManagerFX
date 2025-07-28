@@ -129,8 +129,8 @@ public final class ThemePage extends OutlinePage {
         addPageHeader();
         addNode(createThemeManagementSection());
 //        addSection("Scene Builder", createSceneBuilderSection());
-        addSection("Color Palette", createColorPaletteSection());
-        addSection("Color Scale", createColorScaleSection());
+        addSection(language("main.setting.general.theme.palette"), createColorPaletteSection());
+        addSection(language("main.setting.general.theme.scale"), createColorScaleSection());
 
         //Platform.runLater(this::selectCurrentTheme);
     }
@@ -159,9 +159,9 @@ public final class ThemePage extends OutlinePage {
         var grid = new GridPane();
         grid.setHgap(HGAP_20);
         grid.setVgap(VGAP_10);
-        grid.addRow(0, new Label("Color theme"), themeSelector, themeRepoBtn);
-        grid.addRow(1, new Label("Accent color"), accentSelector);
-        grid.addRow(2, new Label("Font"), new HBox(10, fontFamilyChooser, fontSizeSpinner));
+        grid.addRow(0, new Label(language("main.setting.general.theme.color")), themeSelector, themeRepoBtn);
+        grid.addRow(1, new Label(language("main.setting.general.theme.accent")), accentSelector);
+        grid.addRow(2, new Label(language("main.setting.general.theme.font")), new HBox(10, fontFamilyChooser, fontSizeSpinner));
 
         return grid;
     }
@@ -205,11 +205,9 @@ public final class ThemePage extends OutlinePage {
     }
 
     private Node createColorScaleSection() {
-        var description = createFormattedText("""
-            Avoid referencing scale variables directly when building UI that needs \
-            to adapt to different color themes. Instead, use the functional variables \
-            listed above.""", false
-        );
+        var description = createFormattedText(String.format("""
+            %s"""
+        ,language("main.setting.general.theme.scale.describe")), false);
 
         return new VBox(VGAP_10, description, colorScale);
     }
