@@ -9,8 +9,10 @@ import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.io.IOException;
 
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 public final class LanguagePage extends AbstractPage {
-    public static final String NAME = "Language";
+    public static final String NAME = language("main.setting.general.language");
 
     @Override
     public String getName() {

@@ -36,10 +36,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
 
 public final class TabPanePage extends OutlinePage {
 
-    public static final String NAME = "TabPane";
+    public static final String NAME = language("main.setting.window.tab");
     public static Sub server;
     public static Sub key;
     private static final EventBus EVENT_BUS = DefaultEventBus.getInstance();

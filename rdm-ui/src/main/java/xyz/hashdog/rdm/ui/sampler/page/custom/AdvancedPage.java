@@ -27,9 +27,10 @@ import java.util.stream.IntStream;
 
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
 
 public final class AdvancedPage extends AbstractPage {
-    public static final String NAME = "Advanced setting";
+    public static final String NAME = language("main.setting.global.advanced");
 
     @Override
     public String getName() {

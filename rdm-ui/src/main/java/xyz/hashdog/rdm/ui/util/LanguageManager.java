@@ -1,6 +1,7 @@
 package xyz.hashdog.rdm.ui.util;
 
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.Main;
 
 import java.util.*;
 
@@ -29,5 +30,9 @@ public class LanguageManager {
         }
 
         return availableLocales;
+    }
+
+    public static String language(String key) {
+       return Main.RESOURCE_BUNDLE.getString(key);
     }
 }

@@ -32,12 +32,13 @@ import java.net.URI;
 import java.util.Objects;
 
 import static xyz.hashdog.rdm.ui.sampler.theme.ThemeManager.DEFAULT_FONT_SIZE;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
 
 
 @SuppressWarnings("UnnecessaryLambda")
 public final class ThemePage extends OutlinePage {
 
-    public static final String NAME = "Theme";
+    public static final String NAME = language("main.setting.general.theme");
 
     private static final ThemeManager TM = ThemeManager.getInstance();
     private static final String DEFAULT_FONT_ID = "Default";
