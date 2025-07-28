@@ -9,6 +9,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import xyz.hashdog.rdm.common.util.DataUtil;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.common.ConfigSettingsEnum;
+import xyz.hashdog.rdm.ui.entity.config.ConfigSettings;
+import xyz.hashdog.rdm.ui.entity.config.LanguageSetting;
 import xyz.hashdog.rdm.ui.util.LanguageManager;
 
 import java.util.List;
@@ -23,7 +27,16 @@ public class LanguagePageController {
     @FXML
     public void initialize() {
         initLangComboBox();
+        initListener();
 
+    }
+
+    private void initListener() {
+        langComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue != oldValue) {
+                this.ok.setDisable(false);
+            }
+        });
     }
 
     private void initLangComboBox() {
@@ -50,15 +63,22 @@ public class LanguagePageController {
             }
         });
 
-
+        LanguageSetting configSettings = Applications.getConfigSettings(ConfigSettingsEnum.LANGUAGE.name);
         // 设置当前语言
-        langComboBox.setValue(Locale.getDefault());
+        langComboBox.setValue(Locale.of(configSettings.getLocalLanguage(), configSettings.getLocalCountry()));
 
     }
 
     public void ok(ActionEvent actionEvent) {
+        this.ok.setDisable(true);
+        LanguageSetting configSettings = new LanguageSetting();
+        configSettings.setLocalCountry(langComboBox.getValue().getCountry());
+        configSettings.setLocalLanguage(langComboBox.getValue().getLanguage());
+        Applications.putConfigSettings(configSettings.getName(), configSettings);
+
     }
 
     public void system(ActionEvent actionEvent) {
+        langComboBox.setValue(Locale.getDefault());
     }
 }

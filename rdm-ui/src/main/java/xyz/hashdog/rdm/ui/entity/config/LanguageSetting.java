@@ -25,4 +25,19 @@ public class LanguageSetting implements ConfigSettings{
         return this;
     }
 
+    public String getLocalLanguage() {
+        return localLanguage;
+    }
+
+    public void setLocalLanguage(String localLanguage) {
+        this.localLanguage = localLanguage;
+    }
+
+    public String getLocalCountry() {
+        return localCountry;
+    }
+
+    public void setLocalCountry(String localCountry) {
+        this.localCountry = localCountry;
+    }
 }

@@ -25,7 +25,7 @@
              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="591.0" spacing="10.0">
                  <children>
                      <Button fx:id="ok" disable="true" mnemonicParsing="false" onAction="#ok" text="确定" />
-                     <Button fx:id="system" mnemonicParsing="false" onAction="#system" text="系统" />
+                     <Button fx:id="system" mnemonicParsing="false" onAction="#system" text="系统默认" />
                  </children>
              </HBox>
          </children>
