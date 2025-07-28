@@ -53,7 +53,7 @@
                                         <MenuItem mnemonicParsing="false" text="%main.file.new.connect" onAction="#newConnection"/>
                                     </items>
                                 </Menu>
-                                <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="%main.file.open"/>
+                                <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="%main.file.open" disable="true"/>
                                 <Menu fx:id="history" mnemonicParsing="false" text="%main.file.history">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="test1"/>
