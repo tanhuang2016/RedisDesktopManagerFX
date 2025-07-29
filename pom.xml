@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-         <rdm.version>${project.version}</rdm.version>
+         <rdm.version>2.0.0</rdm.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
 <!--        <slf4j.version>1.7.32</slf4j.version>-->
