@@ -80,10 +80,10 @@ jobs:
           **/target/*.dep
           **/target/*.gz
           **/target/*.msi
-          **/target/*.msm
           **/target/*.exe
           **/target/*dependencies.jar
-          **/target/*.*
+          **/target/*.msm
+#          **/target/*.*
         if-no-files-found: error
 
 
