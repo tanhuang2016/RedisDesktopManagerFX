@@ -36,6 +36,9 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_SAVE_SUCCESS;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 /**
  * @author th
  * @version 1.0.0
@@ -299,7 +302,7 @@ public class HashTypeController extends BaseKeyController<KeyTabController> impl
                 tableView.refresh();
                 keyByteArrayController.setByteArray(key);
                 byteArrayController.setByteArray(value);
-                GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
+                GuiUtil.alert(Alert.AlertType.INFORMATION, language(ALERT_MESSAGE_SAVE_SUCCESS));
             });
         });
     }

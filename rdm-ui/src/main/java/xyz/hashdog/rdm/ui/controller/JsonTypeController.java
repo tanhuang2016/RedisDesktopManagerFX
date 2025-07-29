@@ -18,6 +18,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_SAVE_SUCCESS;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 /**
  * @author th
  * @version 1.0.0
@@ -90,7 +93,7 @@ public class JsonTypeController extends BaseKeyController<KeyTabController> impl
             exeRedis(j -> j.jsonSet(this.getParameter().getKey(), new String(byteArray)));
             Platform.runLater(() -> {
                 byteArrayController.setByteArray(byteArray);
-                GuiUtil.alert(Alert.AlertType.INFORMATION, "保存成功");
+                GuiUtil.alert(Alert.AlertType.INFORMATION, language(ALERT_MESSAGE_SAVE_SUCCESS));
             });
         });
     }

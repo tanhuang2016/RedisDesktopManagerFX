@@ -14,6 +14,12 @@ public interface Constant {
     String OK = "common.ok";
     String CANCEL = "common.cancel";
     String ALERT_MESSAGE_DEL = "alert.message.del";
+    String ALERT_MESSAGE_SAVE_SUCCESS = "alert.message.save.success";
+    String ALERT_MESSAGE_SET_SUCCESS = "alert.message.set.success";
+    String ALERT_MESSAGE_RENAME_SUCCESS = "alert.message.rename.success";
+    String ALERT_MESSAGE_CONNECT_SUCCESS = "alert.message.connect.success";
+    String ALERT_MESSAGE_RESTART_SUCCESS = "alert.message.restart.success";
+    String ALERT_MESSAGE_SET_TTL = "alert.message.set.ttl";
     String ALERT_MESSAGE_DELCONNECTION = "alert.message.delConnection";
     String ALERT_MESSAGE_DELGROUP ="alert.message.delGroup" ;
     String ALERT_MESSAGE_DELFLUSH = "alert.message.delFlush";

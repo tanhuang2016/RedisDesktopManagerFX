@@ -26,6 +26,10 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_CONNECT_SUCCESS;
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_SAVE_SUCCESS;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 /**
  * 新建连接的控制层
  * @author th
@@ -318,7 +322,7 @@ public class NewConnectionController extends BaseWindowController<ServerConnecti
             Message message = redisContext.newRedisClient().testConnect();
             if (message.isSuccess()) {
                 testConnectButton.getStyleClass().add(Styles.SUCCESS);
-                GuiUtil.alert(Alert.AlertType.INFORMATION, "连接成功");
+                GuiUtil.alert(Alert.AlertType.INFORMATION, language(ALERT_MESSAGE_CONNECT_SUCCESS));
             } else {
                 testConnectButton.getStyleClass().add(Styles.DANGER);
                 GuiUtil.alert(Alert.AlertType.WARNING, message.getMessage());

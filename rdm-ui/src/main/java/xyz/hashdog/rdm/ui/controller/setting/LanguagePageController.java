@@ -23,6 +23,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_RENAME_SUCCESS;
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_RESTART_SUCCESS;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 public class LanguagePageController {
     public Button ok;
     public Button system;
@@ -87,7 +91,7 @@ public class LanguagePageController {
         configSettings.setLocalCountry(langComboBox.getValue().getCountry());
         configSettings.setLocalLanguage(langComboBox.getValue().getLanguage());
         Applications.putConfigSettings(configSettings.getName(), configSettings);
-        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, "重启界面以使更改生效？")) {
+        if (GuiUtil.alert(Alert.AlertType.CONFIRMATION, language(ALERT_MESSAGE_RESTART_SUCCESS))) {
             Main.RESOURCE_BUNDLE= ResourceBundle.getBundle(LanguageManager.BASE_NAME,Locale.of(configSettings.getLocalLanguage(),configSettings.getLocalCountry()));
             Main.restart();
         }
