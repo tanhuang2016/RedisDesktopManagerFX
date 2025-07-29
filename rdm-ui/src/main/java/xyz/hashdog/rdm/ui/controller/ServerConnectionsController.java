@@ -80,6 +80,7 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
 
     private void initButtonStyles() {
         addButtonStyles(connect,newGroup,newConnection,edit,rename,delete);
+        bottomConnectButton.getStyleClass().addAll(Styles.ACCENT);
 
     }
 

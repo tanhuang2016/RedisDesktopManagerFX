@@ -13,6 +13,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static xyz.hashdog.rdm.ui.common.Constant.ALERT_MESSAGE_CONNECT_SUCCESS;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 public class ConsoleController extends BaseKeyController<ServerTabController> implements Initializable {
 
     @FXML
@@ -61,7 +64,7 @@ public class ConsoleController extends BaseKeyController<ServerTabController> im
         });
         super.parameter.addListener((observable, oldValue, newValue) -> {
             label.setText(redisContext.getRedisConfig().getName()+":"+this.currentDb+">");
-            textArea.appendText( "\n"+redisContext.getRedisConfig().getName()+" 连接成功" );
+            textArea.appendText( "\n"+redisContext.getRedisConfig().getName()+" "+language(ALERT_MESSAGE_CONNECT_SUCCESS) );
             if(currentDb!=0){
                 ThreadPool.getInstance().execute(()->this.redisClient.select(currentDb));
             }
