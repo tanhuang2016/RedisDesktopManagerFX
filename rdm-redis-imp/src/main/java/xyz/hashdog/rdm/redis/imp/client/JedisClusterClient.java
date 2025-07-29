@@ -1,18 +1,22 @@
 package xyz.hashdog.rdm.redis.imp.client;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisException;
+import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
+import redis.clients.jedis.resps.StreamEntry;
 import redis.clients.jedis.resps.Tuple;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
+import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
 
 import java.util.*;
@@ -331,6 +335,59 @@ public class JedisClusterClient implements RedisClient {
     @Override
     public String set(byte[] key,byte[] value) {
         return execut(jedis->jedis.set(key,value));
+    }
+
+    @Override
+    public String jsonGet(String key) {
+        return execut(jedis -> {
+            JSONArray o = (JSONArray) jedis.jsonGet(key, Path2.ROOT_PATH);
+            return o.getJSONObject(0)
+                    .toString();
+        });
+    }
+
+    @Override
+    public String jsonSet(String key, String defualtJsonValue) {
+        return execut(jedis->{
+            return jedis.jsonSet(key, Path2.ROOT_PATH, defualtJsonValue);
+        });
+    }
+
+    @Override
+    public String xadd(String key, String id, String jsonValue) {
+        return execut(jedis->{
+            Map<String, String> map = Util.json2MapString(jsonValue);
+            StreamEntryID streamEntryID;
+            if(StreamEntryID.NEW_ENTRY.toString().equals(id)){
+                streamEntryID = StreamEntryID.NEW_ENTRY;
+            }else {
+                streamEntryID = new StreamEntryID(id);
+            }
+            return   jedis.xadd(key, streamEntryID , map).toString();
+        });
+    }
+
+    @Override
+    public long xlen(String key) {
+        return execut(jedis -> jedis.xlen(key));
+    }
+
+    @Override
+    public Map<String, String> xrevrange(String key, String start, String end, int total) {
+        return execut(jedis->{
+            Map<String,String> map = new LinkedHashMap<>();
+            for (StreamEntry streamEntry : jedis.xrevrange(key, start, end, total)) {
+                Map<String, String> fields = streamEntry.getFields();
+                String jsonValue =Util.obj2Json(fields);
+                map.put(streamEntry.getID().toString(),jsonValue);
+            }
+            return map;
+        });
+    }
+
+    @Override
+    public long xdel(String key, String id) {
+        return execut(jedis -> jedis.xdel(key,new StreamEntryID(id)));
     }
 
     @Override

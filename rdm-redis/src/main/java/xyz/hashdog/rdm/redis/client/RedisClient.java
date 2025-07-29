@@ -150,9 +150,7 @@ public interface RedisClient extends Closeable {
      */
     String get(String key);
 
-    default String jsonGet(String bytes){
-        return null;
-    }
+   String jsonGet(String bytes);
 
 
     /**
@@ -177,9 +175,7 @@ public interface RedisClient extends Closeable {
      * @param defualtJsonValue
      * @return
      */
-    default String jsonSet(String key, String defualtJsonValue){
-return null;
-    }
+    String jsonSet(String key, String defualtJsonValue);
 
 
     /**
@@ -528,18 +524,14 @@ return null;
      * @param jsonValue
      * @return
      */
-    default String xadd(String key, String id, String jsonValue){
-        return null;
-    }
+    String xadd(String key, String id, String jsonValue);
 
     /**
      * 查询stream元素数量
      * @param key
      * @return
      */
-    default long xlen(String key){
-        return 0;
-    }
+    long xlen(String key);
 
     /**
      * 获取stream元素
@@ -549,11 +541,7 @@ return null;
      * @param total
      * @return
      */
-    default Map<String, String> xrevrange(String key, String start, String end, int total){
-        return null;
-    }
+    Map<String, String> xrevrange(String key, String start, String end, int total);
 
-    default long xdel(String key, String id){
-        return 0;
-    }
+    long xdel(String key, String id);
 }
