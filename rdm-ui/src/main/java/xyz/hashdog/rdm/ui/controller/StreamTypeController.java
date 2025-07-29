@@ -220,8 +220,8 @@ public class StreamTypeController extends BaseKeyController<KeyTabController> im
         ThreadPool.getInstance().execute(() -> {
             long total = this.exeRedis(j -> j.xlen(this.parameter.get().getKey()));
             Map<String, String> map = this.exeRedis(j -> j.xrevrange(this.parameter.get().getKey(),"+","-", (int)total));
-            map.forEach((k, v) -> this.list.add(new StreamTypeTable(k, v)));
             Platform.runLater(() -> {
+                map.forEach((k, v) -> this.list.add(new StreamTypeTable(k, v)));
                 ObservableList<TableColumn<StreamTypeTable, ?>> columns = tableView.getColumns();
                 TableColumn<ZsetTypeTable, Integer> c0 = (TableColumn) columns.get(0);
                 c0.setCellValueFactory(
