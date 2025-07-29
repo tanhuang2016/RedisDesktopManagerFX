@@ -82,17 +82,23 @@ public class GuiUtil {
      * 创建新的连接图标
      * @return
      */
-    public static ImageView creatConnctionImageView() {
-        return GuiUtil.creatImageView(ICON_CONNECTION ,16,16);
+    public static FontIcon creatConnctionImageView() {
+        return  new FontIcon(Feather.LINK);
     }
+//    public static ImageView creatConnctionImageView() {
+//        return GuiUtil.creatImageView(ICON_CONNECTION ,16,16);
+//    }
 
     /**
      * 创建新的分组图标
      * @return
      */
-    public static ImageView creatGroupImageView() {
-        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
+    public static FontIcon creatGroupImageView() {
+        return new FontIcon(Feather.FOLDER);
     }
+//    public static ImageView creatGroupImageView() {
+//        return GuiUtil.creatImageView(ICON_GTOUP,16,16);
+//    }
     /**
      * 创建新的key图标
      * 只有png是可以在下拉选中显示图标，但是要想办法把tag也做出图片来，后续优化吧 todo
@@ -108,9 +114,13 @@ public class GuiUtil {
      * 创建新的控制台图标
      * @return
      */
-    public static ImageView creatConsoleImageView() {
-        return GuiUtil.creatImageView(ICON_CONSOLE,16,16);
+    public static FontIcon creatConsoleImageView() {
+        return  new FontIcon(Feather.TERMINAL);
+//        return  new FontIcon(Feather.MONITOR);
     }
+//    public static ImageView creatConsoleImageView() {
+//        return GuiUtil.creatImageView(ICON_CONSOLE,16,16);
+//    }
 
     /**
      *  创建String绑定对象
