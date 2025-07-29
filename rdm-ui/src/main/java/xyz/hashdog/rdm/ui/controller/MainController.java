@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.Set;
 
 import static javafx.scene.input.KeyCombination.*;
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
 
 /**
  * 主控制层
@@ -400,7 +401,7 @@ public class MainController extends BaseWindowController {
             this.settingsStage=new Stage();
             settingsStage.initModality(Modality.WINDOW_MODAL);
             settingsStage.getIcons().add(GuiUtil.ICON_REDIS);
-            this.settingsStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
+            this.settingsStage.setTitle(language("main.file.setting"));
 
 //            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/AdvancedPage.fxml");
 //            AnchorPane borderPane =tuple2.getT1();
