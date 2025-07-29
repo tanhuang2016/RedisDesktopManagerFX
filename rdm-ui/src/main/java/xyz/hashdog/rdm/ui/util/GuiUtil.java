@@ -209,6 +209,9 @@ public class GuiUtil {
      */
     private static Alert createAlert(Alert.AlertType alertType, String message) {
         Alert a = new Alert(alertType);
+        Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(ICON_REDIS);
+//        a.setGraphic(creatImageView(ICON_REDIS,32,32));
         a.getDialogPane().getStylesheets().add("/css/global.css");
         a.setHeaderText(Main.RESOURCE_BUNDLE.getString("alert."+alertType.name().toLowerCase()));
         a.setContentText(message);

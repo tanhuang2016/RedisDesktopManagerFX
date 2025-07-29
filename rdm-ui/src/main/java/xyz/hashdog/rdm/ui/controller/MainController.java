@@ -399,6 +399,7 @@ public class MainController extends BaseWindowController {
         }else{
             this.settingsStage=new Stage();
             settingsStage.initModality(Modality.WINDOW_MODAL);
+            settingsStage.getIcons().add(GuiUtil.ICON_REDIS);
             this.settingsStage.setTitle(Main.RESOURCE_BUNDLE.getString(Constant.MAIN_FILE_CONNECT));
 
 //            Tuple2<AnchorPane,SettingsController> tuple2 = loadFXML("/fxml/AdvancedPage.fxml");
