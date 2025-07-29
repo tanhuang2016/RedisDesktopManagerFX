@@ -125,22 +125,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     }
 
     private void rotation() {
-        SVGLoader loader = new SVGLoader();
-        URL svgUrl = Main.class.getResource("/svg/refresh.svg");
-        SVGDocument svgDocument = loader.load(svgUrl);
-        BufferedImage image = new BufferedImage(20,20,BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = image.createGraphics();
-        ((Graphics2D) g).setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        ((Graphics2D) g).setRenderingHint(
-                RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
-        svgDocument.render(null,g,new ViewBox(0, 0, 20, 20));
-        g.dispose();
-        Image fxImage = SwingFXUtils.toFXImage(image, null);
-
-        ImageView fontIcon = new ImageView(fxImage);
+        ImageView fontIcon =  GuiUtil.svgImageView("/svg/refresh.svg");
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(5), fontIcon);
         rotateTransition.setByAngle(360); // 一圈
         rotateTransition.setCycleCount(Animation.INDEFINITE);

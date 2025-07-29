@@ -1,15 +1,23 @@
 package xyz.hashdog.rdm.ui.util;
 
+import com.github.weisj.jsvg.SVGDocument;
+import com.github.weisj.jsvg.parser.SVGLoader;
+import com.github.weisj.jsvg.view.ViewBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
@@ -35,8 +43,11 @@ import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.entity.config.KeyTagSetting;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -529,6 +540,31 @@ public class GuiUtil {
                 (int)(newValue.getRed() * 255),
                 (int)(newValue.getGreen() * 255),
                 (int)(newValue.getBlue() * 255));
+    }
+
+    /**
+     * svg图标
+     * @param svg
+     * @return
+     */
+    public static ImageView svgImageView(String svg) {
+        SVGLoader loader = new SVGLoader();
+        URL svgUrl = Main.class.getResource(svg);
+        SVGDocument svgDocument = loader.load(svgUrl);
+        BufferedImage image = new BufferedImage(20,20,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
+        ((Graphics2D) g).setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        ((Graphics2D) g).setRenderingHint(
+                RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
+        svgDocument.render(null,g,new ViewBox(0, 0, 20, 20));
+        g.dispose();
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+
+        ImageView fontIcon = new ImageView(fxImage);
+        return fontIcon;
     }
 
 
