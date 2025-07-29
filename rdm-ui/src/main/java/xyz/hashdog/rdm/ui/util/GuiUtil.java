@@ -64,7 +64,7 @@ public class GuiUtil {
     public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
 //    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis256.png"));
-    public static final Image ICON_REDIS =  GuiUtil.svgImage("/svg/redis_icon.svg");
+    public static final Image ICON_REDIS =  GuiUtil.svgImage("/svg/redis_red.svg",256);
     private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
     private static final Image ICON_CONSOLE =new Image(Main.class.getResourceAsStream("/icon/console.png"));
 
@@ -560,15 +560,15 @@ public class GuiUtil {
      * @return
      */
     public static ImageView svgImageView(String svg) {
-        Image fxImage = svgImage(svg);
+        Image fxImage = svgImage(svg,20);
         return new ImageView(fxImage);
     }
 
-    private static Image svgImage(String svg) {
+    private static Image svgImage(String svg,int w) {
         SVGLoader loader = new SVGLoader();
         URL svgUrl = Main.class.getResource(svg);
         SVGDocument svgDocument = loader.load(svgUrl);
-        BufferedImage image = new BufferedImage(20,20,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(w,w,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         ((Graphics2D) g).setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
@@ -576,7 +576,7 @@ public class GuiUtil {
         ((Graphics2D) g).setRenderingHint(
                 RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
-        svgDocument.render(null,g,new ViewBox(0, 0, 20, 20));
+        svgDocument.render(null,g,new ViewBox(0, 0, w, w));
         g.dispose();
         Image fxImage = SwingFXUtils.toFXImage(image, null);
         return fxImage;
