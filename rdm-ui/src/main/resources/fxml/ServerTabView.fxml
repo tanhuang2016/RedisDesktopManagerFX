@@ -65,9 +65,9 @@
                                               <children>
                                                   <CustomTextField fx:id="searchText" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
                                                   <HBox fx:id="searchHbox" alignment="CENTER_RIGHT"  spacing="-2.0" VBox.vgrow="ALWAYS">
-                                                      <Button fx:id="reset"  mnemonicParsing="false" onAction="#reset"  text="%server.search" HBox.hgrow="ALWAYS" managed="false" visible="false"  opacity="0.3">
+                                                      <Button fx:id="reset"  mnemonicParsing="false" onAction="#reset"  text="%server.reset" HBox.hgrow="ALWAYS" managed="false" visible="false"  opacity="0.3">
                                                           <tooltip>
-                                                              <Tooltip text="%server.search" />
+                                                              <Tooltip text="%server.reset" />
                                                           </tooltip>
                                                       </Button>
                                                       <MenuButton fx:id="history"  mnemonicParsing="false"    HBox.hgrow="ALWAYS"   prefWidth="2"   opacity="0.3">
@@ -75,10 +75,10 @@
 <!--                                                              <MenuItem mnemonicParsing="false" text="Action 1" />-->
 <!--                                                              <MenuItem mnemonicParsing="false" text="Action 2" />-->
                                                               <SeparatorMenuItem />
-                                                              <MenuItem mnemonicParsing="false" text="清除历史搜索记录" onAction="#clearHistory"/>
+                                                              <MenuItem mnemonicParsing="false" text="%server.clear" onAction="#clearHistory"/>
                                                           </items>
                                                           <tooltip>
-                                                              <Tooltip text="%server.search" />
+                                                              <Tooltip text="%server.history" />
                                                           </tooltip>
                                                       </MenuButton>
                                                       <Button fx:id="search"  mnemonicParsing="false" onAction="#search"   HBox.hgrow="ALWAYS"   >
