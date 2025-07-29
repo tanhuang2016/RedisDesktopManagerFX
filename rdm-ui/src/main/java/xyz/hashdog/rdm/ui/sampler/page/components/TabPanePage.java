@@ -54,15 +54,13 @@ public final class TabPanePage extends OutlinePage {
         super();
 
         addPageHeader();
-        addFormattedText("""
-            [i]TabPane[/i] is a control that provides a container for a group of tabs. By clicking \
-            on a tab, the content of that tab becomes visible, while the content of the previously \
-            selected tab gets hidden."""
-        );
+        addFormattedText(String.format("""
+            [i]TabPane[/i] %s"""
+        , language("main.setting.window.tab.describe")));
         server = getSub(1);
         key = getSub(2);
-        addSection("Server Playground", server.pane);
-        addSection("Key Playground", key.pane);
+        addSection(language("main.setting.window.tab.server"), server.pane);
+        addSection(language("main.setting.window.tab.key"), key.pane);
     }
 
     private Sub getSub(int type) {
@@ -126,10 +124,11 @@ public final class TabPanePage extends OutlinePage {
             controllerLayer.setMinSize(500, 300);
             controllerLayer.setMaxSize(500, 300);
 
-            var description = BBCodeParser.createFormattedText("""
-            The playground demonstrates the most important [i]TabPane[/i] features \
-            and also serves as an object for monkey testing."""
-            );
+            String str=language("main.setting.window.tab.server.describe");
+            if(type==2){
+                str=language("main.setting.window.tab.key.describe");
+            }
+            var description = BBCodeParser.createFormattedText(str);
 
             var stack = new StackPane(tabsLayer, controllerLayer);
             stack.getStyleClass().add(Styles.BORDERED);
