@@ -93,11 +93,18 @@ public class ServerConnectionsController extends BaseWindowController<MainContro
 
     private void initButtonIcon() {
         GuiUtil.setIcon(connect,new FontIcon(Feather.LINK_2));
+        GuiUtil.setIcon(connect,GuiUtil.svgImageView("/svg/databaseLink/databaseLink.svg"));
         GuiUtil.setIcon(newGroup,new FontIcon(Feather.FOLDER_PLUS));
+        GuiUtil.setIcon(newGroup,GuiUtil.svgImageView("/svg/newFolder/newFolder.svg"));
         GuiUtil.setIcon(newConnection,new FontIcon(Feather.PLUS));
+        GuiUtil.setIcon(newConnection,GuiUtil.svgImageView("/svg/addFile/addFile.svg"));
         GuiUtil.setIcon(edit,new FontIcon(Material2AL.EDIT));
+        GuiUtil.setIcon(edit,GuiUtil.svgImageView("/svg/editFolder/editFolder.svg"));
         GuiUtil.setIcon(rename,new FontIcon(Feather.EDIT_2));
+        GuiUtil.setIcon(rename,GuiUtil.svgImageView("/svg/suggestedRefactoringBulb/suggestedRefactoringBulb.svg"));
         GuiUtil.setIcon(delete,new FontIcon(Material2AL.DELETE));
+        GuiUtil.setIcon(delete,GuiUtil.svgImageView("/svg/delete/delete.svg"));
+
     }
 
     private void initListener() {
