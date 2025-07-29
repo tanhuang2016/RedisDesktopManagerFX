@@ -421,7 +421,7 @@
                                                    </rowConstraints>
                                                    <children>
                                                               <Label text="%connect.info.keyseparator" />
-                                                       <Label text="展示风格" GridPane.columnIndex="1" />
+                                                       <Label text="%connect.info.style" GridPane.columnIndex="1" />
                                                    </children>
                                                 </GridPane>
                                                  <GridPane hgap="6.0">
@@ -439,14 +439,14 @@
                                                              </HBox.margin>
                                                          </TextField>
                                                          <HBox alignment="CENTER_RIGHT" spacing="0.0" GridPane.columnIndex="1" HBox.hgrow="ALWAYS">
-                                                             <ToggleButton fx:id="treeShow" maxWidth="Infinity" prefWidth="0" selected="true" text="树形显示" HBox.hgrow="ALWAYS">
+                                                             <ToggleButton fx:id="treeShow" maxWidth="Infinity" prefWidth="0" selected="true" text="%connect.info.style.tree" HBox.hgrow="ALWAYS">
                                                                  <tooltip>
-                                                                     <Tooltip text="树形显示" />
+                                                                     <Tooltip text="%connect.info.style.tree" />
                                                                  </tooltip>
                                                              </ToggleButton>
-                                                             <ToggleButton fx:id="listShow" maxWidth="Infinity" prefWidth="0" text="列表显示" HBox.hgrow="ALWAYS">
+                                                             <ToggleButton fx:id="listShow" maxWidth="Infinity" prefWidth="0" text="%connect.info.style.list" HBox.hgrow="ALWAYS">
                                                                  <tooltip>
-                                                                     <Tooltip text="列表显示" />
+                                                                     <Tooltip text="%connect.info.style.list" />
                                                                  </tooltip>
                                                              </ToggleButton>
                                                          </HBox>
