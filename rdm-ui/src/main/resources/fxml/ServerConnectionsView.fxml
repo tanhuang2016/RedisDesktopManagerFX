@@ -27,7 +27,7 @@
                         </Button>
                         <Button fx:id="newGroup" mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode">
                                 <tooltip>
-                                    <Tooltip text="%main.file.connect.newGourp" />
+                                    <Tooltip text="%main.file.connect.newGroup" />
                                 </tooltip>
                         </Button>
                         <Button fx:id="newConnection" mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode">
@@ -63,7 +63,7 @@
                   <ContextMenu fx:id="contextMenu" opacity="0.8">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#connect" styleClass="isLeafNode" text="%main.file.connect.connect" />
-                        <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGourp" />
+                        <MenuItem mnemonicParsing="false" onAction="#newGroup" styleClass="isNotLeafNode" text="%main.file.connect.newGroup" />
                         <MenuItem mnemonicParsing="false" onAction="#newConnection" styleClass="isNotLeafNode" text="%main.file.connect.newConnect" />
                         <MenuItem mnemonicParsing="false" onAction="#edit" styleClass="isNotRoot" text="%main.file.connect.edit" />
                         <MenuItem mnemonicParsing="false" onAction="#rename" styleClass="isNotRoot" text="%main.file.connect.rename" />
