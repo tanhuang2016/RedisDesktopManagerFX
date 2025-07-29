@@ -63,7 +63,8 @@ public class GuiUtil {
 
     public static final Image ICON_GTOUP = new Image(Main.class.getResourceAsStream("/icon/group.png"));
     public static final Image ICON_CONNECTION = new Image(Main.class.getResourceAsStream("/icon/connection.png"));
-    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis256.png"));
+//    public static final Image ICON_REDIS =  new Image(Main.class.getResourceAsStream("/icon/redis256.png"));
+    public static final Image ICON_REDIS =  GuiUtil.svgImage("/svg/redis_icon.svg");
     private static final Image ICON_KEY =new Image(Main.class.getResourceAsStream("/icon/key.png"));
     private static final Image ICON_CONSOLE =new Image(Main.class.getResourceAsStream("/icon/console.png"));
 
@@ -559,6 +560,11 @@ public class GuiUtil {
      * @return
      */
     public static ImageView svgImageView(String svg) {
+        Image fxImage = svgImage(svg);
+        return new ImageView(fxImage);
+    }
+
+    private static Image svgImage(String svg) {
         SVGLoader loader = new SVGLoader();
         URL svgUrl = Main.class.getResource(svg);
         SVGDocument svgDocument = loader.load(svgUrl);
@@ -573,9 +579,7 @@ public class GuiUtil {
         svgDocument.render(null,g,new ViewBox(0, 0, 20, 20));
         g.dispose();
         Image fxImage = SwingFXUtils.toFXImage(image, null);
-
-        ImageView fontIcon = new ImageView(fxImage);
-        return fontIcon;
+        return fxImage;
     }
 
 
