@@ -82,7 +82,8 @@ jobs:
           **/target/*.msi
           **/target/*.exe
           **/target/*dependencies.jar
-          **/target/*.msm
+           **/target/*.dmg
+#          **/target/*.msm
 #          **/target/*.*
         if-no-files-found: error
 
