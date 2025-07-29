@@ -25,8 +25,14 @@ import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 import xyz.hashdog.rdm.ui.util.LanguageManager;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Properties;
 import java.util.ResourceBundle;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Main extends Application {
     protected static Logger log = LoggerFactory.getLogger(Main.class);
@@ -72,7 +78,7 @@ public class Main extends Application {
                 // 在此处您可以自定义处理异常的逻辑
                 GuiUtil.alert(Alert.AlertType.ERROR,cause.getMessage());
             });
-            stage.setTitle(Applications.NODE_APP_NAME);
+            stage.setTitle(Applications.TITLE);
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"),RESOURCE_BUNDLE);
 //        stage.setTitle(RESOURCE_BUNDLE.getString(""Applications.NODE_APP_NAME"") );
 
@@ -119,12 +125,27 @@ public class Main extends Application {
     }
     @Override
     public void init() throws Exception {
+        loadApplicationProperties();
+
 //        DEFAULT_LOCALE= new Locale("en", "US");
 //        DEFAULT_LOCALE=Locale.JAPAN;
 //        DEFAULT_LOCALE=Locale.US;
 //        RESOURCE_BUNDLE=ResourceBundle.getBundle(LanguageManager.BASE_NAME, LanguageManager.DEFAULT_LOCALE);
         LanguageSetting configSettings = Applications.getConfigSettings(ConfigSettingsEnum.LANGUAGE.name);
         Main.RESOURCE_BUNDLE= ResourceBundle.getBundle(LanguageManager.BASE_NAME,Locale.of(configSettings.getLocalLanguage(),configSettings.getLocalCountry()));
+    }
+    private void loadApplicationProperties() {
+        Properties properties = new Properties();
+        try (InputStreamReader in = new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream("/application.properties")),
+                UTF_8)) {
+            properties.load(in);
+            properties.forEach((key, value) -> System.setProperty(
+                    String.valueOf(key),
+                    String.valueOf(value)
+            ));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

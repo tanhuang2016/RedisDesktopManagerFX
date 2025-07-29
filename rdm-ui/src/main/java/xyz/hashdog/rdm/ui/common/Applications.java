@@ -34,6 +34,7 @@ public class Applications {
      * 应用名称
      */
     public static final String NODE_APP_NAME = "RedisDesktopManagerFX";
+    public static final String TITLE = "RdmFX";
     /**
      * 配置节点
      */
