@@ -14,17 +14,17 @@
          <children>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                <children>
-                  <ToggleSwitch graphicTextGap="0.0" text="Auto Refresh" HBox.hgrow="ALWAYS" />
+                  <ToggleSwitch graphicTextGap="0.0" text="%server.refresh.auto" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefWidth="499.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Refresh rate" HBox.hgrow="ALWAYS">
+                  <Label text="%server.refresh.rate" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="23.0" prefWidth="40.0">
+                  <TextField prefHeight="23.0" prefWidth="40.0" text="5">
                      <HBox.margin>
                         <Insets right="2.0" />
                      </HBox.margin>
