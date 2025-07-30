@@ -28,7 +28,7 @@
          <top>
             <VBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" spacing="10.0" >
                      <children>
                         <Label fx:id="keyType" />
                         <CustomTextField fx:id="key" />
@@ -55,6 +55,15 @@
                                 <Tooltip text="%key.refresh" />
                             </tooltip>
                         </Button>
+                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="40.0" maxWidth="Infinity" prefWidth="0" spacing="10.0"  HBox.hgrow="ALWAYS">
+                             <children>
+                                 <Label fx:id="refreshText" text="&lt;5s"  >
+                                     <tooltip>
+                                         <Tooltip text="Last Refresh&lt;5s" />
+                                     </tooltip>
+                                 </Label>
+                             </children>
+                         </HBox>
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />

@@ -60,6 +60,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     public Button keyDelete;
     public Label keyRename;
     public Label keyEditTTL;
+    public Label refreshText;
 
 
     private long currentTtl;
