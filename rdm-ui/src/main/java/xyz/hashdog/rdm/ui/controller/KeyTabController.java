@@ -223,6 +223,7 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
         Future<Boolean> submit = ThreadPool.getInstance().submit(() -> {
             //加载通用数据
             loadData();
+            refreshTextUpdate();
         }, true);
 
 
