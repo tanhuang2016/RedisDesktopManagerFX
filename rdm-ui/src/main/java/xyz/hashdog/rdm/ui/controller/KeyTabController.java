@@ -30,6 +30,7 @@ import xyz.hashdog.rdm.common.tuple.Tuple2;
 import xyz.hashdog.rdm.ui.Main;
 import xyz.hashdog.rdm.ui.common.Constant;
 import xyz.hashdog.rdm.ui.common.RedisDataTypeEnum;
+import xyz.hashdog.rdm.ui.controller.popover.RefreshPopover;
 import xyz.hashdog.rdm.ui.entity.PassParameter;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
@@ -352,18 +353,15 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
             if(refreshPopover!=null){
                 refreshPopover.show(keyRefresh);
             }else {
-                FXMLLoader fxmlLoader = GuiUtil.loadFXML("/fxml/popover/RefreshPopover.fxml");
-                try {
-                    AnchorPane root = fxmlLoader.load();
-                    var pop = new Popover(root);
-                    pop.setHeaderAlwaysVisible(false);
-                    pop.setDetachable(false);
-                    pop.setArrowLocation(Popover.ArrowLocation.TOP_CENTER);
-                    pop.show(keyRefresh);
-                    refreshPopover= pop;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Tuple2<AnchorPane, RefreshPopover> tuple2 = loadFXML("/fxml/popover/RefreshPopover.fxml");
+                AnchorPane root = tuple2.getT1();
+                tuple2.getT2().setParentController(this);
+                var pop = new Popover(root);
+                pop.setHeaderAlwaysVisible(false);
+                pop.setDetachable(false);
+                pop.setArrowLocation(Popover.ArrowLocation.TOP_CENTER);
+                pop.show(keyRefresh);
+                refreshPopover= pop;
             }
 
         });

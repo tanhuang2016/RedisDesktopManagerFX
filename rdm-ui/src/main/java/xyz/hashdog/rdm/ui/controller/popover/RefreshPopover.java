@@ -6,12 +6,14 @@ import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
+import xyz.hashdog.rdm.ui.controller.BaseController;
+import xyz.hashdog.rdm.ui.controller.KeyTabController;
 import xyz.hashdog.rdm.ui.util.GuiUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public  class RefreshPopover implements Initializable {
+public  class RefreshPopover extends BaseController<KeyTabController> implements Initializable {
     public ToggleSwitch autoRefreshToggleSwitch;
     public TextField rate;
     private Timeline refreshTimeline;
@@ -59,6 +61,6 @@ public  class RefreshPopover implements Initializable {
     }
 
     private void refresh() {
-        System.out.println("刷新");
+        this.parentController.refresh(null);
     }
 }
