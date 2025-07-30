@@ -14,7 +14,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                <children>
-                  <ToggleSwitch graphicTextGap="0.0" text="%server.refresh.auto" HBox.hgrow="ALWAYS" />
+                  <ToggleSwitch fx:id="autoRefreshToggleSwitch" graphicTextGap="0.0" text="%server.refresh.auto" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefWidth="499.0" VBox.vgrow="ALWAYS">
@@ -24,7 +24,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="23.0" prefWidth="40.0" text="5">
+                  <TextField fx:id="rate" prefHeight="23.0" prefWidth="40.0" text="5">
                      <HBox.margin>
                         <Insets right="2.0" />
                      </HBox.margin>
