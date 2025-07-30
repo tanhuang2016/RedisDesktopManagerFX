@@ -27,10 +27,7 @@ import xyz.hashdog.rdm.ui.util.LanguageManager;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -134,19 +131,50 @@ public class Main extends Application {
         LanguageSetting configSettings = Applications.getConfigSettings(ConfigSettingsEnum.LANGUAGE.name);
         Main.RESOURCE_BUNDLE= ResourceBundle.getBundle(LanguageManager.BASE_NAME,Locale.of(configSettings.getLocalLanguage(),configSettings.getLocalCountry()));
     }
+
     private void loadApplicationProperties() {
         Properties properties = new Properties();
         try (InputStreamReader in = new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream("/application.properties")),
                 UTF_8)) {
             properties.load(in);
-            properties.forEach((key, value) -> System.setProperty(
-                    String.valueOf(key),
-                    String.valueOf(value)
-            ));
+            properties.forEach((key, value) -> {
+                if (!((String) key).contains("[")) {
+                    System.setProperty(String.valueOf(key), String.valueOf(value));
+                }
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        parseArrayProperties(properties);
     }
+    private void parseArrayProperties(Properties properties) {
+        // 使用 Map 存储所有数组属性
+        Map<String, List<String>> arrayProperties = new HashMap<>();
 
+        properties.forEach((key, value) -> {
+            String keyStr = (String) key;
+            // 检查是否为数组格式 (包含 [index] 的键)
+            if (keyStr.contains("[")) {
+                // 提取数组名称 (如 app.updates)
+                int bracketIndex = keyStr.indexOf('[');
+                String arrayName = keyStr.substring(0, bracketIndex);
+                // 提取索引
+                int index = Integer.parseInt(keyStr.substring(bracketIndex + 1, keyStr.length() - 1));
+
+                // 确保列表存在
+                arrayProperties.computeIfAbsent(arrayName, k -> new ArrayList<>());
+
+                // 确保列表大小足够
+                List<String> list = arrayProperties.get(arrayName);
+                while (list.size() <= index) {
+                    list.add(null);
+                }
+
+                // 设置值
+                list.set(index, String.valueOf(value));
+            }
+        });
+        System.out.println(1);
+    }
 
 }
