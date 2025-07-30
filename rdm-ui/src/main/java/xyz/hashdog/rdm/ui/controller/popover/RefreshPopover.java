@@ -13,6 +13,8 @@ import xyz.hashdog.rdm.ui.util.GuiUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static xyz.hashdog.rdm.ui.util.LanguageManager.language;
+
 public  class RefreshPopover extends BaseController<KeyTabController> implements Initializable {
     public ToggleSwitch autoRefreshToggleSwitch;
     public TextField rate;
@@ -48,6 +50,7 @@ public  class RefreshPopover extends BaseController<KeyTabController> implements
         if (refreshTimeline != null) {
             refreshTimeline.stop();
         }
+        this.parentController.setUpdateRefreshText(true,"now");
     }
 
     private void startAutoRefresh() {
@@ -58,6 +61,9 @@ public  class RefreshPopover extends BaseController<KeyTabController> implements
         );
         refreshTimeline.setCycleCount(Timeline.INDEFINITE);
         refreshTimeline.play();
+        this.parentController.setUpdateRefreshText(false,language("server.refresh.auto")+": "+rateValue+"s");
+        //立马调一次刷新
+        refresh();
     }
 
     private void refresh() {

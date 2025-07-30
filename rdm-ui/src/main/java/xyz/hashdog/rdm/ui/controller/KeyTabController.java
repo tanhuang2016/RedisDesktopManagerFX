@@ -341,6 +341,70 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
     @FXML
     public void refresh(ActionEvent actionEvent) {
         reloadInfo();
+        refreshTextUpdate();
+    }
+
+    private long refreshTime;
+    private boolean refreshTextFlag=true;
+    private Timeline refreshTextTimeline;
+    private void refreshTextUpdate() {
+        refreshTime=System.currentTimeMillis();
+        updateRefreshText();
+        if(refreshTextFlag){
+            // 如果时间线已经存在，先停止它
+            if (refreshTextTimeline != null) {
+                refreshTextTimeline.stop();
+            }
+
+            // 创建新的时间线，每5秒更新一次
+            refreshTextTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(5), event -> updateRefreshText())
+            );
+            refreshTextTimeline.setCycleCount(Timeline.INDEFINITE);
+            refreshTextTimeline.play();
+        }
+
+    }
+
+    private void updateRefreshText() {
+        if(!refreshTextFlag){
+            return;
+        }
+        long currentTime = System.currentTimeMillis();
+        long diffSeconds = (currentTime - refreshTime) / 1000;
+        String text;
+        if (diffSeconds < 5) {
+            text = "now";
+        } else if (diffSeconds < 30) {
+            text = ">5s";
+        } else if (diffSeconds < 60) {
+            text = ">30s";
+        } else if (diffSeconds < 120) {
+            text = ">1min";
+        } else if (diffSeconds < 180) {
+            text = ">2min";
+        } else if (diffSeconds < 240) {
+            text = ">3min";
+        } else if (diffSeconds < 300) {
+            text = ">4min";
+        } else if (diffSeconds < 600) {
+            text = ">5min";
+        } else if (diffSeconds < 900) {
+            text = ">10min";
+        } else if (diffSeconds < 1200) {
+            text = ">15min";
+        } else if (diffSeconds < 1500) {
+            text = ">20min";
+        } else if (diffSeconds < 1800) {
+            text = ">25min";
+        } else if (diffSeconds < 3600) {
+            text = ">30min";
+        } else {
+            // 超过1小时，按小时计算
+            long hours = diffSeconds / 3600;
+            text = ">" + hours + "h";
+        }
+        refreshText.setText(text);
     }
 
 
@@ -370,5 +434,15 @@ public class KeyTabController extends BaseKeyController<ServerTabController> imp
 
     @Deprecated
     public void closeRefreshPopover(MouseEvent mouseEvent) {
+    }
+
+    /**
+     * 自动刷新的话，不显示更新频率
+     * @param b
+     * @param s
+     */
+    public void setUpdateRefreshText(boolean b, String s) {
+        refreshTextFlag=b;
+        refreshText.setText(s);
     }
 }
