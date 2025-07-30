@@ -58,9 +58,9 @@
                          <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="40.0" maxWidth="Infinity" prefWidth="0" spacing="10.0"  HBox.hgrow="ALWAYS">
                              <children>
                                  <Label fx:id="refreshText" text="&lt;5s"  >
-                                     <tooltip>
-                                         <Tooltip text="Last Refresh&lt;5s" />
-                                     </tooltip>
+<!--                                     <tooltip>-->
+<!--                                         <Tooltip text="Last Refresh&lt;5s" />-->
+<!--                                     </tooltip>-->
                                  </Label>
                              </children>
                          </HBox>
