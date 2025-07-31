@@ -9,6 +9,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebView;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.ui.common.Applications;
+import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
+import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
+import xyz.hashdog.rdm.ui.sampler.event.ThemeEvent;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
 import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 
@@ -33,9 +37,13 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initWebView();
+        applyTheme();
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
+            applyTheme();
+        });
+
         this.addLogLine(parseLogToList("10:58:13.606 [0 172.18.0.1:36200] \"TYPE\" \"foo\""));
         this.addLogLine(parseLogToList("11:23:45.123 [1 192.168.1.100:8080] \"GET\" \"key1\""));
-        applyTheme();
     }
 
 
