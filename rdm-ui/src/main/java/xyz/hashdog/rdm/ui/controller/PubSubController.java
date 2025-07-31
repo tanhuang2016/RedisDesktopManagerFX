@@ -29,10 +29,10 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
     public WebView webView;
 
-    private final StringBuilder logContent = new StringBuilder();
     public StackPane webViewContainer;
-    private int logCounter = 0;
-    private static final int MAX_LOG_LINES = 1000; // 最大日志行数
+    private final StringBuilder tableContent = new StringBuilder();
+    private int messageCounter = 0;
+    private static final int MAX_MESSAGES = 1000;
     private Thread monitorThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,23 +43,23 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             applyTheme();
         });
-        super.parameter.addListener((observable, oldValue, newValue) -> {
-            monitorThread = new Thread(() -> {
-                this.redisClient.monitor(new RedisMonitor() {
-                    @Override
-                    public void onCommand(String msg) {
-                        addLogLine(parseLogToList(msg));
-                    }
-                });
-            });
-            monitorThread.setDaemon(true);
-            monitorThread.start();
+        addSubscriptionMessage("19:48:06 31 Jul 2025", "mychannel", "22");
+        addSubscriptionMessage("19:48:09 31 Jul 2025", "mychannel", "123");
+//        super.parameter.addListener((observable, oldValue, newValue) -> {
+//            monitorThread = new Thread(() -> {
+//                this.redisClient.monitor(new RedisMonitor() {
+//                    @Override
+//                    public void onCommand(String msg) {
+//                        addLogLine(parseLogToList(msg));
+//                    }
+//                });
+//            });
+//            monitorThread.setDaemon(true);
+//            monitorThread.start();
+//
+//        });
 
-        });
 
-
-//        this.addLogLine(parseLogToList("10:58:13.606 [0 172.18.0.1:36200] \"TYPE\" \"foo\""));
-//        this.addLogLine(parseLogToList("11:23:45.123 [1 192.168.1.100:8080] \"GET\" \"key1\""));
     }
 
     /**
@@ -70,7 +70,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
         // 清空日志
         MenuItem clearItem = new MenuItem(language("server.monitor.clear"));
-        clearItem.setOnAction(e -> clearLogs());
+        clearItem.setOnAction(e -> clearMessages());
 
         // 复制选中文本
         MenuItem copyItem = new MenuItem(language("main.edit.copy"));
@@ -115,16 +115,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         });
     }
 
-    /**
-     * 清空日志
-     */
-    private void clearLogs() {
-        Platform.runLater(() -> {
-            logContent.setLength(0);
-            logCounter = 0;
-            webView.getEngine().executeScript("document.getElementById('log-container').innerHTML = '';");
-        });
-    }
+
 
     /**
      * 复制选中文本
@@ -224,31 +215,84 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
 
     private void initWebView() {
-        // 初始化HTML内容
+        // 初始化HTML内容，包含表格结构
         String htmlContent = """
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body { 
-                        font-family: monospace; 
-                        background-color: rgb(44,44,46); 
-                        color: #fff; 
-                        margin: 0; 
-                        padding: 5px;
-                        font-size: 14px;
-                    }
-                    .log-line { margin: 2px 0; }
-                    .timestamp { color: #4EC9B0; } /* 时间戳颜色 */
-                    .client-info { color: #C586C0; } /* 客户端信息颜色 */
-                    .command { color: #DCDCAA; } /* 命令颜色 */
-                </style>
-            </head>
-            <body>
-                <div id="log-container"></div>
-            </body>
-            </html>
-            """;
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { 
+                    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                    background-color: rgb(44,44,46); 
+                    color: #fff; 
+                    margin: 0; 
+                    padding: 10px;
+                    font-size: 14px;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 10px;
+                    table-layout: fixed; /* 固定表格布局确保对齐 */
+                }
+                thead {
+                    position: sticky;
+                    top: 0;
+                    background-color: rgb(60,60,62);
+                }
+                th {
+                    background-color: rgb(60,60,62);
+                    color: #fff;
+                    text-align: left;
+                    padding: 8px 12px;
+                    border-bottom: 2px solid #555;
+                    font-weight: 600;
+                    white-space: nowrap;
+                }
+                td {
+                    padding: 6px 12px;
+                    border-bottom: 1px solid #444;
+                    text-align: left;
+                    vertical-align: top;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                tr:hover {
+                    background-color: rgba(255,255,255,0.05);
+                }
+                .timestamp { 
+                    color: #4EC9B0; 
+                    width: 25%;
+                }
+                .channel { 
+                    color: #C586C0; 
+                    width: 25%;
+                }
+                .message { 
+                    color: #9CDCFE; 
+                    width: 50%;
+                    word-break: break-all;
+                }
+                #message-table {
+                    width: 100%;
+                }
+            </style>
+        </head>
+        <body>
+            <table id="message-table">
+                <thead>
+                    <tr>
+                        <th class="timestamp">时间</th>
+                        <th class="channel">频道</th>
+                        <th class="message">消息</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </body>
+        </html>
+        """;
 
         webView.getEngine().loadContent(htmlContent);
     }
@@ -312,38 +356,75 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         webView.getEngine().executeScript(script);
     }
     /**
-     * 添加日志行
-     * @param logs 日志内容，例如: 10:58:13.606 [0 172.18.0.1:36200] "TYPE" "foo"
+     * 添加订阅消息到表格
+     * @param timestamp 时间戳
+     * @param channel 频道
+     * @param message 消息内容
      */
-    public void addLogLine(List<String> logs) {
+    public void addSubscriptionMessage(String timestamp, String channel, String message) {
         Platform.runLater(() -> {
-            StringBuilder sb = new StringBuilder();
-            sb.append("<div class='log-line'>");
-            String span="<span class='%s'>%s </span>";
-            for (int i = 0; i < logs.size(); i++) {
-                // 添加到内容中
-                sb.append(String.format(span,CLASS.get(i),logs.get(i)));
-            }
-            sb.append("</div>").append("\n");
-            logContent.append(sb);
-            logCounter++;
+            // 创建表格行，确保数据居左对齐
+            String tableRow = String.format(
+                    "<tr>" +
+                            "<td class='timestamp'>%s</td>" +
+                            "<td class='channel'>%s</td>" +
+                            "<td class='message'>%s</td>" +
+                            "</tr>",
+                    escapeHtml(timestamp),
+                    escapeHtml(channel),
+                    escapeHtml(message)
+            );
 
-            // 限制最大行数
-            if (logCounter > MAX_LOG_LINES) {
-                int index = logContent.indexOf("\n");
-                if (index != -1) {
-                    logContent.delete(0, index + 1);
+            tableContent.append(tableRow);
+            messageCounter++;
+
+            // 限制最大消息数
+            if (messageCounter > MAX_MESSAGES) {
+                // 简单处理：清空并重新添加（实际应用中可能需要更精确的处理）
+                String currentContent = tableContent.toString();
+                int firstRowEnd = currentContent.indexOf("</tr>") + 5;
+                if (firstRowEnd > 0 && firstRowEnd < currentContent.length()) {
+                    tableContent.delete(0, firstRowEnd);
                 }
-                logCounter--;
+                messageCounter--;
             }
-            // 更新WebView
+
+            // 更新表格内容
             String script = String.format(
-                    "document.getElementById('log-container').innerHTML = `%s`;" +
+                    "var tbody = document.getElementById('table-body');" +
+                            "tbody.innerHTML = `%s`;" +
                             "window.scrollTo(0, document.body.scrollHeight);",
-                    logContent.toString().replace("`", "\\`")
+                    tableContent.toString().replace("`", "\\`")
             );
 
             webView.getEngine().executeScript(script);
+        });
+    }
+
+    /**
+     * HTML转义，防止XSS攻击并保持格式
+     * @param text 原始文本
+     * @return 转义后的文本
+     */
+    private String escapeHtml(String text) {
+        if (text == null) return "";
+        return text.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#x27;")
+                .replace("\n", "<br>")
+                .replace(" ", "&nbsp;");
+    }
+
+    /**
+     * 清空消息表格
+     */
+    private void clearMessages() {
+        Platform.runLater(() -> {
+            tableContent.setLength(0);
+            messageCounter = 0;
+            webView.getEngine().executeScript("document.getElementById('table-body').innerHTML = '';");
         });
     }
 
