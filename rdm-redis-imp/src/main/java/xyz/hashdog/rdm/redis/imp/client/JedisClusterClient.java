@@ -14,7 +14,9 @@ import redis.clients.jedis.resps.Tuple;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
+import xyz.hashdog.rdm.redis.RedisConfig;
 import xyz.hashdog.rdm.redis.client.RedisClient;
+import xyz.hashdog.rdm.redis.client.RedisMonitor;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
@@ -34,6 +36,7 @@ public class JedisClusterClient implements RedisClient {
 
 
     private final JedisCluster jedis;
+    private RedisConfig redisConfig;
 
     private final List<String> masters;
 
@@ -41,8 +44,9 @@ public class JedisClusterClient implements RedisClient {
 
     private int db;
 
-    public JedisClusterClient(JedisCluster jedisCluster) {
+    public JedisClusterClient(JedisCluster jedisCluster, RedisConfig redisConfig) {
         this.jedis = jedisCluster;
+        this.redisConfig = redisConfig;
         byte[] nodes = (byte[])jedisCluster.sendCommand(Protocol.Command.CLUSTER, Protocol.ClusterKeyword.NODES.toString());
         this.masters = parseMasterNodes(new String(nodes));
     }
@@ -532,6 +536,32 @@ public class JedisClusterClient implements RedisClient {
     @Override
     public long zcard(String key) {
         return execut(jedis->jedis.zcard(key));
+    }
+
+    @Override
+    public void monitor(RedisMonitor redisMonitor) {
+        jedis.getClusterNodes().forEach((nodeStr,pool)->{
+            try {
+                String[] addr = nodeStr.split(":");
+                Jedis jedis = new Jedis(addr[0], Integer.parseInt(addr[1]));
+//                boolean connected = jedis.isConnected();
+                jedis.auth(redisConfig.getAuth());
+                new Thread(()->{
+                    jedis.monitor(new JedisMonitor() {
+                        @Override
+                        public void onCommand(String s) {
+//                            String log = String.format("[Node %s %s] %s",addr[0],addr[1],s);
+//                            System.out.println(log);
+                            redisMonitor.onCommand(s);
+                        }
+                    });
+                }).start();
+                System.out.println(nodeStr);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        });
     }
 
     @Override

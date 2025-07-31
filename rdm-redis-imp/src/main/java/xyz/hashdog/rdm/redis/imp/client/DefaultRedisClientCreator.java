@@ -48,7 +48,7 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
             Set<HostAndPort> nodes = new HashSet<>();
             nodes.add(new HostAndPort(redisConfig.getHost(), redisConfig.getPort()));
             jedisCluster = new JedisCluster(nodes,redisConfig.getConnectionTimeout(),redisConfig.getSoTimeout(),3,TUtil.ifEmpty(redisConfig.getAuth(),null),Constant.POOL_CONFIG);
-            return new JedisClusterClient(jedisCluster);
+            return new JedisClusterClient(jedisCluster,redisConfig);
         }
         int port = redisConfig.getPort();
         String host = redisConfig.getHost();

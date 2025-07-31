@@ -549,7 +549,5 @@ public interface RedisClient extends Closeable {
      * redis命令监控
      * @param redisMonitor
      */
-    default void monitor(RedisMonitor redisMonitor){
-
-    }
+     void monitor(RedisMonitor redisMonitor);
 }
