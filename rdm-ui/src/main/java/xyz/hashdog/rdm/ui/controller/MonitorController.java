@@ -68,19 +68,19 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
         ContextMenu contextMenu = new ContextMenu();
 
         // 清空日志
-        MenuItem clearItem = new MenuItem("清空日志");
+        MenuItem clearItem = new MenuItem(language("server.monitor.clear"));
         clearItem.setOnAction(e -> clearLogs());
 
         // 复制选中文本
-        MenuItem copyItem = new MenuItem("复制");
+        MenuItem copyItem = new MenuItem(language("main.edit.copy"));
         copyItem.setOnAction(e -> copySelectedText());
 
         // 全选
-        MenuItem selectAllItem = new MenuItem("全选");
+        MenuItem selectAllItem = new MenuItem(language("main.edit.selectall"));
         selectAllItem.setOnAction(e -> selectAllText());
 
         // 保存日志
-        MenuItem saveItem = new MenuItem("保存日志");
+        MenuItem saveItem = new MenuItem(language("server.monitor.save"));
         saveItem.setOnAction(e -> saveLogs());
 
         // 添加菜单项
