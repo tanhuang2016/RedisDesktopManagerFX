@@ -50,7 +50,7 @@ public final class SamplerTheme implements Theme {
 
     private static final int PARSE_LIMIT = 250;
     private static final Pattern COLOR_PATTERN =
-        Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger|warning)-.+?):\s*?(.+?);");
+        Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger|warning|border)-.+?):\s*?(.+?);");
 
     private final Theme theme;
 

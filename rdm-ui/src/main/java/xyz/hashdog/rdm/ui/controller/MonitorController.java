@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.client.RedisMonitor;
@@ -34,6 +35,7 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
     public WebView webView;
 
     private final StringBuilder logContent = new StringBuilder();
+    public StackPane webViewContainer;
     private int logCounter = 0;
     private static final int MAX_LOG_LINES = 1000; // 最大日志行数
     private Thread monitorThread;
@@ -211,7 +213,9 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
         String c2 = colors.get("-color-fg-default");
         String c3 = colors.get("-color-success-fg");
         String c4 = colors.get("-color-accent-fg");
+        String c5 = colors.get("-color-border-default");
         updateAllStyles(
+                c5,
                 fontFamily,
                 c1,    // body背景色
                 c2,           // body文字色
@@ -264,7 +268,7 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
      * @param commandColor 命令颜色
      * @param fontSize 字体大小
      */
-    public void updateAllStyles(String fontFamily,String bodyBgColor, String bodyColor, String timestampColor,
+    public void updateAllStyles(String borderColor,String fontFamily,String bodyBgColor, String bodyColor, String timestampColor,
                                 String hostColor, String typeColor,String commandColor, String fontSize) {
         Platform.runLater(() -> {
             String cssContent = String.format("""
@@ -285,6 +289,7 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
 
             updateStyleSheet(cssContent);
         });
+        webViewContainer.setStyle(String.format("-fx-border-color: %s; -fx-border-width: 1px; -fx-border-style: solid;",borderColor));
     }
     private static final List<String> CLASS=List.of("timestamp", "host","type" ,"command");
 
