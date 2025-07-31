@@ -19,7 +19,7 @@ import java.io.IOException;
  * @version 1.0.0
  * @since 2023/7/22 10:43
  */
-public abstract class BaseController<T> {
+public abstract class BaseController<T> implements AutoCloseable{
     /**
      * 父控制器
      */
@@ -64,8 +64,8 @@ public abstract class BaseController<T> {
         this.parentController = parentController;
     }
 
+    @Override
+    public void close()  {
 
-
-
-
+    }
 }

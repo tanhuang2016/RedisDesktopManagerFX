@@ -638,7 +638,10 @@ public class ServerTabController extends BaseKeyController<MainController> {
         if(passParameter.getTabType()==PassParameter.MONITOR){
             // 监听Tab被关闭事件,但是remove是无法监听的
             tab.setOnClosed(event2 -> {
-                ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
+                ThreadPool.getInstance().execute(()->{
+                    controller.getRedisClient().close();
+                    controller.close();
+                });
             });
         }
         ContextMenu cm=GuiUtil.newTabContextMenu(tab);

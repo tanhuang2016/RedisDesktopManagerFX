@@ -36,6 +36,7 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
     private final StringBuilder logContent = new StringBuilder();
     private int logCounter = 0;
     private static final int MAX_LOG_LINES = 1000; // 最大日志行数
+    private Thread monitorThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         webView.setContextMenuEnabled(false);
@@ -46,7 +47,7 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
             applyTheme();
         });
         super.parameter.addListener((observable, oldValue, newValue) -> {
-            ThreadPool.getInstance().execute(()->{
+            monitorThread = new Thread(() -> {
                 this.redisClient.monitor(new RedisMonitor() {
                     @Override
                     public void onCommand(String msg) {
@@ -54,6 +55,9 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
                     }
                 });
             });
+            monitorThread.setDaemon(true);
+            monitorThread.start();
+
         });
 
 
@@ -343,6 +347,14 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
         });
     }
 
+    @Override
+    public void close() {
+        if (monitorThread != null && monitorThread.isAlive()) {
+            // 中断监控线程
+            monitorThread.interrupt();
+            monitorThread = null;
+        }
+    }
 }
 
 
