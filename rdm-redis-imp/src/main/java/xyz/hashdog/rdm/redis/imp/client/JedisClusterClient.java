@@ -546,7 +546,7 @@ public class JedisClusterClient implements RedisClient {
                 Jedis jedis = new Jedis(addr[0], Integer.parseInt(addr[1]));
 //                boolean connected = jedis.isConnected();
                 jedis.auth(redisConfig.getAuth());
-                new Thread(()->{
+                Thread thread = new Thread(() -> {
                     jedis.monitor(new JedisMonitor() {
                         @Override
                         public void onCommand(String s) {
@@ -555,7 +555,9 @@ public class JedisClusterClient implements RedisClient {
                             redisMonitor.onCommand(s);
                         }
                     });
-                }).start();
+                });
+                thread.setDaemon(true);
+                thread.start();
                 System.out.println(nodeStr);
             } catch (Exception e) {
                 throw new RuntimeException(e);
