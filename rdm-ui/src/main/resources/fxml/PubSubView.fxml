@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.PubSubController">
+   <children>
+      <VBox spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox spacing="6.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="6.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Messages" />
+                              <Label text="5" />
+                              <HBox alignment="CENTER_RIGHT" spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField />
+                                    <Button mnemonicParsing="false" text="订阅" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <StackPane fx:id="webViewContainer" style="-fx-border-color: red; -fx-border-width: 5px; -fx-border-style: solid;" VBox.vgrow="ALWAYS">
+               <children>
+                  <WebView fx:id="webView" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </StackPane>
+            <VBox spacing="6.0">
+               <children>
+                  <HBox spacing="6.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TextField />
+                        <TextField HBox.hgrow="ALWAYS" />
+                        <HBox>
+                           <children>
+                              <Button mnemonicParsing="false" text="Button" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+
+   <stylesheets>
+      <URL value="@../css/no-border.css" />
+   </stylesheets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>
