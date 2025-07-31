@@ -4,9 +4,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.web.WebView;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
 import xyz.hashdog.rdm.redis.client.RedisMonitor;
@@ -32,11 +33,13 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
 
     public WebView webView;
 
-    private StringBuilder logContent = new StringBuilder();
+    private final StringBuilder logContent = new StringBuilder();
     private int logCounter = 0;
     private static final int MAX_LOG_LINES = 1000; // 最大日志行数
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        webView.setContextMenuEnabled(false);
+        initCustomContextMenu();
         initWebView();
         applyTheme();
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
@@ -57,6 +60,106 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
 //        this.addLogLine(parseLogToList("10:58:13.606 [0 172.18.0.1:36200] \"TYPE\" \"foo\""));
 //        this.addLogLine(parseLogToList("11:23:45.123 [1 192.168.1.100:8080] \"GET\" \"key1\""));
     }
+
+    /**
+     * 初始化自定义上下文菜单
+     */
+    private void initCustomContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        // 清空日志
+        MenuItem clearItem = new MenuItem("清空日志");
+        clearItem.setOnAction(e -> clearLogs());
+
+        // 复制选中文本
+        MenuItem copyItem = new MenuItem("复制");
+        copyItem.setOnAction(e -> copySelectedText());
+
+        // 全选
+        MenuItem selectAllItem = new MenuItem("全选");
+        selectAllItem.setOnAction(e -> selectAllText());
+
+        // 保存日志
+        MenuItem saveItem = new MenuItem("保存日志");
+        saveItem.setOnAction(e -> saveLogs());
+
+        // 添加菜单项
+        contextMenu.getItems().addAll(
+                clearItem,
+                new SeparatorMenuItem(),
+                copyItem,
+                selectAllItem,
+                new SeparatorMenuItem(),
+                saveItem
+        );
+
+        // 设置右键菜单事件
+        webView.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                // 检查是否有选中文本，来决定是否启用复制选项
+                String selectedText = (String) webView.getEngine().executeScript("window.getSelection().toString();");
+                copyItem.setDisable(selectedText == null || selectedText.isEmpty());
+
+                contextMenu.show(webView, event.getScreenX(), event.getScreenY());
+            } else {
+                contextMenu.hide();
+            }
+        });
+
+        // 点击其他地方隐藏菜单
+        webView.setOnMousePressed(event -> {
+            if (contextMenu.isShowing() && event.getButton() != MouseButton.SECONDARY) {
+                contextMenu.hide();
+            }
+        });
+    }
+
+    /**
+     * 清空日志
+     */
+    private void clearLogs() {
+        Platform.runLater(() -> {
+            logContent.setLength(0);
+            logCounter = 0;
+            webView.getEngine().executeScript("document.getElementById('log-container').innerHTML = '';");
+        });
+    }
+
+    /**
+     * 复制选中文本
+     */
+    private void copySelectedText() {
+        String selectedText = (String) webView.getEngine().executeScript("window.getSelection().toString();");
+        if (selectedText != null && !selectedText.isEmpty()) {
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            ClipboardContent content = new ClipboardContent();
+            content.putString(selectedText);
+            clipboard.setContent(content);
+        }
+    }
+
+    /**
+     * 全选文本
+     */
+    private void selectAllText() {
+        webView.getEngine().executeScript(
+                "var selection = window.getSelection();" +
+                        "var range = document.createRange();" +
+                        "range.selectNodeContents(document.getElementById('log-container'));" +
+                        "selection.removeAllRanges();" +
+                        "selection.addRange(range);"
+        );
+    }
+
+    /**
+     * 保存日志
+     */
+    private void saveLogs() {
+        // 实现保存日志功能
+        System.out.println("保存日志功能待实现");
+        // 可以使用FileChooser来实现文件保存功能
+    }
+
 
 
     /**
