@@ -629,13 +629,13 @@ public class ServerTabController extends BaseKeyController<MainController> {
         AnchorPane anchorPane = tuple2.getT1();
         BaseKeyController controller = tuple2.getT2();
         controller.setParentController(this);
-        PassParameter passParameter = new PassParameter(PassParameter.CONSOLE);
+        PassParameter passParameter = new PassParameter(PassParameter.MONITOR);
         passParameter.setDb(this.currentDb);
         passParameter.setRedisClient(redisContext.newRedisClient());
         passParameter.setRedisContext(redisContext);
         controller.setParameter(passParameter);
         Tab tab = new Tab("Monitor");
-        if(passParameter.getTabType()==PassParameter.CONSOLE){
+        if(passParameter.getTabType()==PassParameter.MONITOR){
             // 监听Tab被关闭事件,但是remove是无法监听的
             tab.setOnClosed(event2 -> {
                 ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
@@ -643,7 +643,7 @@ public class ServerTabController extends BaseKeyController<MainController> {
         }
         ContextMenu cm=GuiUtil.newTabContextMenu(tab);
         tab.setContent(anchorPane);
-        tab.setGraphic(GuiUtil.creatConsoleImageView());
+        tab.setGraphic(GuiUtil.creatMonitorImageView());
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
     }

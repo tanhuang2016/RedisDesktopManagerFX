@@ -123,6 +123,10 @@ public class GuiUtil {
 //        return GuiUtil.creatImageView(ICON_CONSOLE,16,16);
 //    }
 
+    public static FontIcon creatMonitorImageView() {
+        return  new FontIcon(Feather.MONITOR);
+    }
+
     /**
      *  创建String绑定对象
      *  重新toString,是为了展示在ui上
