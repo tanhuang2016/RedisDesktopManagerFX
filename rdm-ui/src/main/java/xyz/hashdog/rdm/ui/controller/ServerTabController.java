@@ -623,6 +623,30 @@ public class ServerTabController extends BaseKeyController<MainController> {
         this.dbTabPane.getTabs().add(tab);
         this.dbTabPane.getSelectionModel().select(tab);
     }
+    @FXML
+    public void monitor(ActionEvent actionEvent) throws IOException {
+        Tuple2<AnchorPane,ConsoleController> tuple2 = loadFXML("/fxml/MonitorView.fxml");
+        AnchorPane anchorPane = tuple2.getT1();
+        BaseKeyController controller = tuple2.getT2();
+        controller.setParentController(this);
+        PassParameter passParameter = new PassParameter(PassParameter.CONSOLE);
+        passParameter.setDb(this.currentDb);
+        passParameter.setRedisClient(redisContext.newRedisClient());
+        passParameter.setRedisContext(redisContext);
+        controller.setParameter(passParameter);
+        Tab tab = new Tab("Monitor");
+        if(passParameter.getTabType()==PassParameter.CONSOLE){
+            // 监听Tab被关闭事件,但是remove是无法监听的
+            tab.setOnClosed(event2 -> {
+                ThreadPool.getInstance().execute(()->controller.getRedisClient().close());
+            });
+        }
+        ContextMenu cm=GuiUtil.newTabContextMenu(tab);
+        tab.setContent(anchorPane);
+        tab.setGraphic(GuiUtil.creatConsoleImageView());
+        this.dbTabPane.getTabs().add(tab);
+        this.dbTabPane.getSelectionModel().select(tab);
+    }
 
     /**
      * 删除key,包括多选的

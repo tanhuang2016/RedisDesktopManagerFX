@@ -14,7 +14,6 @@
       <VBox layoutX="284.0" layoutY="138.0" prefHeight="619.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextArea fx:id="textArea" editable="false" prefWidth="200.0" styleClass="no-border-text-area" wrapText="true" VBox.vgrow="ALWAYS" />
-<!--            <HBox maxHeight="-Infinity" prefHeight="100.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">-->
             <HBox maxHeight="-Infinity" prefHeight="100.0"  VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="label" prefHeight="50.0" />
