@@ -544,4 +544,12 @@ public interface RedisClient extends Closeable {
     Map<String, String> xrevrange(String key, String start, String end, int total);
 
     long xdel(String key, String id);
+
+    /**
+     * redis命令监控
+     * @param redisMonitor
+     */
+    default void monitor(RedisMonitor redisMonitor){
+
+    }
 }

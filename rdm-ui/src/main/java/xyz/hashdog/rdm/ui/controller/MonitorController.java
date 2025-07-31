@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebView;
 import xyz.hashdog.rdm.common.pool.ThreadPool;
+import xyz.hashdog.rdm.redis.client.RedisMonitor;
 import xyz.hashdog.rdm.ui.common.Applications;
 import xyz.hashdog.rdm.ui.entity.config.ThemeSetting;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
@@ -41,9 +42,20 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             applyTheme();
         });
+        super.parameter.addListener((observable, oldValue, newValue) -> {
+            ThreadPool.getInstance().execute(()->{
+                this.redisClient.monitor(new RedisMonitor() {
+                    @Override
+                    public void onCommand(String msg) {
+                        addLogLine(parseLogToList(msg));
+                    }
+                });
+            });
+        });
 
-        this.addLogLine(parseLogToList("10:58:13.606 [0 172.18.0.1:36200] \"TYPE\" \"foo\""));
-        this.addLogLine(parseLogToList("11:23:45.123 [1 192.168.1.100:8080] \"GET\" \"key1\""));
+
+//        this.addLogLine(parseLogToList("10:58:13.606 [0 172.18.0.1:36200] \"TYPE\" \"foo\""));
+//        this.addLogLine(parseLogToList("11:23:45.123 [1 192.168.1.100:8080] \"GET\" \"key1\""));
     }
 
 
@@ -56,8 +68,15 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
         String time = logLine.substring(0, logLine.indexOf(" ")).trim();
         String host = logLine.substring(logLine.indexOf("["),logLine.indexOf("]")+1).trim();
         String end = logLine.substring(logLine.indexOf("]")+1).trim();
-        String type = end.substring(0, end.indexOf(" ")).trim();
-        String parm = end.substring( end.indexOf(" ")).trim();
+        String type="";
+        String parm="";
+        if(end.contains(" ")){
+             type = end.substring(0, end.indexOf(" ")).trim();
+             parm = end.substring( end.indexOf(" ")).trim();
+        }else {
+             type = end;
+        }
+
         return List.of(time,host,type,parm);
     }
 
