@@ -168,19 +168,24 @@ public class MonitorController extends BaseKeyController<ServerTabController> im
      * @return 包含四个元素的列表：[时间戳, 客户端地址, 命令, 参数]
      */
     public List<String> parseLogToList(String logLine) {
-        String time = logLine.substring(0, logLine.indexOf(" ")).trim();
-        String host = logLine.substring(logLine.indexOf("["),logLine.indexOf("]")+1).trim();
-        String end = logLine.substring(logLine.indexOf("]")+1).trim();
-        String type="";
-        String parm="";
-        if(end.contains(" ")){
-             type = end.substring(0, end.indexOf(" ")).trim();
-             parm = end.substring( end.indexOf(" ")).trim();
-        }else {
-             type = end;
+        try {
+            String time = logLine.substring(0, logLine.indexOf(" ")).trim();
+            String host = logLine.substring(logLine.indexOf("["),logLine.indexOf("]")+1).trim();
+            String end = logLine.substring(logLine.indexOf("]")+1).trim();
+            String type="";
+            String parm="";
+            if(end.contains(" ")){
+                type = end.substring(0, end.indexOf(" ")).trim();
+                parm = end.substring( end.indexOf(" ")).trim();
+            }else {
+                type = end;
+            }
+
+            return List.of(time,host,type,parm);
+        }catch (Exception e){
+            return List.of(logLine,"","","");
         }
 
-        return List.of(time,host,type,parm);
     }
 
 
