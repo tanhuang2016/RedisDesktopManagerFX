@@ -70,7 +70,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         ContextMenu contextMenu = new ContextMenu();
 
         // 清空日志
-        MenuItem clearItem = new MenuItem(language("server.monitor.clear"));
+        MenuItem clearItem = new MenuItem(language("server.pubsub.clear"));
         clearItem.setOnAction(e -> clearMessages());
 
         // 复制选中文本
@@ -82,7 +82,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         selectAllItem.setOnAction(e -> selectAllText());
 
         // 保存日志
-        MenuItem saveItem = new MenuItem(language("server.monitor.save"));
+        MenuItem saveItem = new MenuItem(language("server.pubsub.save"));
         saveItem.setOnAction(e -> saveLogs());
 
         // 添加菜单项
@@ -206,9 +206,9 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
             <table id="message-table">
                 <thead>
                     <tr>
-                        <th class="timestamp">时间</th>
-                        <th class="channel">频道</th>
-                        <th class="message">消息</th>
+                        <th class="timestamp">%s</th>
+                        <th class="channel">%s</th>
+                        <th class="message">%s</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -218,7 +218,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         </html>
         """;
 
-        webView.getEngine().loadContent(htmlContent);
+        webView.getEngine().loadContent(String.format(htmlContent, language("server.pubsub.time"), language("server.pubsub.channel"), language("server.pubsub.message")));
     }
 
 
@@ -409,7 +409,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
     @FXML
     public void subscribe(ActionEvent actionEvent) {
         if (subscribe.isSelected()) {
-            subscribe.setText("取消订阅");
+            subscribe.setText(language("server.pubsub.unsubscribe"));
             subscribeThread = new Thread(() -> {
                 this.redisClient.psubscribe(new RedisPubSub() {
                     @Override
@@ -422,7 +422,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
             subscribeThread.start();
         }else {
             this.close();
-            subscribe.setText("订阅");
+            subscribe.setText(language("server.pubsub.subscribe"));
         }
 
     }

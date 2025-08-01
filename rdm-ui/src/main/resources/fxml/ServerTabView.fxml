@@ -110,7 +110,7 @@
                                                           <MenuItem mnemonicParsing="false" onAction="#refresh" text="%server.refresh" />
                                                           <MenuItem mnemonicParsing="false" onAction="#console" text="%server.console" />
                                                           <MenuItem mnemonicParsing="false" onAction="#monitor" text="%server.monitor" />
-                                                          <MenuItem mnemonicParsing="false" onAction="#pubsub" text="Pub/Sub" />
+                                                          <MenuItem mnemonicParsing="false" onAction="#pubsub" text="%server.pubsub" />
                                                           <MenuItem mnemonicParsing="false" onAction="#delete" styleClass="isLeafNode" text="%server.delete" />
                                                           <MenuItem mnemonicParsing="false" onAction="#flush" text="%server.flush" />
                                                       </items>
