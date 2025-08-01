@@ -2,11 +2,9 @@ package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
@@ -37,6 +35,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
     public StackPane webViewContainer;
     private final StringBuilder tableContent = new StringBuilder();
     public TextField subChannel;
+    public ToggleButton subscribe;
     private int messageCounter = 0;
     private static final int MAX_MESSAGES = 1000;
     private Thread subscribeThread;
@@ -407,17 +406,25 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         }
     }
 
+    @FXML
     public void subscribe(ActionEvent actionEvent) {
-        subscribeThread = new Thread(() -> {
-            this.redisClient.subscribe(new RedisPubSub() {
-                @Override
-                public void onMessage(String channel, String msg) {
-                    addSubscriptionMessage(LocalDateTime.now().toString(),channel,msg);
-                }
-            },subChannel.getText());
-        });
-        subscribeThread.setDaemon(true);
-        subscribeThread.start();
+        if (subscribe.isSelected()) {
+            subscribe.setText("取消订阅");
+            subscribeThread = new Thread(() -> {
+                this.redisClient.psubscribe(new RedisPubSub() {
+                    @Override
+                    public void onMessage(String channel, String msg) {
+                        addSubscriptionMessage(LocalDateTime.now().toString(),channel,msg);
+                    }
+                },subChannel.getText());
+            });
+            subscribeThread.setDaemon(true);
+            subscribeThread.start();
+        }else {
+            this.close();
+            subscribe.setText("订阅");
+        }
+
     }
 }
 

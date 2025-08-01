@@ -27,7 +27,7 @@
                               <HBox alignment="CENTER_RIGHT" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <TextField fx:id="subChannel" text="*"/>
-                                    <ToggleButton onAction="#subscribe" mnemonicParsing="false" text="订阅" />
+                                    <ToggleButton fx:id="subscribe" onAction="#subscribe" mnemonicParsing="false" text="订阅" />
                                  </children>
                               </HBox>
                            </children>
