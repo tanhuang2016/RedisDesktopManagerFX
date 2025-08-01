@@ -48,8 +48,6 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             applyTheme();
         });
-        addSubscriptionMessage("19:48:06 31 Jul 2025", "mychannel", "22");
-        addSubscriptionMessage("19:48:09 31 Jul 2025", "mychannel", "123");
 
 
 
@@ -169,13 +167,14 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         String c3 = colors.get("-color-success-fg");
         String c4 = colors.get("-color-accent-fg");
         String c5 = colors.get("-color-border-default");
+//        String c6 = colors.get("-color-bg-inset").replace(")",",0.5)"); todo没有找到合适的hover颜色
+        String c6 = "rgba(255,255,255,0.05)";
         updateAllStyles(
                 c5,
                 fontFamily,
                 c1,    // body背景色
-                c2,           // body文字色
+                c6,           // hover文字色
                 c3,           // 时间戳颜色
-                c2,           // 客户端信息颜色
                 c4,           // 类型颜色
                 c2,           // 命令颜色
                 fontSize+"px"               // 字体大小
@@ -190,61 +189,6 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         <html>
         <head>
             <style>
-                body { 
-                    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-                    background-color: rgb(44,44,46); 
-                    color: #fff; 
-                    margin: 0; 
-                    padding: 10px;
-                    font-size: 14px;
-                }
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 10px;
-                    table-layout: fixed; /* 固定表格布局确保对齐 */
-                }
-                thead {
-                    position: sticky;
-                    top: 0;
-                    background-color: rgb(60,60,62);
-                }
-                th {
-                    background-color: rgb(60,60,62);
-                    color: #fff;
-                    text-align: left;
-                    padding: 8px 12px;
-                    border-bottom: 2px solid #555;
-                    font-weight: 600;
-                    white-space: nowrap;
-                }
-                td {
-                    padding: 6px 12px;
-                    border-bottom: 1px solid #444;
-                    text-align: left;
-                    vertical-align: top;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                tr:hover {
-                    background-color: rgba(255,255,255,0.05);
-                }
-                .timestamp { 
-                    color: #4EC9B0; 
-                    width: 25%;
-                }
-                .channel { 
-                    color: #C586C0; 
-                    width: 25%;
-                }
-                .message { 
-                    color: #9CDCFE; 
-                    width: 50%;
-                    word-break: break-all;
-                }
-                #message-table {
-                    width: 100%;
-                }
             </style>
         </head>
         <body>
@@ -270,36 +214,80 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
     /**
      * 动态更新整个样式表
      * @param bodyBgColor body背景颜色
-     * @param bodyColor body文字颜色
+     * @param hoverColor
      * @param timestampColor 时间戳颜色
-     * @param hostColor 客户端信息颜色
      * @param commandColor 命令颜色
      * @param fontSize 字体大小
      */
-    public void updateAllStyles(String borderColor,String fontFamily,String bodyBgColor, String bodyColor, String timestampColor,
-                                String hostColor, String typeColor,String commandColor, String fontSize) {
+    public void updateAllStyles(String borderColor,String fontFamily,String bodyBgColor, String hoverColor, String timestampColor,
+                                 String typeColor,String commandColor, String fontSize) {
         Platform.runLater(() -> {
-            String cssContent = String.format("""
-                body { 
-                    font-family: %s; 
-                    background-color: %s; 
-                    color: %s; 
+            String cssContent = """
+                 body { 
+                    font-family: ${fontFamily};
+                    background-color: ${bodyBgColor}; 
+                    color: #fff; 
                     margin: 0; 
-                    padding: 5px;
-                    font-size: %s;
+                    padding: 10px;
+                    font-size: ${fontSize};
                 }
-                .log-line { margin: 2px 0; }
-                .timestamp { color: %s; }
-                .host { color: %s; }
-                .type { color: %s; }
-                .command { color: %s; }
-                """, fontFamily,bodyBgColor, bodyColor, fontSize, timestampColor, hostColor, typeColor,commandColor);
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 10px;
+                    table-layout: fixed; 
+                }
+                thead {
+                    position: sticky;
+                    top: 0;
+                    background-color: rgb(60,60,62);
+                }
+                th {
+                    background-color: ${bodyBgColor};
+                    color: #fff;
+                    text-align: left;
+                    padding: 8px 12px;
+                    border-bottom: 2px solid #555;
+                    font-weight: 600;
+                    white-space: nowrap;
+                }
+                td {
+                    padding: 6px 12px;
+                    border-bottom: 1px solid ${borderColor};
+                    text-align: left;
+                    vertical-align: top;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                tr:hover {
+                    background-color: ${hoverColor};
+                }
+                .timestamp { 
+                    color: ${timestampColor}; 
+                    width: 25%;
+                }
+                .channel { 
+                    color: ${typeColor}; 
+                    width: 25%;
+                }
+                .message { 
+                    color: ${commandColor}; 
+                    width: 50%;
+                    word-break: break-all;
+                }
+                #message-table {
+                    width: 100%;
+                }
+                """;
+            cssContent=cssContent.replace("${fontFamily}",fontFamily).replace("${bodyBgColor}",bodyBgColor)
+                    .replace("${fontSize}",fontSize).replace("${bodyBgColor}",bodyBgColor).replace("${timestampColor}",timestampColor)
+                    .replace("${typeColor}",typeColor).replace("${commandColor}",commandColor).replace("${typeColor}",typeColor)
+                    .replace("${hoverColor}",hoverColor).replace("${borderColor}",borderColor);
 
             updateStyleSheet(cssContent);
         });
         webViewContainer.setStyle(String.format("-fx-border-color: %s; -fx-border-width: 1px; -fx-border-style: solid;",borderColor));
     }
-    private static final List<String> CLASS=List.of("timestamp", "host","type" ,"command");
 
 
     /**
