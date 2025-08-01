@@ -40,6 +40,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
     public TextField pubChannel;
     public TextField pubMessage;
     public Button publish;
+    public Label messageSize;
     private int messageCounter = 0;
     private static final int MAX_MESSAGES = 1000;
     private Thread subscribeThread;
@@ -344,6 +345,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
             tableContent.append(tableRow);
             messageCounter++;
+            messageSize.setText(String.valueOf(messageCounter));
 
             // 限制最大消息数
             if (messageCounter > MAX_MESSAGES) {
