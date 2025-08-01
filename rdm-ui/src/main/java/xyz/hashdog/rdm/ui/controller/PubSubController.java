@@ -1,16 +1,19 @@
 package xyz.hashdog.rdm.ui.controller;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import xyz.hashdog.rdm.redis.client.RedisMonitor;
+import xyz.hashdog.rdm.redis.client.RedisPubSub;
 import xyz.hashdog.rdm.ui.sampler.event.DefaultEventBus;
 import xyz.hashdog.rdm.ui.sampler.event.ThemeEvent;
 import xyz.hashdog.rdm.ui.sampler.theme.SamplerTheme;
@@ -18,7 +21,9 @@ import xyz.hashdog.rdm.ui.sampler.theme.ThemeManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -31,9 +36,10 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
     public StackPane webViewContainer;
     private final StringBuilder tableContent = new StringBuilder();
+    public TextField subChannel;
     private int messageCounter = 0;
     private static final int MAX_MESSAGES = 1000;
-    private Thread monitorThread;
+    private Thread subscribeThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         webView.setContextMenuEnabled(false);
@@ -45,19 +51,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         });
         addSubscriptionMessage("19:48:06 31 Jul 2025", "mychannel", "22");
         addSubscriptionMessage("19:48:09 31 Jul 2025", "mychannel", "123");
-//        super.parameter.addListener((observable, oldValue, newValue) -> {
-//            monitorThread = new Thread(() -> {
-//                this.redisClient.monitor(new RedisMonitor() {
-//                    @Override
-//                    public void onCommand(String msg) {
-//                        addLogLine(parseLogToList(msg));
-//                    }
-//                });
-//            });
-//            monitorThread.setDaemon(true);
-//            monitorThread.start();
-//
-//        });
+
 
 
     }
@@ -154,31 +148,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
 
 
-    /**
-     * 将Redis监控日志解析为List<String> (简化版本)
-     * @param logLine 日志内容，例如: 1753941855.532005 [0 172.18.0.1:42170] "XLEN" "stream1"
-     * @return 包含四个元素的列表：[时间戳, 客户端地址, 命令, 参数]
-     */
-    public List<String> parseLogToList(String logLine) {
-        try {
-            String time = logLine.substring(0, logLine.indexOf(" ")).trim();
-            String host = logLine.substring(logLine.indexOf("["),logLine.indexOf("]")+1).trim();
-            String end = logLine.substring(logLine.indexOf("]")+1).trim();
-            String type="";
-            String parm="";
-            if(end.contains(" ")){
-                type = end.substring(0, end.indexOf(" ")).trim();
-                parm = end.substring( end.indexOf(" ")).trim();
-            }else {
-                type = end;
-            }
 
-            return List.of(time,host,type,parm);
-        }catch (Exception e){
-            return List.of(logLine,"","","");
-        }
-
-    }
 
 
 
@@ -430,11 +400,24 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
     @Override
     public void close() {
-        if (monitorThread != null && monitorThread.isAlive()) {
+        if (subscribeThread != null && subscribeThread.isAlive()) {
             // 中断监控线程
-            monitorThread.interrupt();
-            monitorThread = null;
+            subscribeThread.interrupt();
+            subscribeThread = null;
         }
+    }
+
+    public void subscribe(ActionEvent actionEvent) {
+        subscribeThread = new Thread(() -> {
+            this.redisClient.subscribe(new RedisPubSub() {
+                @Override
+                public void onMessage(String channel, String msg) {
+                    addSubscriptionMessage(LocalDateTime.now().toString(),channel,msg);
+                }
+            },subChannel.getText());
+        });
+        subscribeThread.setDaemon(true);
+        subscribeThread.start();
     }
 }
 

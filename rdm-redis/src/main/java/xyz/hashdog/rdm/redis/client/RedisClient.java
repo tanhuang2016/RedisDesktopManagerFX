@@ -550,4 +550,6 @@ public interface RedisClient extends Closeable {
      * @param redisMonitor
      */
      void monitor(RedisMonitor redisMonitor);
+
+    void psubscribe(RedisPubSub redisPubSub, String text);
 }

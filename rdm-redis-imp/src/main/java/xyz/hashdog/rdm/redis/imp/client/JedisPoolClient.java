@@ -19,6 +19,7 @@ import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
 import xyz.hashdog.rdm.redis.client.RedisClient;
 import xyz.hashdog.rdm.redis.client.RedisMonitor;
+import xyz.hashdog.rdm.redis.client.RedisPubSub;
 import xyz.hashdog.rdm.redis.exceptions.RedisException;
 import xyz.hashdog.rdm.redis.imp.Util;
 import xyz.hashdog.rdm.redis.imp.console.RedisConsole;
@@ -542,6 +543,16 @@ public class JedisPoolClient implements RedisClient {
                 redisMonitor.onCommand(s);
             }
         });
+    }
+
+    @Override
+    public void psubscribe(RedisPubSub redisPubSub, String text) {
+        jedis.psubscribe(new JedisPubSub() {
+            @Override
+            public void onPMessage(String pattern, String channel, String message) {
+                redisPubSub.onMessage(channel,message);
+            }
+        },text);
     }
 
     @Override

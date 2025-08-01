@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.control.ToggleButton?>
 <AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.PubSubController">
    <children>
       <VBox spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,8 +26,8 @@
                               <Label text="5" />
                               <HBox alignment="CENTER_RIGHT" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField />
-                                    <Button mnemonicParsing="false" text="订阅" />
+                                    <TextField fx:id="subChannel" text="*"/>
+                                    <ToggleButton onAction="#subscribe" mnemonicParsing="false" text="订阅" />
                                  </children>
                               </HBox>
                            </children>
