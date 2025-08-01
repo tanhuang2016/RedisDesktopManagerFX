@@ -14,6 +14,7 @@ import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
 import redis.clients.jedis.resps.StreamEntry;
 import redis.clients.jedis.resps.Tuple;
+import redis.clients.jedis.util.Pool;
 import xyz.hashdog.rdm.common.util.DataUtil;
 import xyz.hashdog.rdm.common.util.TUtil;
 import xyz.hashdog.rdm.redis.Message;
@@ -39,16 +40,18 @@ public class JedisPoolClient implements RedisClient {
 
     
     private Jedis jedis;
+    private Pool<Jedis> jedisPool;
     private Session tunnel;
-    public JedisPoolClient(Jedis jedis) {
-        this.jedis = jedis;
+    public JedisPoolClient(Pool<Jedis> jedisPool) {
+        this.jedisPool = jedisPool;
+        this.jedis = jedisPool.getResource();
     }
 
 
     private int db;
 
-    public JedisPoolClient(Jedis jedis, Session tunnel) {
-        this(jedis);
+    public JedisPoolClient(JedisPool jedisPool, Session tunnel) {
+        this(jedisPool);
         this.tunnel=tunnel;
     }
 
@@ -547,7 +550,8 @@ public class JedisPoolClient implements RedisClient {
 
     @Override
     public void psubscribe(RedisPubSub redisPubSub, String text) {
-        jedis.psubscribe(new JedisPubSub() {
+        //订阅模式有命令限制，得单独拿一个连接来操作
+        jedisPool.getResource().psubscribe(new JedisPubSub() {
             @Override
             public void onPMessage(String pattern, String channel, String message) {
                 redisPubSub.onMessage(channel,message);

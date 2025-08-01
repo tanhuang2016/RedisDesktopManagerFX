@@ -42,7 +42,7 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
             Set<String> sentinels = new HashSet<>();
             sentinels.add(redisConfig.getHost()+":"+redisConfig.getPort());
             jedisSentinelPool = new JedisSentinelPool(redisConfig.getMasterName(), sentinels,Constant.POOL_CONFIG,redisConfig.getConnectionTimeout(),redisConfig.getSoTimeout(),TUtil.ifEmpty(redisConfig.getAuth(),null),0);
-            return new JedisSentinelPoolClient(jedisSentinelPool.getResource());
+            return new JedisSentinelPoolClient(jedisSentinelPool);
         }
         if (redisConfig.isCluster()) {
             Set<HostAndPort> nodes = new HashSet<>();
@@ -60,10 +60,10 @@ public class DefaultRedisClientCreator implements RedisClientCreator{
         if(redisConfig.isSsl()){
             SSLSocketFactory SSLSocketFactory = Util.getSocketFactory(redisConfig.getCaCrt(), redisConfig.getRedisCrt(), redisConfig.getRedisKey(), redisConfig.getRedisKeyPassword());
             this.jedisPool=new JedisPool(Constant.POOL_CONFIG, host, port,redisConfig.getConnectionTimeout(),redisConfig.getSoTimeout(),TUtil.ifEmpty(redisConfig.getAuth(),null),0,null,true,SSLSocketFactory,null,null);
-            return new JedisPoolClient(jedisPool.getResource(),tunnel);
+            return new JedisPoolClient(jedisPool,tunnel);
         }
         this.jedisPool=new JedisPool(Constant.POOL_CONFIG, host, port,redisConfig.getConnectionTimeout(),redisConfig.getSoTimeout(), TUtil.ifEmpty(redisConfig.getAuth(),null),0,null);
-        return new JedisPoolClient(jedisPool.getResource(),tunnel);
+        return new JedisPoolClient(jedisPool,tunnel);
     }
 
     @Override

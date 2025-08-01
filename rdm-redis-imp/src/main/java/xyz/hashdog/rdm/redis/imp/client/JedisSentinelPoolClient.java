@@ -2,6 +2,7 @@ package xyz.hashdog.rdm.redis.imp.client;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisSentinelPool;
 
 /**
  * Sentinel模式客户端
@@ -11,7 +12,7 @@ import redis.clients.jedis.JedisPool;
  * @since 2025/6/15 12:59
  */
 public class JedisSentinelPoolClient extends JedisPoolClient {
-    public JedisSentinelPoolClient(Jedis jedis) {
-        super(jedis);
+    public JedisSentinelPoolClient(JedisSentinelPool jedisSentinelPool) {
+        super(jedisSentinelPool);
     }
 }
