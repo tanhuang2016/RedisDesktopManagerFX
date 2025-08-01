@@ -1,5 +1,6 @@
 package xyz.hashdog.rdm.ui.controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,11 +37,15 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
     private final StringBuilder tableContent = new StringBuilder();
     public TextField subChannel;
     public ToggleButton subscribe;
+    public TextField pubChannel;
+    public TextField pubMessage;
+    public Button publish;
     private int messageCounter = 0;
     private static final int MAX_MESSAGES = 1000;
     private Thread subscribeThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initButton();
         webView.setContextMenuEnabled(false);
         initCustomContextMenu();
         initWebView();
@@ -51,6 +56,10 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
 
 
 
+    }
+
+    private void initButton() {
+        publish.getStyleClass().addAll(Styles.ACCENT);
     }
 
     /**
@@ -414,6 +423,12 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
             subscribe.setText("订阅");
         }
 
+    }
+
+    public void publish(ActionEvent actionEvent) {
+        asynexec(() -> {
+            this.redisClient.publish(pubChannel.getText(),pubMessage.getText());
+        });
     }
 }
 

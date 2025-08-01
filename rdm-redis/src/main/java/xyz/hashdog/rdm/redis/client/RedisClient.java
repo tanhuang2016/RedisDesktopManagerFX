@@ -552,4 +552,6 @@ public interface RedisClient extends Closeable {
      void monitor(RedisMonitor redisMonitor);
 
     void psubscribe(RedisPubSub redisPubSub, String text);
+
+    long publish(String channel, String message);
 }

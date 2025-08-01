@@ -45,11 +45,11 @@
                <children>
                   <HBox spacing="6.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField />
-                        <TextField HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="pubChannel" promptText="Entry Channel Name"/>
+                        <TextField fx:id="pubMessage" promptText="Entry Message" HBox.hgrow="ALWAYS" />
                         <HBox>
                            <children>
-                              <Button mnemonicParsing="false" text="Button" />
+                              <Button fx:id="publish" onAction="#publish" mnemonicParsing="false" text="Publish" />
                            </children>
                         </HBox>
                      </children>

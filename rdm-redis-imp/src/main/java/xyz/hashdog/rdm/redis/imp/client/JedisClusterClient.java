@@ -576,6 +576,10 @@ public class JedisClusterClient implements RedisClient {
             }
         },text);
     }
+    @Override
+    public long publish(String channel, String message) {
+        return execut(jedis->jedis.publish(channel,message));
+    }
 
     @Override
     public Map<Double,String> zrangeWithScores(String key,long start, long stop) {
