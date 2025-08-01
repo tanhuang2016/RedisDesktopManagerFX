@@ -166,9 +166,10 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
         String c2 = colors.get("-color-fg-default");
         String c3 = colors.get("-color-success-fg");
         String c4 = colors.get("-color-accent-fg");
-        String c5 = colors.get("-color-border-default");
+//        String c5 = colors.get("-color-border-default");
 //        String c6 = colors.get("-color-bg-inset").replace(")",",0.5)"); todo没有找到合适的hover颜色
         String c6 = "rgba(255,255,255,0.05)";
+        String c5 = colors.get("-color-base-9");
         updateAllStyles(
                 c5,
                 fontFamily,
@@ -253,7 +254,7 @@ public class PubSubController extends BaseKeyController<ServerTabController> imp
                 }
                 td {
                     padding: 6px 12px;
-                    border-bottom: 1px solid ${borderColor};
+                    border-bottom: 0px solid ${borderColor};
                     text-align: left;
                     vertical-align: top;
                     overflow: hidden;
