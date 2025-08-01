@@ -126,6 +126,9 @@ public class GuiUtil {
     public static FontIcon creatMonitorImageView() {
         return  new FontIcon(Feather.MONITOR);
     }
+    public static FontIcon creatPubSubImageView() {
+        return  new FontIcon(Feather.RSS);
+    }
 
     /**
      *  创建String绑定对象
