@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="root" prefHeight="619.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.hashdog.rdm.ui.controller.PubSubController">
    <children>
-      <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox>
                <children>
@@ -24,7 +24,7 @@
                            <children>
                               <Label text="Messages:" />
                               <Label fx:id="messageSize" text="0" />
-                              <HBox alignment="CENTER_RIGHT" spacing="6.0" HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <TextField fx:id="subChannel" text="*" />
                                     <ToggleButton fx:id="subscribe" mnemonicParsing="false" onAction="#subscribe" text="%server.pubsub.subscribe" />
@@ -41,9 +41,9 @@
                   <WebView fx:id="webView" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
                </children>
             </StackPane>
-            <VBox spacing="6.0">
+            <VBox spacing="5.0">
                <children>
-                  <HBox spacing="6.0" VBox.vgrow="ALWAYS">
+                  <HBox spacing="5.0" VBox.vgrow="ALWAYS">
                      <children>
                         <TextField fx:id="pubChannel" promptText="Entry Channel Name" />
                         <TextField fx:id="pubMessage" promptText="Entry Message" HBox.hgrow="ALWAYS" />
