@@ -126,20 +126,28 @@
                               <children>
                                   <BorderPane layoutX="308.0" layoutY="161.0" prefHeight="648.0" prefWidth="955.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <center>
-                                          <TabPane fx:id="dbTabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" >
-                                              <tabs>
-                                                  <!--    <Tab text="控制台">
-                                                        <content>
-                                                            <fx:include source="ConsoleView.fxml" />
-                                                        </content>
-                                                      </Tab>
-                                                      <Tab text="a:10">
-                                                        <content>
-                                                            <fx:include source="StringTabView.fxml" />
-                                                        </content>
-                                                      </Tab>-->
-                                              </tabs>
-                                          </TabPane>
+                                          <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER" styleClass="hidden-divider">
+                                              <items>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="157.0" >
+                                                      <TabPane fx:id="dbTabPane" side="BOTTOM" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                          <tabs>
+                                                              <!--    <Tab text="控制台">
+                                                                    <content>
+                                                                        <fx:include source="ConsoleView.fxml" />
+                                                                    </content>
+                                                                  </Tab>
+                                                                  <Tab text="a:10">
+                                                                    <content>
+                                                                        <fx:include source="StringTabView.fxml" />
+                                                                    </content>
+                                                                  </Tab>-->
+                                                          </tabs>
+                                                      </TabPane>
+                                                  </AnchorPane>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="126.0" prefWidth="157.0" />
+                                              </items>
+                                          </SplitPane>
+
                                       </center>
                                   </BorderPane>
                               </children>

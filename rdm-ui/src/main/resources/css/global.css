@@ -38,3 +38,30 @@
     -fx-font-size: 0.75em;
     -fx-background-color: red;
 }
+
+
+
+
+
+.split-pane.hidden-divider > .split-pane-divider > .horizontal-grabber {
+    -fx-background-color: -color-split-divider;
+    -fx-padding: 0px 0px 0px 0px;
+}
+.split-pane.hidden-divider > .split-pane-divider > .vertical-grabber {
+    -fx-background-color: -color-split-divider;
+    -fx-padding: 0px 0px 0px 0px;
+}
+
+
+.split-pane.thin-divider > .split-pane-divider {
+    -fx-background-color: -color-split-divider;
+    -fx-padding: 0 1px 0 1px; /* 上右下左的内边距，只给左右1px */
+    -fx-background-insets: 0;
+}
+
+.split-pane.hidden-divider *.split-pane-divider {
+    -fx-background-color: -color-split-divider;
+    -fx-padding: 0 0.5px 0 0.5px;
+    -fx-opacity: 1;
+
+}
